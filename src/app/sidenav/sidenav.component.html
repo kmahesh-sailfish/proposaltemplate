@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amendment</title>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+
+        <nav id="sidebar" [ngClass]="{ 'active': navbarOpen }">
+            <ul class="list-unstyled components">
+                <div id="sidebarCollapse" (click)="toggleNavbar()" style="cursor: pointer">
+                    <li *ngIf="navbarOpen == true" style="margin-left: 10px;">
+                        <i [ngClass]="'fa fa-arrow-left'"></i></li>
+                    <li *ngIf="navbarOpen == false" style="margin-left: 10px;">
+                        <i [ngClass]="'fa fa-arrow-right'"></i>
+                    </li>
+                </div>
+
+                <li class="active">
+
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <span class="btn btn-Hand mr-3 d-flex justify-content-center align-items-center" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <img style="height: 25px;width: 25px;" src="../../assets/images/guide-icons/Hand - white.png" class="" height="20"><span class="side-labels" style="margin-left: 140px !important" *ngIf="navbarOpen ==false"> Proposal</span>
+                        </span>
+                        <!-- <i class="fas fa-file-signature"></i>&nbsp; <span *ngIf="navbarOpen ==false"> Proposal</span> -->
+                    </a>
+                    <!--<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Proposal</a>-->
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a routerLink="/archiveproposal">Archive  Proposal</a>
+                        </li>
+                        <li>
+                            <a routerLink="/multipledocs">Package Multiple Docs</a>
+                        </li>
+                        <li>
+                            <a routerLink="/delegation">Delegations</a>
+                        </li>
+                        <li>
+                            <a routerLink="/authorizedelegation">Authorize Delegation</a>
+                        </li>
+                    </ul>
+
+                </li>
+                <li>
+
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <!-- <i class="fas fa-book-open"></i>&nbsp; <span *ngIf="navbarOpen ==false"> Library</span> -->
+                        <span class="btn btn-Books mr-3 d-flex justify-content-center align-items-center" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <img style="height: 25px;width: 25px;" src="../../assets/images/guide-icons/Books - white.png" class="" height="20"><span class="side-labels" *ngIf="navbarOpen ==false"> Library</span>
+                        </span>
+                    </a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a routerLink="/ctmlibrary">CTM Library</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#preferenceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <span class="btn btn-Tools mr-3 d-flex justify-content-center align-items-center" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <img style="height: 25px;width: 25px;" src="../../assets/images/guide-icons/Tools - white.png" class="" height="20"><span class="side-labels"style="margin-left: 165px !important"*ngIf="navbarOpen ==false"> Preferences</span>
+                        </span>
+                        <!-- <i class="fas fa-cogs"></i>&nbsp;<span *ngIf="navbarOpen ==false"> Preferences</span> -->
+                    </a>
+                    <ul class="collapse list-unstyled" id="preferenceSubmenu">
+                        <li>
+                            <a href="#">User Preference</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="#AdminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+
+                        <span class="btn btn-System mr-3 d-flex justify-content-center align-items-center" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            <img style="height: 25px;width: 25px;" src="../../assets/images/guide-icons/System - white.png" class="" height="20"><span class="side-labels" *ngIf="navbarOpen ==false"> Admin</span>
+                        </span>
+                    </a>
+                    <ul class="collapse list-unstyled" id="AdminSubmenu">
+                        <li>
+                            <a href="#">Administration</a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+
+
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg bg-dark1 fixed-top">
+                <div class="container-fluid">
+                    <a routerLink="/dashboard" routerLinkActive="active">
+                        <span class="navbar-label">
+                        <span class="wcf-content"> WCF</span>
+                        <span class="amendent-content">  Amendment Service</span>
+
+                        </span>
+                    </a>
+                    <!-- <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" *ngIf="!navbarOpen">
+            <i class="fa fa-align-justify"></i>
+          </button> -->
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" routerLink="/createproposal" routerLinkActive="active">Create Proposal</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Tools</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Resources</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Help</a>
+                            </li>
+                            <li class="nav-item dropdown notification">
+                                <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
+                                    <li>
+                                        <div class="notification-title"> Notification</div>
+                                        <div class="notification-list">
+                                            <div class="list-group">
+                                                <a href="#" class="list-group-item list-group-item-action active">
+                                                    <div class="notification-info">
+                                                        <div class="notification-list-user-img">
+                                                            <img src="https://img.icons8.com/office/100/000000/administrator-female.png" alt="" class="user-avatar-md rounded-circle"></div>
+                                                        <div class="notification-list-user-block"><span class="notification-list-user-name">Jeremy
+                          Hukonah</span>accepted your invitation to join the team.
+                                                            <div class="notification-date">2 min ago
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="list-group-item list-group-item-action">
+                                                    <div class="notification-info">
+                                                        <div class="notification-list-user-img"><img src="https://img.icons8.com/color/48/000000/administrator-female.png"
+                                                                alt="" class="user-avatar-md rounded-circle"></div>
+                                                        <div class="notification-list-user-block"><span class="notification-list-user-name">John
+                          Sammy</span>updated the email address
+                                                            <div class="notification-date">2 days ago</div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="list-group-item list-group-item-action">
+                                                    <div class="notification-info">
+                                                        <div class="notification-list-user-img"><img src="https://img.icons8.com/color/100/000000/name.png" alt=""
+                                                                class="user-avatar-md rounded-circle"></div>
+                                                        <div class="notification-list-user-block"><span class="notification-list-user-name">Kioh
+                          Samso</span> is watching your main repository
+                                                            <div class="notification-date">2 min ago</div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="list-footer"> <a href="#">View all notifications</a></div>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item dropdown nav-user">
+                                <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="https://img.icons8.com/dusk/100/000000/user-female-circle.png" alt="" class="user-avatar-md rounded-circle"></a>
+                                <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+                                    <div class="nav-user-info">
+                                        <h5 class="mb-0 text-white nav-user-name">Tikoha Samga</h5> <span class="status"></span><span class="ml-2">Available</span>
+                                    </div> <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>                                    <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a> <a class="dropdown-item"
+                                        href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <router-outlet></router-outlet>
+
+            <div class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col"> <span>Microsoft Internal</span>
+                        </div>
+                        <div class="col"> <a href="https://privacy.microsoft.com/en-US/data-privacy-notice" target="_blank">Microsoft Data Protection Notice</a></div>
+                        <div class="col">
+                            <section class="copyright">© Microsoft 2021</section>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--<app-footer></app-footer>-->
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+/* @import "~font-awesome/css/font-awesome.css"; */
+
+/*padding*/
+.p-25{
+  padding: 25px;
+}
+.p-0 {
+  padding: 0px;
+}
+.p-1-1 {
+  padding: 1px;
+}
+.p-t-b-5{
+   padding-top: 5px;
+    padding-bottom: 5px;
+}
+.error_color{
+  color: red
+}
+ 
+
+/*margin*/
+.m-l-10 {
+  margin-left: 10px;
+}
+
+/*width*/
+.w-42{
+  width: 42%;
+}
+.w-48{
+  width: 48%;
+}
+.w-10 {
+  width: 10%;
+}
+.w-100 {
+  width: 100%;
+}

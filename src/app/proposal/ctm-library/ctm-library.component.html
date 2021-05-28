@@ -1,0 +1,82 @@
+<div class="container-fluid p-4 my-3 mt-5 border">
+    <div class="row align-items-star">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <span>CTM Footer Code</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <span>CTM Codes:</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <span>Footer Category:</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <!--<select class="form-control">
+                        <option *ngFor="let category of (footerCategory | parentPipesval)">
+                            {{category.Name}}-{{category.Description}}
+                        </option>
+                        </select>-->
+                        <div class="form-control" *ngFor="let category of footerCategory | parentPipesval">
+                            {{category.Name}}-{{category.Description}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <span>Amendment Code:</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <span>Language:</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <span>Customer Scenario/ Reasoning:</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <input type="textarea" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
