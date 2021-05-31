@@ -40,4 +40,7 @@ export class ProposalService {
   getPricingCountry() {
     return this.http.get(environment.API_URL + "App/" + "GetPricingCountries");
   }
+  getHrdCountries(){
+    return this.http.get(environment.API_URL + "App/" + "GetHrdCountries");
+  }
 }

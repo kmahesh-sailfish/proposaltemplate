@@ -13,6 +13,8 @@ import { SharedService } from "../../sharedservices/shared.service";
   providers: [NgbModalConfig, NgbModal]
 })
 export class ProposalOverviewComponent implements OnInit {
+  public HRDDDetails:any=[];
+  public HRDDCountries:any=[];
   public propOverView: FormGroup;
   public sourceId: any;
   public editProposalObj: any = {};
@@ -69,8 +71,31 @@ export class ProposalOverviewComponent implements OnInit {
     this.proposalService.getProposal(obj).subscribe((data: any) => {
       this.editProposalObj = data["result"]["_sourceObject"];
       console.log(this.editProposalObj, "editProposalObj");
-
+      if (this.editProposalObj == null || this.editProposalObj.ID == undefined) {
+       // console.log({ content: "Proposal does not exists or you don`t have permissions to view it." });
+       
+    }
       this.loadForm();
+      this.getHrdCountries();
+    });
+  }
+  getHrdCountries(){
+    this.proposalService
+    .getHrdCountries()
+    .subscribe((data: any) => {
+      this.HRDDDetails=data;
+      this.HRDDCountries=data.map(function (country) { return country.Name });
+      if (this.editProposalObj.PricingCountry != "") {
+        data.filter(function (country) {
+
+            if (country.Name == this.editProposalObj.PricingCountry) {
+                this.HRDDAmendments = country.HRDDAmendments;
+                this.HRDDeal = country.DealAmount;
+                this.HRDDiscount = country.Discount
+                this.HRDDCondition = country.HRDDCondition;
+            }
+        });
+    }
     });
   }
   getPricingCountry() {
