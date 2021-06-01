@@ -81,11 +81,35 @@ Response Body:
 
 
 ...................
-Task
-microsft icon(done)
 
-https://icons8.com/icon/set/arrows/color
-https://icons8.com/icon/12300/library
-https://icons8.com/icon/11926/create
-https://icons8.com/icon/13951/automation
-https://icons8.com/icon/114317/admin-settings-male
+$scope.CheckBoxChecked = function (cat, isChecked) {
+    if (cat.NeedDescription && isChecked) {
+        $scope.OthersChecked = true;
+        $scope.tempOthersCode = cat;
+        $('input[type="checkbox"]').prop('disabled', true)
+        if (cat.HasRevenueImpact) {
+            $scope.showRevenueImpact = true;
+        }
+    }
+    else {
+        $scope.OthersChecked = $scope.showRevenueImpact = false;
+        $('input[type="checkbox"]').removeAttr('disabled');
+    }
+    if (cat.ParentId == null) {
+        var temp = [];
+        $("input[name=" + cat.Id + "]:checked").prop('checked', false)
+        angular.forEach($scope.SelectedCategories, function (category, index) {
+            if (category.ParentId != cat.Id) {
+                temp.push(category)
+            }
+        });
+        $scope.SelectedCategories = temp;
+    }
+    if (isChecked) {
+        $scope.SelectedCategories.push(cat);
+    }
+    else {
+        $scope.SelectedCategories.splice($scope.SelectedCategories.indexOf(cat), 1);
+        $scope.Others.splice($scope.Others.indexOf(cat), 1);
+    }
+}

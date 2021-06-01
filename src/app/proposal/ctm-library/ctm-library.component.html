@@ -26,17 +26,24 @@
                         <span>Footer Category:</span>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <!--<select class="form-control">
-                        <option *ngFor="let category of (footerCategory | parentPipesval)">
-                            {{category.Name}}-{{category.Description}}
-                        </option>
-                        </select>-->
-                        <div class="form-control" *ngFor="let category of footerCategory | parentPipesval">
-                            {{category.Name}}-{{category.Description}}
+                <div class="col-4 select-category-container">
+                    <button class="form-control text-left" (click)="SelectCategory=!SelectCategory" style="border-color:#000">
+                        {{SelectedCategoriesText}}<i class="fa fa-sort-down pull-right"></i>
+                    </button>
+                    <div class="select-category" ng-class="{'subCategoryChecked':true}">
+                        <!-- ng-show="SelectCategory" ng-init="skipValue=1" ng-click="CategoryDiv();" -->
+                        <div class="category">
+                            <div *ngFor="let category of footerCategory | parentPipesval">
+                                <input type="checkbox">    {{category.Name}}-{{category.Description}}
+                            </div>
                         </div>
-                    </div>
+                        
+                        </div>
+                    <!-- <div class="form-group">                        
+                        <div  *ngFor="let category of footerCategory | parentPipesval">
+                           
+                        </div>
+                    </div> -->
                 </div>
             </div>
             <div class="row">
