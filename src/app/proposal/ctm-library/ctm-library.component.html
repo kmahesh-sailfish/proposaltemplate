@@ -32,13 +32,17 @@
                     </button>
                     <div class="select-category" ng-class="{'subCategoryChecked':true}">
                         <!-- ng-show="SelectCategory" ng-init="skipValue=1" ng-click="CategoryDiv();" -->
-                        <div class="category">
+                        <div class="category" [hidden]="!SelectCategory" >
                             <div *ngFor="let category of footerCategory | parentPipesval">
-                                <input type="checkbox">    {{category.Name}}-{{category.Description}}
+                                <input type="checkbox" name="{{category.Name}}" [(ngModel)]="selectedCateg[category.Id]" [value]="category.Id">                                {{category.Name}}-{{category.Description}}
+                                <div style="padding-left:10px" [hidden]="!selectedCateg[category.Id]" *ngFor="let subCategory of footerCategory | childPipesval : {ParentId:category.Id}">
+                                    <input type="checkbox" [(ngModel)]="selectedCateg[subCategory.Id]" name="{{subCategory.ParentId}}" [value]="subCategory.Id"
+                                    /> {{subCategory.Name}}-{{subCategory.Description}}
+                                </div>
                             </div>
                         </div>
-                        
-                        </div>
+
+                    </div>
                     <!-- <div class="form-group">                        
                         <div  *ngFor="let category of footerCategory | parentPipesval">
                            

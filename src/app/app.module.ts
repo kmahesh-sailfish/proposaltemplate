@@ -21,12 +21,12 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { DataTablesModule } from "angular-datatables";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgSelectModule } from "@ng-select/ng-select";
-import { HttpClientModule } from '@angular/common/http';
-import { ProposalOverviewComponent } from './proposal/proposal-overview/proposal-overview.component';
-import { SearchProposalComponent } from './proposal/modeal/search-proposal/search-proposal.component';
-import { ParentPipesval } from './GlobalPipes/parentPipes';
-import { FooterComponent } from './sidenav/footer/footer.component';
-import { PriceProposalComponent } from './proposal/modeal/price-proposal/price-proposal.component';
+import { HttpClientModule } from "@angular/common/http";
+import { ProposalOverviewComponent } from "./proposal/proposal-overview/proposal-overview.component";
+import { SearchProposalComponent } from "./proposal/modeal/search-proposal/search-proposal.component";
+import { ParentPipesval, ChildPipesval } from "./GlobalPipes/parentPipes";
+import { FooterComponent } from "./sidenav/footer/footer.component";
+import { PriceProposalComponent } from "./proposal/modeal/price-proposal/price-proposal.component";
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { PriceProposalComponent } from './proposal/modeal/price-proposal/price-p
     ActiveProposalComponent,
     DownloadAmendentComponent,
     DashboardComponent,
-    
+
     ArchiveProposalComponent,
     DelegationComponent,
     MultipleDocsComponent,
@@ -46,6 +46,7 @@ import { PriceProposalComponent } from './proposal/modeal/price-proposal/price-p
     ProposalOverviewComponent,
     SearchProposalComponent,
     ParentPipesval,
+    ChildPipesval,
     FooterComponent,
     PriceProposalComponent
   ],
