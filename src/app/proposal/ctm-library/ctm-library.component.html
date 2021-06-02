@@ -39,15 +39,15 @@
                                         [value]="category.id"> {{category.name}}-{{category.description}}
                                     <div style="padding-left:10px" [hidden]="!selectedCateg[category.id]" *ngFor="let subCategory of footerCategory | childPipesval : {parentId:category.id}">
                                         <input type="checkbox" (change)="CheckBoxChecked(subCategory,selectedCateg[subCategory.id])" [(ngModel)]="selectedCateg[subCategory.id]"
-                                            name="{{subCategory.parentId}}" [value]="subCategory.id" />                                    {{subCategory.name}}-{{subCategory.description}}
+                                            name="{{subCategory.parentId}}" [value]="subCategory.id" />                                        {{subCategory.name}}-{{subCategory.description}}
                                     </div>
                                 </div>
                             </div>
-    
+
                         </div>
                     </div>
-                   
-                 
+
+
                 </div>
             </div>
             <div class="row">
@@ -72,9 +72,9 @@
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                        <select  class="form-control" name="Language" [(ngModel)]="selectLanguage">
-                            <option  [value]="">Select</option>
-<option *ngFor="let obj of getLanguages" [value]="obj">{{obj}}</option>
+                        <select class="form-control" name="Language" [(ngModel)]="selectLanguage">
+                            <option [value]="null">Select</option>
+                            <option *ngFor="let obj of getLanguages" [value]="obj">{{obj}}</option>
                         </select>
                     </div>
                 </div>
