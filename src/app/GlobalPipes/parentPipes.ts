@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 @Pipe({ name: "parentPipesval" })
 export class ParentPipesval implements PipeTransform {
   transform(obj) {
-    return obj.filter(o => o.ParentId == null);
+    return obj.filter(o => o.parentId == null);
   }
 }
 
@@ -11,6 +11,6 @@ export class ParentPipesval implements PipeTransform {
 export class ChildPipesval implements PipeTransform {
   transform(obj: any, id: any) {
     console.log(obj, id);
-    return obj.filter(o => o.ParentId == id.ParentId);
+    return obj.filter(o => o.parentId == id.parentId);
   }
 }

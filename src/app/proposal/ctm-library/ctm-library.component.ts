@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ProposalService } from "src/app/proposal.service";
 
 @Component({
   selector: "app-ctm-library",
@@ -7,176 +8,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class CtmLibraryComponent implements OnInit {
   public footerCategory = [
-    {
-      isActive: true,
-      Id: 2,
-      Name: "CCI",
-      ParentId: null,
-      Description: "Consumption Incentives",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 3,
-      Name: "CPT",
-      ParentId: null,
-      Description: "Change of Pricing Terms",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 4,
-      Name: "CPL",
-      ParentId: 3,
-      Description: "Change of Price Level",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 5,
-      Name: "CPC",
-      ParentId: 3,
-      Description: "Change of Pricing Condition",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 6,
-      Name: "OPT",
-      ParentId: 3,
-      Description: "Other ",
-      HasRevenueImpact: false,
-      NeedDescription: true,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 7,
-      Name: "CTC",
-      ParentId: null,
-      Description: "Change of T’s & C’s with mandatory subcategories",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 8,
-      Name: "AGR",
-      ParentId: 7,
-      Description: "Agreement Terms",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 9,
-      Name: "CTL",
-      ParentId: 7,
-      Description: "Term Length",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 10,
-      Name: "EDM",
-      ParentId: 7,
-      Description: "Effective Date Modification",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 11,
-      Name: "ENR",
-      ParentId: 7,
-      Description: "Enrollment Terms",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 12,
-      Name: "LOL",
-      ParentId: 7,
-      Description: "Limitation of Liability",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 13,
-      Name: "OST",
-      ParentId: 7,
-      Description: "Online Services Terms",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 14,
-      Name: "PUR",
-      ParentId: 7,
-      Description: "Product Use Rights",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 15,
-      Name: "OTC",
-      ParentId: 7,
-      Description: "Other",
-      HasRevenueImpact: false,
-      NeedDescription: true,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 16,
-      Name: "INC",
-      ParentId: null,
-      Description: "Incubation/Pilot",
-      HasRevenueImpact: false,
-      NeedDescription: true,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 17,
-      Name: "PSC",
-      ParentId: null,
-      Description: "Post Sales Changes",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    },
-    {
-      isActive: true,
-      Id: 20,
-      Name: "FWK",
-      ParentId: null,
-      Description: "Framework",
-      HasRevenueImpact: false,
-      NeedDescription: false,
-      IsActive: true
-    }
+   
   ];
   public SelectedCategoriesText: any = "Select Footer Category";
   public SelectCategory: any;
@@ -186,9 +18,15 @@ export class CtmLibraryComponent implements OnInit {
   public showRevenueImpact: any;
   public OthersChecked: any;
   public tempOthersCode: any;
-  constructor() {}
+  constructor(private proposalService: ProposalService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadCTMFooterCode()
+  }
+  loadCTMFooterCode(){
+    this.proposalService.getCTMFootercode().subscribe((data: any) => {
+      this.footerCategory = data;
+    })}
   CheckBoxChecked(cat, isChecked) {
     if (cat.NeedDescription && isChecked) {
       this.OthersChecked = true;
@@ -201,11 +39,11 @@ export class CtmLibraryComponent implements OnInit {
       this.OthersChecked = this.showRevenueImpact = false;
       $('input[type="checkbox"]').removeAttr("disabled");
     }
-    if (cat.ParentId == null) {
+    if (cat.parentId == null) {
       var temp = [];
-      $("input[name=" + cat.Id + "]:checked").prop("checked", false);
+      $("input[name=" + cat.id + "]:checked").prop("checked", false);
       this.SelectedCategories.forEach(function(category, index) {
-        if (category.ParentId != cat.Id) {
+        if (category.parentId != cat.id) {
           temp.push(category);
         }
       });

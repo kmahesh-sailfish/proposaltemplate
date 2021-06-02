@@ -34,11 +34,11 @@
                         <!-- ng-show="SelectCategory" ng-init="skipValue=1" ng-click="CategoryDiv();" -->
                         <div class="category" [hidden]="!SelectCategory">
                             <div *ngFor="let category of footerCategory | parentPipesval">
-                                <input type="checkbox" (change)="CheckBoxChecked(category,selectedCateg[category.Id])" name="{{category.Name}}" [(ngModel)]="selectedCateg[category.Id]"
-                                    [value]="category.Id"> {{category.Name}}-{{category.Description}}
-                                <div style="padding-left:10px" [hidden]="!selectedCateg[category.Id]" *ngFor="let subCategory of footerCategory | childPipesval : {ParentId:category.Id}">
-                                    <input type="checkbox" (change)="CheckBoxChecked(subCategory,selectedCateg[subCategory.Id])" [(ngModel)]="selectedCateg[subCategory.Id]"
-                                        name="{{subCategory.ParentId}}" [value]="subCategory.Id" />                                    {{subCategory.Name}}-{{subCategory.Description}}
+                                <input type="checkbox" (change)="CheckBoxChecked(category,selectedCateg[category.id])" name="{{category.name}}" [(ngModel)]="selectedCateg[category.id]"
+                                    [value]="category.id"> {{category.name}}-{{category.description}}
+                                <div style="padding-left:10px" [hidden]="!selectedCateg[category.id]" *ngFor="let subCategory of footerCategory | childPipesval : {parentId:category.id}">
+                                    <input type="checkbox" (change)="CheckBoxChecked(subCategory,selectedCateg[subCategory.id])" [(ngModel)]="selectedCateg[subCategory.id]"
+                                        name="{{subCategory.parentId}}" [value]="subCategory.id" />                                    {{subCategory.name}}-{{subCategory.description}}
                                 </div>
                             </div>
                         </div>

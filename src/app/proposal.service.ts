@@ -29,7 +29,12 @@ export class ProposalService {
     return this.http.post(environment.API_URL + "Proposal/"+"UpdateProposal",obj);
 
   }
- 
+  //-------------------- CTM FooterCode
+  getCTMFootercode(){
+    
+    return this.http.get(environment.API_URL + "Proposal/"+"GetCTMCategories");
+  }
+ //--------------------------------------------
  
   // create proposal ---------------
   proposalExist(Id) {
