@@ -34,6 +34,9 @@ export class ProposalService {
     
     return this.http.get(environment.API_URL + "Proposal/"+"GetCTMCategories");
   }
+  getLanguage(){
+    return this.http.get(environment.API_URL + "Proposal/"+"GetCTMCategories");
+  }
  //--------------------------------------------
  
   // create proposal ---------------

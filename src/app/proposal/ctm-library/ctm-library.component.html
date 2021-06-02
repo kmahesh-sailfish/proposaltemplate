@@ -27,28 +27,27 @@
                     </div>
                 </div>
                 <div class="col-4 select-category-container">
-                    <button class="form-control text-left" (click)="SelectCategory=!SelectCategory" style="border-color:#000">
-                        {{SelectedCategoriesText}}<i class="fa fa-sort-down pull-right"></i>
-                    </button>
-                    <div class="select-category" ng-class="{'subCategoryChecked':true}">
-                        <!-- ng-show="SelectCategory" ng-init="skipValue=1" ng-click="CategoryDiv();" -->
-                        <div class="category" [hidden]="!SelectCategory">
-                            <div *ngFor="let category of footerCategory | parentPipesval">
-                                <input type="checkbox" (change)="CheckBoxChecked(category,selectedCateg[category.id])" name="{{category.name}}" [(ngModel)]="selectedCateg[category.id]"
-                                    [value]="category.id"> {{category.name}}-{{category.description}}
-                                <div style="padding-left:10px" [hidden]="!selectedCateg[category.id]" *ngFor="let subCategory of footerCategory | childPipesval : {parentId:category.id}">
-                                    <input type="checkbox" (change)="CheckBoxChecked(subCategory,selectedCateg[subCategory.id])" [(ngModel)]="selectedCateg[subCategory.id]"
-                                        name="{{subCategory.parentId}}" [value]="subCategory.id" />                                    {{subCategory.name}}-{{subCategory.description}}
+                    <div class="form-group">
+                        <button class="form-control text-left" (click)="SelectCategory=!SelectCategory" style="border-color:#000">
+                            {{SelectedCategoriesText}}<i class="fa fa-sort-down pull-right"></i>
+                        </button>
+                        <div class="select-category" ng-class="{'subCategoryChecked':true}">
+                            <!-- ng-show="SelectCategory" ng-init="skipValue=1" ng-click="CategoryDiv();" -->
+                            <div class="category" [hidden]="!SelectCategory">
+                                <div *ngFor="let category of footerCategory | parentPipesval">
+                                    <input type="checkbox" (change)="CheckBoxChecked(category,selectedCateg[category.id])" name="{{category.name}}" [(ngModel)]="selectedCateg[category.id]"
+                                        [value]="category.id"> {{category.name}}-{{category.description}}
+                                    <div style="padding-left:10px" [hidden]="!selectedCateg[category.id]" *ngFor="let subCategory of footerCategory | childPipesval : {parentId:category.id}">
+                                        <input type="checkbox" (change)="CheckBoxChecked(subCategory,selectedCateg[subCategory.id])" [(ngModel)]="selectedCateg[subCategory.id]"
+                                            name="{{subCategory.parentId}}" [value]="subCategory.id" />                                    {{subCategory.name}}-{{subCategory.description}}
+                                    </div>
                                 </div>
                             </div>
+    
                         </div>
-
                     </div>
-                    <!-- <div class="form-group">                        
-                        <div  *ngFor="let category of footerCategory | parentPipesval">
-                           
-                        </div>
-                    </div> -->
+                   
+                 
                 </div>
             </div>
             <div class="row">
@@ -73,7 +72,10 @@
                 </div>
                 <div class="col-4">
                     <div class="form-group">
-                        <input type="text" class="form-control" />
+                        <select  class="form-control" name="Language" [(ngModel)]="selectLanguage">
+                            <option  [value]="">Select</option>
+<option *ngFor="let obj of getLanguages" [value]="obj">{{obj}}</option>
+                        </select>
                     </div>
                 </div>
             </div>

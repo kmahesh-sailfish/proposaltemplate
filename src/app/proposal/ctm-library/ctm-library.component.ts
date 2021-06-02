@@ -18,10 +18,20 @@ export class CtmLibraryComponent implements OnInit {
   public showRevenueImpact: any;
   public OthersChecked: any;
   public tempOthersCode: any;
+  public selectLanguage:any;
+  public getLanguages:any=["ENG","ARA","BUL","CAT","CHS","CHT","CRO","CZE","DAN","DUT","EST","FIN","FRE","GER","GRE","HEB","HIN","HUN","ITA","JPN","KAZ","KOR","LAV","LIT","NOR","POL","PTB","PTE","RON","RUS","SER","SLK","SLN","SPA","SWE","THA","TUR","UKR"]
   constructor(private proposalService: ProposalService) {}
 
   ngOnInit(): void {
-    this.loadCTMFooterCode()
+    this.loadCTMFooterCode();
+    this.selectLanguage="";
+    //this.loadLanguages();
+  }
+  loadLanguages(){
+    this.proposalService.getLanguage().subscribe((data: any) => {
+      this.getLanguages= data
+    })
+   
   }
   loadCTMFooterCode(){
     this.proposalService.getCTMFootercode().subscribe((data: any) => {
