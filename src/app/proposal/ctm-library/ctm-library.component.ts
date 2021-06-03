@@ -7,9 +7,7 @@ import { ProposalService } from "src/app/proposal.service";
   styleUrls: ["./ctm-library.component.css"]
 })
 export class CtmLibraryComponent implements OnInit {
-  public footerCategory = [
-   
-  ];
+  public footerCategory = [];
   public SelectedCategoriesText: any = "Select Footer Category";
   public SelectCategory: any;
   public selectedCateg: any = [];
@@ -18,25 +16,64 @@ export class CtmLibraryComponent implements OnInit {
   public showRevenueImpact: any;
   public OthersChecked: any;
   public tempOthersCode: any;
-  public selectLanguage:any;
-  public getLanguages:any=["ENG","ARA","BUL","CAT","CHS","CHT","CRO","CZE","DAN","DUT","EST","FIN","FRE","GER","GRE","HEB","HIN","HUN","ITA","JPN","KAZ","KOR","LAV","LIT","NOR","POL","PTB","PTE","RON","RUS","SER","SLK","SLN","SPA","SWE","THA","TUR","UKR"]
+  public selectLanguage: any = null;
+  public getLanguages: any = [
+    "ENG",
+    "ARA",
+    "BUL",
+    "CAT",
+    "CHS",
+    "CHT",
+    "CRO",
+    "CZE",
+    "DAN",
+    "DUT",
+    "EST",
+    "FIN",
+    "FRE",
+    "GER",
+    "GRE",
+    "HEB",
+    "HIN",
+    "HUN",
+    "ITA",
+    "JPN",
+    "KAZ",
+    "KOR",
+    "LAV",
+    "LIT",
+    "NOR",
+    "POL",
+    "PTB",
+    "PTE",
+    "RON",
+    "RUS",
+    "SER",
+    "SLK",
+    "SLN",
+    "SPA",
+    "SWE",
+    "THA",
+    "TUR",
+    "UKR"
+  ];
   constructor(private proposalService: ProposalService) {}
 
   ngOnInit(): void {
     this.loadCTMFooterCode();
-    this.selectLanguage="";
+    //this.selectLanguage="";
     //this.loadLanguages();
   }
-  loadLanguages(){
+  loadLanguages() {
     this.proposalService.getLanguage().subscribe((data: any) => {
-      this.getLanguages= data
-    })
-   
+      this.getLanguages = data;
+    });
   }
-  loadCTMFooterCode(){
+  loadCTMFooterCode() {
     this.proposalService.getCTMFootercode().subscribe((data: any) => {
       this.footerCategory = data;
-    })}
+    });
+  }
   CheckBoxChecked(cat, isChecked) {
     if (cat.NeedDescription && isChecked) {
       this.OthersChecked = true;
