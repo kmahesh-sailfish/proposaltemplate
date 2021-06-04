@@ -273,45 +273,37 @@ a.article:hover {
 }
 
 .btn-Hand {
-  background-color: #6AAB6A;
-  height: 50px;
-  width: 50px;
+  background-color: #6aab6a;
+  height: 30px;
+  width: 30px;
   border-radius: 50%;
   display: flex;
-    align-items: center;
-    
-   
+  align-items: center;
 }
 
 .btn-Tools {
-  background-color: #FF9349;
-  height: 50px;
-  width: 50px;
+  background-color: #ff9349;
+  height: 30px;
+  width: 30px;
   border-radius: 50%;
   display: flex;
-    align-items: center;
-    
-   
+  align-items: center;
 }
 .btn-Books {
-  background-color: #91C1E6;
-  height: 50px;
-  width: 50px;
+  background-color: #91c1e6;
+  height: 30px;
+  width: 30px;
   border-radius: 50%;
   display: flex;
-    align-items: center;
-    
-   
+  align-items: center;
 }
 .btn-System {
-  background-color: #0078D4;
-  height: 50px;
-  width: 50px;
+  background-color: #0078d4;
+  height: 30px;
+  width: 30px;
   border-radius: 50%;
   display: flex;
-    align-items: center;
-    
-   
+  align-items: center;
 }
 /* //footer section */
 .footer {
@@ -323,10 +315,10 @@ a.article:hover {
   width: 100%;
 }
 
-.side-labels{
+.side-labels {
   position: absolute !important;
-    margin-left: 50% !important;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.5;
+  margin-left: 50% !important;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
 }
