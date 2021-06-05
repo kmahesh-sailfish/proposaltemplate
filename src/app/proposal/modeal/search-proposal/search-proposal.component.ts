@@ -7,9 +7,9 @@ import { PriceProposalComponent } from '../price-proposal/price-proposal.compone
   styleUrls: ['./search-proposal.component.css']
 })
 export class SearchProposalComponent implements OnInit {
-
+  public searchAmendList: any;
   constructor( private modalService: NgbModal) { }
-
+  
   ngOnInit(): void {
   }
   loadData(){
