@@ -35,7 +35,7 @@ export class ProposalService {
     return this.http.get(environment.API_URL + "Proposal/"+"GetCTMCategories");
   }
   getLanguage(){
-    return this.http.get(environment.API_URL + "Proposal/"+"GetCTMCategories");
+    return this.http.get(environment.API_URL + "Proposal/"+"GetLanguages");
   }
   searchAmendement(searchTerm) {
     //https://amendmentappdev.cloudapp.net/api/proposal/searchamendment/m4
