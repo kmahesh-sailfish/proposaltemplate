@@ -6,21 +6,29 @@ import { PriceProposalComponent } from '../price-proposal/price-proposal.compone
   templateUrl: './search-proposal.component.html',
   styleUrls: ['./search-proposal.component.css']
 })
-export class SearchProposalComponent implements OnInit,AfterViewInit {
+export class SearchProposalComponent implements OnInit {
   public searchAmendList: any;
-  public 
+  dtOptions: DataTables.Settings = {}; 
   constructor( private modalService: NgbModal) { }
   
   ngOnInit(): void {
-   // this.loadDatatable();
+  //   $('#example').DataTable({
+  //     "paging": false,
+  //     "searching": false
+  // })
+  this.dtOptions = {
+    "paging": false,
+    "searching": false
+  };
   }
-  ngAfterViewInit(){
-
-  }
+ 
   loadDatatable(){
-    $('#example').DataTable({
-      "paging": false
-  })
+    // $(document).ready(function(){
+    //   $('#example').DataTable({
+    //     "paging": false
+    // })
+    // })
+   
   }
   loadData(){
     this.modalService.open(PriceProposalComponent, {

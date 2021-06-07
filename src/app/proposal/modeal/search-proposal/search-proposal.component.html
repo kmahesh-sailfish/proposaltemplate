@@ -1,42 +1,49 @@
-<div class="row">
-    <div  class="col">
-        <h3>Select Amendment</h3>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div  class="col">
+                <h3>Select Amendment</h3>
+            </div>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col">
-       
-        <!-- {{searchAmendList |json}} -->
-        <div class="form-group">
-            <table #example datatable class="row-border hover">
-                <thead >
-                    <tr>
-                        <th>Code</th>
-                        <th>FileName</th>
-                        <th>Language</th>
-                        <th>Action</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let obj of searchAmendList">
-                        <td>{{obj.Code}}</td>
-                        <td>{{obj.DocName}}</td>
-                        <td>{{obj.Language}}</td>
-                        <td>
-                            <span class="btn btn-Hand mr-3 d-flex justify-content-center align-items-center">
-                                <i class="fa fa-eye" style="width: 14px;"></i>
-                            </span>
-                            &nbsp;
-                            <span class="btn btn-Hand mr-3 d-flex justify-content-center align-items-center">
-                                <i class="fa fa-plus" style="width: 14px;"></i>
-                            </span>
-                           
-                            </td>
-                    </tr>
-                    
-                </tbody>
-            </table>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+               
+              
+                <div class="form-group">
+                    <table id="example" [dtOptions]="dtOptions" datatable class="row-border hover">
+                        <thead >
+                            <tr>
+                                <th>Code</th>
+                                <th>FileName</th>
+                                <th>Language</th>
+                                <th>Action</th>
+        
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let obj of searchAmendList">
+                                <td>{{obj.Code}}</td>
+                                <td>{{obj.DocName}}</td>
+                                <td>{{obj.Language}}</td>
+                                <td>
+                                    <span class="btn btn-Hand mr-3 d-flex justify-content-center align-items-center">
+                                        <i class="fa fa-eye" style="width: 14px;"></i>
+                                    </span>
+                                    &nbsp;
+                                    <span class="btn btn-Hand mr-3 d-flex justify-content-center align-items-center">
+                                        <i class="fa fa-plus" style="width: 14px;"></i>
+                                    </span>
+                                   
+                                    </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+

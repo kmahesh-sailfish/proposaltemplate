@@ -89,9 +89,9 @@ export class ProposalOverviewComponent implements OnInit {
       this.HRDDCountries = data.map(function(country) {
         return country.Name;
       });
-      if (this.editProposalObj.PricingCountry != "") {
+      if (this.editProposalObj.pricingCountry != "") {
         data.filter(function(country) {
-          if (country.Name == this.editProposalObj.PricingCountry) {
+          if (country.Name == this.editProposalObj.pricingCountry) {
             this.HRDDAmendments = country.HRDDAmendments;
             this.HRDDeal = country.DealAmount;
             this.HRDDiscount = country.Discount;
