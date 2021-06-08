@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
         <div class="row">
-            <div  class="col">
+            <div class="col">
                 <h3>Select Amendment</h3>
             </div>
         </div>
@@ -9,17 +9,17 @@
     <div class="card-body">
         <div class="row">
             <div class="col">
-               
-              
-                <div class="form-group">
-                    <table id="example" [dtOptions]="dtOptions" datatable class="row-border hover">
-                        <thead >
+
+
+                <div class="table-responsive">
+                    <table id="example" [dtOptions]="dtOptions" datatable class=" table row-border hover">
+                        <thead class="thead-darks">
                             <tr>
                                 <th>Code</th>
                                 <th>FileName</th>
                                 <th>Language</th>
                                 <th>Action</th>
-        
+
                             </tr>
                         </thead>
                         <tbody>
@@ -28,17 +28,16 @@
                                 <td>{{obj.DocName}}</td>
                                 <td>{{obj.Language}}</td>
                                 <td>
-                                    <span class="btn btn-Hand mr-3 d-flex justify-content-center align-items-center">
+                                    <span class="outCircle">
                                         <i class="fa fa-eye" style="width: 14px;"></i>
-                                    </span>
-                                    &nbsp;
-                                    <span class="btn btn-Hand mr-3 d-flex justify-content-center align-items-center">
+                                    </span> &nbsp;
+                                    <span class="outCircle">
                                         <i class="fa fa-plus" style="width: 14px;"></i>
                                     </span>
-                                   
-                                    </td>
+
+                                </td>
                             </tr>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -46,4 +45,3 @@
         </div>
     </div>
 </div>
-

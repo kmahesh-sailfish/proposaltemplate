@@ -1,8 +1,15 @@
-.btn-Hand {
-    background-color:white;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-  }
+.outCircle{
+  border-radius: 50%;
+    border-style: solid;
+    border-width: 1px;
+}
+table.dataTable thead th,
+table.dataTable thead td {
+  padding: 10px 18px;
+  border-radius: 1px;
+  color: white;
+  border-bottom: 1px solid #433163 !important;
+}
+.thead-darks {
+  background-color: #433163;
+}

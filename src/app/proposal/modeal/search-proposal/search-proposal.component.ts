@@ -12,10 +12,7 @@ export class SearchProposalComponent implements OnInit {
   constructor( private modalService: NgbModal) { }
   
   ngOnInit(): void {
-  //   $('#example').DataTable({
-  //     "paging": false,
-  //     "searching": false
-  // })
+  
   this.dtOptions = {
     "paging": false,
     "searching": false
@@ -23,11 +20,7 @@ export class SearchProposalComponent implements OnInit {
   }
  
   loadDatatable(){
-    // $(document).ready(function(){
-    //   $('#example').DataTable({
-    //     "paging": false
-    // })
-    // })
+   
    
   }
   loadData(){
