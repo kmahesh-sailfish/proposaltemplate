@@ -8,6 +8,9 @@
 .p-25{
   padding: 25px;
 }
+.p-r-0{
+  padding-right: 0px !important
+}
 .p-0 {
   padding: 0px;
 }

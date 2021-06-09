@@ -18,6 +18,10 @@
   color: #ffffff !important;
   border-color:#FF9349 !important;
 }
+.header-pic{
+  background-color: #e9ecef;
+  height: 35px
+}
 .sample {
   position: absolute;
   font-size: 50px;
