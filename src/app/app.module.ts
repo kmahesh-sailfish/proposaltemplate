@@ -27,7 +27,7 @@ import { SearchProposalComponent } from "./proposal/modeal/search-proposal/searc
 import { ParentPipesval, ChildPipesval } from "./GlobalPipes/parentPipes";
 import { FooterComponent } from "./sidenav/footer/footer.component";
 import { PriceProposalComponent } from "./proposal/modeal/price-proposal/price-proposal.component";
-
+import { AgGridModule } from 'ag-grid-angular';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +59,8 @@ import { PriceProposalComponent } from "./proposal/modeal/price-proposal/price-p
     ReactiveFormsModule,
     FormsModule,
     NgSelectModule,
-    DataTablesModule
+    DataTablesModule,
+    AgGridModule.withComponents([])
   ],
   providers: [],
   bootstrap: [AppComponent]

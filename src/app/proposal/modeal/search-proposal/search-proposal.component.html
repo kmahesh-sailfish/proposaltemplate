@@ -10,8 +10,14 @@
         <div class="row">
             <div class="col">
 
-
-                <div class="table-responsive">
+<ag-grid-angular
+    style="width: 500px; height: 500px;"
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+>
+</ag-grid-angular>
+                <!--<div class="table-responsive">
                     <table id="example" [dtOptions]="dtOptions" datatable class=" table row-border hover">
                         <thead class="thead-darks">
                             <tr>
@@ -40,7 +46,7 @@
 
                         </tbody>
                     </table>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>

@@ -8,7 +8,9 @@ import { PriceProposalComponent } from '../price-proposal/price-proposal.compone
 })
 export class SearchProposalComponent implements OnInit {
   public searchAmendList: any;
-  dtOptions: DataTables.Settings = {}; 
+  dtOptions: DataTables.Settings = {};
+  public columnDefs: any;
+  public rowData: any;
   constructor( private modalService: NgbModal) { }
   
   ngOnInit(): void {
@@ -21,7 +23,17 @@ export class SearchProposalComponent implements OnInit {
  
   loadDatatable(){
    
-   
+   this.columnDefs = [
+        { field: 'make' },
+        { field: 'model' },
+        { field: 'price'}
+    ];
+
+    this.rowData = [
+        { make: 'Toyota', model: 'Celica', price: 35000 },
+        { make: 'Ford', model: 'Mondeo', price: 32000 },
+        { make: 'Porsche', model: 'Boxter', price: 72000 }
+    ];
   }
   loadData(){
     this.modalService.open(PriceProposalComponent, {
