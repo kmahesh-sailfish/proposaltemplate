@@ -3,13 +3,15 @@
 
 @import "~@ng-select/ng-select/themes/default.theme.css";
 /* @import "~font-awesome/css/font-awesome.css"; */
+@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
 
 /*padding*/
-.p-25{
+.p-25 {
   padding: 25px;
 }
-.p-r-0{
-  padding-right: 0px !important
+.p-r-0 {
+  padding-right: 0px !important;
 }
 .p-0 {
   padding: 0px;
@@ -17,14 +19,13 @@
 .p-1-1 {
   padding: 1px;
 }
-.p-t-b-5{
-   padding-top: 5px;
-    padding-bottom: 5px;
+.p-t-b-5 {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
-.error_color{
-  color: red
+.error_color {
+  color: red;
 }
- 
 
 /*margin*/
 .m-l-10 {
@@ -32,10 +33,10 @@
 }
 
 /*width*/
-.w-42{
+.w-42 {
   width: 42%;
 }
-.w-48{
+.w-48 {
   width: 48%;
 }
 .w-10 {
