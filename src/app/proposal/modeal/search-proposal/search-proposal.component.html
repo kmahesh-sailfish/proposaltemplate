@@ -10,8 +10,8 @@
         <div class="row">
             <div class="col">
 
-              
-            <div class="table-responsive">
+
+                <div class="table-responsive">
                     <table id="example" [dtOptions]="dtOptions" datatable class=" table row-border hover">
                         <thead class="thead-darks">
                             <tr>
@@ -24,9 +24,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let obj of searchAmendList">
-                                <td>{{obj.Code}}</td>
-                                <td>{{obj.DocName}}</td>
-                                <td>{{obj.Language}}</td>
+                                <td>{{obj.code}}</td>
+                                <td>{{obj.docName}}</td>
+                                <td>{{obj.language}}</td>
                                 <td>
                                     <span class="outCircle">
                                         <i class="fa fa-eye" style="width: 14px;"></i>
