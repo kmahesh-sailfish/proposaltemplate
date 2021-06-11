@@ -38,8 +38,8 @@ export class ProposalService {
     return this.http.get(environment.API_URL + "Proposal/"+"GetLanguages");
   }
   searchAmendement(searchTerm) {
-    //https://amendmentappdev.cloudapp.net/api/proposal/searchamendment/m4
-    return this.http.get(environment.API_URL + "Proposal/"+"SearchAmendment/"+searchTerm);
+   
+    return this.http.get(environment.API_URL + "Amendment/"+"GetVlDocAmendmentData/"+searchTerm);
   }
  //--------------------------------------------
  
