@@ -64,154 +64,7 @@ export class ProposalOverviewComponent implements OnInit {
     "CurrencyCode": null,
     "CTMFooterId": null
   },
-  {
-    "retrivalCount": 15,
-    "PId": 0,
-    "Id": 3321,
-    "Code": "M455",
-    "CTMAmendmentCode": null,
-    "Language": "ENG",
-    "Empowerment": "Blue",
-    "DocumentId": 67099,
-    "IsCTM": false,
-    "Stream": "",
-    "FileName": "(M455)EnrAmend(AzureMonetaryCommitmentAdjustment)(WW)(ENG)(Nov2020)(IU).docx",
-    "CTMFooterCode": null,
-    "BlobStoragePath": null,
-    "Order": 2,
-    "FileVersion": "Nov2020",
-    "Loc": "WW",
-    "DI": "",
-    "IsEdited": false,
-    "IsConsolidated": false,
-    "Type": 0,
-    "CTMCode": null,
-    "Link": null,
-    "IsPricingAmendment": false,
-    "IsCTMPricing": false,
-    "FooterCode": null,
-    "IsEditField": false,
-    "IsCTMAmendment": false,
-    "HasEditableTable": false,
-    "Discount": null,
-    "DealSize": null,
-    "BeginDate": null,
-    "EndDate": null,
-    "CommitToConsume": null,
-    "CurrencyCode": null,
-    "CTMFooterId": null
-  },
-  {
-    "retrivalCount": 15,
-    "PId": 0,
-    "Id": 3330,
-    "Code": "M59",
-    "CTMAmendmentCode": null,
-    "Language": "ENG",
-    "Empowerment": "Green",
-    "DocumentId": 45588,
-    "IsCTM": false,
-    "Stream": "",
-    "FileName": "(M59)EnrAmend(CustomPaymentOptionsOnEnterpriseEnrollment)(WW)(ENG)(Aug2017)(IU).docx",
-    "CTMFooterCode": null,
-    "BlobStoragePath": null,
-    "Order": 3,
-    "FileVersion": "Aug2017",
-    "Loc": "WW",
-    "DI": "",
-    "IsEdited": false,
-    "IsConsolidated": false,
-    "Type": 0,
-    "CTMCode": null,
-    "Link": null,
-    "IsPricingAmendment": false,
-    "IsCTMPricing": false,
-    "FooterCode": null,
-    "IsEditField": false,
-    "IsCTMAmendment": false,
-    "HasEditableTable": false,
-    "Discount": null,
-    "DealSize": null,
-    "BeginDate": null,
-    "EndDate": null,
-    "CommitToConsume": null,
-    "CurrencyCode": null,
-    "CTMFooterId": null
-  },
-  {
-    "retrivalCount": 15,
-    "PId": 0,
-    "Id": 3331,
-    "Code": "M414",
-    "CTMAmendmentCode": null,
-    "Language": "PTB",
-    "Empowerment": "Blue",
-    "DocumentId": 67709,
-    "IsCTM": false,
-    "Stream": "",
-    "FileName": "(M414)EnrAmend(NonOLSDownloadCorrection)(WW)(PTB)(Jan2021)(IU).docx",
-    "CTMFooterCode": null,
-    "BlobStoragePath": null,
-    "Order": 4,
-    "FileVersion": "Jan2021",
-    "Loc": "WW",
-    "DI": "",
-    "IsEdited": false,
-    "IsConsolidated": false,
-    "Type": 0,
-    "CTMCode": null,
-    "Link": null,
-    "IsPricingAmendment": false,
-    "IsCTMPricing": false,
-    "FooterCode": null,
-    "IsEditField": false,
-    "IsCTMAmendment": false,
-    "HasEditableTable": true,
-    "Discount": null,
-    "DealSize": null,
-    "BeginDate": null,
-    "EndDate": null,
-    "CommitToConsume": null,
-    "CurrencyCode": null,
-    "CTMFooterId": null
-  },
-  {
-    "retrivalCount": 15,
-    "PId": 0,
-    "Id": 3335,
-    "Code": "M405",
-    "CTMAmendmentCode": null,
-    "Language": "PTE",
-    "Empowerment": "Blue",
-    "DocumentId": 52898,
-    "IsCTM": false,
-    "Stream": "",
-    "FileName": "(M405)EnrAmend(SQLServerCompetitiveMigrationOffer)(WW)(PTE)(Jan2018)(IU).docx",
-    "CTMFooterCode": null,
-    "BlobStoragePath": null,
-    "Order": 5,
-    "FileVersion": "Jan2018",
-    "Loc": "WW",
-    "DI": "",
-    "IsEdited": false,
-    "IsConsolidated": false,
-    "Type": 0,
-    "CTMCode": null,
-    "Link": null,
-    "IsPricingAmendment": false,
-    "IsCTMPricing": false,
-    "FooterCode": null,
-    "IsEditField": false,
-    "IsCTMAmendment": false,
-    "HasEditableTable": true,
-    "Discount": null,
-    "DealSize": null,
-    "BeginDate": null,
-    "EndDate": null,
-    "CommitToConsume": null,
-    "CurrencyCode": null,
-    "CTMFooterId": null
-  }
+  
 ]
   constructor(
     private route: ActivatedRoute,
@@ -367,7 +220,8 @@ export class ProposalOverviewComponent implements OnInit {
       identifier: new FormControl(
         this.editProposalObj.identifier ? this.editProposalObj.identifier : ""
       ),
-      notes: new FormControl(this.editProposalObj.notes)
+      notes: new FormControl(this.editProposalObj.notes),
+      searchAmendment: new FormControl()
     });
   }
   get f() {
@@ -379,11 +233,11 @@ export class ProposalOverviewComponent implements OnInit {
       this.IdentifierValid = true;
     }
   }
-  open(searchAmendment) {
-    console.log(this.searchAmendment)
+  open() {
+    console.log()
     debugger;
      this.proposalService
-       .searchAmendement(searchAmendment)
+       .searchAmendement(this.propOverView.get('searchAmendment').value)
        .subscribe((data: any) => {
          console.log(data);
     const modelRef = this.modalService.open(SearchProposalComponent, {

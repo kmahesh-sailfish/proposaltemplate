@@ -1,13 +1,13 @@
 <div class="container-fluid p-4 my-3 mt-5 border">
-  
+
     <div class="row align-items-start">
         <!-- main  -->
         <div class="col">
             <form [formGroup]="propOverView" novalidate>
                 <div class="row">
-                    <div class="col-12 p-r-0" >
+                    <div class="col-12 p-r-0">
                         <div class="form-group">
-                        <div class="header-pic"><span class="proposal">Proposal Overview</span> </div>
+                            <div class="header-pic"><span class="proposal">Proposal Overview</span> </div>
                         </div>
                     </div>
                 </div>
@@ -15,7 +15,7 @@
                     <div class="col-7">
                         <div class="row">
                             <div class="col-5">
-                                <span >Proposal Id</span>
+                                <span>Proposal Id</span>
                             </div>
                             <div class="col-5">
                                 <div class="form-group">
@@ -122,11 +122,11 @@
                             <div class="col p-0">
                                 <div class="form-group">
                                     <div class="input-group mb-3">
-
-                                        <input type="text" class="form-control"
-                                         placeholder="Search for Amendment's" aria-describedby="basic-addon2"
-                                            [(ngModel)]="searchAmendment" name="searchAmendment" />
-                                        <span (click)="open(searchAmendment)" class="input-group-text" id="basic-addon2"> <i class="fas fa-search"></i></span>
+                                        <input name="searchAmendment" formControlName="searchAmendment" class="form-control" type="text" />
+                                        <!--<input type="text" class="form-control"
+                                         placeholder="Search for Amendment's" 
+                                            [(ngModel)]="searchAmendment" name="searchAmendment" />-->
+                                        <span (click)="open()" class="input-group-text" id="basic-addon2"> <i class="fas fa-search"></i></span>
                                     </div>
                                 </div>
                             </div>
