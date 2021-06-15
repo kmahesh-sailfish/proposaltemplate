@@ -122,7 +122,8 @@
                             <div class="col p-0">
                                 <div class="form-group">
                                     <div class="input-group mb-3">
-                                        <input name="searchAmendment" formControlName="searchAmendment" placeholder="Search for Amendment's" class="form-control" type="text" />
+                                        <input name="searchAmendment" formControlName="searchAmendment" placeholder="Search for Amendment's" class="form-control"
+                                            type="text" />
                                         <!--<input type="text" class="form-control"
                                          placeholder="Search for Amendment's" 
                                             [(ngModel)]="searchAmendment" name="searchAmendment" />-->
@@ -160,7 +161,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col">
                     <div class="form-group">
@@ -185,7 +186,7 @@
                                     <td>{{obj.FileVersion}}</td>
                                     <td>{{obj.FileName}}</td>
 
-                                    <td><i class="fas fa-times" (click)="removeItem(obj)"></i></td>
+                                    <td><span style="cursor: pointer" (click)="removeItem(obj)"><i class="fas fa-times"></i></span></td>
                                     <td>
                                         <span style="cursor: pointer" (click)="upwordItem(obj,'up',ie)"> <i  class="fas fa-angle-up"></i></span>                                        &nbsp;
                                         <span style="cursor: pointer" (click)="upwordItem(obj,'down',ie)"><i  class="fas fa-angle-down"></i></span>
