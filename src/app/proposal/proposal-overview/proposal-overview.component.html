@@ -178,14 +178,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let obj of Amendments">
+                                <tr *ngFor="let obj of Amendments; let ie = index">
                                     <td>{{obj.Code}}</td>
                                     <td>{{obj.Language}}</td>
                                     <td>{{obj.DocumentId}}</td>
                                     <td>{{obj.FileVersion}}</td>
                                     <td>{{obj.FileName}}</td>
-                                    <td>{{obj.DocumentId}}</td>
-                                    <td>{{obj.DocumentId}}</td>
+
+                                    <td><i class="fas fa-times" (click)="removeItem(obj)"></i></td>
+                                    <td>
+                                        <span style="cursor: pointer" (click)="upwordItem(obj,'up',ie)"> <i  class="fas fa-angle-up"></i></span>                                        &nbsp;
+                                        <span style="cursor: pointer" (click)="upwordItem(obj,'down',ie)"><i  class="fas fa-angle-down"></i></span>
+                                    </td>
                                     <td>{{obj.DocumentId}}</td>
                                 </tr>
 

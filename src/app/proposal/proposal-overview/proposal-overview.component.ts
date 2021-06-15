@@ -27,45 +27,118 @@ export class ProposalOverviewComponent implements OnInit {
     { ids: 2, name: "Enrollment Id" }
   ];
   public Amendments: any = [
-  {
-    "retrivalCount": 15,
-    "PId": 0,
-    "Id": 3322,
-    "Code": "M426",
-    "CTMAmendmentCode": null,
-    "Language": "JPN",
-    "Empowerment": "Blue",
-    "DocumentId": 65269,
-    "IsCTM": false,
-    "Stream": "",
-    "FileName": "(M426)EnrAmend(5YearEnrollment)(WW)(JPN)(Apr2020)(IU).docx",
-    "CTMFooterCode": null,
-    "BlobStoragePath": null,
-    "Order": 1,
-    "FileVersion": "Apr2020",
-    "Loc": "WW",
-    "DI": "",
-    "IsEdited": false,
-    "IsConsolidated": false,
-    "Type": 0,
-    "CTMCode": null,
-    "Link": null,
-    "IsPricingAmendment": false,
-    "IsCTMPricing": false,
-    "FooterCode": null,
-    "IsEditField": false,
-    "IsCTMAmendment": false,
-    "HasEditableTable": false,
-    "Discount": null,
-    "DealSize": null,
-    "BeginDate": null,
-    "EndDate": null,
-    "CommitToConsume": null,
-    "CurrencyCode": null,
-    "CTMFooterId": null
-  },
-  
-]
+    {
+      retrivalCount: 15,
+      PId: 0,
+      Id: 3322,
+      Code: "M426",
+      CTMAmendmentCode: null,
+      Language: "JPN",
+      Empowerment: "Blue",
+      DocumentId: 65269,
+      IsCTM: false,
+      Stream: "",
+      FileName: "(M426)EnrAmend(5YearEnrollment)(WW)(JPN)(Apr2020)(IU).docx",
+      CTMFooterCode: null,
+      BlobStoragePath: null,
+      Order: 1,
+      FileVersion: "Apr2020",
+      Loc: "WW",
+      DI: "",
+      IsEdited: false,
+      IsConsolidated: false,
+      Type: 0,
+      CTMCode: null,
+      Link: null,
+      IsPricingAmendment: false,
+      IsCTMPricing: false,
+      FooterCode: null,
+      IsEditField: false,
+      IsCTMAmendment: false,
+      HasEditableTable: false,
+      Discount: null,
+      DealSize: null,
+      BeginDate: null,
+      EndDate: null,
+      CommitToConsume: null,
+      CurrencyCode: null,
+      CTMFooterId: null
+    },
+    {
+      retrivalCount: 16,
+      PId: 0,
+      Id: 3323,
+      Code: "M427",
+      CTMAmendmentCode: null,
+      Language: "JPN",
+      Empowerment: "Blue",
+      DocumentId: 65270,
+      IsCTM: false,
+      Stream: "",
+      FileName: "(M427)EnrAmend(5YearEnrollment)(WW)(JPN)(Apr2020)(IU).docx",
+      CTMFooterCode: null,
+      BlobStoragePath: null,
+      Order: 1,
+      FileVersion: "Apr2020",
+      Loc: "WW",
+      DI: "",
+      IsEdited: false,
+      IsConsolidated: false,
+      Type: 0,
+      CTMCode: null,
+      Link: null,
+      IsPricingAmendment: false,
+      IsCTMPricing: false,
+      FooterCode: null,
+      IsEditField: false,
+      IsCTMAmendment: false,
+      HasEditableTable: false,
+      Discount: null,
+      DealSize: null,
+      BeginDate: null,
+      EndDate: null,
+      CommitToConsume: null,
+      CurrencyCode: null,
+      CTMFooterId: null
+    },
+    {
+      retrivalCount: 18,
+      PId: 0,
+      Id: 3323,
+      Code: "M427",
+      CTMAmendmentCode: null,
+      Language: "JPN",
+      Empowerment: "Blue",
+      DocumentId: 65300,
+      IsCTM: false,
+      Stream: "",
+      FileName: "(M428)EnrAmend(5YearEnrollment)(WW)(JPN)(Apr2020)(IU).docx",
+      CTMFooterCode: null,
+      BlobStoragePath: null,
+      Order: 1,
+      FileVersion: "Apr2020",
+      Loc: "WW",
+      DI: "",
+      IsEdited: false,
+      IsConsolidated: false,
+      Type: 0,
+      CTMCode: null,
+      Link: null,
+      IsPricingAmendment: false,
+      IsCTMPricing: false,
+      FooterCode: null,
+      IsEditField: false,
+      IsCTMAmendment: false,
+      HasEditableTable: false,
+      Discount: null,
+      DealSize: null,
+      BeginDate: null,
+      EndDate: null,
+      CommitToConsume: null,
+      CurrencyCode: null,
+      CTMFooterId: null
+    }
+  ];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -233,21 +306,42 @@ export class ProposalOverviewComponent implements OnInit {
       this.IdentifierValid = true;
     }
   }
+  upwordItem(obj, category, fromIndex) {
+    var toIndex;
+    if (category == "up") {
+      toIndex = fromIndex - 1;
+      var element = this.Amendments[fromIndex];
+      this.Amendments.splice(fromIndex, 1);
+      this.Amendments.splice(toIndex, 0, element);
+    } else {
+      toIndex = fromIndex + 1;
+      var element = this.Amendments[fromIndex];
+      this.Amendments.splice(fromIndex, 1);
+      this.Amendments.splice(toIndex, 0, element);
+    }
+  }
+
+  removeItem(obj) {
+    var index = this.Amendments.findIndex(function(o) {
+      return o.id === obj.id;
+    });
+    if (index !== -1) this.Amendments.splice(index, 1);
+
+    console.log(this.Amendments);
+  }
   open() {
-    console.log()
+    console.log();
     debugger;
-     this.proposalService
-       .searchAmendement(this.propOverView.get('searchAmendment').value)
-       .subscribe((data: any) => {
-         console.log(data);
-    const modelRef = this.modalService.open(SearchProposalComponent, {
-      // backdrop: "static",
-      // keyboard: false,
-      size: "lg"
-    });
-    modelRef.componentInstance.searchAmendList =data.result;
-        
-    
-    });
+    this.proposalService
+      .searchAmendement(this.propOverView.get("searchAmendment").value)
+      .subscribe((data: any) => {
+        console.log(data);
+        const modelRef = this.modalService.open(SearchProposalComponent, {
+          // backdrop: "static",
+          // keyboard: false,
+          size: "lg"
+        });
+        modelRef.componentInstance.searchAmendList = data.result;
+      });
   }
 }
