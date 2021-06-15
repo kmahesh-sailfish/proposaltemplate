@@ -28,10 +28,10 @@
                                 <td>{{obj.docName}}</td>
                                 <td>{{obj.language}}</td>
                                 <td>
-                                    <span class="outCircle">
+                                    <span class="outCircle" (click)="viewAmendent(obj)">
                                         <i class="fa fa-eye" style="width: 14px;"></i>
                                     </span> &nbsp;
-                                    <span class="outCircle">
+                                    <span class="outCircle" (click)="addAmendent(obj)">
                                         <i class="fa fa-plus" style="width: 14px;"></i>
                                     </span>
 

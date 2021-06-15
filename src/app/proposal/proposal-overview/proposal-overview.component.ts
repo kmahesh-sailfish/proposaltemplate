@@ -27,117 +27,8 @@ export class ProposalOverviewComponent implements OnInit {
     { ids: 2, name: "Enrollment Id" }
   ];
   public Amendments: any = [
-    {
-      retrivalCount: 15,
-      PId: 0,
-      Id: 3322,
-      Code: "M426",
-      CTMAmendmentCode: null,
-      Language: "JPN",
-      Empowerment: "Blue",
-      DocumentId: 65269,
-      IsCTM: false,
-      Stream: "",
-      FileName: "(M426)EnrAmend(5YearEnrollment)(WW)(JPN)(Apr2020)(IU).docx",
-      CTMFooterCode: null,
-      BlobStoragePath: null,
-      Order: 1,
-      FileVersion: "Apr2020",
-      Loc: "WW",
-      DI: "",
-      IsEdited: false,
-      IsConsolidated: false,
-      Type: 0,
-      CTMCode: null,
-      Link: null,
-      IsPricingAmendment: false,
-      IsCTMPricing: false,
-      FooterCode: null,
-      IsEditField: false,
-      IsCTMAmendment: false,
-      HasEditableTable: false,
-      Discount: null,
-      DealSize: null,
-      BeginDate: null,
-      EndDate: null,
-      CommitToConsume: null,
-      CurrencyCode: null,
-      CTMFooterId: null
-    },
-    {
-      retrivalCount: 16,
-      PId: 0,
-      Id: 3323,
-      Code: "M427",
-      CTMAmendmentCode: null,
-      Language: "JPN",
-      Empowerment: "Blue",
-      DocumentId: 65270,
-      IsCTM: false,
-      Stream: "",
-      FileName: "(M427)EnrAmend(5YearEnrollment)(WW)(JPN)(Apr2020)(IU).docx",
-      CTMFooterCode: null,
-      BlobStoragePath: null,
-      Order: 1,
-      FileVersion: "Apr2020",
-      Loc: "WW",
-      DI: "",
-      IsEdited: false,
-      IsConsolidated: false,
-      Type: 0,
-      CTMCode: null,
-      Link: null,
-      IsPricingAmendment: false,
-      IsCTMPricing: false,
-      FooterCode: null,
-      IsEditField: false,
-      IsCTMAmendment: false,
-      HasEditableTable: false,
-      Discount: null,
-      DealSize: null,
-      BeginDate: null,
-      EndDate: null,
-      CommitToConsume: null,
-      CurrencyCode: null,
-      CTMFooterId: null
-    },
-    {
-      retrivalCount: 18,
-      PId: 0,
-      Id: 3323,
-      Code: "M427",
-      CTMAmendmentCode: null,
-      Language: "JPN",
-      Empowerment: "Blue",
-      DocumentId: 65300,
-      IsCTM: false,
-      Stream: "",
-      FileName: "(M428)EnrAmend(5YearEnrollment)(WW)(JPN)(Apr2020)(IU).docx",
-      CTMFooterCode: null,
-      BlobStoragePath: null,
-      Order: 1,
-      FileVersion: "Apr2020",
-      Loc: "WW",
-      DI: "",
-      IsEdited: false,
-      IsConsolidated: false,
-      Type: 0,
-      CTMCode: null,
-      Link: null,
-      IsPricingAmendment: false,
-      IsCTMPricing: false,
-      FooterCode: null,
-      IsEditField: false,
-      IsCTMAmendment: false,
-      HasEditableTable: false,
-      Discount: null,
-      DealSize: null,
-      BeginDate: null,
-      EndDate: null,
-      CommitToConsume: null,
-      CurrencyCode: null,
-      CTMFooterId: null
-    }
+   
+   
   ];
   constructor(
     private route: ActivatedRoute,
@@ -330,8 +221,7 @@ export class ProposalOverviewComponent implements OnInit {
     console.log(this.Amendments);
   }
   open() {
-    console.log();
-    debugger;
+   
     this.proposalService
       .searchAmendement(this.propOverView.get("searchAmendment").value)
       .subscribe((data: any) => {
@@ -342,6 +232,10 @@ export class ProposalOverviewComponent implements OnInit {
           size: "lg"
         });
         modelRef.componentInstance.searchAmendList = data.result;
+        modelRef.componentInstance.selectAmendement.subscribe((receivedEntry) => {
+          this.Amendments.push(receivedEntry);
+          
+          })
       });
   }
 }
