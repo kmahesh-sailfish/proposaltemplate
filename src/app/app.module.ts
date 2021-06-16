@@ -28,6 +28,10 @@ import { ParentPipesval, ChildPipesval } from "./GlobalPipes/parentPipes";
 import { FooterComponent } from "./sidenav/footer/footer.component";
 import { PriceProposalComponent } from "./proposal/modeal/price-proposal/price-proposal.component";
 import { AgGridModule } from 'ag-grid-angular';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HrdCountriesComponent } from './admin/hrd-countries/hrd-countries.component';
+
+//import {EditHrdComponentRenderer} from './admin/hrd-countries/editHrdCountry.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +52,10 @@ import { AgGridModule } from 'ag-grid-angular';
     ParentPipesval,
     ChildPipesval,
     FooterComponent,
-    PriceProposalComponent
+    PriceProposalComponent,
+    AdminPanelComponent,
+    HrdCountriesComponent
+    //EditHrdComponentRenderer
   ],
   imports: [
     BrowserModule,
