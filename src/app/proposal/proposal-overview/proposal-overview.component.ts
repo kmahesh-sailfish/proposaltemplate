@@ -1,4 +1,11 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from "@angular/core";
+import { DataTableDirective } from "angular-datatables";
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { Location } from "@angular/common";
 import { ProposalService } from "src/app/proposal.service";
@@ -13,7 +20,13 @@ import { Subject } from "rxjs";
   styleUrls: ["./proposal-overview.component.css"],
   providers: [NgbModalConfig, NgbModal]
 })
-export class ProposalOverviewComponent implements OnInit, AfterViewInit {
+export class ProposalOverviewComponent implements OnInit, OnDestroy {
+  dtOptions: DataTables.Settings = {};
+
+  public Amendments: any[] = [];
+  // We use this trigger because fetching the list of persons can be quite long,
+  // thus we ensure the data is fetched before rendering
+  dtTrigger: Subject<any> = new Subject<any>();
   public modelRef: any;
   public searchAmendment: any;
   public HRDDDetails: any = [];
@@ -27,8 +40,7 @@ export class ProposalOverviewComponent implements OnInit, AfterViewInit {
     { ids: 1, name: "Agreement Id" },
     { ids: 2, name: "Enrollment Id" }
   ];
-  dtTrigger: Subject<any> = new Subject();
-  public Amendments: any = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -38,7 +50,6 @@ export class ProposalOverviewComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    
     this.loadForm();
     this.getPricingCountry();
     this.getById();
@@ -241,9 +252,11 @@ export class ProposalOverviewComponent implements OnInit, AfterViewInit {
     var obj = 17448;
     this.proposalService.getMetadata(obj).subscribe(data => {
       this.Amendments = data["amendmentsMetadata"];
+      this.dtTrigger.next();
     });
   }
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 }

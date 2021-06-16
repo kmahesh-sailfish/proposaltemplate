@@ -165,7 +165,8 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <table [dtTrigger]="dtTrigger" datatable class="row-border hover">
+
+                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
                             <thead class="table-header">
                                 <tr>
                                     <th>Code</th>
@@ -174,7 +175,7 @@
                                     <th>Version</th>
                                     <!--<th>FileName</th>-->
                                     <th>Remove</th>
-                                    <th>ArrangeOrder</th>
+                                    <th style="width: 13%;">ArrangeOrder</th>
                                     <th>Edit</th>
                                 </tr>
                             </thead>
@@ -186,7 +187,8 @@
                                     <td>{{obj.fileVersion}}</td>
                                     <!--<td>{{obj.fileName}}</td>-->
 
-                                    <td style="text-align:center"><span style="cursor: pointer" (click)="removeItem(obj)"><i class="fas fa-times"></i></span></td>
+                                    <td style="position: absolute;margin-left: 35px;">
+                                        <span style="cursor: pointer" (click)="removeItem(obj)"><i class="fas fa-times"></i></span></td>
                                     <td style="text-align:center">
                                         <span style="cursor: pointer" (click)="upwordItem(obj,'up',ie)"> <i  class="fas fa-angle-up"></i></span>                                        &nbsp;
                                         <span style="cursor: pointer" (click)="upwordItem(obj,'down',ie)"><i  class="fas fa-angle-down"></i></span>

@@ -2,7 +2,7 @@ function BtnCellRenderer() {}
 
 BtnCellRenderer.prototype.init = function(params) {
   this.params = params;
-  debugger;
+
   this.eGui = document.createElement("span");
   this.eGui.className = "outCircle";
   this.eGui.innerHTML = '<i class="fa fa-plus" style="width: 14px;"></i>';
