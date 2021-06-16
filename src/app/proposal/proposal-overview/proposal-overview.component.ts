@@ -38,6 +38,7 @@ export class ProposalOverviewComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    
     this.loadForm();
     this.getPricingCountry();
     this.getById();

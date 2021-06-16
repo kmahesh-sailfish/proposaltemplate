@@ -13,7 +13,7 @@ import {
 import { PriceProposalComponent } from "../price-proposal/price-proposal.component";
 import { ProposalService } from "src/app/proposal.service";
 import { HttpClient } from "@angular/common/http";
-
+import BtnCellRenderer from "./btn-cell-renderer";
 //import 'ag-grid-enterprise';
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
@@ -24,7 +24,6 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 })
 export class SearchProposalComponent implements OnInit {
   @Output() selectAmendement: EventEmitter<any> = new EventEmitter();
-
   public searchAmendList: any;
   dtOptions: DataTables.Settings = {};
   public columnDefs: any;
@@ -32,7 +31,7 @@ export class SearchProposalComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
   public defaultColDef: any;
-
+  public gridOptions: any;
   constructor(
     private modalService: NgbModal,
     private proposalService: ProposalService,
@@ -53,10 +52,24 @@ export class SearchProposalComponent implements OnInit {
       {
         headerName: "Language",
         field: "language",
-        filter: true
+        filter: true,
+        // cellRenderer: params => {
+        //   let eIconGui = document.createElement("span");
+        //   return (eIconGui.innerHTML =
+        //     '<i  class="fa fa-eye" style="width: 14px;"></i>' +
+        //     " " +
+        //     params.data.id);
+        // }
       },
       {
-        headerName: "Action"
+        headerName: "Action",
+        cellRenderer: "btnCellRenderer",
+        cellRendererParams: {
+          clicked: function(field) {
+            console.log(field, "field");
+          }
+        },
+        minWidth: 150
       }
     ];
 
@@ -72,14 +85,31 @@ export class SearchProposalComponent implements OnInit {
       paging: false,
       searching: false
     };
+    this.gridOptions = {
+      // PROPERTIES
+      // Objects like myRowData and myColDefs would be created in your application
+      rowData: this.searchAmendList,
+      columnDefs: this.columnDefs,
+      defaultColDef: this.defaultColDef,
+      pagination: true,
+      rowSelection: "single",
+      components: {
+        btnCellRenderer: BtnCellRenderer
+      },
+      // EVENTS
+      // Add event handlers
+      onRowClicked: event => console.log("A row was clicked"),
+      onColumnResized: event => console.log("A column was resized"),
+      onGridReady: event => console.log("The grid is now ready"),
+
+      // CALLBACKS
+      isScrollLag: () => false
+    };
   }
 
-  // loadDatatable(obj) {
-  //   this.proposalService.searchAmendement(obj).subscribe((data: any) => {
-  //     this.searchAmendList = data.result;
-  //   });
-  // }
-  viewAmendent(obj) {}
+  viewAmendent(obj) {
+    alert("mahesh");
+  }
   addAmendent(obj) {
     this.selectAmendement.emit(obj);
     this.activeModal.close();
