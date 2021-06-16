@@ -106,7 +106,7 @@ export class SearchProposalComponent implements OnInit {
   }
 
   viewAmendent(obj) {
-    alert("mahesh");
+    alert("Hi");
   }
   addAmendent(obj) {
 
