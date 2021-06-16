@@ -68,6 +68,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     });
   }
   createProposal(obj) {
+    
     this.proposalService.createProposal(obj).subscribe((data: any) => {
       this.editProposalObj = data["_sourceObject"];
       console.log(this.editProposalObj, "editProposalObj");

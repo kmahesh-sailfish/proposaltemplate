@@ -1,0 +1,51 @@
+<div class="container-fluid">
+  <label style="font-weight: bold; font-size: 22px;">HRD Countries List</label>
+  <br>
+  <button>Add HRD Country</button>
+  <div class="row" >
+      <div class="col-4">
+        <ag-grid-angular
+          #agGrid
+          style="width: 500px; height: 500px;"
+          class="ag-theme-alpine"
+          [rowData]="rowData"
+          [columnDefs]="columnDefs"
+          [frameworkComponents]="frameworkComponents">
+        </ag-grid-angular>
+      </div>
+      <div class="col-4">
+        {{selectedCell}}
+        <div *ngIf="showdiv">
+        <div class="row">
+            <div class="col-4"><span> Country:  </span></div>
+            <div class="col-4"><span> <label name="Country"> </label></span></div>
+        </div>
+        <div class="row">
+            <div class="col-4"><span> Deal Value:  </span></div>
+            <div class="col-4"><span> <input name="Country"></span></div>
+        </div>
+        <div class="row">
+          <div class="col-4"><span> Discount:  </span></div>
+          <div class="col-4"><span> <input name="Country"></span></div>
+        </div>
+        <div class="row">
+          <div class="col-4"><span> Amendments:  </span></div>
+          <div class="col-4"><span> <input name="Country"></span></div>
+        </div>
+        <div class="row">
+          <div class="col-4"><span> Trigger:  </span></div>
+          <div class="col-4"><span> <input name="Country"></span></div>
+        </div>
+
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col-4"><span>  <button name="Save" value="Save">Save</button>   </span><span> <button name="cancel" value="Cancel">Cancel</button></span></div>
+
+        </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+
