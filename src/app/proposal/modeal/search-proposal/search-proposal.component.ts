@@ -52,7 +52,7 @@ export class SearchProposalComponent implements OnInit {
       {
         headerName: "Language",
         field: "language",
-        filter: true,
+        filter: true
         // cellRenderer: params => {
         //   let eIconGui = document.createElement("span");
         //   return (eIconGui.innerHTML =
@@ -65,9 +65,7 @@ export class SearchProposalComponent implements OnInit {
         headerName: "Action",
         cellRenderer: "btnCellRenderer",
         cellRendererParams: {
-          clicked: function(field) {
-            console.log(field, "field");
-          }
+          onClick: this.addAmendent.bind(this)
         },
         minWidth: 150
       }
@@ -111,6 +109,7 @@ export class SearchProposalComponent implements OnInit {
     alert("mahesh");
   }
   addAmendent(obj) {
+    debugger;
     this.selectAmendement.emit(obj);
     this.activeModal.close();
   }

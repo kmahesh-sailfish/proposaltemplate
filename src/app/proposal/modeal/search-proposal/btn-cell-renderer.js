@@ -20,7 +20,7 @@ BtnCellRenderer.prototype.destroy = function() {
 };
 
 BtnCellRenderer.prototype.btnClickedHandler = function(event) {
-  this.params.clicked(this.params.data);
+  this.params.onClick(this.params.data);
 };
 
 export default BtnCellRenderer;
