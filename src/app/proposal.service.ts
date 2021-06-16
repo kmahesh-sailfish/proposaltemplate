@@ -25,24 +25,33 @@ export class ProposalService {
       { params: obj }
     );
   }
-  updateProposal(obj){   
-    return this.http.post(environment.API_URL + "Proposal/"+"UpdateProposal",obj);
-
+  updateProposal(obj) {
+    return this.http.post(
+      environment.API_URL + "Proposal/" + "UpdateProposal",
+      obj
+    );
+  }
+  getMetadata(obj) {
+    return this.http.get(
+      environment.API_URL + "Amendment/" + "GetAmendmentMetaData/" + obj
+    );
   }
   //-------------------- CTM FooterCode
-  getCTMFootercode(){
-    
-    return this.http.get(environment.API_URL + "Proposal/"+"GetCTMCategories");
+  getCTMFootercode() {
+    return this.http.get(
+      environment.API_URL + "Proposal/" + "GetCTMCategories"
+    );
   }
-  getLanguage(){
-    return this.http.get(environment.API_URL + "Proposal/"+"GetLanguages");
+  getLanguage() {
+    return this.http.get(environment.API_URL + "Proposal/" + "GetLanguages");
   }
   searchAmendement(searchTerm) {
-   
-    return this.http.get(environment.API_URL + "Amendment/"+"GetVlDocAmendmentData/"+searchTerm);
+    return this.http.get(
+      environment.API_URL + "Amendment/" + "GetVlDocAmendmentData/" + searchTerm
+    );
   }
- //--------------------------------------------
- 
+  //--------------------------------------------
+
   // create proposal ---------------
   proposalExist(Id) {
     return this.http.get(
@@ -52,7 +61,7 @@ export class ProposalService {
   getPricingCountry() {
     return this.http.get(environment.API_URL + "App/" + "GetPricingCountries");
   }
-  getHrdCountries(){
+  getHrdCountries() {
     return this.http.get(environment.API_URL + "App/" + "GetHrdCountries");
   }
 }

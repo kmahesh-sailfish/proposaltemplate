@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { Location } from "@angular/common";
 import { ProposalService } from "src/app/proposal.service";
@@ -6,13 +6,14 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { NgbModalConfig, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { SearchProposalComponent } from "../modeal/search-proposal/search-proposal.component";
 import { SharedService } from "../../sharedservices/shared.service";
+import { Subject } from "rxjs";
 @Component({
   selector: "app-proposal-overview",
   templateUrl: "./proposal-overview.component.html",
   styleUrls: ["./proposal-overview.component.css"],
   providers: [NgbModalConfig, NgbModal]
 })
-export class ProposalOverviewComponent implements OnInit {
+export class ProposalOverviewComponent implements OnInit, AfterViewInit {
   public modelRef: any;
   public searchAmendment: any;
   public HRDDDetails: any = [];
@@ -26,10 +27,8 @@ export class ProposalOverviewComponent implements OnInit {
     { ids: 1, name: "Agreement Id" },
     { ids: 2, name: "Enrollment Id" }
   ];
-  public Amendments: any = [
-   
-   
-  ];
+  dtTrigger: Subject<any> = new Subject();
+  public Amendments: any = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -42,6 +41,7 @@ export class ProposalOverviewComponent implements OnInit {
     this.loadForm();
     this.getPricingCountry();
     this.getById();
+    this.getmetaData(); // load the data table
     if (this.sourceId != 0 && this.sourceId != null) {
       this.getProposalById();
     } else {
@@ -221,7 +221,6 @@ export class ProposalOverviewComponent implements OnInit {
     console.log(this.Amendments);
   }
   open() {
-   
     this.proposalService
       .searchAmendement(this.propOverView.get("searchAmendment").value)
       .subscribe((data: any) => {
@@ -232,10 +231,18 @@ export class ProposalOverviewComponent implements OnInit {
           size: "lg"
         });
         modelRef.componentInstance.searchAmendList = data.result;
-        modelRef.componentInstance.selectAmendement.subscribe((receivedEntry) => {
+        modelRef.componentInstance.selectAmendement.subscribe(receivedEntry => {
           this.Amendments.push(receivedEntry);
-          
-          })
+        });
       });
+  }
+  getmetaData() {
+    var obj = 17448;
+    this.proposalService.getMetadata(obj).subscribe(data => {
+      this.Amendments = data["amendmentsMetadata"];
+    });
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
   }
 }

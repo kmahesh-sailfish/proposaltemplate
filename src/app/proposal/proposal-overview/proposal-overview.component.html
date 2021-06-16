@@ -165,14 +165,14 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <table datatable class="row-border hover">
+                        <table [dtTrigger]="dtTrigger" datatable class="row-border hover">
                             <thead class="table-header">
                                 <tr>
                                     <th>Code</th>
                                     <th>Language</th>
                                     <th>Location</th>
                                     <th>Version</th>
-                                    <th>FileName</th>
+                                    <!--<th>FileName</th>-->
                                     <th>Remove</th>
                                     <th>ArrangeOrder</th>
                                     <th>Edit</th>
@@ -184,7 +184,7 @@
                                     <td>{{obj.language}}</td>
                                     <td>{{obj.loc}}</td>
                                     <td>{{obj.fileVersion}}</td>
-                                    <td>{{obj.fileName}}</td>
+                                    <!--<td>{{obj.fileName}}</td>-->
 
                                     <td style="text-align:center"><span style="cursor: pointer" (click)="removeItem(obj)"><i class="fas fa-times"></i></span></td>
                                     <td style="text-align:center">
