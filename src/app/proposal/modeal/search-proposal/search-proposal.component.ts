@@ -109,7 +109,7 @@ export class SearchProposalComponent implements OnInit {
     alert("mahesh");
   }
   addAmendent(obj) {
-    debugger;
+
     this.selectAmendement.emit(obj);
     this.activeModal.close();
   }

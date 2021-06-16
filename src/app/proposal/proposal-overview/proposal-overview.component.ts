@@ -204,7 +204,6 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     return this.propOverView.controls;
   }
   checkById() {
-    debugger;
     if (this.propOverView.get("identifier").value == "") {
       this.IdentifierValid = true;
     }
