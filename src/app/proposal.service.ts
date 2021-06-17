@@ -36,6 +36,11 @@ export class ProposalService {
       environment.API_URL + "Amendment/" + "GetAmendmentMetaData/" + obj
     );
   }
+  saveMetadata(obj) {
+     return this.http.post(
+      environment.API_URL + "Amendment/" + "GetAmendmentMetaData", obj
+    );
+  }
   //-------------------- CTM FooterCode
   getCTMFootercode() {
     return this.http.get(
