@@ -171,11 +171,16 @@
                                 <tr>
                                     <th>Code</th>
                                     <th>Language</th>
+
                                     <th>Location</th>
+                                    <th>DI</th>
                                     <th>Version</th>
+                                    <th>Title(If CTM)</th>
+                                    <th>Contents Edited</th>
+                                    <th>Filed Edited</th>
                                     <!--<th>FileName</th>-->
-                                    <th style="width: 10%;">Remove</th>
-                                    <th style="width: 13%;">ArrangeOrder</th>
+                                    <th>Remove</th>
+                                    <th>ArrangeOrder</th>
                                     <th>Edit</th>
                                 </tr>
                             </thead>
@@ -184,7 +189,11 @@
                                     <td>{{obj.code}}</td>
                                     <td>{{obj.language}}</td>
                                     <td>{{obj.loc}}</td>
+                                    <td>&nbsp;</td>
                                     <td>{{obj.fileVersion}}</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
                                     <!--<td>{{obj.fileName}}</td>-->
 
                                     <td style="text-align: center;">
@@ -193,7 +202,7 @@
                                         <span style="cursor: pointer" (click)="upwordItem(obj,'up',ie)"> <i  class="fas fa-angle-up"></i></span>                                        &nbsp;
                                         <span style="cursor: pointer" (click)="upwordItem(obj,'down',ie)"><i  class="fas fa-angle-down"></i></span>
                                     </td>
-                                    <td>{{obj.DocumentId}}</td>
+                                    <td><button>Edit Field</button><button>Edit Content</button><button>Edit Table</button></td>
                                 </tr>
 
 
