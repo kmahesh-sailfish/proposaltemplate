@@ -14,6 +14,7 @@ import { NgbModalConfig, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { SearchProposalComponent } from "../modeal/search-proposal/search-proposal.component";
 import { SharedService } from "../../sharedservices/shared.service";
 import { Subject } from "rxjs";
+
 @Component({
   selector: "app-proposal-overview",
   templateUrl: "./proposal-overview.component.html",
@@ -135,47 +136,45 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   }
 
   proposalUpdate(event, block) {
+   
     var obj = {
-      id: this.editProposalObj.id,
+      id: this.editProposalObj['proposalEntity']?.id,
       proposalId: this.editProposalObj['proposalEntity']?.proposalId,
+    
       pricingCountry: block == "pricingCountry"? this.propOverView.get("pricingCountry").value
-          : this.editProposalObj.pricingCountry,
+     : Object.keys(this.editProposalObj).length > 0? this.editProposalObj['proposalEntity']?.pricingCountry :"",
+          // : this.editProposalObj.pricingCountry,
 
-      enrollmentId:
-        block == "enrollmentId"
-          ? this.propOverView.get("enrollmentId").value
-          : this.editProposalObj.enrollmentId,
+      enrollmentId: block == "enrollmentId" ? this.propOverView.get("enrollmentId").value :
+       Object.keys(this.editProposalObj).length > 0? this.editProposalObj['proposalEntity']?.enrollmentId :"",
 
       agreementId:
         block == "agreementId"
           ? this.propOverView.get("agreementId").value
-          : this.editProposalObj.agreementId,
+          : Object.keys(this.editProposalObj).length > 0? this.editProposalObj['proposalEntity']?.agreementId :"",
       identifier:
         block == "identifier"
           ? this.propOverView.get("identifier").value
-          : this.editProposalObj.identifier,
+          : Object.keys(this.editProposalObj).length > 0? this.editProposalObj['proposalEntity']?.identifier :null,
 
       customerName:
         block == "customerName"
           ? this.propOverView.get("customerName").value
-          : this.editProposalObj.customerName,
+          : Object.keys(this.editProposalObj).length > 0? this.editProposalObj['proposalEntity']?.customerName :"",
 
       dealNickname:
         block == "dealNickname"
           ? this.propOverView.get("dealNickname").value
-          : this.editProposalObj.dealNickname,
+          : Object.keys(this.editProposalObj).length > 0? this.editProposalObj['proposalEntity']?.dealNickname :"",
 
-      notes:
-        block == "notes"
-          ? this.propOverView.get("notes").value
-          : this.editProposalObj.notes,
-
+      notes:   block == "notes" ? this.propOverView.get("notes").value   : Object.keys(this.editProposalObj).length > 0? this.editProposalObj['proposalEntity']?.notes :"",
       LastModifiedBy: "v-sanjay"
     };
+  
     this.proposalService.updateProposal(obj).subscribe((data: any) => {
-      this.editProposalObj = data["result"]["_sourceObject"];
-      console.log(this.editProposalObj, "editProposalObj");
-      this.loadForm();
+      // this.editProposalObj = data["result"]["_sourceObject"];
+      // console.log(this.editProposalObj, "editProposalObj");
+     // this.loadForm();
     });
   }
 
@@ -189,15 +188,13 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         value: this.editProposalObj['proposalEntity']?.proposalId,
         disabled: true
       }),
-      pricingCountry: new FormControl(this.editProposalObj.pricingCountry),
-      enrollmentId: new FormControl(this.editProposalObj.enrollmentId),
-      agreementId: new FormControl(this.editProposalObj.agreementId),
-      customerName: new FormControl(this.editProposalObj.customerName),
-      dealNickname: new FormControl(this.editProposalObj.dealNickname),
-      identifier: new FormControl(
-        this.editProposalObj.identifier ? this.editProposalObj.identifier : ""
-      ),
-      notes: new FormControl(this.editProposalObj.notes),
+      pricingCountry: new FormControl(this.editProposalObj['proposalEntity']?.pricingCountry ? this.editProposalObj['proposalEntity']?.pricingCountry:null ),
+      enrollmentId: new FormControl(this.editProposalObj['proposalEntity']?.enrollmentId ? this.editProposalObj['proposalEntity']?.enrollmentId :null),
+      agreementId: new FormControl(this.editProposalObj['proposalEntity']?.agreementId ? this.editProposalObj['proposalEntity']?.agreementId:null),
+      customerName: new FormControl(this.editProposalObj['proposalEntity']?.customerName ? this.editProposalObj['proposalEntity']?.customerName:null),
+      dealNickname: new FormControl(this.editProposalObj['proposalEntity']?.dealNickname ? this.editProposalObj['proposalEntity']?.dealNickname:null),
+      identifier: new FormControl(this.editProposalObj['proposalEntity']?.identifier ? this.editProposalObj['proposalEntity']?.identifier : null),
+      notes: new FormControl(this.editProposalObj['proposalEntity']?.notes ? this.editProposalObj['proposalEntity']?.notes:null),
       searchAmendment: new FormControl()
     });
   }
