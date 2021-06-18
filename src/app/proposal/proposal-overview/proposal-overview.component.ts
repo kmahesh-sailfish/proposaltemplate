@@ -138,9 +138,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     var obj = {
       id: this.editProposalObj.id,
       proposalId: this.editProposalObj['proposalEntity']?.proposalId,
-      pricingCountry:
-        block == "pricingCountry"
-          ? this.propOverView.get("pricingCountry").value
+      pricingCountry: block == "pricingCountry"? this.propOverView.get("pricingCountry").value
           : this.editProposalObj.pricingCountry,
 
       enrollmentId:
@@ -246,17 +244,42 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         });
         modelRef.componentInstance.searchAmendList = data.result;
         modelRef.componentInstance.selectAmendement.subscribe(receivedEntry => {
-          this.Amendments.push(receivedEntry);
-         this.reloadTable();
+          var obj1=
+           [ {
+              "Id": receivedEntry.id,
+              "DocName": receivedEntry.docName,
+              "FileName":receivedEntry.fileName,
+              "Language": receivedEntry.language,
+              "Code": receivedEntry.code,
+              "EmpowermentCode": receivedEntry.empowermentCode,
+              "ExpirationDate": receivedEntry.expirationDate,
+              "EmpowermentName": receivedEntry.empowermentName
+            }
+          ]
+          
+          this.saveAmendate(obj1);
         });
       });
+  }
+  saveAmendate(amendments){
+  var obj= {
+      "ProposalID":  this.editProposalObj['proposalEntity']?.id,
+      "isSuperUser": false,
+      "userAlias": "V2Alias",
+      "AmendmentDocs": amendments
+    }
+    this.proposalService.saveMetadata(obj).subscribe(data=>{
+      console.log('dataAmendata',data);
+     this.getAmendements(data["result"])
+    //  this.editProposalObj = data["result"];
+    })
   }
   reloadTable() {
     this.dtTrigger.next();
   }
   getAmendements(data){
     this.Amendments = data["amendments"] == null? []:data["amendments"]
-    //this.reloadTable();
+    this.reloadTable();
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
