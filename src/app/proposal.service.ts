@@ -31,11 +31,11 @@ export class ProposalService {
       obj
     );
   }
-  getMetadata(obj) {
-    return this.http.get(
-      environment.API_URL + "Amendment/" + "GetAmendmentMetaData/" + obj
-    );
-  }
+  // getMetadata(obj) {
+  //   return this.http.get(
+  //     environment.API_URL + "Amendment/" + "GetAmendmentMetaData/" + obj
+  //   );
+  // }
   saveMetadata(obj) {
      return this.http.post(
       environment.API_URL + "Amendment/" + "GetAmendmentMetaData", obj

@@ -53,7 +53,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     this.loadForm();
     this.getPricingCountry();
     this.getById();
-    this.getmetaData(); // load the data table
+  //  this.getmetaData(); // load the data table
     if (this.sourceId != 0 && this.sourceId != null) {
       this.getProposalById();
     } else {
@@ -78,7 +78,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     });
   }
 
-  getProposalById() {
+  getProposalById() { 
     var obj = {
       id:
         this.editProposalObj.id != null
@@ -90,6 +90,8 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     this.proposalService.getProposal(obj).subscribe((data: any) => {
       this.editProposalObj = data["result"]["_sourceObject"];
       console.log(this.editProposalObj, "editProposalObj");
+      this.getAmendements(this.editProposalObj); 
+     
       if (
         this.editProposalObj == null ||
         this.editProposalObj.ID == undefined
@@ -135,7 +137,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   proposalUpdate(event, block) {
     var obj = {
       id: this.editProposalObj.id,
-      proposalId: this.editProposalObj.proposalId,
+      proposalId: this.editProposalObj['proposalEntity']?.proposalId,
       pricingCountry:
         block == "pricingCountry"
           ? this.propOverView.get("pricingCountry").value
@@ -186,7 +188,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
 
     this.propOverView = new FormGroup({
       proposalId: new FormControl({
-        value: this.editProposalObj.proposalId,
+        value: this.editProposalObj['proposalEntity']?.proposalId,
         disabled: true
       }),
       pricingCountry: new FormControl(this.editProposalObj.pricingCountry),
@@ -245,15 +247,16 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         modelRef.componentInstance.searchAmendList = data.result;
         modelRef.componentInstance.selectAmendement.subscribe(receivedEntry => {
           this.Amendments.push(receivedEntry);
+         this.reloadTable();
         });
       });
   }
-  getmetaData() {
-    var obj = 17448;
-    this.proposalService.getMetadata(obj).subscribe(data => {
-      this.Amendments = data["amendmentsMetadata"];
-      this.dtTrigger.next();
-    });
+  reloadTable() {
+    this.dtTrigger.next();
+  }
+  getAmendements(data){
+    this.Amendments = data["amendments"] == null? []:data["amendments"]
+    //this.reloadTable();
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
