@@ -14,6 +14,7 @@ import { NgbModalConfig, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { SearchProposalComponent } from "../modeal/search-proposal/search-proposal.component";
 import { SharedService } from "../../sharedservices/shared.service";
 import { Subject } from "rxjs";
+import { ProposalModel } from '../model/proposalModel';
 
 @Component({
   selector: "app-proposal-overview",
@@ -266,9 +267,10 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
       "AmendmentDocs": amendments
     }
     this.proposalService.saveMetadata(obj).subscribe(data=>{
-      console.log('dataAmendata',data);
-     this.getAmendements(data["result"])
-    //  this.editProposalObj = data["result"];
+      console.log('dataAmendata', data);
+      debugger;
+     //this.getAmendements(data["result"])
+      this.editProposalObj = data["result"];
     })
   }
   reloadTable() {
