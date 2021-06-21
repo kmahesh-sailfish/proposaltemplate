@@ -50,6 +50,10 @@ export class ProposalService {
   getLanguage() {
     return this.http.get(environment.API_URL + "Proposal/" + "GetLanguages");
   }
+  getLrdCountries() {
+    
+    return this.http.get("https://amendmentappdevapi.azurewebsites.net/api/App/GetLrdCountries");
+  }
   searchAmendement(searchTerm) {
     return this.http.get(
       environment.API_URL + "Amendment/" + "GetVlDocAmendmentData/" + searchTerm

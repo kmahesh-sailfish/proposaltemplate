@@ -54,6 +54,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadForm();
     this.getPricingCountry();
+    this.getLrdCountreis();
     this.getById();
   //  this.getmetaData(); // load the data table
     if (this.sourceId != 0 && this.sourceId != null) {
@@ -261,7 +262,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   }
   saveAmendate(amendments){
   var obj= {
-      "ProposalID":  this.editProposalObj['proposalEntity']?.id,
+      "ProposalID":  this.sourceId,
       "isSuperUser": false,
       "userAlias": "V2Alias",
       "AmendmentDocs": amendments
@@ -280,8 +281,67 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     this.Amendments = data["amendments"] == null? []:data["amendments"]
     this.reloadTable();
   }
+
+
+
+//lrdCountries List
+lrdCountries:any=[];
+
+getLrdCountreis(){
+  this.proposalService.getLrdCountries().subscribe(data => {
+   this.lrdCountries = data;
+  });
+}
+doesNonPricingDocumentsExists (){
+  if (this.Amendments.length >0) {
+      var result = this.Amendments.filter(function (f) { return f.Code[0] != 'P'; });
+
+      return result && result.length > 0;
+  }
+
+  return false;
+}
+isPricingCountry(){
+
+  if (this.lrdCountries.length > 0) {
+
+      var result =this.lrdCountries.filter(function (d) { return d == this.editProposalObj['proposalEntity']?.pricingCountry });
+      return result && result.length > 0;
+  }
+
+  return false;
+}
+generate = function () {
+  this.Identifier=1;
+  debugger;
+  if (this.Identifier != undefined && this.Identifier != null && this.Identifier != 0) {
+      this.proposalIdentifierReq = false;
+      if (this.Amendments.length > 0) {
+         // console.log("IsPricingAmendmentExists " +IsPricingAmendmentExists())
+          if (this.isPricingCountry() || this.IsPricingAmendmentExists()) {
+              this.showbutton = true;
+          }
+          else if (this.IsLinked) {
+              this.showLinkedProposalsbutton = true;
+              this.doctype = 0;
+          }
+          else
+              window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId, + "/0";
+      }
+      else {
+        alert('No Amendments in proposal')
+         // ngToast.create({ content: "No Amendments in proposal" });
+      }
+  }
+  else {
+      this.proposalIdentifierReq = true;
+  }
+};
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
+
+
 }
