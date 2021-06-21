@@ -337,7 +337,36 @@ generate = function () {
       this.proposalIdentifierReq = true;
   }
 };
+   generatePricing = function () {
+            debugger
+            if (!doesPricingDocumentsExists()) {
+              //  ngToast.create({ content: "No Pricing Amendments in proposal" });
+            }
+            else if (this.IsLinked) {
+                this.showLinkedProposalsbutton = true;
+                this.doctype = 1;
+            }
+            else {
+                this.showbutton = false;
+                window.location.href = "/api/proposal/download/" + this.proposalId + "/1";
+            }
+        };
 
+        generateNonPricing = function () {
+            
+            if (!doesNonPricingDocumentsExists()) {
+               // ngToast.create({ content: "No Non-Pricing Amendments in proposal" });
+            }
+            else if (this.IsLinked) {
+                this.showLinkedProposalsbutton = true;
+                this.doctype = 2;
+            }
+            else {
+
+                this.showbutton = false;
+                window.location.href = "/api/proposal/download/" + this.proposalId + "/2";
+            }
+        };
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
