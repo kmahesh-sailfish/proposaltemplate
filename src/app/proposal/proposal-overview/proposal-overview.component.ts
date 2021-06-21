@@ -24,7 +24,12 @@ import { ProposalModel } from '../model/proposalModel';
 })
 export class ProposalOverviewComponent implements OnInit, OnDestroy {
   dtOptions: DataTables.Settings = {};
-
+  public showbutton: boolean;
+  public proposalIdentifierReq: any;
+  public Identifier: any;
+  public doctype: any;
+  public IsLinked: any;
+  public showLinkedProposalsbutton: boolean;
   public Amendments: any[] = [];
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
@@ -311,7 +316,18 @@ isPricingCountry(){
 
   return false;
 }
-generate = function () {
+ IsPricingAmendmentExists() {
+  var IsContainsPricingAmendment = false;
+   for (var i = 0; i < this.Amendments.length; i++) {
+                var amendmentCode = this.Amendments[i].Code.toLowerCase();
+                if (amendmentCode.startsWith("p-")) {
+                    IsContainsPricingAmendment= true;
+                    break;
+                }
+            }
+            return IsContainsPricingAmendment;
+        }  
+generate() {
   this.Identifier=1;
   debugger;
   if (this.Identifier != undefined && this.Identifier != null && this.Identifier != 0) {
@@ -337,24 +353,23 @@ generate = function () {
       this.proposalIdentifierReq = true;
   }
 };
-   generatePricing = function () {
-            debugger
-            if (!doesPricingDocumentsExists()) {
-              //  ngToast.create({ content: "No Pricing Amendments in proposal" });
-            }
-            else if (this.IsLinked) {
-                this.showLinkedProposalsbutton = true;
-                this.doctype = 1;
-            }
+generatePricing(){
+ if (!this.doesPricingDocumentsExists()) {
+  //  ngToast.create({ content: "No Pricing Amendments in proposal" });
+   }
+ else if (this.IsLinked) {
+  this.showLinkedProposalsbutton = true;
+ this.doctype = 1;
+     }
             else {
                 this.showbutton = false;
-                window.location.href = "/api/proposal/download/" + this.proposalId + "/1";
+                window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId+ "/1";
             }
         };
 
         generateNonPricing = function () {
             
-            if (!doesNonPricingDocumentsExists()) {
+            if (!this.doesNonPricingDocumentsExists()) {
                // ngToast.create({ content: "No Non-Pricing Amendments in proposal" });
             }
             else if (this.IsLinked) {
@@ -364,13 +379,19 @@ generate = function () {
             else {
 
                 this.showbutton = false;
-                window.location.href = "/api/proposal/download/" + this.proposalId + "/2";
+                window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId + "/2";
             }
         };
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
+   doesPricingDocumentsExists() {
+    if (this.Amendments && this.Amendments) {
+        var result = this.Amendments.filter(function (f) { return (f.Code[0] == 'P' || (f.CTMCode!=null && f.CTMCode[0] == 'P')); });
+               return result && result.length > 0;
+            }
 
-
+            return false;
+        }
 }
