@@ -1,8 +1,45 @@
-
 <div class="container-fluid p-4 my-3 mt-5 border">
-    <div class="row align-items-star">
+    <div class="row">
+        <div class="col-12 p-r-0">
+            <div class="form-group">
+                <div class="header-pic"><span class="proposal">Active Proposal</span> </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col">
-            <p>active-proposal works!</p>
+            <div class="form-group">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                    <thead class="table-header">
+                        <tr>
+                            <th>Create</th>
+                            <th>ProposalId</th>
+                            <th>Created By</th>
+                            <th>Modified By</th>
+                            <th>Customer Name</th>
+                            <th>Status</th>
+                            <th>Shared</th>
+                            <th>Delegation</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>22/06/21</td>
+                            <td>225551</td>
+                            <td>Sanjay</td>
+                            <td>Sanjay v2</td>
+                            <td>Sintel</td>
+                            <td>created</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                            <td></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
