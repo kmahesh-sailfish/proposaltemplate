@@ -56,7 +56,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     private modalService: NgbModal
   ) {}
 
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.loadForm();
     this.getPricingCountry();
     this.getLrdCountreis();
@@ -286,18 +286,15 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     this.Amendments = data["amendments"] == null? []:data["amendments"]
     this.reloadTable();
   }
+    //lrdCountries List
+  lrdCountries:any=[];
 
-
-
-//lrdCountries List
-lrdCountries:any=[];
-
-getLrdCountreis(){
-  this.proposalService.getLrdCountries().subscribe(data => {
-   this.lrdCountries = data;
-  });
-}
-doesNonPricingDocumentsExists (){
+  getLrdCountreis(){
+    this.proposalService.getLrdCountries().subscribe(data => {
+    this.lrdCountries = data;
+    });
+  }
+  doesNonPricingDocumentsExists (){
   if (this.Amendments.length >0) {
       var result = this.Amendments.filter(function (f) { return f.Code[0] != 'P'; });
 
@@ -305,7 +302,7 @@ doesNonPricingDocumentsExists (){
   }
 
   return false;
-}
+  }
 isPricingCountry(){
 
   if (this.lrdCountries.length > 0) {
@@ -315,21 +312,21 @@ isPricingCountry(){
   }
 
   return false;
-}
- IsPricingAmendmentExists() {
+  }
+IsPricingAmendmentExists() {
   var IsContainsPricingAmendment = false;
    for (var i = 0; i < this.Amendments.length; i++) {
-                var amendmentCode = this.Amendments[i].Code.toLowerCase();
-                if (amendmentCode.startsWith("p-")) {
-                    IsContainsPricingAmendment= true;
-                    break;
+  var amendmentCode = this.Amendments[i].Code.toLowerCase();
+  if (amendmentCode.startsWith("p-")) {
+      IsContainsPricingAmendment= true;
+          break;
                 }
             }
             return IsContainsPricingAmendment;
-        }  
-generate() {
+}
+  generate() {
   this.Identifier=1;
-  debugger;
+ 
   if (this.Identifier != undefined && this.Identifier != null && this.Identifier != 0) {
       this.proposalIdentifierReq = false;
       if (this.Amendments.length > 0) {
@@ -352,7 +349,7 @@ generate() {
   else {
       this.proposalIdentifierReq = true;
   }
-};
+}
 generatePricing(){
  if (!this.doesPricingDocumentsExists()) {
   //  ngToast.create({ content: "No Pricing Amendments in proposal" });
