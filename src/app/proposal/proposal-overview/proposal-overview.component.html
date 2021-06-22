@@ -179,7 +179,7 @@
                                     <th>Title(If CTM)</th>
                                     <th>Contents Edited</th>
                                     <th>Filed Edited</th>
-                                    <!--<th>FileName</th>-->
+
                                     <th>Remove</th>
                                     <th>ArrangeOrder</th>
                                     <th>Edit</th>
@@ -189,14 +189,12 @@
                                 <tr *ngFor="let obj of Amendments; let ie = index">
                                     <td>{{obj.code}}</td>
                                     <td>{{obj.language}}</td>
-                                    <td>{{obj.loc}}</td>
+                                    <td>{{obj.location}}</td>
                                     <td>&nbsp;</td>
-                                    <td>{{obj.fileVersion}}</td>
+                                    <td>{{obj.version}}</td>
                                     <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <!--<td>{{obj.fileName}}</td>-->
-
+                                    <td>{{obj.isEdited}}</td>
+                                    <td>{{obj.isEditField}}</td>
                                     <td style="text-align: center;">
                                         <span style="cursor: pointer" (click)="removeItem(obj)"><i class="fas fa-times"></i></span></td>
                                     <td style="text-align: center;">

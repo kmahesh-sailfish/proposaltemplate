@@ -200,7 +200,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
       agreementId: new FormControl(this.editProposalObj['proposalEntity']?.agreementId ? this.editProposalObj['proposalEntity']?.agreementId:null),
       customerName: new FormControl(this.editProposalObj['proposalEntity']?.customerName ? this.editProposalObj['proposalEntity']?.customerName:null),
       dealNickname: new FormControl(this.editProposalObj['proposalEntity']?.dealNickname ? this.editProposalObj['proposalEntity']?.dealNickname:null),
-      identifier: new FormControl(this.editProposalObj['proposalEntity']?.identifier ? this.editProposalObj['proposalEntity']?.identifier : null),
+      identifier: new FormControl(this.editProposalObj['proposalEntity']?.identifier ? this.editProposalObj['proposalEntity']?.identifier : ""),
       notes: new FormControl(this.editProposalObj['proposalEntity']?.notes ? this.editProposalObj['proposalEntity']?.notes:null),
       searchAmendment: new FormControl()
     });
@@ -277,14 +277,28 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
       this.Amendments.push(data["amendments"]);
      //this.getAmendements(data["result"])
       this.editProposalObj = data["result"];
+      this.getVersion();
     })
   }
   reloadTable() {
     this.dtTrigger.next();
   }
   getAmendements(data){
-    this.Amendments = data["amendments"] == null? []:data["amendments"]
+    this.Amendments = data["amendments"] == null ? [] : data["amendments"];
     this.reloadTable();
+    this.getVersion()
+  }
+
+  getVersion() {
+    
+    for (var i = 0; i < this.Amendments.length; i++){
+      this.Amendments[i].location = this.Amendments[i].fileName.split("(")[3].split(")")[0];
+       this.Amendments[i].version= this.Amendments[i].fileName.split("(")[5].split(")")[0]
+    }
+   // return (item.split("(")[5].split(")")[0])
+  }
+  getLocation(item) {
+    return (item.split("(")[3].split(")")[0])
   }
     //lrdCountries List
   lrdCountries:any=[];
