@@ -254,7 +254,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
               "DocName": receivedEntry.docName,
               "FileName":receivedEntry.fileName,
               "Language": receivedEntry.language,
-              "Code": receivedEntry.code,
+              "code": receivedEntry.code,
               "EmpowermentCode": receivedEntry.empowermentCode,
               "ExpirationDate": receivedEntry.expirationDate,
               "EmpowermentName": receivedEntry.empowermentName
@@ -274,7 +274,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     }
     this.proposalService.saveMetadata(obj).subscribe(data=>{
       console.log('dataAmendata', data);
-      debugger;
+      this.Amendments.push(data["amendments"]);
      //this.getAmendements(data["result"])
       this.editProposalObj = data["result"];
     })
@@ -296,7 +296,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   }
   doesNonPricingDocumentsExists (){
   if (this.Amendments.length >0) {
-      var result = this.Amendments.filter(function (f) { return f.Code[0] != 'P'; });
+      var result = this.Amendments.filter(function (f) { return f.code[0] != 'P'; });
 
       return result && result.length > 0;
   }
@@ -316,7 +316,7 @@ isPricingCountry(){
 IsPricingAmendmentExists() {
   var IsContainsPricingAmendment = false;
    for (var i = 0; i < this.Amendments.length; i++) {
-  var amendmentCode = this.Amendments[i].Code.toLowerCase();
+  var amendmentCode = this.Amendments[i].code.toLowerCase();
   if (amendmentCode.startsWith("p-")) {
       IsContainsPricingAmendment= true;
           break;
@@ -385,7 +385,7 @@ generatePricing(){
   }
    doesPricingDocumentsExists() {
     if (this.Amendments && this.Amendments) {
-        var result = this.Amendments.filter(function (f) { return (f.Code[0] == 'P' || (f.CTMCode!=null && f.CTMCode[0] == 'P')); });
+        var result = this.Amendments.filter(function (f) { return (f.code[0] == 'P' || (f.CTMCode!=null && f.CTMCode[0] == 'P')); });
                return result && result.length > 0;
             }
 

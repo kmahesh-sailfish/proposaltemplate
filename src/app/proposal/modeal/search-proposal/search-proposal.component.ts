@@ -109,7 +109,6 @@ export class SearchProposalComponent implements OnInit {
     alert("Hi");
   }
   addAmendent(obj) {
-
     this.selectAmendement.emit(obj);
     this.activeModal.close();
   }
