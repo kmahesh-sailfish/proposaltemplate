@@ -352,8 +352,10 @@ IsPricingAmendmentExists() {
               this.showLinkedProposalsbutton = true;
               this.doctype = 0;
           }
-          else
-              window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId, + "/0";
+          else{
+//   window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId, + "/0";
+          }
+           
       }
       else {
         alert('No Amendments in proposal')
@@ -374,7 +376,7 @@ generatePricing(){
      }
             else {
                 this.showbutton = false;
-                window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId+ "/1";
+               // window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId+ "/1";
             }
         };
 
@@ -390,7 +392,7 @@ generatePricing(){
             else {
 
                 this.showbutton = false;
-                window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId + "/2";
+              //  window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId + "/2";
             }
         };
   ngOnDestroy(): void {
