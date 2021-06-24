@@ -15,6 +15,7 @@ import { SearchProposalComponent } from "../modeal/search-proposal/search-propos
 import { SharedService } from "../../sharedservices/shared.service";
 import { Subject } from "rxjs";
 import { ProposalModel } from '../model/proposalModel';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: "app-proposal-overview",
@@ -23,6 +24,7 @@ import { ProposalModel } from '../model/proposalModel';
   providers: [NgbModalConfig, NgbModal]
 })
 export class ProposalOverviewComponent implements OnInit, OnDestroy {
+  public sampe:any={};
   dtOptions: DataTables.Settings = {};
   public showbutton: boolean;
   public proposalIdentifierReq: any;
@@ -407,4 +409,14 @@ generatePricing(){
 
             return false;
         }
+        
+        submitForm(form: NgForm) {
+         // this.isSubmitted = true;
+          if(!form.valid) {
+            return false;
+          } else {
+          alert(JSON.stringify(form.value))
+          }
+        }
+
 }
