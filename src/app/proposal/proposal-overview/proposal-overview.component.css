@@ -39,3 +39,6 @@
 background-color: #91C1E6;
 color:#ffffff
 }
+.dropdown-toggle::after {
+  display: none !important; 
+}
