@@ -12,7 +12,7 @@ import { SharedService } from "../../sharedservices/shared.service";
 export class CreateProposalComponent implements OnInit {
   public proposalForm: FormGroup;
   public config: any[];
-  public isExist: boolean;
+  public isExist: boolean = false;
   constructor(
     private router: Router,
     private proposalService: ProposalService,

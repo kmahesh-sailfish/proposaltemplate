@@ -2,7 +2,8 @@
     <div class="row align-items-start">
         <!-- main  -->
         <div class="col border-1">
-            <form [formGroup]='proposalForm' (ngSubmit)="proposalForm.valid && pageRedirect()" novalidate>
+
+            <form [formGroup]='proposalForm' (ngSubmit)="pageRedirect()" novalidate>
                 <div class="row">
                     <div class="col-6">
                         <div class="row">
@@ -68,7 +69,7 @@
                             <div class="col p-0">
 
 
-                                <button type="submit" [disabled]="!proposalForm.valid" class="btn btn-outline-primary w-100">Next</button>
+                                <button type="submit" [disabled]="isExist" class="btn btn-outline-primary w-100">Next</button>
                             </div>
                         </div>
                     </div>
