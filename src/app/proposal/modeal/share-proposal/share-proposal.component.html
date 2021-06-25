@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <label>Share Proposal</label>
+</div>
+<div class="modal-body">
+    <form [formGroup]="myForm">
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" value="external" (change)="handleChange($event)" type="radio" formControlName="flexRadioDefault"
+                    id="externalRadio">
+                <label class="form-check-label" for="externalRadio"> External User</label>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="form-check">
+                <input class="form-check-input" value="microsoft" (change)="handleChange($event)" type="radio" formControlName="flexRadioDefault"
+                    id="microsoftRadio" checked>
+                <label class="form-check-label" for="microsoftRadio">Microsoft User</label>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" formControlName="userEmail" id="userEmail" placeholder="email@example.com" />
+                <div *ngIf="myForm.controls['userEmail'].invalid && (myForm.controls['userEmail'].dirty || myForm.controls['userEmail'].touched)"
+                    class="alert alert-danger">
+
+                    <div *ngIf="myForm.controls['userEmail'].errors?.required">
+                        Email is required.
+                    </div>
+                    <div *ngIf="myForm.controls['userEmail'].errors?.minlength">
+                        Email must be at least 4 characters long.
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Share</button>
+</div>

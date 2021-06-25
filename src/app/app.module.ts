@@ -30,6 +30,8 @@ import { PriceProposalComponent } from "./proposal/modeal/price-proposal/price-p
 import { AgGridModule } from 'ag-grid-angular';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { HrdCountriesComponent } from './admin/hrd-countries/hrd-countries.component';
+import { DelProposalComponent } from './proposal/modeal/del-proposal/del-proposal.component';
+import { ShareProposalComponent } from './proposal/modeal/share-proposal/share-proposal.component';
 
 //import {EditHrdComponentRenderer} from './admin/hrd-countries/editHrdCountry.component';
 @NgModule({
@@ -54,7 +56,9 @@ import { HrdCountriesComponent } from './admin/hrd-countries/hrd-countries.compo
     FooterComponent,
     PriceProposalComponent,
     AdminPanelComponent,
-    HrdCountriesComponent
+    HrdCountriesComponent,
+    DelProposalComponent,
+    ShareProposalComponent
     //EditHrdComponentRenderer
   ],
   imports: [

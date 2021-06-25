@@ -16,6 +16,7 @@ import { SharedService } from "../../sharedservices/shared.service";
 import { Subject } from "rxjs";
 import { ProposalModel } from '../model/proposalModel';
 import { NgForm } from '@angular/forms';
+import { ShareProposalComponent } from '../modeal/share-proposal/share-proposal.component';
 
 @Component({
   selector: "app-proposal-overview",
@@ -401,22 +402,29 @@ generatePricing(){
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-   doesPricingDocumentsExists() {
+doesPricingDocumentsExists() {
     if (this.Amendments && this.Amendments) {
         var result = this.Amendments.filter(function (f) { return (f.code[0] == 'P' || (f.CTMCode!=null && f.CTMCode[0] == 'P')); });
                return result && result.length > 0;
             }
 
             return false;
-        }
-        
-        submitForm(form: NgForm) {
-         // this.isSubmitted = true;
-          if(!form.valid) {
-            return false;
-          } else {
-          alert(JSON.stringify(form.value))
-          }
-        }
+  }
+  submitForm(form: NgForm) {
+   // this.isSubmitted = true;
+  if(!form.valid) {
+    return false;
+    } else {
+    alert(JSON.stringify(form.value))
+     }
+   }
+  openPoup() {
+     const modelRef = this.modalService.open(ShareProposalComponent, {
+          // backdrop: "static",
+          // keyboard: false,
+       size: "sm",
+       centered: true,
+        });
+   }
 
 }
