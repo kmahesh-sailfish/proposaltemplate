@@ -18,7 +18,7 @@ export class ShareProposalComponent implements OnInit {
   }
   loadForm() {
     this.myForm = new FormGroup({
-      flexRadioDefault: new FormControl("mirosoft", Validators.required),
+      flexRadioDefault: new FormControl("microsoft", Validators.required),
       userEmail: new FormControl("", Validators.required)
     });
   }
