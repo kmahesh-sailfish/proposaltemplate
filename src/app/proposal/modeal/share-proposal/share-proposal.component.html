@@ -11,24 +11,24 @@
             </div>
             <div class="dropdown-divider"></div>
             <div class="form-check">
-                <input class="form-check-input" value="microsoft" (change)="handleChange($event)"
-                 type="radio" formControlName="flexRadioDefault"
+                <input class="form-check-input" value="microsoft" (change)="handleChange($event)" type="radio" formControlName="flexRadioDefault"
                     id="microsoftRadio" checked>
                 <label class="form-check-label" for="microsoftRadio">Microsoft User</label>
             </div>
             <div class="form-group">
-                <input type="email" (blur)="checkField()" class="form-control" formControlName="userEmail" id="userEmail" placeholder="email@example.com" />
-                
+                <input type="email" (blur)="checkField()" class="form-control" formControlName="userEmail" id="userEmail" placeholder="email@example.com"
+                />
+
                 <small class="text-danger">{{emailErrorMessage}}</small>
                 <div *ngIf="myForm.controls['userEmail'].invalid && 
                 (myForm.controls['userEmail'].dirty || 
-                myForm.controls['userEmail'].touched)">   
-                <small *ngIf="myForm.controls['userEmail'].errors?.pattern" class="text-danger">Please provide a valid email address</small>  
+                myForm.controls['userEmail'].touched)">
+                    <small *ngIf="myForm.controls['userEmail'].errors?.pattern" class="text-danger">Please provide a valid email address</small>
                     <!-- Please provide user's alias without \"@microsoft.com\" -->
                     <!-- It looks like Microsoft User. Please change user type -->
-                    <small *ngIf="myForm.controls['userEmail'].errors?.required " class="text-danger">
+                    <!--<small *ngIf="myForm.controls['userEmail'].errors?.required " class="text-danger">
                         Email is required.
-                    </small>
+                    </small>-->
                     <small *ngIf="myForm.controls['userEmail'].errors?.minlength" class="text-danger">
                         Email must be at least 4 characters long.
                     </small>

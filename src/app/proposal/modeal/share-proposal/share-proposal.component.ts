@@ -22,10 +22,13 @@ export class ShareProposalComponent implements OnInit {
   }
   checkField(){
     if(this.myForm.get('flexRadioDefault').value == 'microsoft' && 
-    this.myForm.get('userEmail').value =="" ){
+    this.myForm.get('userEmail').value ==""  ){
       this.emailErrorMessage="'Please provide user's alias without \"@microsoft.com\'";
-    }else{
+    }else if(this.myForm.get('flexRadioDefault').value == 'external' && 
+    this.myForm.get('userEmail').value ==""){
       this.emailErrorMessage="It looks like Microsoft User. Please change user type";
+    } else {
+      this.emailErrorMessage = "";
     }
   }
   handleChange(event) {
