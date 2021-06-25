@@ -2,7 +2,7 @@
     <label>Share Proposal</label>
 </div>
 <div class="modal-body">
-    <form [formGroup]="myForm">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <div class="form-check">
                 <input class="form-check-input" value="external" (change)="handleChange($event)" type="radio" formControlName="flexRadioDefault"
@@ -32,9 +32,8 @@
 
         </div>
 
-
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Share</button>
+        </div>
     </form>
-</div>
-<div class="modal-footer">
-    <button type="submit" class="btn btn-primary">Share</button>
 </div>
