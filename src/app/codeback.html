@@ -128,3 +128,54 @@ savemetadata method api integration
 age-grid  secound icon  adding 
 console.errors
 add the three field -screenshot-13 desktop-(done)
+
+https://amendmentappdevapi.azurewebsites.net/api/Proposal/DeleteAmendment
+
+{"AmendmentId": 343282}
+
+---------------------------------------------------------------------
+$scope.ValidateShareForm = function () {
+    //debugger;
+    var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+    if ($scope.model.IsExternalUserProposalShare != undefined && $scope.model.IsExternalUserProposalShare == "internalUser") {
+        if ($scope.model.userAliasShare != undefined && $scope.model.userAliasShare.indexOf("@") == -1) {
+            $scope.model.IsValidShareForm = true;
+            return true;
+        }
+
+        else if ($scope.model.userAliasShare == undefined) {
+            $scope.model.IsValidShareForm = true;
+            return true;
+        }
+        else {
+            $scope.model.IsValidShareForm = false;
+            $scope.model.shareProposalValidationMessage = "Please provide user's alias without \"@microsoft.com\"";
+            return false;
+        }
+    }
+    else if ($scope.model.IsExternalUserProposalShare != undefined && $scope.model.IsExternalUserProposalShare == "externalUser") {
+        //if ($scope.model.userAliasDelegate.indexOf("@") != -1) {
+        if (pattern.test($scope.model.userAliasShare)) {
+            if ($scope.model.userAliasShare.indexOf("@microsoft.com") == -1) {
+                $scope.model.IsValidShareForm = true;
+                return true;
+            }
+            else {
+                $scope.model.IsValidShareForm = false;
+                $scope.model.shareProposalValidationMessage = "It looks like Microsoft User. Please change user type.";
+                return false;
+            }
+        }
+        else if ($scope.model.userAliasShare == undefined) {
+            $scope.model.IsValidShareForm = true;
+            return true;
+        }
+        else {
+            $scope.model.IsValidShareForm = false;
+            $scope.model.shareProposalValidationMessage = "Please provide user's complete email address";
+            return false;
+        }
+    }
+    return false;
+
+}

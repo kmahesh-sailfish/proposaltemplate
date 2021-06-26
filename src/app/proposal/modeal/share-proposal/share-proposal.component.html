@@ -1,5 +1,8 @@
-<div class="modal-header">
-    <label>Share Proposal</label>
+<div class="modal-header fontHeader">
+    <label class="fontShare">Share Proposal</label>
+    <button type="button" class="close" aria-label="Close" (click)="closeCross()">
+        <span aria-hidden="true">&times;</span>
+      </button>
 </div>
 <div class="modal-body">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
@@ -10,11 +13,14 @@
                 <label class="form-check-label" for="externalRadio"> External User</label>
             </div>
             <div class="dropdown-divider"></div>
-            <div class="form-check">
-                <input class="form-check-input" value="microsoft" (change)="handleChange($event)" type="radio" formControlName="flexRadioDefault"
-                    id="microsoftRadio" checked>
-                <label class="form-check-label" for="microsoftRadio">Microsoft User</label>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" value="microsoft" (change)="handleChange($event)" type="radio" formControlName="flexRadioDefault"
+                        id="microsoftRadio" checked>
+                    <label class="form-check-label" for="microsoftRadio">Microsoft User</label>
+                </div>
             </div>
+           
             <div class="form-group">
                 <input type="email" (blur)="checkField()" class="form-control" formControlName="userEmail" id="userEmail" placeholder="email@example.com"
                 />
@@ -23,12 +29,9 @@
                 <div *ngIf="myForm.controls['userEmail'].invalid && 
                 (myForm.controls['userEmail'].dirty || 
                 myForm.controls['userEmail'].touched)">
-                    <small *ngIf="myForm.controls['userEmail'].errors?.pattern" class="text-danger">Please provide a valid email address</small>
-                    <!-- Please provide user's alias without \"@microsoft.com\" -->
-                    <!-- It looks like Microsoft User. Please change user type -->
-                    <!--<small *ngIf="myForm.controls['userEmail'].errors?.required " class="text-danger">
-                        Email is required.
-                    </small>-->
+                    <!-- <small *ngIf="myForm.controls['userEmail'].errors?.pattern" 
+                    class="text-danger">Please provide a valid email address</small> -->
+                   
                     <small *ngIf="myForm.controls['userEmail'].errors?.minlength" class="text-danger">
                         Email must be at least 4 characters long.
                     </small>
