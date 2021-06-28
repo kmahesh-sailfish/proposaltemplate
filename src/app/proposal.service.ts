@@ -74,4 +74,12 @@ export class ProposalService {
   getHrdCountries() {
     return this.http.get(environment.API_URL + "App/" + "GetHrdCountries");
   }
+
+  saveShareProposal(obj) { 
+     return this.http.post(environment.API_URL + "Proposal/" + "ShareProposal",obj);
+  }
+  saveDelegationProposal(obj) {
+     return this.http.post(environment.API_URL + "Proposal/" + "SaveProposalDelegate",obj);
+  } 
+ 
 }

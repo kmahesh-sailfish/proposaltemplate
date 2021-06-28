@@ -3,16 +3,18 @@ import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { Router } from "@angular/router";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { ProposalService } from '../../../proposal.service';
 @Component({
   selector: "app-share-proposal",
   templateUrl: "./share-proposal.component.html",
   styleUrls: ["./share-proposal.component.css"]
 })
 export class ShareProposalComponent implements OnInit {
+  public shareProposalId: any;
   IsValidShareForm: boolean = false;
   myForm: FormGroup;
   shareProposalValidationMessage: any;
-  constructor(private router: Router, private activeModal: NgbActiveModal) {}
+  constructor(private router: Router, private activeModal: NgbActiveModal,private proposalService: ProposalService) {}
 
   ngOnInit(): void {
     this.loadForm();
@@ -61,7 +63,17 @@ export class ShareProposalComponent implements OnInit {
     this.checkField();
   }
   onSubmit() {
-    this.activeModal.close();
+    let Obj = {
+      Id: this.shareProposalId,
+      alias: "v-skarukonda",
+      useraliases: ["v-skarukonda@microsoft.com", "v-sanjaysa@microsoft.com"]
+    };
+   
+    this.proposalService.saveShareProposal(Obj).subscribe((data => {
+      console.log('data', data);
+       this.activeModal.close();
+    }));
+
   }
   closeCross() {
     this.activeModal.close();

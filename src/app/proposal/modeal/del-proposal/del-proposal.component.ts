@@ -1,18 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { ProposalService } from "../../../proposal.service";
 
 @Component({
-  selector: 'app-del-proposal',
-  templateUrl: './del-proposal.component.html',
-  styleUrls: ['./del-proposal.component.css']
+  selector: "app-del-proposal",
+  templateUrl: "./del-proposal.component.html",
+  styleUrls: ["./del-proposal.component.css"]
 })
 export class DelProposalComponent implements OnInit {
+  public delegationProposalId: any;
   IsValidShareForm: boolean = false;
   myForm: FormGroup;
   shareProposalValidationMessage: any;
-  constructor(private router: Router, private activeModal: NgbActiveModal) {}
+  constructor(
+    private router: Router,
+    private activeModal: NgbActiveModal,
+    private proposalService: ProposalService
+  ) {}
   ngOnInit(): void {
     this.loadForm();
   }
@@ -60,7 +66,17 @@ export class DelProposalComponent implements OnInit {
     this.checkField();
   }
   onSubmit() {
-    this.activeModal.close();
+    var Obj = {
+      proposalId: this.delegationProposalId,
+      IsLe: false,
+      IsExternal: false,
+      userAlias: "v-skarukonda"
+    };
+    console.log(Obj, "onSubmit");
+    this.proposalService.saveDelegationProposal(Obj).subscribe(data => {
+      console.log("data", data);
+      this.activeModal.close();
+    });
   }
   closeCross() {
     this.activeModal.close();

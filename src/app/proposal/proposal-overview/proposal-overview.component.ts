@@ -233,19 +233,14 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   }
 
   removeItem(obj) {
-    console.log(obj);
+    
 var deleObj={};
 deleObj['AmendmentId'] = obj.id;
 this.proposalService.deleteAmendate(deleObj).subscribe((data: any) => {
   this.getProposalById()
 })
 
-    // var index = this.Amendments.findIndex(function(o) {
-    //   return o.id === obj.id;
-    // });
-    // if (index !== -1) this.Amendments.splice(index, 1);
-
-    // console.log(this.Amendments);
+  
   }
   open() {
     this.proposalService
@@ -432,7 +427,8 @@ doesPricingDocumentsExists() {
       // keyboard: false,
    size: "sm",
    centered: true,
-    });
+     });
+     modelRef.componentInstance.delegationProposalId =  this.sourceId; 
    }
   openPoup() {
      const modelRef = this.modalService.open(ShareProposalComponent, {
@@ -440,7 +436,8 @@ doesPricingDocumentsExists() {
           // keyboard: false,
        size: "sm",
        centered: true,
-        });
+    });
+     modelRef.componentInstance.shareProposalId =  this.sourceId;
    }
   
 }
