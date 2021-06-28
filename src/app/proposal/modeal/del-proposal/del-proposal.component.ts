@@ -75,8 +75,8 @@ export class DelProposalComponent implements OnInit {
     console.log(Obj, "onSubmit");
     this.proposalService.saveDelegationProposal(Obj).subscribe(data => {
       console.log("data", data);
-      this.activeModal.close();
     });
+    this.activeModal.close();
   }
   closeCross() {
     this.activeModal.close();

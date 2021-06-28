@@ -71,8 +71,9 @@ export class ShareProposalComponent implements OnInit {
    
     this.proposalService.saveShareProposal(Obj).subscribe((data => {
       console.log('data', data);
-       this.activeModal.close();
+       
     }));
+    this.activeModal.close();
 
   }
   closeCross() {
