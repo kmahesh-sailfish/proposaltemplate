@@ -33,8 +33,8 @@ export class ProposalService {
   }
   deleteAmendate(obj) {
     
-    return this.http.get(
-      environment.API_URL + "Proposal/" + "DeleteAmendment/", obj
+    return this.http.delete(
+      environment.API_URL + "Proposal/" + "DeleteAmendment", obj
     );
   }
   saveMetadata(obj) {

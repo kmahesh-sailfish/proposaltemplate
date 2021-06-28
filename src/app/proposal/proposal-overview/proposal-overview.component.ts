@@ -17,6 +17,7 @@ import { Subject } from "rxjs";
 import { ProposalModel } from '../model/proposalModel';
 import { NgForm } from '@angular/forms';
 import { ShareProposalComponent } from '../modeal/share-proposal/share-proposal.component';
+import { DelProposalComponent } from "../modeal/del-proposal/del-proposal.component";
 
 @Component({
   selector: "app-proposal-overview",
@@ -232,6 +233,13 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   }
 
   removeItem(obj) {
+    console.log(obj);
+var deleObj={};
+deleObj['AmendmentId'] = obj.id;
+this.proposalService.deleteAmendate(deleObj).subscribe((data: any) => {
+  this.getProposalById()
+})
+
     // var index = this.Amendments.findIndex(function(o) {
     //   return o.id === obj.id;
     // });
@@ -417,6 +425,14 @@ doesPricingDocumentsExists() {
     } else {
     alert(JSON.stringify(form.value))
      }
+   }
+   openDelegationPoup(){
+    const modelRef = this.modalService.open(DelProposalComponent, {
+      // backdrop: "static",
+      // keyboard: false,
+   size: "sm",
+   centered: true,
+    });
    }
   openPoup() {
      const modelRef = this.modalService.open(ShareProposalComponent, {
