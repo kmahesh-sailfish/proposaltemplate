@@ -232,12 +232,12 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   }
 
   removeItem(obj) {
-    var index = this.Amendments.findIndex(function(o) {
-      return o.id === obj.id;
-    });
-    if (index !== -1) this.Amendments.splice(index, 1);
+    // var index = this.Amendments.findIndex(function(o) {
+    //   return o.id === obj.id;
+    // });
+    // if (index !== -1) this.Amendments.splice(index, 1);
 
-    console.log(this.Amendments);
+    // console.log(this.Amendments);
   }
   open() {
     this.proposalService
@@ -426,5 +426,5 @@ doesPricingDocumentsExists() {
        centered: true,
         });
    }
-
+  
 }
