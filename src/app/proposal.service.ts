@@ -33,7 +33,7 @@ export class ProposalService {
   }
   deleteAmendate(obj) {
     
-    return this.http.delete(
+    return this.http.post(
       environment.API_URL + "Proposal/" + "DeleteAmendment", obj
     );
   }

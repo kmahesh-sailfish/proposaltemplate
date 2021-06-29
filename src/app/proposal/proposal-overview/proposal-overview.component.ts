@@ -96,7 +96,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         this.editProposalObj.id != null
           ? this.editProposalObj.id
           : this.sourceId,
-      createdByAlias: "V-sanjay",
+      createdByAlias: "V2Alias",
       isSuperUser: true
     };
     this.proposalService.getProposal(obj).subscribe((data: any) => {
@@ -179,7 +179,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
           : Object.keys(this.editProposalObj).length > 0? this.editProposalObj['proposalEntity']?.dealNickname :"",
 
       notes:   block == "notes" ? this.propOverView.get("notes").value   : Object.keys(this.editProposalObj).length > 0? this.editProposalObj['proposalEntity']?.notes :"",
-      LastModifiedBy: "v-sanjay"
+      LastModifiedBy: "V2Alias"
     };
   
     this.proposalService.updateProposal(obj).subscribe((data: any) => {

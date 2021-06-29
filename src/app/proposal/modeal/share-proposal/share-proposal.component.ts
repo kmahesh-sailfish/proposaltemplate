@@ -65,7 +65,7 @@ export class ShareProposalComponent implements OnInit {
   onSubmit() {
     let Obj = {
       Id: this.shareProposalId,
-      alias: "v-skarukonda",
+      alias: "V2Alias",
       useraliases: ["v-skarukonda@microsoft.com", "v-sanjaysa@microsoft.com"]
     };
    

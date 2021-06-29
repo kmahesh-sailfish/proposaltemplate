@@ -70,7 +70,7 @@ export class DelProposalComponent implements OnInit {
       proposalId: this.delegationProposalId,
       IsLe: false,
       IsExternal: false,
-      userAlias: "v-skarukonda"
+      userAlias: "V2Alias"
     };
     console.log(Obj, "onSubmit");
     this.proposalService.saveDelegationProposal(Obj).subscribe(data => {
