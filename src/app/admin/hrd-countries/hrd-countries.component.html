@@ -1,51 +1,130 @@
 <div class="container-fluid">
   <label style="font-weight: bold; font-size: 22px;">HRD Countries List</label>
   <br>
-  <button>Add HRD Country</button>
-  <div class="row" >
-      <div class="col-4">
-        <ag-grid-angular
-          #agGrid
-          style="width: 500px; height: 500px;"
-          class="ag-theme-alpine"
-          [rowData]="rowData"
-          [columnDefs]="columnDefs"
-          [frameworkComponents]="frameworkComponents">
-        </ag-grid-angular>
+  <div class="mb-2">
+    <button type="button" class="btn btn-primary btn-sm color433163" (click)="addHRDCtry()">Add HRD Country</button>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <ag-grid-angular #agGrid style="width: 100%; height:500px;" class="ag-theme-alpine" [rowData]="rowData"
+        [columnDefs]="columnDefs" [frameworkComponents]="frameworkComponents">
+      </ag-grid-angular>
+    </div>
+    <div class="col-7">
+      <div *ngIf="showdiv" style="width: 100%;">
+        <div class="row my-2">
+          <div class="col-2"><span class="form-label"> Country: </span>
+          </div>
+          <div class="col-4"><span> <label name="name">{{name}}</label></span></div>
+        </div>
+        <div class="row my-2">
+          <div class="col-2"><span class="form-label"> Deal Value: </span></div>
+          <div class="col-4"><span> <input name="dealAmount" class="form-control"
+                [(ngModel)]="dealAmount" /></span></div>
+        </div>
+        <div class="row my-2">
+          <div class="col-2"><span class="form-label"> Discount: </span></div>
+          <div class="col-4"><span> <input name="discount" class="form-control"
+                [(ngModel)]="discount"></span></div>
+        </div>
+        <div class="row my-2">
+          <div class="col-2" ><span class="form-label" > Amendments: </span></div>
+          <div class="col-4" >
+
+              <span>
+                <span *ngFor="let m of hrddAmendmentArray" (click)='removeCountryAmendment(name,m)'>{{' '}}{{m}}
+                  <a class="fa fa-times" (click)="removeCountryAmendment(m)"></a>
+                </span>
+                <input [(ngModel)]="search" typeaheadOptionField="login" [typeahead]="suggestions$"
+                  [typeaheadAsync]="true" class="form-control" placeholder="Search Amendments"
+                  [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5"
+                  (typeaheadOnSelect)="onSelect($event)">
+              </span>
+
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-2"><span class="form-label"> Trigger: </span></div>
+          <div class="col-4">
+            <span>
+              <select id="trigger" name="trigger" class="form-control" [(ngModel)]="trigger">
+                <option value="AND" selected>AND</option>
+                <option value="OR">OR</option>
+              </select>
+            </span>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-2"></div>
+          <div class="col-4">
+            <span> <button name="Save" type="button" class="btn btn-primary my-2 mx-2 color433163" value="Save" (click)="saveHRD()">Save</button> </span>
+            <span> <button name="cancel" type="button" class="btn btn-secondary my-2 mx-2" value="Cancel" (click)="cancel()">Cancel</button></span>
+
+          </div>
+        </div>
       </div>
-      <div class="col-4">
-        {{selectedCell}}
-        <div *ngIf="showdiv">
-        <div class="row">
-            <div class="col-4"><span> Country:  </span></div>
-            <div class="col-4"><span> <label name="Country"> </label></span></div>
-        </div>
-        <div class="row">
-            <div class="col-4"><span> Deal Value:  </span></div>
-            <div class="col-4"><span> <input name="Country"></span></div>
-        </div>
-        <div class="row">
-          <div class="col-4"><span> Discount:  </span></div>
-          <div class="col-4"><span> <input name="Country"></span></div>
-        </div>
-        <div class="row">
-          <div class="col-4"><span> Amendments:  </span></div>
-          <div class="col-4"><span> <input name="Country"></span></div>
-        </div>
-        <div class="row">
-          <div class="col-4"><span> Trigger:  </span></div>
-          <div class="col-4"><span> <input name="Country"></span></div>
-        </div>
 
-        <div class="row">
-          <div class="col-4"></div>
-          <div class="col-4"><span>  <button name="Save" value="Save">Save</button>   </span><span> <button name="cancel" value="Cancel">Cancel</button></span></div>
-
+      <div *ngIf="showAddDiv" style="width: 100%;">
+        <div class="row my-2">
+          <div class="col-2"><span class="form-label"> Country: </span>
+          </div>
+          <div class="col-4">
+            <!-- <span> <label name="name">{{name}}</label></span> -->
+            <ng-select placeholder="Select Country" name="addHRDCountry" class="ng-select" [items]="countries"
+            bindLabel="name" bindValue="id" [(ngModel)]="addHRDSelectedCountry" (selected)="countrySelected($event)">
+            </ng-select>
+            <div *ngIf="addCtryValidation">
+              <span style="color: red;">Please select Country</span>
+            </div>
+          </div>
         </div>
+        <div class="row my-2">
+          <div class="col-2"><span class="form-label" > Deal Value: </span></div>
+          <div class="col-4"><span> <input name="dealAmount" class="form-control"
+                [(ngModel)]="addHRDDealAmount" /></span></div>
+        </div>
+        <div class="row my-2">
+          <div class="col-2"><span class="form-label"> Discount: </span></div>
+          <div class="col-4"><span> <input name="discount" class="form-control"
+                [(ngModel)]="addHRDDiscount"></span></div>
+        </div>
+        <div class="row my-2">
+          <div class="col-2" ><span class="form-label" > Amendments: </span></div>
+          <div class="col-4" >
+
+              <span>
+                <span *ngFor="let m of addHRDAmendmentArray" (click)='removeCountryAmendment(m)'>{{' '}}{{m}}
+                  <a class="fa fa-times" (click)="removeCountryAmendment(m)"></a>
+                </span>
+                <input [(ngModel)]="addHRDsearch" typeaheadOptionField="login" [typeahead]="addHRDSuggestions$"
+                  [typeaheadAsync]="true" class="form-control" placeholder="Search Amendments"
+                  [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5"
+                  (typeaheadOnSelect)="addHRDOnSelect($event)">
+              </span>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-2"><span class="form-label"> Trigger: </span></div>
+          <div class="col-4">
+            <span>
+              <select id="trigger" name="trigger" class="form-control" [(ngModel)]="addHRDTrigger">
+                <option value="AND" selected>AND</option>
+                <option value="OR">OR</option>
+              </select>
+            </span>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-2"></div>
+          <div class="col-4">
+            <span> <button name="Save" type="button" class="btn btn-primary my-2 mx-2 color433163" value="Save" (click)="saveAddHRD()">Save</button> </span>
+            <span> <button name="cancel" type="button" class="btn btn-secondary my-2 mx-2" value="Cancel" (click)="cancelAddHRD()">Cancel</button></span>
+
+          </div>
         </div>
       </div>
 
+
+    </div>
   </div>
 </div>
-
-

@@ -32,8 +32,17 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { HrdCountriesComponent } from './admin/hrd-countries/hrd-countries.component';
 import { DelProposalComponent } from './proposal/modeal/del-proposal/del-proposal.component';
 import { ShareProposalComponent } from './proposal/modeal/share-proposal/share-proposal.component';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { SiriusCountriesComponent } from './admin/sirius-countries/sirius-countries.component';
+import { AmendmnetinfoComponent } from './admin/amendmnetinfo/amendmnetinfo.component';
+import { AlertsComponent } from './admin/alerts/alerts.component';
+import { ExternalUsersComponent } from './admin/external-users/external-users.component';
+import { ApproversComponent } from './admin/approvers/approvers.component';
+import {AdminService} from 'src/app/admin/admin.service';
+import { ToastrModule } from 'ngx-toastr';
 
-//import {EditHrdComponentRenderer} from './admin/hrd-countries/editHrdCountry.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +67,12 @@ import { ShareProposalComponent } from './proposal/modeal/share-proposal/share-p
     AdminPanelComponent,
     HrdCountriesComponent,
     DelProposalComponent,
-    ShareProposalComponent
+    ShareProposalComponent,
+    SiriusCountriesComponent,
+    AmendmnetinfoComponent,
+    AlertsComponent,
+    ExternalUsersComponent,
+    ApproversComponent
     //EditHrdComponentRenderer
   ],
   imports: [
@@ -71,9 +85,12 @@ import { ShareProposalComponent } from './proposal/modeal/share-proposal/share-p
     FormsModule,
     NgSelectModule,
     DataTablesModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    BrowserAnimationsModule,
+    TypeaheadModule.forRoot(),
+    ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [AdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
