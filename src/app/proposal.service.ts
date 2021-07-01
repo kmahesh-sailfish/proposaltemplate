@@ -81,5 +81,12 @@ export class ProposalService {
   saveDelegationProposal(obj) {
      return this.http.post(environment.API_URL + "Proposal/" + "SaveProposalDelegate",obj);
   } 
+
+
+
+  //Active proposal
+  getActiveProposal(){    
+    return this.http.get(environment.API_URL + "Proposal/" + "GetProposals");
+  }
  
 }
