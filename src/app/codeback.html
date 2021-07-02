@@ -198,4 +198,72 @@ https://amendmentappdevapi.azurewebsites.net/api/Proposal/ShareProposal
     "IsExternal": false,
     "userAlias": "v-skarukonda"
   }
-  
+  ---------------------------------------------------------------------
+  1.)on click navigate from active proposal to proposal overview
+  2>) width of gris to remove scroll
+  3.) button click and design
+  4.)filters to ag-grid 
+  5.) active propsal grid button actions.(remove ,archive)
+  6.)check save amendment rebinding in proposal overview pageBreak
+  7.)itegrate  button api in active proposal, below APIs
+  -----------
+  19.	Delete Proposal
+Action Method: DeleteProposal
+URL: api/Proposal/DeleteProposal
+Request Body:
+{
+  "Id": "257590",
+  "alias": "v-skarukonda"
+}
+
+Response Body:
+{
+    "id": 257590,
+    "statusCode": 200,
+    "result": {
+        "_sourceObject": "Proposal updated Successfully, ID: 257590",
+        "_errorMsg": null,
+        "_statusCode": 200
+    }
+}
+20.	Archive Proposal
+Action Method: ArchiveProposal
+URL: api/Proposal/ArchiveProposal
+Request Body:
+{
+  "Id": "257590",
+  "archive": "true",
+  "alias": "v-skarukonda"
+}
+
+Response Body:
+{
+    "id": 257590,
+    "statusCode": 200,
+    "result": {
+        "_sourceObject": "Proposal Archive Successfully, ID: 257590",
+        "_errorMsg": null,
+        "_statusCode": 200
+    }
+}
+
+21.	Un-Archive Proposal
+Action Method: ArchiveProposal
+URL: api/Proposal/ArchiveProposal
+Request Body:
+{
+  "Id": "257590",
+  "archive": "false",
+  "alias": "v-skarukonda"
+}
+Response Body:
+{
+    "id": 257590,
+    "statusCode": 200,
+    "result": {
+        "_sourceObject": "Proposal Archive Successfully, ID: 257590",
+        "_errorMsg": null,
+        "_statusCode": 200
+    }
+}
+-----------------
