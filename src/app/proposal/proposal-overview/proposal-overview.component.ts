@@ -14,7 +14,7 @@ import { NgbModalConfig, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { SearchProposalComponent } from "../modeal/search-proposal/search-proposal.component";
 import { SharedService } from "../../sharedservices/shared.service";
 import { Subject } from "rxjs";
-import { ProposalModel } from '../model/proposalModel';
+
 import { NgForm } from '@angular/forms';
 import { ShareProposalComponent } from '../modeal/share-proposal/share-proposal.component';
 import { DelProposalComponent } from "../modeal/del-proposal/del-proposal.component";

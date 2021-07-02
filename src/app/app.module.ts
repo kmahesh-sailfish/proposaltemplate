@@ -41,6 +41,7 @@ import { ExternalUsersComponent } from './admin/external-users/external-users.co
 import { ApproversComponent } from './admin/approvers/approvers.component';
 import {AdminService} from 'src/app/admin/admin.service';
 import { ToastrModule } from 'ngx-toastr';
+import { EditActionComponent } from './sharedAction/edit-action/edit-action.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { ToastrModule } from 'ngx-toastr';
     AmendmnetinfoComponent,
     AlertsComponent,
     ExternalUsersComponent,
-    ApproversComponent
+    ApproversComponent,
+    EditActionComponent
     //EditHrdComponentRenderer
   ],
   imports: [

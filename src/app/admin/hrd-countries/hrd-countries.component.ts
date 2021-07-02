@@ -22,7 +22,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditHrdComponentRenderer {
   private objHrdCountriesComponent: HrdCountriesComponent;
-  constructor(private objhrdCountriesComponent: HrdCountriesComponent, private adminService: AdminService,private toastr:ToastrService) {
+  constructor(private objhrdCountriesComponent: HrdCountriesComponent,
+    private adminService: AdminService, private toastr: ToastrService) {
     this.objHrdCountriesComponent = objhrdCountriesComponent;
   }
   @Output() rowToEdit = new EventEmitter();

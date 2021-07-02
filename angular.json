@@ -16,6 +16,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "showCircularDependencies": false,
             "outputPath": "dist/bootstrapTemplate",
             "index": "src/index.html",
             "main": "src/main.ts",
