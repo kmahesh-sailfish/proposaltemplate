@@ -4,7 +4,7 @@ import { ProposalService } from "src/app/proposal.service";
 import { ToastrService } from "ngx-toastr";
 import { ICellRendererParams } from "ag-grid-community";
 import { EditActionComponent } from "../../sharedAction/edit-action/edit-action.component";
-
+import * as moment from "moment";
 @Component({
   selector: "app-active-proposal",
   templateUrl: "./active-proposal.component.html",
@@ -33,14 +33,35 @@ export class ActiveProposalComponent implements OnInit {
     });
   }
   columnDefs = [
-    { headerName: "Create", field: "createdDate", resizable: true },
+    {
+      headerName: "Create",
+      field: "createdDate",
+      resizable: true,
+      cellRenderer: data => {
+        return moment(data.createdDate).format("MM/DD/YYYY");
+      }
+    },
     { headerName: "proposalId", field: "proposalId", resizable: true },
     { headerName: "CreateBy", field: "createdByAlias", resizable: true },
     { headerName: "ModifyBy", field: "lastModifiedBy", resizable: true },
     { headerName: "Customer Name", field: "customerName", resizable: true },
-    { headerName: "Status", field: "status", resizable: true },
+    {
+      headerName: "Status",
+      field: "status",
+      resizable: true,
+      cellRenderer: data => {
+        return data["data"].status == 0 ? "false" : "true";
+      }
+    },
     { headerName: "Shared", field: "isShared", resizable: true },
-    { headerName: "Delegation", field: "delegationStatus", resizable: true },
+    {
+      headerName: "Delegation",
+      field: "delegationStatus",
+      resizable: true,
+      cellRenderer: data => {
+        return data["data"].delegationStatus == 0 ? "false" : "true";
+      }
+    },
     {
       headerName: "Action",
       field: "id",

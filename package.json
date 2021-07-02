@@ -31,6 +31,7 @@
     "datatables.net": "^1.10.24",
     "datatables.net-dt": "^1.10.24",
     "jquery": "^3.6.0",
+    "moment": "^2.29.1",
     "ngx-bootstrap": "^6.2.0",
     "ngx-toastr": "^14.0.0",
     "popper.js": "^1.16.1",
