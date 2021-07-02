@@ -9,6 +9,9 @@
     </div>
     <div class="row">
         <div class="col">
+            <!--<ag-grid-angular #agGrid style="width: 100%; height:500px;" class="ag-theme-alpine" [rowData]="rowData"
+        [columnDefs]="columnDefs" [frameworkComponents]="frameworkComponents">
+      </ag-grid-angular>-->
             <table datatable class="row-border hover">
                 <thead class="table-header">
                     <tr>
@@ -26,14 +29,14 @@
                 <tbody>
                     <tr *ngFor="let obj of ActiveProposal; let ie = index">
 
-                        <td>{{obj.createdDate}}</td>
+                        <td>{{obj.createdDate | date :'MM/dd/YY'}}</td>
                         <td>{{obj.proposalId}}</td>
                         <td>{{obj.createdByAlias}}</td>
                         <td>{{obj.lastModifiedBy}}</td>
                         <td>{{obj.customerName}}</td>
-                        <td>{{obj.status}}</td>
+                        <td>{{obj.status == 0 ?'false':'true' }}</td>
                         <td>{{obj.isShared}}</td>
-                        <td>{{obj.delegationStatus}}</td>
+                        <td>{{obj.delegationStatus == 0 ?'false':'true'}}</td>
                         <td>
                             <span class="outCircle">
                                 <i class="fas fa-folder-open" style="width: 14px;"></i>
@@ -41,9 +44,9 @@
                             <span class="outCircle">
                                         <i class="fa fa-times" style="width: 14px;"></i>
                                     </span> &nbsp;
-                                    <span class="outCircle">
+                            <span class="outCircle">
                                         <i class="fas fa-archive" style="width: 14px;"></i>
-                                    </span>   &nbsp;
+                                    </span> &nbsp;
                             <span class="outCircle">
                                 <i class="fas fa-share"style="width: 14px;"></i>
                             </span>

@@ -13,10 +13,25 @@ export class ActiveProposalComponent implements OnInit, OnDestroy {
   public ActiveProposal: any[] = [];
 
   constructor(private proposalService: ProposalService) {}
-
+  columnDefs: any;
   ngOnInit(): void {
     this.loadActiveProposal();
   }
+  loadGrid() {
+    this.columnDefs = [
+      { field: 'createdDate' },
+    { field: 'proposalId' },
+    { field: 'createdByAlias' },
+    { field: 'lastModifiedBy' },
+    { field: 'customerName' },
+    { field: 'status' },
+    { field: 'isShared' },
+    { field: 'delegationStatus' },
+    { field: 'Action' }
+    
+    ]
+  }
+  
   loadActiveProposal() {
     this.proposalService.getActiveProposal().subscribe((res)=>{
       this.ActiveProposal = res["result"];
