@@ -1,0 +1,26 @@
+import { Injectable } from "@angular/core";
+import { environment } from "src/environments/environment";
+import { HttpClient,HttpHeaders,HttpErrorResponse } from "@angular/common/http";
+import { Observable } from "rxjs";
+
+
+@Injectable({
+  providedIn: "root"
+})
+
+export class AdminService{
+  constructor(private http:HttpClient){
+
+  }
+  getAmendment(amendcode){
+    return this.http.get<Observable<string>>(environment.API_URL+"Amendment/"+"GetAmendments/"+amendcode);
+  }
+  saveHRDCountry(obj){
+    return this.http.post(environment.API_URL+"Proposal/"+"UpdateCountry",obj);
+  }
+  getCountries(){
+    return this.http.get<any>(environment.API_URL+"App/"+"GetCountries");
+  }
+
+
+}

@@ -96,7 +96,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         this.editProposalObj.id != null
           ? this.editProposalObj.id
           : this.sourceId,
-      createdByAlias: "V-sanjay",
+      createdByAlias: "V2Alias",
       isSuperUser: true
     };
     this.proposalService.getProposal(obj).subscribe((data: any) => {
@@ -179,7 +179,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
           : Object.keys(this.editProposalObj).length > 0? this.editProposalObj['proposalEntity']?.dealNickname :"",
 
       notes:   block == "notes" ? this.propOverView.get("notes").value   : Object.keys(this.editProposalObj).length > 0? this.editProposalObj['proposalEntity']?.notes :"",
-      LastModifiedBy: "v-sanjay"
+      LastModifiedBy: "V2Alias"
     };
   
     this.proposalService.updateProposal(obj).subscribe((data: any) => {
@@ -439,5 +439,45 @@ doesPricingDocumentsExists() {
     });
      modelRef.componentInstance.shareProposalId =  this.sourceId;
    }
-  
+   showEditDocumentPopup = function (obj, protection) {
+   var isEdit = protection == '1';
+   var aid = obj.id;
+    // if (DiscountAmendments.length == 0)
+    //     getAmendmentInfoStaticData();
+    // var amendment = $scope.model.Amendments.filter(function (d) { return d.Id == aid; })[0];
+    // var discountedAmendmentInfo = AppService.isDiscountedAmendment(DiscountAmendments, amendment.Code)[0];
+    // if (discountedAmendmentInfo != null && !isEdit) {
+    //     $scope.editAmendmentDiscountData(discountedAmendmentInfo, amendment);
+    // }
+    //else {
+       // EditDocumentService.startEditDocument(proposalId, id).then(function (data) {
+          //  if (data && data.FileName) {
+               // donthide = true;
+               // $(".exe-loader").show();
+               // intializeTimer(data.FileName);
+                //var url = "http://localhost:5556/api/home/opendocument/" + id + '/' + data.FileName + '/' + protection;
+                //$.get(url, function (data, status) {
+                //});
+                window.location.href = "amendmentappwordservice://documentsService?aid=" + aid + "&fileName=" + obj.fileName + "&protection=" + protection;
+
+          //  }
+      //  });
+  //  }
+
+    
+};
+showEditAdditionalDocumentFields(obj,protection)
+{
+  var isEdit = protection == '1';
+ var  aid = obj.id;
+ // EditDocumentService.startEditDocument(proposalId, id).then(function (data) {
+     // if (data && data.FileName) {
+         // donthide = true;
+         // $(".exe-loader").show();
+         // intializeTimer(data.FileName);
+          window.location.href = "amendmentappwordservice://documentsService?aid=" + aid + "&fileName=" + obj.fileName + "&protection=" + protection;
+
+     // }
+ // });
+}
 }

@@ -1,26 +1,33 @@
 <div class="container-fluid p-4 my-3 mt-5 border">
   <div class="row align-items-star">
       <div class="col">
-
-
           <ul class="nav nav-tabs">
             <li class="nav-item" ><a href="#amendmentinfo" class="nav-link active" data-toggle="tab">Amendment Info</a></li>
             <li class="nav-item"><a href="#hrdcountries" class="nav-link" data-toggle="tab">HRD Countries</a></li>
             <li class="nav-item"><a href="#siriuscountries" class="nav-link" data-toggle="tab">Sirius Countries</a></li>
             <li class="nav-item"><a href="#alerts" class="nav-link" data-toggle="tab">Alerts</a></li>
+            <li class="nav-item"><a href="#externalusers" class="nav-link" data-toggle="tab">External Users</a></li>
+            <li class="nav-item"><a href="#approvers" class="nav-link" data-toggle="tab">Approvers</a></li>
          </ul>
 
          <div class="tab-content">
             <div class="tab-pane active" id="amendmentinfo">
-              Amendment Info
-              <!-- <app-amendment-info></app-amendment-info> -->
+              <app-amendmnetinfo></app-amendmnetinfo>
             </div>
             <div class="tab-pane" id="hrdcountries">
-
-              <app-hrd-countries></app-hrd-countries> 
+              <app-hrd-countries></app-hrd-countries>
             </div>
-            <div class="tab-pane" id="siriuscountries">Sirius Countries</div>
-            <div class="tab-pane" id="alerts">Alerts</div>
+            <div class="tab-pane" id="siriuscountries">Sirius Countries
+              <app-sirius-countries></app-sirius-countries>
+            </div>
+            <div class="tab-pane" id="alerts">
+              <app-alerts></app-alerts></div>
+            <div class="tab-pane" id="externalusers">
+              <app-external-users></app-external-users>
+            </div>
+            <div class="tab-pane" id="approvers">
+              <app-approvers></app-approvers>
+            </div>
          </div>
 
 

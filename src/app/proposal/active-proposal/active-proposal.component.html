@@ -26,14 +26,14 @@
                 <tbody>
                     <tr *ngFor="let obj of ActiveProposal; let ie = index">
 
-                        <td>{{obj.create}}</td>
+                        <td>{{obj.createdDate}}</td>
                         <td>{{obj.proposalId}}</td>
-                        <td>{{obj.createdby}}</td>
-                        <td>{{obj.modifiedby}}</td>
+                        <td>{{obj.createdByAlias}}</td>
+                        <td>{{obj.lastModifiedBy}}</td>
                         <td>{{obj.customerName}}</td>
                         <td>{{obj.status}}</td>
-                        <td>{{obj.shared}}</td>
-                        <td>{{obj.delegation}}</td>
+                        <td>{{obj.isShared}}</td>
+                        <td>{{obj.delegationStatus}}</td>
                         <td>
                             <span class="outCircle">
                                 <i class="fas fa-folder-open" style="width: 14px;"></i>

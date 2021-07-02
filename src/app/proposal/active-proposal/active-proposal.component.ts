@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subject } from "rxjs";
+import { ProposalService } from "src/app/proposal.service";
 
 @Component({
   selector: "app-active-proposal",
@@ -11,24 +12,16 @@ export class ActiveProposalComponent implements OnInit, OnDestroy {
   public dtTrigger: Subject<any> = new Subject<any>();
   public ActiveProposal: any[] = [];
 
-  constructor() {}
+  constructor(private proposalService: ProposalService) {}
 
   ngOnInit(): void {
     this.loadActiveProposal();
   }
   loadActiveProposal() {
-    this.ActiveProposal = [
-      {
-        create: "22/06/21",
-        proposalId: "225551",
-        createdby: "Sanjay",
-        modifiedby: "Sanjay v2",
-        customerName: "Sintel",
-        status: "created",
-        shared: "yes",
-        delegation: "no"
-      }
-    ];
+    this.proposalService.getActiveProposal().subscribe((res)=>{
+      this.ActiveProposal = res["result"];
+    })
+    
     this.dtTrigger.next();
   }
   ngOnDestroy(): void {

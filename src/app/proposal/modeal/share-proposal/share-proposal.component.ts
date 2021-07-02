@@ -65,8 +65,8 @@ export class ShareProposalComponent implements OnInit {
   onSubmit() {
     let Obj = {
       Id: this.shareProposalId,
-      alias: "v-skarukonda",
-      useraliases: ["v-skarukonda@microsoft.com", "v-sanjaysa@microsoft.com"]
+      alias: "V2Alias",
+      useraliases: [this.myForm.get("userEmail").value]
     };
    
     this.proposalService.saveShareProposal(Obj).subscribe((data => {
