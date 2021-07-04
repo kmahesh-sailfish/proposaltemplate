@@ -24,7 +24,8 @@ export class EditActionComponent implements OnInit {
   shareClicked() {
     
   }
-  editClicked() {
+  editClicked(event) {
+    event.stopPropagation()
     console.log(this.params.data);
   }
   deleteClicked() {
