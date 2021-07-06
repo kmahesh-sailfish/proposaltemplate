@@ -96,7 +96,7 @@ export class ProposalService {
   }
   // Delete proposla
   deleteProposal(obj) {
-    return this.http.delete(
+    return this.http.post(
       environment.API_URL + "Proposal/" + "DeleteProposal",
       obj
     );
@@ -104,7 +104,7 @@ export class ProposalService {
   // Archieve proposal
   archievProposal(obj) {
     //  api/Proposal/ArchiveProposal
-    return this.http.get(
+    return this.http.post(
       environment.API_URL + "Proposal/" + "ArchiveProposal",
       obj
     );

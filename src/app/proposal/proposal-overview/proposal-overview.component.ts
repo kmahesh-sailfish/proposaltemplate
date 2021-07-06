@@ -480,4 +480,7 @@ showEditAdditionalDocumentFields(obj,protection)
      // }
  // });
 }
+openActiveproposal(){
+  this.router.navigate(["activeproposal"]);
+}
 }

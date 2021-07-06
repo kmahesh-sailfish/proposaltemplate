@@ -42,7 +42,7 @@ export class ActiveProposalComponent implements OnInit {
       field: "createdDate",
       resizable: true,
       filter: true,
-      width: 100,
+      width: 300,
       cellRenderer: data => {
         return moment(data.createdDate).format("MM/DD/YYYY");
       }
