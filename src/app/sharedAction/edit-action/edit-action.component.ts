@@ -21,15 +21,22 @@ export class EditActionComponent implements OnInit {
   ) {
     // this.objactiveComponent = objactiveComponents;
   }
-  shareClicked() {
-    
-  }
+
   editClicked(event) {
-    event.stopPropagation()
-    console.log(this.params.data);
+    event.stopPropagation();
+    console.log(this.params.data,'edited');
   }
-  deleteClicked() {
-    console.log(this.params.data);
+  deleteClicked(event) {
+    event.stopPropagation();
+    console.log(this.params.data,'deleted');
+  }
+  archieveClicked(event) {
+    event.stopPropagation();
+    console.log(this.params.data,'archive');
+  }
+  shareClicked(event) {
+    event.stopPropagation();
+    console.log(this.params.data,'share');
   }
   agInit(params: ICellRendererParams): void {
     this.cellValue = params.value;

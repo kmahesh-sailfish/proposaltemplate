@@ -32,14 +32,15 @@ export class ProposalService {
     );
   }
   deleteAmendate(obj) {
-    
     return this.http.post(
-      environment.API_URL + "Proposal/" + "DeleteAmendment", obj
+      environment.API_URL + "Proposal/" + "DeleteAmendment",
+      obj
     );
   }
   saveMetadata(obj) {
-     return this.http.post(
-      environment.API_URL + "Amendment/" + "SaveAmendments", obj
+    return this.http.post(
+      environment.API_URL + "Amendment/" + "SaveAmendments",
+      obj
     );
   }
   //-------------------- CTM FooterCode
@@ -52,8 +53,9 @@ export class ProposalService {
     return this.http.get(environment.API_URL + "Proposal/" + "GetLanguages");
   }
   getLrdCountries() {
-    
-    return this.http.get("https://amendmentappdevapi.azurewebsites.net/api/App/GetLrdCountries");
+    return this.http.get(
+      "https://amendmentappdevapi.azurewebsites.net/api/App/GetLrdCountries"
+    );
   }
   searchAmendement(searchTerm) {
     return this.http.get(
@@ -75,18 +77,36 @@ export class ProposalService {
     return this.http.get(environment.API_URL + "App/" + "GetHrdCountries");
   }
 
-  saveShareProposal(obj) { 
-     return this.http.post(environment.API_URL + "Proposal/" + "ShareProposal",obj);
+  saveShareProposal(obj) {
+    return this.http.post(
+      environment.API_URL + "Proposal/" + "ShareProposal",
+      obj
+    );
   }
   saveDelegationProposal(obj) {
-     return this.http.post(environment.API_URL + "Proposal/" + "SaveProposalDelegate",obj);
-  } 
-
-
+    return this.http.post(
+      environment.API_URL + "Proposal/" + "SaveProposalDelegate",
+      obj
+    );
+  }
 
   //Active proposal
-  getActiveProposal(){    
+  getActiveProposal() {
     return this.http.get(environment.API_URL + "Proposal/" + "GetProposals");
   }
- 
+  // Delete proposla
+  deleteProposal(obj) {
+    return this.http.delete(
+      environment.API_URL + "Proposal/" + "DeleteProposal",
+      obj
+    );
+  }
+  // Archieve proposal
+  archievProposal(obj) {
+    //  api/Proposal/ArchiveProposal
+    return this.http.get(
+      environment.API_URL + "Proposal/" + "ArchiveProposal",
+      obj
+    );
+  }
 }
