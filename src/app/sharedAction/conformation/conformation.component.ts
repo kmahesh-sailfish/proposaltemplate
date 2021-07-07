@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { ProposalService } from "../../proposal.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-conformation",
@@ -10,7 +11,8 @@ import { ProposalService } from "../../proposal.service";
 export class ConformationComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
-    public proposalService: ProposalService
+    public proposalService: ProposalService,
+    private router: Router
   ) {}
   public rowObj: any;
   ngOnInit(): void {}
@@ -28,6 +30,7 @@ export class ConformationComponent implements OnInit {
     this.proposalService
       .actionProposal(obj, this.rowObj["labelMessage"])
       .subscribe(res => {
+        this.router.navigate(["/activeproposal"]);
         console.log(res, "res");
       });
     //this.activeModal.close();
