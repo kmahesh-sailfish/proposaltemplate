@@ -108,4 +108,8 @@ export class ProposalService {
       );
     }
   }
+
+  replicateProposal(obj) {
+    return this.http.post(environment.API_URL + "App/" + "CloneProposal", obj);
+  }
 }
