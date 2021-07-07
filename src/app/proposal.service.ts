@@ -94,19 +94,18 @@ export class ProposalService {
   getActiveProposal() {
     return this.http.get(environment.API_URL + "Proposal/" + "GetProposals");
   }
-  // Delete proposla
-  deleteProposal(obj) {
-    return this.http.post(
-      environment.API_URL + "Proposal/" + "DeleteProposal",
-      obj
-    );
-  }
-  // Archieve proposal
-  archievProposal(obj) {
-    //  api/Proposal/ArchiveProposal
-    return this.http.post(
-      environment.API_URL + "Proposal/" + "ArchiveProposal",
-      obj
-    );
+
+  actionProposal(obj, message) {
+    if (message == "Delete") {
+      return this.http.post(
+        environment.API_URL + "Proposal/" + "DeleteProposal",
+        obj
+      );
+    } else {
+      return this.http.post(
+        environment.API_URL + "Proposal/" + "ArchiveProposal",
+        obj
+      );
+    }
   }
 }

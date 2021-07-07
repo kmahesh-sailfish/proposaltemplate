@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -27,22 +27,22 @@ import { SearchProposalComponent } from "./proposal/modeal/search-proposal/searc
 import { ParentPipesval, ChildPipesval } from "./GlobalPipes/parentPipes";
 import { FooterComponent } from "./sidenav/footer/footer.component";
 import { PriceProposalComponent } from "./proposal/modeal/price-proposal/price-proposal.component";
-import { AgGridModule } from 'ag-grid-angular';
-import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
-import { HrdCountriesComponent } from './admin/hrd-countries/hrd-countries.component';
-import { DelProposalComponent } from './proposal/modeal/del-proposal/del-proposal.component';
-import { ShareProposalComponent } from './proposal/modeal/share-proposal/share-proposal.component';
-import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { SiriusCountriesComponent } from './admin/sirius-countries/sirius-countries.component';
-import { AmendmnetinfoComponent } from './admin/amendmnetinfo/amendmnetinfo.component';
-import { AlertsComponent } from './admin/alerts/alerts.component';
-import { ExternalUsersComponent } from './admin/external-users/external-users.component';
-import { ApproversComponent } from './admin/approvers/approvers.component';
-import {AdminService} from 'src/app/admin/admin.service';
-import { ToastrModule } from 'ngx-toastr';
-import { EditActionComponent } from './sharedAction/edit-action/edit-action.component';
-
+import { AgGridModule } from "ag-grid-angular";
+import { AdminPanelComponent } from "./admin/admin-panel/admin-panel.component";
+import { HrdCountriesComponent } from "./admin/hrd-countries/hrd-countries.component";
+import { DelProposalComponent } from "./proposal/modeal/del-proposal/del-proposal.component";
+import { ShareProposalComponent } from "./proposal/modeal/share-proposal/share-proposal.component";
+import { TypeaheadModule } from "ngx-bootstrap/typeahead";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { SiriusCountriesComponent } from "./admin/sirius-countries/sirius-countries.component";
+import { AmendmnetinfoComponent } from "./admin/amendmnetinfo/amendmnetinfo.component";
+import { AlertsComponent } from "./admin/alerts/alerts.component";
+import { ExternalUsersComponent } from "./admin/external-users/external-users.component";
+import { ApproversComponent } from "./admin/approvers/approvers.component";
+import { AdminService } from "src/app/admin/admin.service";
+import { ToastrModule } from "ngx-toastr";
+import { EditActionComponent } from "./sharedAction/edit-action/edit-action.component";
+import { ConformationComponent } from './sharedAction/conformation/conformation.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +74,8 @@ import { EditActionComponent } from './sharedAction/edit-action/edit-action.comp
     AlertsComponent,
     ExternalUsersComponent,
     ApproversComponent,
-    EditActionComponent
+    EditActionComponent,
+    ConformationComponent
     //EditHrdComponentRenderer
   ],
   imports: [
