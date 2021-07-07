@@ -81,3 +81,10 @@ Request Body:
 api/Proposal/ArchiveProposal Request Body: { "Id": "257590",
 "archive": "false", "alias": "v-skarukonda" } Response Body: { "id": 257590, "statusCode": 200, "result": { "_sourceObject":
 "Proposal Archive Successfully, ID: 257590", "_errorMsg": null, "_statusCode": 200 } } -----------------
+URL: api/App/CloneProposal
+Request Body:
+{
+	"proposalId": "abcTest1",
+	"newProposalId":"ClonedabcTest1",
+	"createdByAlias": "skarukonda"
+}

@@ -30,9 +30,13 @@ export class ConformationComponent implements OnInit {
     this.proposalService
       .actionProposal(obj, this.rowObj["labelMessage"])
       .subscribe(res => {
-        this.router.navigate(["/activeproposal"]);
-        console.log(res, "res");
+        //this.router.navigate(["/activeproposal"]);
+        const currentUrl = this.router.url;
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([currentUrl]);
+        });
+        this.activeModal.close();
       });
-    //this.activeModal.close();
+    
   }
 }
