@@ -15,12 +15,12 @@ export class ActiveProposalComponent implements OnInit {
   public dtOptions: DataTables.Settings = {};
   public dtTrigger: Subject<any> = new Subject<any>();
   public ActiveProposal: any[] = [];
-
+ rowData: any = [];
   constructor(
     private proposalService: ProposalService,
     private router: Router
   ) {}
-  rowData: any = [];
+ 
 
   ngOnInit(): void {
     // this.loadActiveProposal();

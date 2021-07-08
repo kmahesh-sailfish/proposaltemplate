@@ -43,6 +43,7 @@ import { AdminService } from "src/app/admin/admin.service";
 import { ToastrModule } from "ngx-toastr";
 import { EditActionComponent } from "./sharedAction/edit-action/edit-action.component";
 import { ConformationComponent } from './sharedAction/conformation/conformation.component';
+import { ArchiveActionsComponent } from './sharedAction/archive-actions/archive-actions.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { ConformationComponent } from './sharedAction/conformation/conformation.
     ExternalUsersComponent,
     ApproversComponent,
     EditActionComponent,
-    ConformationComponent
+    ConformationComponent,
+    ArchiveActionsComponent
     //EditHrdComponentRenderer
   ],
   imports: [

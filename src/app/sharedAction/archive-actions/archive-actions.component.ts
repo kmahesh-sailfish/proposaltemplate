@@ -1,18 +1,18 @@
 import { Component, OnInit } from "@angular/core";
-import { ActiveProposalComponent } from "../../proposal/active-proposal/active-proposal.component";
+import { ICellRendererParams } from "ag-grid-community";
+import { ConformationComponent } from "../conformation/conformation.component";
+import { NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { ProposalService } from "../../proposal.service";
 import { ToastrService } from "ngx-toastr";
-import { ICellRendererParams } from "ag-grid-community";
 import { Router } from "@angular/router";
-import { NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { ConformationComponent } from "../conformation/conformation.component";
+
 @Component({
-  selector: "app-edit-action",
-  templateUrl: "./edit-action.component.html",
-  styleUrls: ["./edit-action.component.css"],
+  selector: "app-archive-actions",
+  templateUrl: "./archive-actions.component.html",
+  styleUrls: ["./archive-actions.component.css"],
   providers: [NgbActiveModal]
 })
-export class EditActionComponent implements OnInit {
+export class ArchiveActionsComponent implements OnInit {
   ngOnInit(): void {}
   cellValue: any;
   params: any;
@@ -36,24 +36,23 @@ export class EditActionComponent implements OnInit {
   deleteClicked(event) {
     event.stopPropagation();
     var rowData = this.params.data;
-    rowData['labelMessage'] = "Delete";
+    rowData["labelMessage"] = "Delete";
     console.log(this.params.data, "deleted");
     const modalRef = this.modalService.open(ConformationComponent, {
       size: "sm"
     });
     modalRef.componentInstance.labelMessage = "Delete";
-     modalRef.componentInstance.rowObj = rowData;
+    modalRef.componentInstance.rowObj = rowData;
   }
   archieveClicked(event) {
     event.stopPropagation();
     var rowData = this.params.data;
-    rowData['labelMessage'] = "Archive";
+    rowData["labelMessage"] = "Archive";
     console.log(this.params.data, "archive");
     const modalRef = this.modalService.open(ConformationComponent, {
       size: "sm"
     });
     modalRef.componentInstance.rowObj = rowData;
-    
   }
   shareClicked(event) {
     event.stopPropagation();
@@ -64,5 +63,4 @@ export class EditActionComponent implements OnInit {
     this.params = params;
     //this.objactiveComponent.setHRDEditDiv(this.params.data);
   }
- 
 }

@@ -1,7 +1,20 @@
 <div class="container-fluid p-4 my-3 mt-5 border">
-    <div class="row align-items-star">
+
+    <div class="row align-items-start">
+        <div class="col-12 p-r-0">
+            <div class="form-group">
+                <div class="header-pic"><span class="proposal">Archive Proposal</span> </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col">
-            <p>archive-proposal works!</p>
+            <ag-grid-angular  #agGrid style=" height:500px;" class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs"
+            (rowClicked)='onRowClicked($event)'
+             [frameworkComponents]="frameworkComponents">
+            </ag-grid-angular>
+            
+
         </div>
     </div>
 </div>
