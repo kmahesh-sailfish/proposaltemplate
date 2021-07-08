@@ -25,7 +25,7 @@
                                         Old ProposalId requried
                                     </div>
                                 </div>
-                                <span *ngIf="isExist" style="color: red;">Proposal id already exists, try another</span>
+                                <span *ngIf="!isExist" style="color: red;">Proposal id no exists, try another</span>
                             </div>
                         </div>
 
@@ -35,7 +35,7 @@
                             </div>
                             <!-- <h3> {{isExist}}</h3> -->
                             <div class="col-7 p-1">
-                                <input (blur)="isExistPropsalId('newproposalId')" formControlName='newproposalId' name="newproposalId" class="form-control"
+                                <input (blur)="newisExistPropsalId('newproposalId')" formControlName='newproposalId' name="newproposalId" class="form-control"
                                     placeholder="Proposal Id">
                                 <div *ngIf="proposalForm.get('newproposalId').invalid && 
                                 (proposalForm.get('newproposalId').dirty || 
@@ -44,7 +44,7 @@
                                         New ProposalId requried
                                     </div>
                                 </div>
-                                <span *ngIf="isExist" style="color: red;">Proposal id already exists, try another</span>
+                                <span *ngIf="isnewExist" style="color: red;">Proposal id already exists, try another</span>
                             </div>
                         </div>
 
@@ -52,9 +52,11 @@
                             <div class="col">
                             </div>
                             <div class="col">
+                                {{isnewExist}}-{{isExist}}
+                                <!--{{proposalForm.get('oldproposalId').valid}}= {{proposalForm.get('newproposalId').valid}}-->
                             </div>
                             <div class="col p-0">
-                                <button type="submit" [disabled]="isExist" class="btn btn-outline-primary w-100">Next</button>
+                                <button type="submit" class="btn btn-outline-primary w-100">Next</button>
                             </div>
                         </div>
                     </div>

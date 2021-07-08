@@ -12,7 +12,8 @@ import { FormGroup, Validators, FormControl } from "@angular/forms";
 export class ReplicateProposalComponent implements OnInit {
   public proposalForm: FormGroup;
   public config: any[];
-  public isExist: boolean = false;
+  public isExist: boolean = true;
+  public isnewExist: boolean = false;
   constructor(
     private router: Router,
     private proposalService: ProposalService,
@@ -23,16 +24,18 @@ export class ReplicateProposalComponent implements OnInit {
     this.loadForm();
   }
   pageRedirect() {
+    console.log(this.isExist, "exits");
+    console.log(this.isnewExist, "isnewexit");
     var obj = {
       proposalId: this.proposalForm.get("oldproposalId").value,
       newProposalId: this.proposalForm.get("newproposalId").value,
       createdByAlias: "V2Alias"
     };
-    this.proposalService.replicateProposal(obj).subscribe((data: any) => {
-      var sourceId = data["_sourceObject"].id;
-      console.log(sourceId, "sourceId");
-      this.router.navigate(["proposaloverview/", sourceId]);
-    });
+    // this.proposalService.replicateProposal(obj).subscribe((data: any) => {
+    //   var sourceId = data["_sourceObject"].id;
+    //   console.log(sourceId, "sourceId");
+    //   this.router.navigate(["proposaloverview/", sourceId]);
+    // });
   }
   loadForm() {
     this.proposalForm = new FormGroup({
@@ -46,6 +49,14 @@ export class ReplicateProposalComponent implements OnInit {
       this.proposalService
         .proposalExist(Id)
         .subscribe((data: any) => (this.isExist = data));
+    }
+  }
+  newisExistPropsalId(formId) {
+    let Id = this.proposalForm.get(formId).value;
+    if (Id != null && Id != "") {
+      this.proposalService
+        .proposalExist(Id)
+        .subscribe((data: any) => (this.isnewExist = data));
     }
   }
 }
