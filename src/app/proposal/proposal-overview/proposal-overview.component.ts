@@ -122,7 +122,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
      {
          console.log({ content: "Proposal does not exists or you don`t have permissions to view it." });
       }
-      this.loadForm();
+      
       this.getHrdCountries();
     });
   }
