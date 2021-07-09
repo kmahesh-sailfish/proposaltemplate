@@ -102,13 +102,23 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     this.proposalService.getProposal(obj).subscribe((data: any) => {
       this.editProposalObj = data["result"]["_sourceObject"];
       console.log(this.editProposalObj, "editProposalObj");
+      this.getAmendements(this.editProposalObj);
+      this.loadForm();
+     // this.getHrdCountries();
+    });
+  }
+
+  getAmendmentsInfoStaticData(){
+    api/Amendment/GetAmendmentsInfoStaticData
+  }
+  getProposal(obj){
+    this.proposalService.getProposal(obj).subscribe((data: any) => {
+      this.editProposalObj = data["result"]["_sourceObject"];
+      console.log(this.editProposalObj, "editProposalObj");
       this.getAmendements(this.editProposalObj); 
-     
-      if (
-        this.editProposalObj == null ||
-        this.editProposalObj.ID == undefined
-      ) {
-        // console.log({ content: "Proposal does not exists or you don`t have permissions to view it." });
+    if(this.editProposalObj == null || this.editProposalObj.ID == undefined)
+     {
+         console.log({ content: "Proposal does not exists or you don`t have permissions to view it." });
       }
       this.loadForm();
       this.getHrdCountries();
