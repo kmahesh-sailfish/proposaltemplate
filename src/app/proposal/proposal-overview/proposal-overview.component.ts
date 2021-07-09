@@ -109,7 +109,9 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   }
 
   getAmendmentsInfoStaticData(){
-    api/Amendment/GetAmendmentsInfoStaticData
+    this.proposalService.getamendmentstaticInfo().subscribe(data => {
+      console.log('data',data)
+    })
   }
   getProposal(obj){
     this.proposalService.getProposal(obj).subscribe((data: any) => {
