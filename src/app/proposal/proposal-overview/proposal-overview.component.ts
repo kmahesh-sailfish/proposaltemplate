@@ -112,6 +112,8 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   getAmendmentsInfoStaticData(){
     this.proposalService.getamendmentstaticInfo().subscribe(data => {
       console.log('data',data)
+      // $scope.vm.DiscountAmendments = data.DiscountAmendments;
+      // $scope.vm.Currencies = data.Currencies;
     })
   }
   getProposal(obj){
@@ -496,4 +498,71 @@ showEditAdditionalDocumentFields(obj,protection)
 openActiveproposal(){
   this.router.navigate(["activeproposal"]);
 }
+
+
+}
+function Proposal(data) {
+  this.ID = data.ID;
+  this.ProposalId = data.ProposalId;
+  this.PricingCountry = data.PricingCountry;
+  this.Empowerment = data.Empowerment;
+  this.EnrollmentId = data.EnrollmentId;
+  this.AgreementId = data.AgreementId;
+  this.PageBreak = data.PageBreak;
+  this.CustomerName = data.CustomerName;
+  this.Identifier = data.Identifier;
+  this.DealNickname = data.DealNickname;
+  this.Notes = data.Notes;
+  this.HRDDTotalValue = data.HRDDTotalValue;
+  this.HRDDMaxDiscount = data.HRDDMaxDiscount;
+  this.IsLinked = data.IsLinked;
+  this.IsDraft = data.IsDraft;
+  // this.vm.isLe ||
+  this.IsEditDocumentViewable =  data.DelegationStatus == 2 || data.DelegationStatus == 5 || data.IsFromDateRangeDelegation;
+  this.Amendments = [];
+
+  if (data.Amendments && data.Amendments.length > 0) {
+      for (var i = 0; i < data.Amendments.length; i++) {
+          this.Amendments.push(new Amendment(data.Amendments[i]));
+      }
+  }
+
+  this.ID = data.ID;
+  
+}
+
+function Amendment(amendment) {
+  this.Code = amendment.Code;
+  this.Language = amendment.Language;
+  this.Id = amendment.Id;
+  this.Order = amendment.Order;
+  this.CTMCode = amendment.CTMCode;
+  this.FileName = amendment.Code.indexOf("CTM") >= 0 ? amendment.FileName : '';
+  this.IsCTMPricing = amendment.IsCTMPricing;
+  this.IsPricingAmendment = amendment.IsPricingAmendment;
+  this.HasEditableTable = amendment.HasEditableTable;
+  this.IsEdited = amendment.IsEdited ? "Yes" : "No";
+  this.IsEditField = amendment.IsEditField ? "Yes" : "No";
+  this.Discount = amendment.Discount;
+  this.DealSize = amendment.DealSize;
+  this.BeginDate = amendment.BeginDate;
+  this.EndDate = amendment.EndDate;
+  this.CommitToConsume = amendment.CommitToConsume;
+  this.CurrencyCode = amendment.CurrencyCode;
+  this.Type = amendment.Type;
+
+  if (amendment.Code.indexOf("CTM") == -1) {
+      this.Title = amendment.FileName;
+      this.Version = amendment.FileVersion;
+      this.Loc = amendment.Loc;
+      this.DI = amendment.DI;
+  }
+}
+
+function AmendmentOrder(id, currentOrder, previousOrder, proposalId, isDown) {
+  this.Id = id;
+  this.CurrentOrder = currentOrder;
+  this.PreviousOrder = previousOrder;
+  this.ProposalId = proposalId;
+  this.IsDown = isDown;
 }
