@@ -32,7 +32,7 @@ export class ActiveProposalComponent implements OnInit {
 
   loadGrid() {
     var da = this.proposalService.getActiveProposal().subscribe((res: any) => {
-      this.rowData = res["result"];
+      this.rowData = res;
       //  this.ActiveProposal = res["result"];
     });
   }
