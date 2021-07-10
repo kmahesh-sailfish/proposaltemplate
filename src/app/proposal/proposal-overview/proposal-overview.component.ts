@@ -101,7 +101,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
       isSuperUser: true
     };
     this.proposalService.getProposal(obj).subscribe((data: any) => {
-      this.editProposalObj = data["_sourceObject"];
+      this.editProposalObj = data;
       console.log(this.editProposalObj, "editProposalObj");
       this.getAmendements(this.editProposalObj);
       this.loadForm();
@@ -118,7 +118,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   }
   getProposal(obj){
     this.proposalService.getProposal(obj).subscribe((data: any) => {
-      this.editProposalObj = data["_sourceObject"];
+      this.editProposalObj = data;
       console.log(this.editProposalObj, "editProposalObj");
       this.getAmendements(this.editProposalObj); 
     if(this.editProposalObj == null || this.editProposalObj.ID == undefined)
