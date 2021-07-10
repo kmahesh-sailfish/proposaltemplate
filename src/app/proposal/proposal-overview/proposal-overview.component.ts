@@ -45,7 +45,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   public propOverView: FormGroup;
   public sourceId: any;
   public editProposalObj: any = {};
-  public config: any[];
+  public pricingCountries: any[];
   public IdentifierValid: boolean = false;
   public chooseList: any = [
     { ids: 1, name: "Agreement Id" },
@@ -65,6 +65,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     this.getPricingCountry();
     this.getLrdCountreis();
     this.getById();
+    this.getAmendmentsInfoStaticData();
   //  this.getmetaData(); // load the data table
     if (this.sourceId != 0 && this.sourceId != null) {
       this.getProposalById();
@@ -147,7 +148,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   getPricingCountry() {
     this.proposalService
       .getPricingCountry()
-      .subscribe((data: any) => (this.config = data));
+      .subscribe((data: any) => (this.pricingCountries = data));
   }
   addCTM() {
     this.router.navigate(["/ctmlibrary"]);
