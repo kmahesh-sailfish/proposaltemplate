@@ -27,7 +27,7 @@ export class ProposalService {
       environment.API_URL + "Proposal/" + "GetProposalById",
       { params: obj }
     ).pipe(map((res:any)=>{
-      return  res['result'];
+      return  res['result']['_sourceObject'];
      }));
   }
   updateProposal(obj) {
