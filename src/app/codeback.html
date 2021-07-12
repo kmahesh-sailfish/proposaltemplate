@@ -90,3 +90,81 @@ Request Body:
 }
 icon-fa fa-reply
 https://www.tektutorialshub.com/angular/angular-observable-pipe/
+---------------------------------------------------------------------
+Get Proposals By Count
+Action Method: GetProposalsByCount
+URL: api/Proposal/GetProposalsByCount/false/0/100
+1.	api/Proposal/GetProposalsByCount/false/100/100
+2.	api/Proposal/GetProposalsByCount/false/200/100
+Request Body:
+
+Response Body:
+{
+    "statusCode": 200,
+    "result": [
+        {
+            "id": 257693,
+            "createdDate": "2021-07-09T15:16:11.7738895",
+            "proposalId": "sanjay5202022",
+            "createdByAlias": "V2Alias",
+            "lastModifiedBy": "V2Alias",
+            "customerName": null,
+            "dealNickname": null,
+            "status": 0,
+            "isShared": null,
+            "delegationStatus": 0
+        },
+        {
+            "id": 257690,
+            "createdDate": "2021-07-07T17:07:25.1794954",
+            "proposalId": "",
+            "createdByAlias": "V2Alias",
+            "lastModifiedBy": "V2Alias",
+            "customerName": null,
+            "dealNickname": null,
+            "status": 0,
+            "isShared": null,
+            "delegationStatus": 0
+        }
+    ]
+}
+
+
+Get Archive Proposals By Count
+Action Method: GetProposalsByCount
+URL: api/Proposal/GetProposalsByCount/true/0/100
+3.	api/Proposal/GetProposalsByCount/true/100/100
+4.	api/Proposal/GetProposalsByCount/true/200/100
+Request Body:
+
+Response Body:
+{
+    "statusCode": 200,
+    "result": [
+        {
+            "id": 257693,
+            "createdDate": "2021-07-09T15:16:11.7738895",
+            "proposalId": "sanjay5202022",
+            "createdByAlias": "V2Alias",
+            "lastModifiedBy": "V2Alias",
+            "customerName": null,
+            "dealNickname": null,
+            "status": 0,
+            "isShared": null,
+            "delegationStatus": 0
+        },
+        {
+            "id": 257690,
+            "createdDate": "2021-07-07T17:07:25.1794954",
+            "proposalId": "",
+            "createdByAlias": "V2Alias",
+            "lastModifiedBy": "V2Alias",
+            "customerName": null,
+            "dealNickname": null,
+            "status": 0,
+            "isShared": null,
+            "delegationStatus": 0
+        }
+    ]
+}
+
