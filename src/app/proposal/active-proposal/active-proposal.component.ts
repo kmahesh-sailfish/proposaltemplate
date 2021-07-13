@@ -2,13 +2,18 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subject } from "rxjs";
 import { ProposalService } from "src/app/proposal.service";
 import { ToastrService } from "ngx-toastr";
-import { GridApi, ICellRendererParams, IDatasource, IGetRowsParams } from "ag-grid-community";
-import { Observable } from 'rxjs/Observable';
+import {
+  GridApi,
+  ICellRendererParams,
+  IDatasource,
+  IGetRowsParams
+} from "ag-grid-community";
+import { Observable } from "rxjs/Observable";
 import { EditActionComponent } from "../../sharedAction/edit-action/edit-action.component";
 import * as moment from "moment";
 import { Router } from "@angular/router";
 // import { Observable,of } from 'rxjs';
- import 'rxjs/add/observable/of';
+import "rxjs/add/observable/of";
 @Component({
   selector: "app-active-proposal",
   templateUrl: "./active-proposal.component.html",
@@ -19,20 +24,19 @@ export class ActiveProposalComponent implements OnInit {
   public dtTrigger: Subject<any> = new Subject<any>();
   public ActiveProposal: any[] = [];
   public gridOptions: any;
- rowData: any = [];
- title = 'agGridExamples';
- gridApi: GridApi;
+  rowData: any = [];
+  title = "agGridExamples";
+  gridApi: GridApi;
   constructor(
     private proposalService: ProposalService,
     private router: Router
   ) {}
- 
 
   ngOnInit(): void {
     // this.loadActiveProposal();
     this.loadGrid();
   }
-  
+
   setHRDEditDiv(obj) {
     console.log(obj, "obj");
   }
@@ -49,13 +53,20 @@ export class ActiveProposalComponent implements OnInit {
   //   return Observable.of(rowdata);
   // }
   dataSource: IDatasource = {
+    rowCount: null,
     getRows: (params: IGetRowsParams) => {
-     this.proposalService.getActiveProposal().subscribe((res: any) => {
-      params.successCallback(
-        res,
-        101
-      );
-        
+      console.log(params, "params");
+
+      this.proposalService.getActiveProposal().subscribe((res: any) => {
+        // params.successCallback(res, 21);
+        setTimeout(() => {
+          let rowsThisPage = res.slice(params.startRow, params.endRow);
+          let lastRow = -1;
+          if (res.length <= params.endRow) {
+            lastRow = res.length;
+          }
+          params.successCallback(rowsThisPage, lastRow);
+        }, 500);
       });
       // this.apiService().subscribe(data => {
       //   params.successCallback(
@@ -64,17 +75,17 @@ export class ActiveProposalComponent implements OnInit {
       //   );
       // })
     }
-  }
+  };
 
   // onGridReady1(params: any) {
   //   console.log("onGridReady");
   //   var datasource = {
   //     getRows: (params: IGetRowsParams) => {
   //       this.info = "Getting datasource rows, start: " + params.startRow + ", end: " + params.endRow;
-      
+
   //       this.getRowData(params.startRow, params.endRow)
   //                 .subscribe(data => params.successCallback(data));
-        
+
   //     }
   //   };
   //   params.api.setDatasource(datasource);
@@ -83,23 +94,23 @@ export class ActiveProposalComponent implements OnInit {
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
-    this.gridApi.setDatasource(this.dataSource)
+    this.gridApi.setDatasource(this.dataSource);
   }
   loadGrid() {
     this.gridOptions = {
-     
       cacheBlockSize: 100,
       maxBlocksInCache: 2,
+      maxConcurrentDatasourceRequests:1,
       enableServerSideFilter: false,
       enableServerSideSorting: false,
-      rowModelType: 'infinite',
-      pagination: true, 
+      rowModelType: "infinite",
+      pagination: true,
       paginationAutoPageSize: true
     };
     // var da = this.proposalService.getActiveProposal().subscribe((res: any) => {
     //   this.rowData = res;
     //   console.log(this.rowData,'rowDAta')
-      
+
     // });
   }
   columnDefs = [
