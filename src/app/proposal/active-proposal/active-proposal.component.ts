@@ -12,8 +12,10 @@ import { Observable } from "rxjs/Observable";
 import { EditActionComponent } from "../../sharedAction/edit-action/edit-action.component";
 import * as moment from "moment";
 import { Router } from "@angular/router";
-// import { Observable,of } from 'rxjs';
+
 import "rxjs/add/observable/of";
+import { map } from "rxjs/operators";
+
 @Component({
   selector: "app-active-proposal",
   templateUrl: "./active-proposal.component.html",
@@ -41,77 +43,33 @@ export class ActiveProposalComponent implements OnInit {
     console.log(obj, "obj");
   }
 
-  // info:any;
-  // private getRowData(startRow: number, endRow: number): Observable<any[]> {
-  //   // This is acting as a service call that will return just the
-  //   // data range that you're asking for.
-  //   var rowdata = [];
-  //   for (var i = startRow; i <= endRow; i++) {
-
-  //     rowdata.push({ one: "hello", two: "world", three: "Item " + i });
-  //   }
-  //   return Observable.of(rowdata);
-  // }
-  dataSource: IDatasource = {
-    rowCount: null,
+  private getRowData(startRow: number, endRow: number): Observable<any[]> {
+    return this.proposalService.getPagenation(startRow, endRow);
+  }
+  datasource: IDatasource = {
     getRows: (params: IGetRowsParams) => {
-      console.log(params, "params");
-
-      this.proposalService.getActiveProposal().subscribe((res: any) => {
-        // params.successCallback(res, 21);
-        setTimeout(() => {
-          let rowsThisPage = res.slice(params.startRow, params.endRow);
-          let lastRow = -1;
-          if (res.length <= params.endRow) {
-            lastRow = res.length;
-          }
-          params.successCallback(rowsThisPage, lastRow);
-        }, 500);
-      });
-      // this.apiService().subscribe(data => {
-      //   params.successCallback(
-      //     data,
-      //     101
-      //   );
-      // })
+      this.getRowData(params.startRow, params.endRow).subscribe(data =>
+        params.successCallback(data)
+      );
     }
   };
 
-  // onGridReady1(params: any) {
-  //   console.log("onGridReady");
-  //   var datasource = {
-  //     getRows: (params: IGetRowsParams) => {
-  //       this.info = "Getting datasource rows, start: " + params.startRow + ", end: " + params.endRow;
-
-  //       this.getRowData(params.startRow, params.endRow)
-  //                 .subscribe(data => params.successCallback(data));
-
-  //     }
-  //   };
-  //   params.api.setDatasource(datasource);
-
-  // }
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
-    this.gridApi.setDatasource(this.dataSource);
+    this.gridApi.setDatasource(this.datasource);
   }
   loadGrid() {
     this.gridOptions = {
       cacheBlockSize: 100,
       maxBlocksInCache: 2,
-      maxConcurrentDatasourceRequests:1,
+      maxConcurrentDatasourceRequests: 1,
       enableServerSideFilter: false,
       enableServerSideSorting: false,
       rowModelType: "infinite",
       pagination: true,
       paginationAutoPageSize: true
     };
-    // var da = this.proposalService.getActiveProposal().subscribe((res: any) => {
-    //   this.rowData = res;
-    //   console.log(this.rowData,'rowDAta')
-
-    // });
   }
   columnDefs = [
     {
