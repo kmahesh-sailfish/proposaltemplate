@@ -112,8 +112,8 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   getAmendmentsInfoStaticData(){
     this.proposalService.getamendmentstaticInfo().subscribe(data => {
       console.log('data',data)
-      // $scope.vm.DiscountAmendments = data.DiscountAmendments;
-      // $scope.vm.Currencies = data.Currencies;
+      // this.vm.DiscountAmendments = data.DiscountAmendments;
+      // this.vm.Currencies = data.Currencies;
     })
   }
   getProposal(obj){
@@ -268,23 +268,32 @@ this.proposalService.deleteAmendate(deleObj).subscribe((data: any) => {
           size: "lg"
         });
         modelRef.componentInstance.searchAmendList = data.result;
-        modelRef.componentInstance.selectAmendement.subscribe(receivedEntry => {
+        modelRef.componentInstance.selectAmendement.subscribe(obj => {
+          this.getMetadata(obj.id);
           var obj1=
            [ {
-              "Id": receivedEntry.id,
-              "DocName": receivedEntry.docName,
-              "FileName":receivedEntry.fileName,
-              "Language": receivedEntry.language,
-              "code": receivedEntry.code,
-              "EmpowermentCode": receivedEntry.empowermentCode,
-              "ExpirationDate": receivedEntry.expirationDate,
-              "EmpowermentName": receivedEntry.empowermentName
+              "Id": obj.id,
+              "DocName": obj.docName,
+              "FileName":obj.fileName,
+              "Language": obj.language,
+              "code": obj.code,
+              "EmpowermentCode": obj.empowermentCode,
+              "ExpirationDate": obj.expirationDate,
+              "EmpowermentName": obj.empowermentName
             }
           ]
           
           this.saveAmendate(obj1);
         });
       });
+  }
+  getMetadata(id){
+    //get metadata
+    this.proposalService.getMetadata(id).subscribe((data)=>{
+      console.log(data,'metadata');
+
+    })
+
   }
   saveAmendate(amendments){
   var obj= {
@@ -301,6 +310,25 @@ this.proposalService.deleteAmendate(deleObj).subscribe((data: any) => {
       this.getVersion();
     })
   }
+// test(data){
+//   if (data && data.Amendments && data.Amendments.length > 0) {
+//     for (var i = 0; i < data.Amendments.length; i++) {
+//         if (this.model.Amendments) {
+//             this.model.Amendments.push(new Amendment(data.Amendments[i]));
+//         }
+//         else {
+//             this.model.Amendments = [];
+//             this.model.Amendments.push(new Amendment(data.Amendments[i]));
+//         }
+//     }
+//     this.vm.captureHRDDvalues();
+//     this.vm.captureAmendmentAzureDiscounts();
+// }
+// if (data.Notes != "") {
+//     ngToast.create({ content: "Warning: The following amendments use custom introductory language outside the standard language approved by CELA.  Please resubmit amendment " + data.Notes + " and process through the tool as an individual document. ", timeout: 30000 });
+// }
+// }
+
   reloadTable() {
     this.dtTrigger.next();
   }
@@ -459,10 +487,10 @@ doesPricingDocumentsExists() {
    var aid = obj.id;
     // if (DiscountAmendments.length == 0)
     //     getAmendmentInfoStaticData();
-    // var amendment = $scope.model.Amendments.filter(function (d) { return d.Id == aid; })[0];
+    // var amendment = this.model.Amendments.filter(function (d) { return d.Id == aid; })[0];
     // var discountedAmendmentInfo = AppService.isDiscountedAmendment(DiscountAmendments, amendment.Code)[0];
     // if (discountedAmendmentInfo != null && !isEdit) {
-    //     $scope.editAmendmentDiscountData(discountedAmendmentInfo, amendment);
+    //     this.editAmendmentDiscountData(discountedAmendmentInfo, amendment);
     // }
     //else {
        // EditDocumentService.startEditDocument(proposalId, id).then(function (data) {

@@ -235,6 +235,22 @@ export class ProposalService {
     return false;
   }
   updatePricingCountry() {}
+  getArchivePage(startRow, endRow) {
+    
+    return this.http
+      .get(
+        environment.API_URL +
+          "Proposal/GetProposalsByCount/true/" +
+          startRow +
+          "/" +
+          endRow
+      )
+      .pipe(
+        map((res: any) => {
+          return res.result;
+        })
+      );
+  }
   getPagenation(startRow, endRow) {
     return this.http
       .get(
@@ -243,6 +259,20 @@ export class ProposalService {
           startRow +
           "/" +
           endRow
+      )
+      .pipe(
+        map((res: any) => {
+          return res.result;
+        })
+      );
+  }
+  getMetadata(id) {
+    
+    return this.http
+      .get(
+        environment.API_URL +
+          "Amendment/GetVlDocAmendmentData" +
+          id
       )
       .pipe(
         map((res: any) => {

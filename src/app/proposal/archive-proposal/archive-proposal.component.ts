@@ -1,7 +1,20 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Subject } from "rxjs";
 import { ProposalService } from "src/app/proposal.service";
+import { ToastrService } from "ngx-toastr";
+import {
+  GridApi,
+  ICellRendererParams,
+  IDatasource,
+  IGetRowsParams
+} from "ag-grid-community";
+import { Observable } from "rxjs/Observable";
+
 import * as moment from "moment";
+import { Router } from "@angular/router";
+
+import "rxjs/add/observable/of";
+import { map } from "rxjs/operators";
 import { ArchiveActionsComponent } from "../../sharedAction/archive-actions/archive-actions.component";
 @Component({
   selector: "app-archive-proposal",
@@ -9,7 +22,11 @@ import { ArchiveActionsComponent } from "../../sharedAction/archive-actions/arch
   styleUrls: ["./archive-proposal.component.css"]
 })
 export class ArchiveProposalComponent implements OnInit {
+  public ActiveProposal: any[] = [];
+  public gridOptions: any;
   rowData: any = [];
+  title = "agGridExamples";
+  gridApi: GridApi;
   constructor(
     private proposalService: ProposalService,
     private router: Router
@@ -19,11 +36,37 @@ export class ArchiveProposalComponent implements OnInit {
     // this.loadActiveProposal();
     this.loadGrid();
   }
+
+  setHRDEditDiv(obj) {
+    console.log(obj, "obj");
+  }
+
+  private getRowData(startRow: number, endRow: number): Observable<any[]> {
+    return this.proposalService.getArchivePage(startRow, endRow);
+  }
+  datasource: IDatasource = {
+    getRows: (params: IGetRowsParams) => {
+      this.getRowData(params.startRow, params.endRow).subscribe(data =>
+        params.successCallback(data)
+      );
+    }
+  };
+
+  onGridReady(params: any) {
+    this.gridApi = params.api;
+    this.gridApi.sizeColumnsToFit();
+    this.gridApi.setDatasource(this.datasource);
+  }
   loadGrid() {
-    var da = this.proposalService.getActiveProposal().subscribe((res: any) => {
-      this.rowData = res;
-      //  this.ActiveProposal = res["result"];
-    });
+    this.gridOptions = {
+      cacheBlockSize: 100,
+      maxBlocksInCache: 2,
+      maxConcurrentDatasourceRequests: 1,
+      
+      rowModelType: "infinite",
+      pagination: true,
+      paginationAutoPageSize: true
+    };
   }
   columnDefs = [
     {
@@ -71,7 +114,7 @@ export class ArchiveProposalComponent implements OnInit {
       filter: true,
       resizable: true,
       cellRenderer: data => {
-        return data["data"].status == 0 ? "false" : "true";
+        return data.status == 0 ? "false" : "true";
       }
     },
     {
@@ -88,7 +131,7 @@ export class ArchiveProposalComponent implements OnInit {
       filter: true,
       width: 100,
       cellRenderer: data => {
-        return data["data"].delegationStatus == 0 ? "false" : "true";
+        return data.delegationStatus == 0 ? "false" : "true";
       }
     },
     {

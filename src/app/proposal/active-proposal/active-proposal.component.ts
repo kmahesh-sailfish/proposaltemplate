@@ -64,8 +64,7 @@ export class ActiveProposalComponent implements OnInit {
       cacheBlockSize: 100,
       maxBlocksInCache: 2,
       maxConcurrentDatasourceRequests: 1,
-      enableServerSideFilter: false,
-      enableServerSideSorting: false,
+      
       rowModelType: "infinite",
       pagination: true,
       paginationAutoPageSize: true
