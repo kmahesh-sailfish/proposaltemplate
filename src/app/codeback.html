@@ -167,4 +167,38 @@ Response Body:
         }
     ]
 }
+---------------------------------------------------------------------
+Action Method: GetAmendmentMetaData
+URL: api/Amendment/GetAmendmentMetaData/{documentIds}
+Request Body:
+Sample: https://localhost:5001/api/Amendment/GetVlDocAmendmentData/26986,46226
+Response Body:
+{
+    "amendmentsMetadata": [
+        {
+            "id": 26986,
+            "docName": "(M100)EAEnrAmend(Office365DataProcessAgrWithModelClauses)(WW)(SPA)(Sept2015)(IU)",
+            "fileName": "(M100)EAEnrAmend(Office365DataProcessAgrWithModelClauses)(WW)(SPA)(Sept2015)(IU).docx",
+            "language": "SPA",
+            "code": "M100",
+            "empowermentCode": "Blue",
+            "expirationDate": null,
+            "empowermentName": "Blue"
+        },
+        {
+            "id": 46226,
+            "docName": "(M10)VLAmend(IncreaseTrainingDays)(WW)(ENG)(Aug2017)(IU)",
+            "fileName": "(M10)VLAmend(IncreaseTrainingDays)(WW)(ENG)(Aug2017)(IU).docx",
+            "language": "ENG",
+            "code": "M10",
+            "empowermentCode": "Blue",
+            "expirationDate": null,
+            "empowermentName": "Blue"
+        }
+    ],
+    "notes": "",
+    "ok": 200
+}
+
+
 
