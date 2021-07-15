@@ -1,51 +1,16 @@
-import {
-    AfterViewInit,
-    Component,
-    OnDestroy,
-    OnInit,
-    ViewChild
-} from "@angular/core";
-import {
-    DataTableDirective
-} from "angular-datatables";
-import {
-    Router,
-    ActivatedRoute,
-    ParamMap
-} from "@angular/router";
-import {
-    Location
-} from "@angular/common";
-import {
-    ProposalService
-} from "src/app/proposal.service";
-import {
-    FormGroup,
-    FormControl
-} from "@angular/forms";
-import {
-    NgbModalConfig,
-    NgbModal
-} from "@ng-bootstrap/ng-bootstrap";
-import {
-    SearchProposalComponent
-} from "../modeal/search-proposal/search-proposal.component";
-import {
-    SharedService
-} from "../../sharedservices/shared.service";
-import {
-    Subject
-} from "rxjs";
-
-import {
-    NgForm
-} from '@angular/forms';
-import {
-    ShareProposalComponent
-} from '../modeal/share-proposal/share-proposal.component';
-import {
-    DelProposalComponent
-} from "../modeal/del-proposal/del-proposal.component";
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import {DataTableDirective} from "angular-datatables";
+import {Router,ActivatedRoute,ParamMap} from "@angular/router";
+import {Location} from "@angular/common";
+import {ProposalService} from "src/app/proposal.service";
+import {FormGroup,FormControl} from "@angular/forms";
+import {NgbModalConfig,NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {SearchProposalComponent} from "../modeal/search-proposal/search-proposal.component";
+import {SharedService} from "../../sharedservices/shared.service";
+import {Subject} from "rxjs";
+import {NgForm} from '@angular/forms';
+import {ShareProposalComponent} from '../modeal/share-proposal/share-proposal.component';
+import {DelProposalComponent} from "../modeal/del-proposal/del-proposal.component";
 
 @Component({
     selector: "app-proposal-overview",
@@ -56,29 +21,27 @@ import {
 export class ProposalOverviewComponent implements OnInit, OnDestroy {
     // new work flow 
   public HRDDAmendments: any[] = [];
-    public IsAmendmentDeleted: any;
-    public showDescription: any;
-    public selectedCountry: any;
-    public showPricingCountryAlignDescription: any;
-    public lrdCountries: any;
-    public HRDDeal: any;
-    public HRDDiscount: any;
-    public HRDDCondition: any;
-    public discountAmendments: any;
-    public currencies: any;
-    public model: any;
+  public IsAmendmentDeleted: any;
+  public showDescription: any;
+  public selectedCountry: any;
+  public showPricingCountryAlignDescription: any;
+  public lrdCountries: any;
+  public HRDDeal: any;
+  public HRDDiscount: any;
+  public HRDDCondition: any;
+  public discountAmendments: any;
+  public currencies: any;
+  public model: any;
     ///--------------  
-
-
-    public sampe: any = {};
-    dtOptions: DataTables.Settings = {};
-    public showbutton: boolean;
-    public proposalIdentifierReq: any;
-    public Identifier: any;
-    public doctype: any;
-    public IsLinked: any;
-    public showLinkedProposalsbutton: boolean;
-    public Amendments: any[] = [];
+   public sampe: any = {};
+   dtOptions: DataTables.Settings = {};
+   public showbutton: boolean;
+   public proposalIdentifierReq: any;
+   public Identifier: any;
+   public doctype: any;
+   public IsLinked: any;
+   public showLinkedProposalsbutton: boolean;
+   public Amendments: any[] = [];
     // We use this trigger because fetching the list of persons can be quite long,
     // thus we ensure the data is fetched before rendering
     dtTrigger: Subject < any > = new Subject < any > ();
@@ -91,11 +54,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     public editProposalObj: any = {};
     public pricingCountries: any[];
     public IdentifierValid: boolean = false;
-    public chooseList: any = [{
-            ids: 1,
-            name: "Agreement Id"
-        },
-        {
+    public chooseList: any = [{ ids: 1,name: "Agreement Id"},{
             ids: 2,
             name: "Enrollment Id"
         }
@@ -110,18 +69,18 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
-        this.loadForm();
-        this.getPricingCountry();
+       this.loadForm();
+       this.getPricingCountry();
        // this.getLrdCountreis();
-        this.getById();
-        this.getAmendmentsInfoStaticData();
-        //  this.getmetaData(); // load the data table
-        if (this.ProposalId != 0 && this.ProposalId != null) {
-            this.getProposalById();
+       this.getById();
+       this.getAmendmentsInfoStaticData();
+       //  this.getmetaData(); // load the data table
+       if (this.ProposalId != 0 && this.ProposalId != null) {
+        this.getProposalById();
         } else {
-            this.sharedSerivice.getproposalObs().subscribe(data => {
-                this.createProposal(data);
-            });
+           this.sharedSerivice.getproposalObs().subscribe(data => {
+           this.createProposal(data);
+         });
         }
     }
     getById() {
@@ -130,103 +89,98 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         });
     }
     createProposal(obj) {
-
         this.proposalService.createProposal(obj).subscribe((data: any) => {
-            this.editProposalObj = data["_sourceObject"];
-            console.log(this.editProposalObj, "editProposalObj");
-            this.getProposalById();
-            this.loadForm();
-            this.router.navigate(["proposaloverview/", this.editProposalObj["id"]]);
+        this.editProposalObj = data["_sourceObject"];
+        console.log(this.editProposalObj, "editProposalObj");
+        this.getProposalById();
+        this.loadForm();
+        this.router.navigate(["proposaloverview/", this.editProposalObj["id"]]);
         });
     }
-
     getProposalById() {
         var obj = {
             id: this.editProposalObj.id != null ?
-                this.editProposalObj.id :
-                this.ProposalId,
+            this.editProposalObj.id :
+            this.ProposalId,
             createdByAlias: "V2Alias",
             isSuperUser: true
         };
-        this.proposalService.getProposal(obj).subscribe((data: any) => {
-            this.editProposalObj = data;
+      this.proposalService.getProposal(obj).subscribe((data: any) => {
+           this.editProposalObj = data;
             console.log(this.editProposalObj, "editProposalObj");
             this.getAmendements(this.editProposalObj);
             this.loadForm();
             // this.getHrdCountries();
         });
     }
-
     getAmendmentsInfoStaticData() {
-        this.proposalService.getamendmentstaticInfo().subscribe(data => {
-            console.log('data', data)
-            this.discountAmendments = data.DiscountAmendments;
-            this.currencies = data.Currencies;
-            if (this.ProposalId != 0 && this.ProposalId != null) {
-                this.proposalService.getProposalCopy(this.ProposalId).subscribe((data: any) => {
-                    this.editProposalObj = data;
-                    this.model = new Proposal(data);
-
-                    console.log(this.model, "editProposalObj");
-                    // this.getAmendements(this.editProposalObj); 
-
-                    if (this.model == null || this.model.ID == undefined) {
-                        console.log({
-                            content: "Proposal does not exists or you don`t have permissions to view it."
-                        });
-                    }
-                    this.proposalService.getHrdCountries().subscribe((data: any) => {
-                        this.HRDDDetails = data;
-                        this.HRDDCountries = data.map((country)=> {
-                            return country.name;
-                        });
-                        if (this.model.PricingCountry != "") {
-                            for (var i = 0; i < data.length; i++) {
-                                if (data[i].name == this.model.PricingCountry) {
-                                    this.HRDDAmendments = data[i].hrddAmendments;
-                                    this.HRDDeal = data[i].dealAmount;
-                                    this.HRDDiscount = data[i].discount;
-                                    this.HRDDCondition = data[i].hrddCondition;
-                                }
-                            }
-                        }
-                    });
-                    //  this.tempModel = data;
-                    //  this.supportMailSubject = "Amendment Service Crash-dump : Proposal Overview " + this.model.ProposalId;
-                    //  this.CheckPagebreak();
-                    //  this.appendAmendments();
-                      this.proposalService.getLrdCountries().subscribe(data => {
-                       this.lrdCountries = data;
-                        var isPricingCountry = this.proposalService.isPricingCountry(this.lrdCountries, this.model.PricingCountry);
-                        if (isPricingCountry) {
-                            this.showPricingCountryAlignDescription = true;
-                            // $timeout(function () { this.showPricingCountryAlignDescription = false; }, 6000);
-                        } else {
-                            this.Amendments.forEach((a, c)=> {
-                                if (a.Code.indexOf("P-") == 0) {
-                                  this.showPricingCountryAlignDescription = true;
-                                    // $timeout(function() {
-                                    //     this.showPricingCountryAlignDescription = false;
-                                    // }, 6000);
-                                }
-                            });
-                        }
-                        this.coutryChanged();
-                    });
-                });
-            }
-        })
-    }
-        //     var appendAmendments = function () {
-        //     if ($stateParams.amendmentIds) {
-        //         ProposalServices.saveAmendments($scope.vm.proposalId, $stateParams.amendmentIds).then(function (data) {
-        //             if (data && data.length > 0) {
-        //                 for (var i = 0; i < data.length; i++) {
-        //                     if ($scope.model.Amendments) {
-        //                         $scope.model.Amendments.push(new Amendment(data[i]));
-        //                     }
-        //                     else {
-        //                         $scope.model.Amendments = [];
+     this.proposalService.getamendmentstaticInfo().subscribe(data => {
+      console.log('data', data)
+      this.discountAmendments = data.DiscountAmendments;
+      this.currencies = data.Currencies;
+      if (this.ProposalId != 0 && this.ProposalId != null) {
+          this.proposalService.getProposalCopy(this.ProposalId).subscribe((data: any) => {
+          this.editProposalObj = data;
+          this.model = new Proposal(data);
+          console.log(this.model, "editProposalObj");
+         // this.getAmendements(this.editProposalObj); 
+         if (this.model == null || this.model.ID == undefined) {
+             console.log({
+                 content: "Proposal does not exists or you don`t have permissions to view it."
+              });
+          }
+         this.proposalService.getHrdCountries().subscribe((data: any) => {
+             this.HRDDDetails = data;
+             this.HRDDCountries = data.map((country) => {
+                 return country.name;
+             });
+             if (this.model.PricingCountry != "") {
+                 for (var i = 0; i < data.length; i++) {
+                     if (data[i].name == this.model.PricingCountry) {
+                         this.HRDDAmendments = data[i].hrddAmendments;
+                         this.HRDDeal = data[i].dealAmount;
+                         this.HRDDiscount = data[i].discount;
+                         this.HRDDCondition = data[i].hrddCondition;
+                     }
+                 }
+             }
+         });
+         //  this.tempModel = data;
+         //  this.supportMailSubject = "Amendment Service Crash-dump : Proposal Overview " + this.model.ProposalId;
+         //  this.CheckPagebreak();
+         //  this.appendAmendments();
+         this.proposalService.getLrdCountries().subscribe(data => {
+             this.lrdCountries = data;
+             var isPricingCountry = this.proposalService.isPricingCountry(this.lrdCountries, this.model.PricingCountry);
+             if (isPricingCountry) {
+                 this.showPricingCountryAlignDescription = true;
+                 // $timeout(function () { this.showPricingCountryAlignDescription = false; }, 6000);
+             } else {
+                 this.Amendments.forEach((a, c) => {
+                  if (a.Code.indexOf("P-") == 0) {
+                  this.showPricingCountryAlignDescription = true;
+                  // $timeout(function() {
+                 //     this.showPricingCountryAlignDescription = false;
+                      // }, 6000);
+                     }
+                 });
+             }
+             this.coutryChanged();
+         });
+        });
+      }
+    })
+  }
+// var appendAmendments = function () {
+//     if ($stateParams.amendmentIds) {
+//     ProposalServices.saveAmendments($scope.vm.proposalId, $stateParams.amendmentIds).then(function (data) {
+//     if (data && data.length > 0) {
+//      for (var i = 0; i < data.length; i++) {
+//      if ($scope.model.Amendments) {
+//      $scope.model.Amendments.push(new Amendment(data[i]));
+//           }
+//      else {
+        // $scope.model.Amendments = [];
         //                         $scope.model.Amendments.push(new Amendment(data[i]));
         //                     }
         //                 }
@@ -260,23 +214,22 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         //     }
         // }
     coutryChanged() {
-            this.showbutton = false;
-            var result = this.proposalService.isPricingCountry(this.lrdCountries, this.model.PricingCountry);
-            // if (result) {
-            //     var showDesc = false;
-            //     //this.showDescription = this.model.Amendments.length == 0 ? false : this.model.Amendments.filter(function (d) { return this.model.Amendments.filter(function (c) { return (c.Code == 'L-' + d.Code) || (c.Code == 'P-' + d.Code); }); }).length > 0;
-            //     this.model.Amendments.forEach(function (a, c) {
-            //     this.model.Amendments.forEach(function (b, d) {
-            //             showDesc = !showDesc ? (((a.Code == 'L-' + b.Code) || (a.Code == 'P-' + b.Code)) && !a.Code.includes('CTM') && !b.Code.includes('CTM') ? true : false) : showDesc;
-            //         });
-            //     });
-            //   this.showDescription = this.model.Amendments.length == 0 ? false : showDesc;
-            // }
-            // else {
-            //   this.showDescription = this.model.Amendments.length == 0 ? false : this.model.Amendments.filter(function (d) { return (d.Code.indexOf('P-') == 0) || (d.Code.indexOf('L-')==0); }).length > 0;
-            // }
-            //this.showDescription = this.model.Amendments.length == 0 ? result : this.model.Amendments.filter(function (d) { return d.IsPricingAmendment == result; }).length != this.model.Amendments.length;
-
+        this.showbutton = false;
+        var result = this.proposalService.isPricingCountry(this.lrdCountries, this.model.PricingCountry);
+         // if (result) {
+         //     var showDesc = false;
+         //     //this.showDescription = this.model.Amendments.length == 0 ? false : this.model.Amendments.filter(function (d) { return this.model.Amendments.filter(function (c) { return (c.Code == 'L-' + d.Code) || (c.Code == 'P-' + d.Code); }); }).length > 0;
+         //     this.model.Amendments.forEach(function (a, c) {
+        //     this.model.Amendments.forEach(function (b, d) {
+         //             showDesc = !showDesc ? (((a.Code == 'L-' + b.Code) || (a.Code == 'P-' + b.Code)) && !a.Code.includes('CTM') && !b.Code.includes('CTM') ? true : false) : showDesc;
+         //         });
+         //     });
+         //   this.showDescription = this.model.Amendments.length == 0 ? false : showDesc;
+         // }
+         // else {
+         //   this.showDescription = this.model.Amendments.length == 0 ? false : this.model.Amendments.filter(function (d) { return (d.Code.indexOf('P-') == 0) || (d.Code.indexOf('L-')==0); }).length > 0;
+         // }
+         //this.showDescription = this.model.Amendments.length == 0 ? result : this.model.Amendments.filter(function (d) { return d.IsPricingAmendment == result; }).length != this.model.Amendments.length;
             //$timeout(function () { this.showDescription = false; }, 60000);
             if (this.selectedCountry != this.model.PricingCountry) {
                 // this.proposalSerive.updatePricingCountry(this.model.ID, this.model.PricingCountry).then(function (data) {
@@ -295,16 +248,14 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
                         this.HRDDeal = country.dealAmount;
                         this.HRDDiscount = country.discount;
                         this.HRDDCondition = country.hrddCondition;
-
                         return false;
                     }
                 });
-            }
-                this.selectedCountry = this.model.PricingCountry;
-            }
-
-            this.captureHRDDvalues();
-            this.captureAmendmentAzureDiscounts();
+                }
+            this.selectedCountry = this.model.PricingCountry;
+        }
+    this.captureHRDDvalues();
+    this.captureAmendmentAzureDiscounts();
     };
    captureHRDDvalues () {
      if (this.HRDDCountries.length == 0) {
