@@ -173,39 +173,39 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   }
 // var appendAmendments = function () {
 //     if ($stateParams.amendmentIds) {
-//     ProposalServices.saveAmendments($scope.vm.proposalId, $stateParams.amendmentIds).then(function (data) {
+//     ProposalServices.saveAmendments(this.vm.proposalId, $stateParams.amendmentIds).then(function (data) {
 //     if (data && data.length > 0) {
 //      for (var i = 0; i < data.length; i++) {
-//      if ($scope.model.Amendments) {
-//      $scope.model.Amendments.push(new Amendment(data[i]));
+//      if (this.model.Amendments) {
+//      this.model.Amendments.push(new Amendment(data[i]));
 //           }
 //      else {
-        // $scope.model.Amendments = [];
-        //                         $scope.model.Amendments.push(new Amendment(data[i]));
+        // this.model.Amendments = [];
+        //                         this.model.Amendments.push(new Amendment(data[i]));
         //                     }
         //                 }
-        //                 $scope.amendmentsGrid.data = $scope.model.Amendments;
-        //                 $scope.vm.captureHRDDvalues();
-        //                 $scope.vm.captureAmendmentAzureDiscounts();
+        //                 this.amendmentsGrid.data = this.model.Amendments;
+        //                 this.vm.captureHRDDvalues();
+        //                 this.vm.captureAmendmentAzureDiscounts();
         //             }
 
         //         });
         //     }
 
         //     if ($stateParams.metadata && $stateParams.metadata.length > 0) {
-        //         ProposalServices.saveAmendmentMetadata($stateParams.metadata, $scope.vm.proposalId).then(function (data) {
+        //         ProposalServices.saveAmendmentMetadata($stateParams.metadata, this.vm.proposalId).then(function (data) {
         //             if (data && data.Amendments && data.Amendments.length > 0) {
         //                 for (var i = 0; i < data.Amendments.length; i++) {
-        //                     if ($scope.model.Amendments) {
-        //                         $scope.model.Amendments.push(new Amendment(data.Amendments[i]));
+        //                     if (this.model.Amendments) {
+        //                         this.model.Amendments.push(new Amendment(data.Amendments[i]));
         //                     }
         //                     else {
-        //                         $scope.model.Amendments = [];
-        //                         $scope.model.Amendments.push(new Amendment(data.Amendments[i]));
+        //                         this.model.Amendments = [];
+        //                         this.model.Amendments.push(new Amendment(data.Amendments[i]));
         //                     }
         //                 }
-        //                 $scope.vm.captureHRDDvalues();
-        //                 $scope.vm.captureAmendmentAzureDiscounts();
+        //                 this.vm.captureHRDDvalues();
+        //                 this.vm.captureAmendmentAzureDiscounts();
         //             }
         //             if (data.Notes != "") {
         //                 ngToast.create({ content: "Warning: The following amendments use custom introductory language outside the standard language approved by CELA.  Please resubmit amendment " + data.Notes + " and process through the tool as an individual document. ", timeout: 30000 });
@@ -266,7 +266,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
        data.forEach((country)=> {
          if (country.name == this.model.PricingCountry) {
            this.HRDDAmendments = country.hrddAmendments;
-           this.HRDDeal = country.DealAmount;
+           this.HRDDeal = country.dealAmount;
            this.HRDDiscount = country.discount;
            this.HRDDCondition = country.hrddCondition;
          }
@@ -426,7 +426,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
                     // keyboard: false,
                     size: "lg"
                 });
-                modelRef.componentInstance.searchAmendList = data.result;
+                modelRef.componentInstance.searchAmendList = data;
                 modelRef.componentInstance.selectAmendement.subscribe(receivedEntry => {
                     var obj1 = [{
                         "Id": receivedEntry.id,
@@ -451,11 +451,25 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
             "AmendmentDocs": amendments
         }
         this.proposalService.saveMetadata(obj).subscribe(data => {
-            console.log('dataAmendata', data);
-            this.Amendments.push(data["amendments"]);
-            //this.getAmendements(data["result"])
-            this.editProposalObj = data;
-            this.getVersion();
+           // console.log('dataAmendata', data);
+            //this.Amendments.push(data["amendments"]);
+        if (data && data.Amendments && data.Amendments.length > 0) {
+           for (var i = 0; i < data.Amendments.length; i++) {
+               if (this.model.Amendments) {
+                   this.model.Amendments.push(new Amendment(data.Amendments[i]));
+               }
+               else {
+                   this.model.Amendments = [];
+                   this.model.Amendments.push(new Amendment(data.Amendments[i]));
+               }
+            }
+           this.captureHRDDvalues();
+           this.captureAmendmentAzureDiscounts();
+            }
+        if (data.notes != "") {
+                // ngToast.create({ content: "Warning: The following amendments use custom introductory language outside the standard language approved by CELA.  Please resubmit amendment " + data.Notes + " and process through the tool as an individual document. ", timeout: 30000 });
+            }
+           
         })
     }
     reloadTable() {
