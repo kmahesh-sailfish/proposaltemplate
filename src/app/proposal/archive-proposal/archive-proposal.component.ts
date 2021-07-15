@@ -62,7 +62,7 @@ export class ArchiveProposalComponent implements OnInit {
       cacheBlockSize: 100,
       maxBlocksInCache: 2,
       maxConcurrentDatasourceRequests: 1,
-      
+
       rowModelType: "infinite",
       pagination: true,
       paginationAutoPageSize: true
@@ -105,6 +105,13 @@ export class ArchiveProposalComponent implements OnInit {
       width: 100,
       filter: true,
       field: "customerName",
+      resizable: true
+    },
+    {
+      headerName: "Deal NickName",
+      width: 100,
+      filter: true,
+      field: "dealNickname",
       resizable: true
     },
     {

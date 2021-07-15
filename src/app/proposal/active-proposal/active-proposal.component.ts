@@ -110,6 +110,13 @@ export class ActiveProposalComponent implements OnInit {
       resizable: true
     },
     {
+      headerName: "Deal NickName",
+      width: 100,
+      filter: true,
+      field: "dealNickname",
+      resizable: true
+    },
+    {
       headerName: "Status",
       field: "status",
       width: 100,
