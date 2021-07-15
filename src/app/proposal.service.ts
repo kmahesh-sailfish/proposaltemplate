@@ -235,6 +235,24 @@ export class ProposalService {
     return false;
   }
   updatePricingCountry() {}
+  isHRDDCountry(hrddCountries, pricingCountry) {
+    if (hrddCountries.length > 0) {
+      var result = hrddCountries.filter(function(d) {
+        return d == pricingCountry;
+      });
+      return result && result.length > 0;
+    }
+    return false;
+  }
+  hasHRDDAmendments(hrddAmendments, amendments) {
+    if (hrddAmendments != undefined && hrddAmendments.length > 0) {
+      var result = amendments.filter(function(am) {
+        return hrddAmendments.indexOf(am.Code) > -1;
+      });
+      return result && result.length > 0;
+    }
+    return false;
+  }
   getPagenation(startRow, endRow) {
     return this.http
       .get(

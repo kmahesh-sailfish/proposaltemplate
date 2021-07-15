@@ -65,5 +65,13 @@
   "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.11.",
   "main": "karma.conf.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kmahesh-sailfish/proposaltemplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kmahesh-sailfish/proposaltemplate/issues"
+  },
+  "homepage": "https://github.com/kmahesh-sailfish/proposaltemplate#readme"
 }
