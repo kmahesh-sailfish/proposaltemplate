@@ -227,7 +227,7 @@ export class ProposalService {
   }
   isPricingCountry(lrdCountries, pricingCountry): any {
     if (lrdCountries.length > 0) {
-      var result = lrdCountries.filter(function(d) {
+      var result = lrdCountries.filter((d)=> {
         return d == pricingCountry;
       });
       return result && result.length > 0;
@@ -287,6 +287,17 @@ export class ProposalService {
   getMetadata(id) {
     return this.http
       .get(environment.API_URL + "Amendment/GetVlDocAmendmentData/" + id)
+      .pipe(
+        map((res: any) => {
+          return res.result;
+        })
+      );
+  }
+  generateDocFile(obj){
+    return this.http
+      .get(environment.API_URL + "Amendment/DownloadDocumentById",{
+        params: obj
+      })
       .pipe(
         map((res: any) => {
           return res.result;

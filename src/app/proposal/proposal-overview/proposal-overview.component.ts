@@ -35,7 +35,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     ///--------------  
    public sampe: any = {};
    dtOptions: DataTables.Settings = {};
-   public showbutton: boolean;
+   public showbutton: boolean = false;
    public proposalIdentifierReq: any;
    public Identifier: any;
    public doctype: any;
@@ -508,7 +508,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
 
         if (this.lrdCountries.length > 0) {
 
-            var result = this.lrdCountries.filter((d)=> {
+            var result = this.lrdCountries.filter((d) => {
                 return d == this.editProposalObj['proposalEntity']?.pricingCountry
             });
             return result && result.length > 0;
@@ -528,9 +528,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         return IsContainsPricingAmendment;
     }
     generate() {
-        this.Identifier = 1;
-
-        if (this.Identifier != undefined && this.Identifier != null && this.Identifier != 0) {
+        if (this.model.Identifier != undefined && this.model.Identifier != null && this.model.Identifier != 0) {
             this.proposalIdentifierReq = false;
             if (this.Amendments.length > 0) {
                 // console.log("IsPricingAmendmentExists " +IsPricingAmendmentExists())
@@ -540,7 +538,15 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
                     this.showLinkedProposalsbutton = true;
                     this.doctype = 0;
                 } else {
-                    //   window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId, + "/0";
+                  var obj={};
+            obj['pid']="257695";
+            obj['type']="0";
+            obj["userAlias"]="v-skarukonda";
+            obj["isSuperUser"]=false;
+            this.proposalService.generateDocFile(obj).subscribe(data => {
+              this.saveData(data.content,data.fileName);
+            });
+                 // window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId, + "/0";
                 }
 
             } else {
@@ -554,12 +560,21 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     generatePricing() {
         if (!this.doesPricingDocumentsExists()) {
             //  ngToast.create({ content: "No Pricing Amendments in proposal" });
+            
         } else if (this.IsLinked) {
             this.showLinkedProposalsbutton = true;
             this.doctype = 1;
         } else {
             this.showbutton = false;
-            // window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId+ "/1";
+            var obj={};
+            obj['pid']="257695";
+            obj['type']="1";
+            obj["userAlias"]="v-skarukonda";
+            obj["isSuperUser"]=false;
+            this.proposalService.generateDocFile(obj).subscribe(data => {
+              this.saveData(data.content,data.fileName);
+            });
+            
         }
     };
 
@@ -573,7 +588,14 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         } else {
 
             this.showbutton = false;
-            //  window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId + "/2";
+            var obj={};
+            obj['pid']="257695";
+            obj['type']="2";
+            obj["userAlias"]="v-skarukonda";
+            obj["isSuperUser"]=false;
+            this.proposalService.generateDocFile(obj).subscribe(data => {
+              this.saveData(data.content,data.fileName);
+            });
         }
     };
     ngOnDestroy(): void {
@@ -660,7 +682,30 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         this.router.navigate(["activeproposal"]);
     }
 
-
+    saveData = (function () {
+      console.log("Here")
+      var a = document.createElement("a");
+      document.body.appendChild(a);
+      // a.style = "display: none";
+      return function (data, fileName) {
+        console.log(data);
+        var json = atob(data),
+          blob = this.base64toBlob(json),
+          url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      };
+    }());
+  
+    base64toBlob(byteString) {
+      var ia = new Uint8Array(byteString.length);
+      for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      return new Blob([ia], { type: "octet/stream" });
+    }
 }
 
 function Proposal(data) {
