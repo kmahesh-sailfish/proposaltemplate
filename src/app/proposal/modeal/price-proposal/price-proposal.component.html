@@ -1,19 +1,37 @@
 <div class="modal-header fontHeader">
     <label class="fontShare">ATTENTION</label>
-    <button type="button" class="close" aria-label="Close" (click)="closeCross()">
+    <!--<button type="button" class="close" aria-label="Close" style="border: unset;" (click)="closeCross()">
         <span aria-hidden="true">&times;</span>
-      </button>
+      </button>-->
 </div>
 <div class="modal-body">
     <div class="row">
-        <div class="col-12">
-            <span>This proposal may be subject to High Risk Deal Desk (HRDD). To proceed please enter following information:</span>
-            <span>HRDD note will be triggered when deal value AND discount are higher than the defined threshold. Enter the total US dollar</span>
-            <span>list price value of the order (USD)</span><input type="text" />
-            <span>1 Enter maximum discount to be applied in the order (%)</span><input type="text" />
-            <span>If this proposal is selected
-for HRDD review “*ROC - Secondary Review Desk*” will be added to the footer of your amendment. Please contact HRDD@microsoft.com
-for assistance.</span>
+        <div class="col-1">&nbsp;</div>
+        <div class="col-10">
+            <span>This proposal may be subject to High Risk Deal Desk (HRDD). To proceed please enter following information:</span><br/>
+        </div>
+        <div class="col-1">&nbsp;</div>
+    </div>
+    <div class="row">
+        <div class="col-1">&nbsp;</div>
+        <div class="col-10">
+            <span>HRDD note will be triggered when deal value AND discount are higher than the defined threshold.</span><br/>
+
+        </div>
+        <div class="col-1">&nbsp;</div>
+    </div>
+    <div class="row">
+        <div class="col-1">&nbsp;</div>
+        <div class="col-10"><span>Enter the total US dollar list price value of the order (USD)</span> &nbsp;<input type="text" /><br/>
+        </div>
+        <div class="col-1">&nbsp;</div>
+    </div>
+    <div class="row">
+        <div class="col-12">&nbsp;</div>
+    </div>
+    <div class="row">
+        <div class="col-1">&nbsp;</div>
+        <div class="col-10" style="margin-left: 20px;"><span>Enter maximum discount to be applied in the order (%)</span>&nbsp;<input type="text" /><br/>
         </div>
     </div>
     <div class="row">
