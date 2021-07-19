@@ -11,6 +11,7 @@ import {Subject} from "rxjs";
 import {NgForm} from '@angular/forms';
 import {ShareProposalComponent} from '../modeal/share-proposal/share-proposal.component';
 import {DelProposalComponent} from "../modeal/del-proposal/del-proposal.component";
+import { PriceProposalComponent } from '../modeal/price-proposal/price-proposal.component';
 
 @Component({
     selector: "app-proposal-overview",
@@ -276,7 +277,11 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
        var hasHrddAmendments = this.proposalService.hasHRDDAmendments(this.HRDDAmendments, this.model.Amendments);
        // if (isHrddCountry && hasHrddAmendments && this.model.HRDDTotalValue == null && this.model.HRDDMaxDiscount == null) {
        if (isHrddCountry && hasHrddAmendments) {
-         alert('called model window');
+         this.modalService.open(PriceProposalComponent, {
+            // backdrop: "static",
+            // keyboard: false,
+            size: "lg"
+            });
          //$("#HRDD-review-confirmation").modal();
        }
         //else if (isHrddCountry && hasHrddAmendments && this.model.HRDDTotalValue > this.HRDDeal && this.model.HRDDMaxDiscount > this.HRDDiscount) {

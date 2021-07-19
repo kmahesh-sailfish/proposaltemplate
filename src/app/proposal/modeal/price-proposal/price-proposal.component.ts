@@ -11,5 +11,8 @@ export class PriceProposalComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  closeCross(){
+    
+  }
 
 }

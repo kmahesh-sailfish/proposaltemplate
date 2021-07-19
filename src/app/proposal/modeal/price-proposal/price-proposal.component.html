@@ -1,1 +1,25 @@
-<p>price-proposal works!</p>
+<div class="modal-header fontHeader">
+    <label class="fontShare">ATTENTION</label>
+    <button type="button" class="close" aria-label="Close" (click)="closeCross()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-12">
+            <span>This proposal may be subject to High Risk Deal Desk (HRDD). To proceed please enter following information:</span>
+            <span>HRDD note will be triggered when deal value AND discount are higher than the defined threshold. Enter the total US dollar</span>
+            <span>list price value of the order (USD)</span><input type="text" />
+            <span>1 Enter maximum discount to be applied in the order (%)</span><input type="text" />
+            <span>If this proposal is selected
+for HRDD review “*ROC - Secondary Review Desk*” will be added to the footer of your amendment. Please contact HRDD@microsoft.com
+for assistance.</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10">&nbsp;</div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary">Click to Proceed</button>
+        </div>
+    </div>
+</div>
