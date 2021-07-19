@@ -38,9 +38,9 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
    dtOptions: DataTables.Settings = {};
    public showbutton: boolean = false;
    public proposalIdentifierReq: any;
-   public Identifier: any;
+   
    public doctype: any;
-   public IsLinked: any;
+   
    public showLinkedProposalsbutton: boolean;
    public Amendments: any[] = [];
     // We use this trigger because fetching the list of persons can be quite long,
@@ -276,7 +276,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
        var isHrddCountry = this.proposalService.isHRDDCountry(this.HRDDCountries, this.model.PricingCountry);
        var hasHrddAmendments = this.proposalService.hasHRDDAmendments(this.HRDDAmendments, this.model.Amendments);
        // if (isHrddCountry && hasHrddAmendments && this.model.HRDDTotalValue == null && this.model.HRDDMaxDiscount == null) {
-       if (isHrddCountry && hasHrddAmendments) {
+       if (true) {
          this.modalService.open(PriceProposalComponent, {
             // backdrop: "static",
             // keyboard: false,
@@ -362,6 +362,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         };
 
         this.proposalService.updateProposal(obj).subscribe((data: any) => {
+            this.model = new Proposal(data);
             // this.editProposalObj = data["result"]["_sourceObject"];
             // console.log(this.editProposalObj, "editProposalObj");
             // this.loadForm();
@@ -539,7 +540,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
                 // console.log("IsPricingAmendmentExists " +IsPricingAmendmentExists())
                 if (this.isPricingCountry() || this.IsPricingAmendmentExists()) {
                     this.showbutton = true;
-                } else if (this.IsLinked) {
+                } else if (this.model.IsLinked) {
                     this.showLinkedProposalsbutton = true;
                     this.doctype = 0;
                 } else {
@@ -564,9 +565,9 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     }
     generatePricing() {
         if (!this.doesPricingDocumentsExists()) {
-            //  ngToast.create({ content: "No Pricing Amendments in proposal" });
+        alert({ content: "No Pricing Amendments in proposal" });
             
-        } else if (this.IsLinked) {
+        } else if (this.model.IsLinked) {
             this.showLinkedProposalsbutton = true;
             this.doctype = 1;
         } else {
@@ -587,7 +588,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
 
         if (!this.doesNonPricingDocumentsExists()) {
             // ngToast.create({ content: "No Non-Pricing Amendments in proposal" });
-        } else if (this.IsLinked) {
+        } else if (this.model.IsLinked) {
             this.showLinkedProposalsbutton = true;
             this.doctype = 2;
         } else {
@@ -688,7 +689,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     }
 
     saveData = (function () {
-      console.log("Here")
+      
       var a = document.createElement("a");
       document.body.appendChild(a);
       // a.style = "display: none";
@@ -714,6 +715,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
 }
 
 function Proposal(data) {
+    console.log( data.proposalEntity.identifier,'ident');
     this.ID = data.proposalEntity.id;
     this.ProposalId = data.proposalEntity.proposalId;
     this.PricingCountry = data.proposalEntity.pricingCountry;
