@@ -53,6 +53,7 @@ export class ProposalService {
       })
       .pipe(
         map((res: any) => {
+          debugger;
           return res["result"]["_sourceObject"];
         })
       );
@@ -62,7 +63,8 @@ export class ProposalService {
       .post(environment.API_URL + "Proposal/" + "UpdateProposal", obj)
       .pipe(
         map((res: any) => {
-          return res["result"];
+          debugger;
+          return res["result"]["_sourceObject"];
         })
       );
   }

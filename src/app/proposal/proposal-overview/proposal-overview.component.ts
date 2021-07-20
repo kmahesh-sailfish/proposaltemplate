@@ -91,7 +91,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     }
     createProposal(obj) {
         this.proposalService.createProposal(obj).subscribe((data: any) => {
-        this.editProposalObj = data["_sourceObject"];
+        this.editProposalObj = data;
         console.log(this.editProposalObj, "editProposalObj");
         this.getProposalById();
         this.loadForm();
@@ -158,7 +158,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
                  // $timeout(function () { this.showPricingCountryAlignDescription = false; }, 6000);
              } else {
                  this.Amendments.forEach((a, c) => {
-                  if (a.Code.indexOf("P-") == 0) {
+                  if (a.code.indexOf("P-") == 0) {
                   this.showPricingCountryAlignDescription = true;
                   // $timeout(function() {
                  //     this.showPricingCountryAlignDescription = false;
@@ -715,25 +715,47 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
 }
 
 function Proposal(data) {
-    console.log( data.proposalEntity.identifier,'ident');
-    this.ID = data.proposalEntity.id;
-    this.ProposalId = data.proposalEntity.proposalId;
-    this.PricingCountry = data.proposalEntity.pricingCountry;
-    // this.Empowerment = data.proposalEntity.Empowerment;
-    this.EnrollmentId = data.proposalEntity.enrollmentId;
-    this.AgreementId = data.proposalEntity.agreementId;
-    this.PageBreak = data.proposalEntity.pageBreak;
-    this.CustomerName = data.proposalEntity.customerName;
-    this.Identifier = data.proposalEntity.identifier;
-    this.DealNickname = data.proposalEntity.dealNickname;
-    this.Notes = data.proposalEntity.notes;
-    this.HRDDTotalValue = data.proposalEntity.hrddTotalValue;
-    this.HRDDMaxDiscount = data.proposalEntity.hrddMaxDiscount;
-    this.IsLinked = data.proposalEntity.isLinked;
-    this.IsDraft = data.proposalEntity.isDraft;
-    // this.vm.isLe ||
-    this.IsEditDocumentViewable = data.proposalEntity.delegationStatus == 2 ||
-        data.proposalEntity.delegationStatus == 1 || data.isFromDateRangeDelegation;
+    if( data.proposalEntity != undefined &&  Object.keys(data.proposalEntity).length >0 ){
+        this.ID = data.proposalEntity.id;
+        this.ProposalId = data.proposalEntity.proposalId;
+        this.PricingCountry = data.proposalEntity.pricingCountry;
+        // this.Empowerment = data.proposalEntity.Empowerment;
+        this.EnrollmentId = data.proposalEntity.enrollmentId;
+        this.AgreementId = data.proposalEntity.agreementId;
+        this.PageBreak = data.proposalEntity.pageBreak;
+        this.CustomerName = data.proposalEntity.customerName;
+        this.Identifier = data.proposalEntity.identifier;
+        this.DealNickname = data.proposalEntity.dealNickname;
+        this.Notes = data.proposalEntity.notes;
+        this.HRDDTotalValue = data.proposalEntity.hrddTotalValue;
+        this.HRDDMaxDiscount = data.proposalEntity.hrddMaxDiscount;
+        this.IsLinked = data.proposalEntity.isLinked;
+        this.IsDraft = data.proposalEntity.isDraft;
+        // this.vm.isLe ||
+        this.IsEditDocumentViewable = data.proposalEntity.delegationStatus == 2 ||
+            data.proposalEntity.delegationStatus == 1 || data.isFromDateRangeDelegation;
+    }else{
+        this.ID = data.id;
+        this.ProposalId = data.proposalId;
+        this.PricingCountry = data.pricingCountry;
+        // this.Empowerment = data.proposalEntity.Empowerment;
+        this.EnrollmentId = data.enrollmentId;
+        this.AgreementId = data.agreementId;
+        this.PageBreak = data.pageBreak;
+        this.CustomerName = data.customerName;
+        this.Identifier = data.identifier;
+        this.DealNickname = data.dealNickname;
+        this.Notes = data.notes;
+        this.HRDDTotalValue = data.hrddTotalValue;
+        this.HRDDMaxDiscount = data.hrddMaxDiscount;
+        this.IsLinked = data.isLinked;
+        this.IsDraft = data.isDraft;
+        // this.vm.isLe ||
+        this.IsEditDocumentViewable = data.delegationStatus == 2 ||
+            data.delegationStatus == 1 || data.isFromDateRangeDelegation;
+    }
+   // console.log(data.proposalEntity.identifier,'ident');
+
     this.Amendments = [];
 
     if (data.amendments && data.amendments.length > 0) {
