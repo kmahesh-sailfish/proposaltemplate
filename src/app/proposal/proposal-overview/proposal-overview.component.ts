@@ -275,8 +275,8 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
        }
        var isHrddCountry = this.proposalService.isHRDDCountry(this.HRDDCountries, this.model.PricingCountry);
        var hasHrddAmendments = this.proposalService.hasHRDDAmendments(this.HRDDAmendments, this.model.Amendments);
-       // if (isHrddCountry && hasHrddAmendments && this.model.HRDDTotalValue == null && this.model.HRDDMaxDiscount == null) {
-       if (true) {
+        if (isHrddCountry && hasHrddAmendments && this.model.HRDDTotalValue == null && this.model.HRDDMaxDiscount == null) {
+      // if (true) {
          this.modalService.open(PriceProposalComponent, {
             // backdrop: "static",
             // keyboard: false,
