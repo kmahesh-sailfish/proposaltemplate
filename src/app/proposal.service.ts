@@ -82,7 +82,7 @@ export class ProposalService {
       .post(environment.API_URL + "Amendment/" + "SaveAmendments", obj)
       .pipe(
         map((res: any) => {
-          return res["result"];
+          return res["result"]["_sourceObject"];
         })
       );
   }

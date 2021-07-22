@@ -459,14 +459,14 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         this.proposalService.saveMetadata(obj).subscribe(data => {
            // console.log('dataAmendata', data);
             //this.Amendments.push(data["amendments"]);
-        if (data && data.Amendments && data.Amendments.length > 0) {
-           for (var i = 0; i < data.Amendments.length; i++) {
+        if (data && data.length > 0) {
+           for (var i = 0; i < data.length; i++) {
                if (this.model.Amendments) {
-                   this.model.Amendments.push(new Amendment(data.Amendments[i]));
+                   this.model.Amendments.push(new Amendment(data[i]));
                }
                else {
                    this.model.Amendments = [];
-                   this.model.Amendments.push(new Amendment(data.Amendments[i]));
+                   this.model.Amendments.push(new Amendment(data[i]));
                }
             }
            this.captureHRDDvalues();
@@ -769,7 +769,23 @@ function Proposal(data) {
 }
 
 function Amendment(amendment) {
-    this.Code = amendment.code;
+    // debugger;
+    // "amendmentContents": [],
+    
+    // "ctmFile": null,
+
+    // "ctmFooterId": null,
+    // "ctmTitle": null,
+    // "documentId": 40269,
+    // "isCSDPricing": null,
+    // "isConsolidated": null,
+    // "link": null,
+    // "proposal": [],
+    // "proposalID": 257707,
+    // "replaceCTMTitle": false,
+    // "ver": null,
+
+    this.Code = amendment.code ? amendment.code: amendment.amendmentCode;
     this.Language = amendment.language;
     this.Id = amendment.id;
     this.Empowerment = amendment.empowerment,

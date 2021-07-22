@@ -3,11 +3,13 @@ import { RouterModule, Router } from "@angular/router";
 import { FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
 import { ProposalService } from "../../proposal.service";
 import { SharedService } from "../../sharedservices/shared.service";
+import { SpecialCharacter } from "src/app/sharedservices/special-character";
 
 @Component({
   selector: "app-create-proposal",
   templateUrl: "./create-proposal.component.html",
-  styleUrls: ["./create-proposal.component.css"]
+  styleUrls: ["./create-proposal.component.css"],
+  providers:[SpecialCharacter]
 })
 export class CreateProposalComponent implements OnInit {
   public proposalForm: FormGroup;
@@ -15,6 +17,7 @@ export class CreateProposalComponent implements OnInit {
   public isExist: boolean = false;
   constructor(
     private router: Router,
+    private customValidators: SpecialCharacter,
     private proposalService: ProposalService,
     private shareService: SharedService
   ) {}
@@ -28,7 +31,10 @@ export class CreateProposalComponent implements OnInit {
     if (Id != null && Id != "") {
       this.proposalService
         .proposalExist(Id)
-        .subscribe((data: any) => (this.isExist = data));
+        .subscribe((data: any) => {
+          console.log(data,'getVal');
+          this.isExist = data
+        });
     }
   }
   getPricingCountry() {
@@ -39,7 +45,7 @@ export class CreateProposalComponent implements OnInit {
 
   loadForm() {
     this.proposalForm = new FormGroup({
-      proposalId: new FormControl("", [Validators.required]),
+      proposalId: new FormControl("", [Validators.required,this.customValidators.nameValidator]),
       pricingCountry: new FormControl(null, [Validators.required]),
       IsDraft: new FormControl(false, [])
     });

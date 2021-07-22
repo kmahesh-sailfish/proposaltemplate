@@ -45,6 +45,8 @@ import { EditActionComponent } from "./sharedAction/edit-action/edit-action.comp
 import { ConformationComponent } from './sharedAction/conformation/conformation.component';
 import { ArchiveActionsComponent } from './sharedAction/archive-actions/archive-actions.component';
 
+import { SpecialCharacterDirective } from './GlobalDirectives/special-character.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +79,9 @@ import { ArchiveActionsComponent } from './sharedAction/archive-actions/archive-
     ApproversComponent,
     EditActionComponent,
     ConformationComponent,
-    ArchiveActionsComponent
+    ArchiveActionsComponent,
+    
+    SpecialCharacterDirective
     //EditHrdComponentRenderer
   ],
   imports: [

@@ -18,8 +18,13 @@
                             </div>
                             <!-- <h3> {{isExist}}</h3> -->
                             <div class="col-7 p-1">
-                                <input (blur)="isExistPropsalId()" formControlName='proposalId' name="proposalId" class="form-control" placeholder="Proposal Id">
-                                <div *ngIf="proposalForm.get('proposalId').invalid && (proposalForm.get('proposalId').dirty || proposalForm.get('proposalId').touched)">
+                                <input (blur)="isExistPropsalId()"  formControlName='proposalId' name="proposalId" class="form-control" placeholder="Proposal Id">
+                                <div *ngIf="(proposalForm.get('proposalId').hasError('invalidName'))">
+                                    <div class="error_color">
+                                        Special characters not allowed!
+                                    </div> 
+                                </div>
+                                <div *ngIf="proposalForm.get('proposalId').hasError() && (proposalForm.get('proposalId').dirty || proposalForm.get('proposalId').touched)">
                                     <div class="error_color">
                                         ProposalId requried
                                     </div>
@@ -67,9 +72,7 @@
                             <div class="col">
                             </div>
                             <div class="col p-0">
-
-
-                                <button type="submit" [disabled]="isExist" class="btn btn-outline-primary w-100">Next</button>
+                                <button type="submit" [disabled]="proposalForm.invalid || isExist"  class="btn btn-outline-primary w-100">Next</button>
                             </div>
                         </div>
                     </div>
