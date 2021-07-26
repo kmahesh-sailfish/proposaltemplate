@@ -20,6 +20,22 @@ import { PriceProposalComponent } from '../modeal/price-proposal/price-proposal.
     providers: [NgbModalConfig, NgbModal]
 })
 export class ProposalOverviewComponent implements OnInit, OnDestroy {
+    // ----------------------------------
+    public discountFeedback = '';
+    public discountFeedbackContainer = '';
+    public ctcFeedback = '';
+    public ctcFeedbackContainer = '';
+    public dSizeFeedback = '';
+    public dSizeFeedbackContainer = '';            
+    public DealSizeLabel = "";
+    public DealSizeRequired = true;
+    public CommitmentConsumeRequired = false;
+    public IsPAYG = false;
+    public ShowCommitToConsumeAmount = false;
+    public DiscountTitle = "Monetary Commit";
+    public SelectedDiscountedAmendment:any;
+             
+    //------------------------------
     // new work flow 
   public HRDDAmendments: any[] = [];
   public IsAmendmentDeleted: any;
@@ -117,7 +133,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     getAmendmentsInfoStaticData() {
      this.proposalService.getamendmentstaticInfo().subscribe(data => {
       console.log('data', data)
-      this.discountAmendments = data.DiscountAmendments;
+      this.discountAmendments = data.discountAmendments;
       this.currencies = data.Currencies;
       if (this.ProposalId != 0 && this.ProposalId != null) {
           this.proposalService.getProposalCopy(this.ProposalId).subscribe((data: any) => {
@@ -303,19 +319,17 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
        //}
      }
     }
-    DiscountAmendments:any
     captureAmendmentAzureDiscounts() {
-     if (this.DiscountAmendments.length == 0) {
-        //this.proposalService.getAmendmentsInfoStaticData().then(function (data) {
-       // this.DiscountAmendments = data.DiscountAmendments;
-         //initDiscountAmendmentPopUp();
-        //        });
-            }
-            else {
-        //initDiscountAmendmentPopUp();
-            }
-            
+        if (this.discountAmendments.length == 0) {
+            this.proposalService.getamendmentstaticInfo().subscribe(data => {
+                this.discountAmendments = data.discountAmendments;
+                this.initDiscountAmendmentPopUp();
+            });
         }
+        else {
+            this.initDiscountAmendmentPopUp();
+        }
+    }
     getPricingCountry() {
         this.proposalService
             .getPricingCountry()
@@ -324,6 +338,47 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     addCTM() {
         this.router.navigate(["/ctmlibrary"]);
     }
+    initDiscountAmendmentPopUp(){
+       // debugger;
+        for (var ai in this.model.Amendments) {
+              this.discountFeedback = '';
+              this.discountFeedbackContainer = '';
+              this.ctcFeedback = '';
+              this.ctcFeedbackContainer = '';
+              this.dSizeFeedback = '';
+              this.dSizeFeedbackContainer = '';
+              var amendment = this.model.Amendments[ai];
+              var isDiscountedAmendment = this.proposalService.isDiscountedAmendment(this.discountAmendments, amendment.code);
+              if (isDiscountedAmendment != null && isDiscountedAmendment.length > 0 && (amendment.Discount == null || amendment.BeginDate == null || amendment.EndDate == null)) {
+              if (isDiscountedAmendment[0].DiscountType == 1) { // equals to MonetaryCommitmentACD 
+              this.DealSizeLabel = 'Deal size (Monetary Commit)';
+              this.DealSizeRequired = true;
+              this.CommitmentConsumeRequired = false;
+              this.IsPAYG = false;
+              this.ShowCommitToConsumeAmount = false;
+              this.DiscountTitle = "Monetary Commit";
+              }
+              else if (isDiscountedAmendment[0].DiscountType == 2) { // equals to PayAsYouGoACD
+              this.DealSizeRequired = false;
+              this.CommitmentConsumeRequired = false;
+              this.ShowCommitToConsumeAmount = false;
+              this.IsPAYG = true;
+              this.DiscountTitle = "Pay As You Go";
+              }
+              else if (isDiscountedAmendment[0].DiscountType == 3) { // equals to CommitmenttoConsumeACD
+              this.DealSizeLabel = 'Monetary Commit (if applicable)';
+              this.DealSizeRequired = false;
+              this.CommitmentConsumeRequired = true;
+              this.ShowCommitToConsumeAmount = true;
+              this.IsPAYG = false;
+              this.DiscountTitle = "Commit to Consume";
+              }
+              this.SelectedDiscountedAmendment = amendment;
+            // alert('called the popup');
+              break;
+              }
+              }; 
+      }
     // Input blur event .............................
 
     modifyIdentifier() {
@@ -647,10 +702,10 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     showEditDocumentPopup(obj, protection) {
         var isEdit = protection == '1';
         var aid = obj.id;
-        // if (DiscountAmendments.length == 0)
+        // if (discountAmendments.length == 0)
         //     getAmendmentInfoStaticData();
         // var amendment = this.model.Amendments.filter(function (d) { return d.Id == aid; })[0];
-        // var discountedAmendmentInfo = AppService.isDiscountedAmendment(DiscountAmendments, amendment.Code)[0];
+        // var discountedAmendmentInfo = AppService.isDiscountedAmendment(discountAmendments, amendment.Code)[0];
         // if (discountedAmendmentInfo != null && !isEdit) {
         //     this.editAmendmentDiscountData(discountedAmendmentInfo, amendment);
         // }
@@ -777,7 +832,7 @@ function Amendment(amendment) {
     // "ctmFooterId": null,
     // "ctmTitle": null,
     // "documentId": 40269,
-    // "isCSDPricing": null,
+3    // "isCSDPricing": null,
     // "isConsolidated": null,
     // "link": null,
     // "proposal": [],
@@ -791,7 +846,15 @@ function Amendment(amendment) {
     this.Empowerment = amendment.empowerment,
         this.Order = amendment.order;
     this.CTMCode = amendment.ctmCode;
-    this.FileName = amendment.code.indexOf("CTM") >= 0 ? amendment.FileName : '';
+    if(amendment.code != undefined){
+        this.FileName = amendment.code.indexOf("CTM") >= 0 ? amendment.FileName : '';
+    }else{
+        if(amendment.amendmentCode != undefined){
+            this.FileName = amendment.amendmentCode.indexOf("CTM") >= 0 ? amendment.FileName : '';
+        }
+       
+    }
+    
     this.IsCTMPricing = amendment.isCTMPricing;
     this.IsPricingAmendment = amendment.isPricingAmendment;
     this.HasEditableTable = amendment.hasEditableTable;
@@ -805,7 +868,13 @@ function Amendment(amendment) {
     this.CurrencyCode = amendment.currencyCode;
     this.Type = amendment.type;
 
-    if (amendment.code.indexOf("CTM") == -1) {
+    if (amendment.code != undefined && amendment.code.indexOf("CTM") == -1) {
+        this.Title = amendment.fileName;
+        this.Version = amendment.fileVersion;
+        this.Loc = amendment.loc;
+        this.DI = amendment.di;
+    }
+    if (amendment.amendmentCode != undefined && amendment.amendmentCode.indexOf("CTM") == -1) {
         this.Title = amendment.fileName;
         this.Version = amendment.fileVersion;
         this.Loc = amendment.loc;
