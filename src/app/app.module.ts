@@ -42,12 +42,13 @@ import { ApproversComponent } from "./admin/approvers/approvers.component";
 import { AdminService } from "src/app/admin/admin.service";
 import { ToastrModule } from "ngx-toastr";
 import { EditActionComponent } from "./sharedAction/edit-action/edit-action.component";
-import { ConformationComponent } from './sharedAction/conformation/conformation.component';
-import { ArchiveActionsComponent } from './sharedAction/archive-actions/archive-actions.component';
+import { ConformationComponent } from "./sharedAction/conformation/conformation.component";
+import { ArchiveActionsComponent } from "./sharedAction/archive-actions/archive-actions.component";
 
-import { SpecialCharacterDirective } from './GlobalDirectives/special-character.directive';
-import { FilterCellComponent } from './sharedAction/filter/filter-cell/filter-cell.component';
+import { SpecialCharacterDirective } from "./GlobalDirectives/special-character.directive";
+import { FilterCellComponent } from "./sharedAction/filter/filter-cell/filter-cell.component";
 
+import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,9 +82,9 @@ import { FilterCellComponent } from './sharedAction/filter/filter-cell/filter-ce
     EditActionComponent,
     ConformationComponent,
     ArchiveActionsComponent,
-    
+
     SpecialCharacterDirective,
-          FilterCellComponent
+    FilterCellComponent
     //EditHrdComponentRenderer
   ],
   imports: [
@@ -99,7 +100,8 @@ import { FilterCellComponent } from './sharedAction/filter/filter-cell/filter-ce
     AgGridModule.withComponents([]),
     BrowserAnimationsModule,
     TypeaheadModule.forRoot(),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   providers: [AdminService],
   bootstrap: [AppComponent]

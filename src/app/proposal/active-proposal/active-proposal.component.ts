@@ -23,13 +23,19 @@ import { FilterCellComponent } from "../../sharedAction/filter/filter-cell/filte
   styleUrls: ["./active-proposal.component.css"]
 })
 export class ActiveProposalComponent implements OnInit {
+  public selectSearchType: any;
+  public bsValue = new Date();
   public dtOptions: DataTables.Settings = {};
   public dtTrigger: Subject<any> = new Subject<any>();
   public ActiveProposal: any[] = [];
   public gridOptions: any;
-  rowData: any = [];
-  title = "agGridExamples";
-  gridApi: GridApi;
+  public rowData: any = [];
+  public title = "agGridExamples";
+  public gridApi: GridApi;
+  public searchItem = [
+    { name: "create Date", id: "1" },
+    { name: "Search User", id: "2" }
+  ];
   constructor(
     private proposalService: ProposalService,
     private router: Router

@@ -8,13 +8,23 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-3">
+            <ng-select class="ng-select" [(ngModel)]="selectSearchType" placeholder="Select Search" [items]="searchItem" bindLabel="name"
+                bindValue="id">
+            </ng-select>
+        </div>
+        <div class="col-3">
+            {{selectSearchType}}
+            <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [bsConfig]="{containerClass:'theme-blue'}" [(ngModel)]="bsValue">
+        </div>
+        <div class="col-3">
+            <button type="submit" class="btn btn-primary">Submit </button>
+        </div>
+    </div>
+    <div class="row">
         <div class="col">
-            <ag-grid-angular  #agGrid style=" height:500px;" class="ag-theme-alpine"
-             [rowData]="rowData" [columnDefs]="columnDefs"
-            (rowClicked)='onRowClicked($event)'
-            [gridOptions]="gridOptions"
-            (gridReady)="onGridReady($event)"
-             [frameworkComponents]="frameworkComponents">
+            <ag-grid-angular #agGrid style=" height:500px;" class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs" (rowClicked)='onRowClicked($event)'
+                [gridOptions]="gridOptions" (gridReady)="onGridReady($event)" [frameworkComponents]="frameworkComponents">
             </ag-grid-angular>
             <!--<table datatable class="row-border hover">
                 <thead class="table-header">
