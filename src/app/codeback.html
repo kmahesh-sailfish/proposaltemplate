@@ -217,5 +217,36 @@ exec [aa].[sp_SearchProposals] @PageSize = 100, @PageNum = 0
 ---------------------------------------------------------------------
 https://amendmentappdevapi.azurewebsites.net/api/Proposal/SearchProposalsByPaging?searchField=ProposalId&searchText=FirstProposal&isArchive=false&pageSize=100&pageNum=0
 
+{
+    "statusCode": 200,
+    "result": [
+        {
+            "id": 9,
+            "createdDate": "2017-01-06T08:52:27.1362991",
+            "proposalId": "FirstProposal",
+            "createdByAlias": "v-vipas",
+            "lastModifiedBy": "mechtge",
+            "customerName": "Deutsche Telekom",
+            "dealNickname": null,
+            "status": 4,
+            "isShared": true,
+            "delegationStatus": 0,
+            "overall_count": 2
+        },
+        {
+            "id": 147,
+            "createdDate": "2017-01-06T08:52:27.1362991",
+            "proposalId": "FirstProposalVp1",
+            "createdByAlias": null,
+            "lastModifiedBy": "v-vipas",
+            "customerName": null,
+            "dealNickname": null,
+            "status": 0,
+            "isShared": false,
+            "delegationStatus": 0,
+            "overall_count": 2
+        }
+    ]
+}
 
 
