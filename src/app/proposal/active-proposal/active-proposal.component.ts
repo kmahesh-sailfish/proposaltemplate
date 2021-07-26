@@ -16,6 +16,7 @@ import { Router } from "@angular/router";
 import "rxjs/add/observable/of";
 import { map } from "rxjs/operators";
 import { FilterCellComponent } from "../../sharedAction/filter/filter-cell/filter-cell.component";
+import { FormControl } from "@angular/forms";
 
 @Component({
   selector: "app-active-proposal",
@@ -23,6 +24,7 @@ import { FilterCellComponent } from "../../sharedAction/filter/filter-cell/filte
   styleUrls: ["./active-proposal.component.css"]
 })
 export class ActiveProposalComponent implements OnInit {
+  public searchObj: any = {};
   public getsearchItem: any;
   public selectSearchType: any;
   public bsValue = new Date();
@@ -51,7 +53,7 @@ export class ActiveProposalComponent implements OnInit {
     // this.loadActiveProposal();
     this.loadGrid();
   }
-
+  onSubmit() {}
   setHRDEditDiv(obj) {
     console.log(obj, "obj");
   }

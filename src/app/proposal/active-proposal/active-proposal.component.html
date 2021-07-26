@@ -8,22 +8,29 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-3">
-            <ng-select class="ng-select" [(ngModel)]="selectSearchType" placeholder="Select Search" [items]="searchItem" bindLabel="name"
-                bindValue="id">
-            </ng-select>
-        </div>
-        <div class="col-3" *ngIf="selectSearchType =='CreatedDate'">
+        <div class="col-12">
+            <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
+                <div class="row">
+                    <div class="col-3">
+                        <ng-select class="ng-select" [(ngModel)]="searchObj.selectSearchType" placeholder="Select Search" name="selectSearchType"
+                            [items]="searchItem" bindLabel="name" bindValue="id" #selectSearchType="ngModel">
+                        </ng-select>
+                    </div>
+                    <div class="col-3" *ngIf="selectSearchType =='CreatedDate'">
 
-            <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [bsConfig]="{containerClass:'theme-blue'}" [(ngModel)]="bsValue">
+                        <input type="text" class="form-control" #dp="bsDatepicker" name="bsValue" bsDatepicker [bsConfig]="{containerClass:'theme-blue'}"
+                            [(ngModel)]="searchObj.bsValue" #bsValue="ngModel">
+                    </div>
+                    <div class="col-3" *ngIf="selectSearchType !='CreatedDate'">
+                        <input type="text" class="form-control" placeholder="Search Item.." name="getsearchItem" [(ngModel)]="searchObj.getsearchItem"
+                            #getsearchItem="ngModel" />
+                    </div>
+                    <div class="col-3">
+                        <button type="submit" class="btn btn-primary">Submit </button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="col-3" *ngIf="selectSearchType !='CreatedDate'">
-            <input type="text" class="form-control" placeholder="Search Item.." name="getsearchItem" [(ngModel)]="getsearchItem" />
-        </div>
-        <div class="col-3">
-            <button type="submit" class="btn btn-primary">Submit </button>
-        </div>
-
     </div>
     <div class="row">
         <div class="col">&nbsp;</div>
