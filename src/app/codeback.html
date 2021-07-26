@@ -200,5 +200,19 @@ Response Body:
     "ok": 200
 }
 
+---------------------------------------------------------------------
+exec [aa].[sp_SearchProposals] @searchField = 'ProposalId', @searchText = 'Fi', @PageSize = 100, @PageNum = 0
+exec [aa].[sp_SearchProposals] @searchField = 'CreatedByAlias', @searchText = 'v-', @PageSize = 100, @PageNum = 0
+exec [aa].[sp_SearchProposals] @searchField = 'LastModifiedBy', @searchText = 'm', @PageSize = 100, @PageNum = 0
+exec [aa].[sp_SearchProposals] @searchField = 'CustomerName', @searchText = 'Te', @PageSize = 100, @PageNum = 0
+exec [aa].[sp_SearchProposals] @searchField = 'Status', @searchText = '4', @PageSize = 100, @PageNum = 0
+exec [aa].[sp_SearchProposals] @searchField = 'IsShared', @searchText = '1', @PageSize = 100, @PageNum = 0
+exec [aa].[sp_SearchProposals] @searchField = 'DelegationStatus', @searchText = '2', @PageSize = 1000, @PageNum = 0
+exec [aa].[sp_SearchProposals] @searchField = 'CreatedDate', @searchText = '2021', @PageSize = 100, @PageNum = 0
+exec [aa].[sp_SearchProposals] @searchField = 'CreatedDate', @searchText = '2017-04', @PageSize = 100, @PageNum = 0
+exec [aa].[sp_SearchProposals] @searchField = 'CreatedDate', @searchText = '2017-04-30', @PageSize = 100, @PageNum = 0
+exec [aa].[sp_SearchProposals] @PageSize = 100, @PageNum = 0
+exec [aa].[sp_SearchProposals] @PageSize = 100, @PageNum = 0
+
 
 
