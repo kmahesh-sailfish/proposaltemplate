@@ -34,12 +34,12 @@ export class ActiveProposalComponent implements OnInit {
   public title = "agGridExamples";
   public gridApi: GridApi;
   public searchItem = [
-    { name: "ProposalId", id: "ProposalId" },
+    { name: "Proposal Id", id: "ProposalId" },
     { name: "CreatedByAlias", id: "CreatedByAlias" },
     { name: "LastModifiedBy", id: "LastModifiedBy" },
     { name: "Status", id: "Status" },
-    { name: "IsShared", id: "IsShared" },
-    { name: "DelegationStatus", id: "DelegationStatus" },
+    { name: "Shared", id: "IsShared" },
+    { name: "Delegation Status", id: "DelegationStatus" },
     { name: "Created Date", id: "CreatedDate" }
   ];
   constructor(
