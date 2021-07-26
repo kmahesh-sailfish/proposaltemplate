@@ -13,13 +13,20 @@
                 bindValue="id">
             </ng-select>
         </div>
-        <div class="col-3">
-            {{selectSearchType}}
+        <div class="col-3" *ngIf="selectSearchType =='CreatedDate'">
+
             <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [bsConfig]="{containerClass:'theme-blue'}" [(ngModel)]="bsValue">
+        </div>
+        <div class="col-3" *ngIf="selectSearchType !='CreatedDate'">
+            <input type="text" class="form-control" placeholder="Search Item.." name="getsearchItem" [(ngModel)]="getsearchItem" />
         </div>
         <div class="col-3">
             <button type="submit" class="btn btn-primary">Submit </button>
         </div>
+
+    </div>
+    <div class="row">
+        <div class="col">&nbsp;</div>
     </div>
     <div class="row">
         <div class="col">

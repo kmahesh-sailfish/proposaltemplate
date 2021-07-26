@@ -23,6 +23,7 @@ import { FilterCellComponent } from "../../sharedAction/filter/filter-cell/filte
   styleUrls: ["./active-proposal.component.css"]
 })
 export class ActiveProposalComponent implements OnInit {
+  public getsearchItem: any;
   public selectSearchType: any;
   public bsValue = new Date();
   public dtOptions: DataTables.Settings = {};
@@ -39,7 +40,7 @@ export class ActiveProposalComponent implements OnInit {
     { name: "Status", id: "Status" },
     { name: "IsShared", id: "IsShared" },
     { name: "DelegationStatus", id: "DelegationStatus" },
-    { name: "CreatedDate", id: "CreatedDate" },
+    { name: "Created Date", id: "CreatedDate" }
   ];
   constructor(
     private proposalService: ProposalService,
