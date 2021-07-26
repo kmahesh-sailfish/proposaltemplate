@@ -306,4 +306,11 @@ export class ProposalService {
         })
       );
   }
+  isDiscountedAmendment(dicountAmendment, amendment) {
+    if (dicountAmendment.length > 0) {
+        var result = dicountAmendment.filter(function (d) { return d.Code == amendment; });
+        return result;
+    }
+    return false;
+  }
 }
