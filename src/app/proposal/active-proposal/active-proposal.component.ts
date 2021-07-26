@@ -15,6 +15,7 @@ import { Router } from "@angular/router";
 
 import "rxjs/add/observable/of";
 import { map } from "rxjs/operators";
+import { FilterCellComponent } from "../../sharedAction/filter/filter-cell/filter-cell.component";
 
 @Component({
   selector: "app-active-proposal",
@@ -64,7 +65,7 @@ export class ActiveProposalComponent implements OnInit {
       cacheBlockSize: 100,
       maxBlocksInCache: 2,
       maxConcurrentDatasourceRequests: 1,
-      
+
       rowModelType: "infinite",
       pagination: true,
       paginationAutoPageSize: true
@@ -84,9 +85,11 @@ export class ActiveProposalComponent implements OnInit {
     {
       headerName: "proposalId",
       width: 100,
-      filter: true,
+
       field: "proposalId",
-      resizable: true
+      resizable: true,
+      filter: "partialMatchFilter",
+      menuTabs: ["filterMenuTab"]
     },
     {
       headerName: "CreateBy",
@@ -153,7 +156,8 @@ export class ActiveProposalComponent implements OnInit {
     }
   ];
   frameworkComponents = {
-    editAction: EditActionComponent
+    editAction: EditActionComponent,
+    partialMatchFilter: FilterCellComponent
   };
   onRowClicked(event) {
     console.log(event["data"]);

@@ -46,6 +46,7 @@ import { ConformationComponent } from './sharedAction/conformation/conformation.
 import { ArchiveActionsComponent } from './sharedAction/archive-actions/archive-actions.component';
 
 import { SpecialCharacterDirective } from './GlobalDirectives/special-character.directive';
+import { FilterCellComponent } from './sharedAction/filter/filter-cell/filter-cell.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { SpecialCharacterDirective } from './GlobalDirectives/special-character.
     ConformationComponent,
     ArchiveActionsComponent,
     
-    SpecialCharacterDirective
+    SpecialCharacterDirective,
+          FilterCellComponent
     //EditHrdComponentRenderer
   ],
   imports: [
