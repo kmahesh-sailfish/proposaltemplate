@@ -12,8 +12,11 @@
             <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
                 <div class="row">
                     <div class="col-3">
-                        <ng-select class="ng-select" [(ngModel)]="searchObj.searchField" placeholder="Select Search" name="searchField" [items]="searchItem"
-                            bindLabel="name" bindValue="id" #searchField="ngModel">
+                        <ng-select class="ng-select" 
+                        [(ngModel)]="searchObj.searchField" 
+                        placeholder="Select Search" name="searchField" [items]="searchItem"
+                        bindLabel="name" bindValue="id" #searchField="ngModel"
+                        (clear)="clearVAl()">
                         </ng-select>
                     </div>
                     <div class="col-3" *ngIf="searchObj.searchField =='CreatedDate'">
@@ -27,7 +30,8 @@
                             #searchText="ngModel" />
                     </div>
                     <div class="col-3">
-                        <button type="submit" class="btn btn-primary">Submit </button>
+                        <!-- <input type="button" name="reset"> <i class="fa fa-refresh"></i></input> -->
+                        <button (click)="reset()" type="button" class="btn btn-primary"><i class="fa fa-refresh"></i> </button>
                     </div>
                 </div>
             </form>

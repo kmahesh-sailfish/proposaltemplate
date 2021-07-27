@@ -41,9 +41,7 @@ export class ActiveProposalComponent implements OnInit {
     { name: "Search by LastModifiedBy", id: "LastModifiedBy" },
     { name: "Search by Customer Name", id: "CustomerName" },
     { name: "Search by Deal Nick Name", id: "DealNickName" },
-    { name: "Search by Status", id: "Status" },
-    { name: "Search by Shared", id: "IsShared" },
-    { name: "Search by Delegation Status", id: "DelegationStatus" },
+   
     { name: "Search by Created Date", id: "CreatedDate" }
   ];
   constructor(
@@ -51,10 +49,14 @@ export class ActiveProposalComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    // this.loadActiveProposal();
-    // this.rowData = data;
+  ngOnInit(): void {   
     this.loadGrid();
+  }
+  clearVAl(){
+    this.searchObj={};
+  }
+  reset(){
+    this.searchObj={};
   }
   onSubmit() {
     console.log(this.gridApi.getCacheBlockState())
