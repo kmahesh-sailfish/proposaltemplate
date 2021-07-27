@@ -36,14 +36,15 @@ export class ActiveProposalComponent implements OnInit {
   public title = "agGridExamples";
   public gridApi: GridApi;
   public searchItem = [
-    { name: "Proposal Id", id: "ProposalId" },
-    { name: "CreatedByAlias", id: "CreatedByAlias" },
-    { name: "LastModifiedBy", id: "LastModifiedBy" },
-    { name: "Customer Name", id: "CustomerName" },
-    { name: "Status", id: "Status" },
-    { name: "Shared", id: "IsShared" },
-    { name: "Delegation Status", id: "DelegationStatus" },
-    { name: "Created Date", id: "CreatedDate" }
+    { name: "Search by Proposal Id", id: "ProposalId" },
+    { name: "Search by Alias", id: "CreatedByAlias" },
+    { name: "Search by LastModifiedBy", id: "LastModifiedBy" },
+    { name: "Search by Customer Name", id: "CustomerName" },
+    { name: "Search by Deal Nick Name", id: "DealNickName" },
+    { name: "Search by Status", id: "Status" },
+    { name: "Search by Shared", id: "IsShared" },
+    { name: "Search by Delegation Status", id: "DelegationStatus" },
+    { name: "Search by Created Date", id: "CreatedDate" }
   ];
   constructor(
     private proposalService: ProposalService,
@@ -56,13 +57,19 @@ export class ActiveProposalComponent implements OnInit {
     this.loadGrid();
   }
   onSubmit() {
+    console.log(this.gridApi.getCacheBlockState())
+    // this.gridApi.purgeInfiniteCache();
+    // this.gridApi.refreshInfiniteCache();
+    
     console.log(this.searchObj, this.startRow, this.endRow, "searchObj");
     var datasource: IDatasource = {
       getRows: (params: IGetRowsParams) => {
         this.getRowData1(params.startRow, params.endRow).subscribe(data =>
+          
           params.successCallback(data)
         );
       }
+      
     };
     this.gridApi.setDatasource(datasource);
   }
