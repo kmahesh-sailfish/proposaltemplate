@@ -12,16 +12,16 @@
             <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
                 <div class="row">
                     <div class="col-3">
-                        <ng-select class="ng-select" [(ngModel)]="searchObj.searchField" placeholder="Select Search" name="searchField"
-                            [items]="searchItem" bindLabel="name" bindValue="id" #searchField="ngModel">
+                        <ng-select class="ng-select" [(ngModel)]="searchObj.searchField" placeholder="Select Search" name="searchField" [items]="searchItem"
+                            bindLabel="name" bindValue="id" #searchField="ngModel">
                         </ng-select>
                     </div>
-                    <div class="col-3" *ngIf="searchField =='CreatedDate'">
+                    <div class="col-3" *ngIf="searchObj.searchField =='CreatedDate'">
 
                         <input type="text" class="form-control" #dp="bsDatepicker" name="searchText" bsDatepicker [bsConfig]="{containerClass:'theme-blue'}"
                             [(ngModel)]="searchObj.searchText" #searchText="ngModel">
                     </div>
-                    <div class="col-3" *ngIf="searchField !='CreatedDate'">
+                    <div class="col-3" *ngIf="searchObj.searchField !='CreatedDate'">
                         <input type="text" class="form-control" placeholder="Search Item.." name="searchText" [(ngModel)]="searchObj.searchText"
                             #searchText="ngModel" />
                     </div>
