@@ -271,6 +271,17 @@ export class ProposalService {
         })
       );
   }
+  getcustomeSearch(obj) {
+     return this.http
+      .get(environment.API_URL + "Proposal/SearchProposalsByPaging",{
+        params: obj
+      })
+      .pipe(
+        map((res: any) => {
+          return res.result;
+        })
+      );
+  }
   getPagenation(startRow, endRow) {
     return this.http
       .get(

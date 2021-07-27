@@ -12,18 +12,18 @@
             <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
                 <div class="row">
                     <div class="col-3">
-                        <ng-select class="ng-select" [(ngModel)]="searchObj.selectSearchType" placeholder="Select Search" name="selectSearchType"
-                            [items]="searchItem" bindLabel="name" bindValue="id" #selectSearchType="ngModel">
+                        <ng-select class="ng-select" [(ngModel)]="searchObj.searchField" placeholder="Select Search" name="searchField"
+                            [items]="searchItem" bindLabel="name" bindValue="id" #searchField="ngModel">
                         </ng-select>
                     </div>
-                    <div class="col-3" *ngIf="selectSearchType =='CreatedDate'">
+                    <div class="col-3" *ngIf="searchField =='CreatedDate'">
 
-                        <input type="text" class="form-control" #dp="bsDatepicker" name="bsValue" bsDatepicker [bsConfig]="{containerClass:'theme-blue'}"
-                            [(ngModel)]="searchObj.bsValue" #bsValue="ngModel">
+                        <input type="text" class="form-control" #dp="bsDatepicker" name="searchText" bsDatepicker [bsConfig]="{containerClass:'theme-blue'}"
+                            [(ngModel)]="searchObj.searchText" #searchText="ngModel">
                     </div>
-                    <div class="col-3" *ngIf="selectSearchType !='CreatedDate'">
-                        <input type="text" class="form-control" placeholder="Search Item.." name="getsearchItem" [(ngModel)]="searchObj.getsearchItem"
-                            #getsearchItem="ngModel" />
+                    <div class="col-3" *ngIf="searchField !='CreatedDate'">
+                        <input type="text" class="form-control" placeholder="Search Item.." name="searchText" [(ngModel)]="searchObj.searchText"
+                            #searchText="ngModel" />
                     </div>
                     <div class="col-3">
                         <button type="submit" class="btn btn-primary">Submit </button>

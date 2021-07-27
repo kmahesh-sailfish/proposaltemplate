@@ -24,10 +24,10 @@ import { FormControl } from "@angular/forms";
   styleUrls: ["./active-proposal.component.css"]
 })
 export class ActiveProposalComponent implements OnInit {
+  public startRow: number;
+  public endRow: number;
   public searchObj: any = {};
-  public getsearchItem: any;
-  public selectSearchType: any;
-  public bsValue = new Date();
+
   public dtOptions: DataTables.Settings = {};
   public dtTrigger: Subject<any> = new Subject<any>();
   public ActiveProposal: any[] = [];
@@ -39,6 +39,7 @@ export class ActiveProposalComponent implements OnInit {
     { name: "Proposal Id", id: "ProposalId" },
     { name: "CreatedByAlias", id: "CreatedByAlias" },
     { name: "LastModifiedBy", id: "LastModifiedBy" },
+    { name: "Customer Name", id: "CustomerName" },
     { name: "Status", id: "Status" },
     { name: "Shared", id: "IsShared" },
     { name: "Delegation Status", id: "DelegationStatus" },
@@ -51,14 +52,40 @@ export class ActiveProposalComponent implements OnInit {
 
   ngOnInit(): void {
     // this.loadActiveProposal();
+    // this.rowData = data;
     this.loadGrid();
   }
-  onSubmit() {}
-  setHRDEditDiv(obj) {
-    console.log(obj, "obj");
+  onSubmit() {
+    console.log(this.searchObj, this.startRow, this.endRow, "searchObj");
+    var datasource: IDatasource = {
+      getRows: (params: IGetRowsParams) => {
+        this.getRowData1(params.startRow, params.endRow).subscribe(data =>
+          params.successCallback(data)
+        );
+      }
+    };
+    this.gridApi.setDatasource(datasource);
   }
-
+  private getRowData1(startRow: number, endRow: number): Observable<any[]> {
+    console.log(this.searchObj);
+    this.startRow = startRow;
+    this.endRow = endRow;
+    let obj = {
+      ...this.searchObj,
+      PageSize: this.endRow,
+      PageNum: this.startRow
+    };
+    // var obj = {
+    //   PageNum: startRow,
+    //   PageSize: endRow,
+    //   searchField: "CustomerName",
+    //   searchText: "Te"
+    // };
+    return this.proposalService.getcustomeSearch(obj);
+  }
   private getRowData(startRow: number, endRow: number): Observable<any[]> {
+    this.startRow = startRow;
+    this.endRow = endRow;
     return this.proposalService.getPagenation(startRow, endRow);
   }
   datasource: IDatasource = {
