@@ -12,8 +12,8 @@
             <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
                 <div class="row">
                     <div class="col-3">
-                        <ng-select class="ng-select" [(ngModel)]="searchObj.searchField" placeholder="Select Search" name="searchField"
-                            [items]="searchItem" bindLabel="name" bindValue="id" #searchField="ngModel">
+                        <ng-select class="ng-select" [(ngModel)]="searchObj.searchField" placeholder="Select Search" name="searchField" [items]="searchItem"
+                            bindLabel="name" bindValue="id" #searchField="ngModel">
                         </ng-select>
                     </div>
                     <div class="col-3" *ngIf="searchObj.searchField =='CreatedDate'">
