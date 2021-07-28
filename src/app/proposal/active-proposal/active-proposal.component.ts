@@ -58,11 +58,11 @@ export class ActiveProposalComponent implements OnInit {
   }
   clearVAl() {
     this.searchForm.reset();
-    this.loadGrid();
+    this.gridApi.setDatasource(this.datasource);
   }
   reset() {
     this.searchForm.reset();
-    this.loadGrid();
+    this.gridApi.setDatasource(this.datasource);
   }
   loadSearchForm() {
     this.searchForm = new FormGroup({
@@ -92,7 +92,7 @@ export class ActiveProposalComponent implements OnInit {
       } else {
         _Obj = this.searchForm.value;
       }
-      this.searchObj = _Obj;     
+      this.searchObj = _Obj;
       var datasource: IDatasource = {
         getRows: (params: IGetRowsParams) => {
           this.getRowData1(params.startRow, params.endRow).subscribe(data =>
