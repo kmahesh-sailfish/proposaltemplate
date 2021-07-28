@@ -74,7 +74,8 @@ export class ActiveProposalComponent implements OnInit {
     });
   }
   onSubmit() {
-    if (Object.values(this.searchForm.value).length == 2) {
+    if (this.searchForm.get('searchText').value != "" && 
+    this.searchForm.get('searchText').value != null) {
       var _Obj = {};
       if (this.searchForm.get("searchField").value == "CreatedDate") {
         let temp = this.searchForm.get("searchText").value;
