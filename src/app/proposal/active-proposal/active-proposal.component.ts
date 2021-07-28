@@ -16,18 +16,20 @@ import { Router } from "@angular/router";
 import "rxjs/add/observable/of";
 import { map } from "rxjs/operators";
 import { FilterCellComponent } from "../../sharedAction/filter/filter-cell/filter-cell.component";
-import { FormControl } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { SpecialCharacter } from "../../sharedservices/special-character";
 
 @Component({
   selector: "app-active-proposal",
   templateUrl: "./active-proposal.component.html",
-  styleUrls: ["./active-proposal.component.css"]
+  styleUrls: ["./active-proposal.component.css"],
+  providers: [SpecialCharacter]
 })
 export class ActiveProposalComponent implements OnInit {
   public startRow: number;
   public endRow: number;
   public searchObj: any = {};
-
+  public searchForm: FormGroup;
   public dtOptions: DataTables.Settings = {};
   public dtTrigger: Subject<any> = new Subject<any>();
   public ActiveProposal: any[] = [];
@@ -41,39 +43,65 @@ export class ActiveProposalComponent implements OnInit {
     { name: "Search by LastModifiedBy", id: "LastModifiedBy" },
     { name: "Search by Customer Name", id: "CustomerName" },
     { name: "Search by Deal Nick Name", id: "DealNickName" },
-   
+
     { name: "Search by Created Date", id: "CreatedDate" }
   ];
   constructor(
     private proposalService: ProposalService,
-    private router: Router
+    private router: Router,
+    private customValidators: SpecialCharacter
   ) {}
 
-  ngOnInit(): void {   
+  ngOnInit(): void {
+    this.loadGrid();
+    this.loadSearchForm();
+  }
+  clearVAl() {
+    this.searchForm.reset();
     this.loadGrid();
   }
-  clearVAl(){
-    this.searchObj={};
+  reset() {
+    this.searchForm.reset();
+    this.loadGrid();
   }
-  reset(){
-    this.searchObj={};
+  loadSearchForm() {
+    this.searchForm = new FormGroup({
+      searchField: new FormControl(null),
+      searchText: new FormControl(null, [
+        Validators.required,
+        this.customValidators.nameValidator
+      ])
+    });
   }
   onSubmit() {
-    console.log(this.gridApi.getCacheBlockState())
-    // this.gridApi.purgeInfiniteCache();
-    // this.gridApi.refreshInfiniteCache();
-    
-    console.log(this.searchObj, this.startRow, this.endRow, "searchObj");
-    var datasource: IDatasource = {
-      getRows: (params: IGetRowsParams) => {
-        this.getRowData1(params.startRow, params.endRow).subscribe(data =>
-          
-          params.successCallback(data)
-        );
+    if (Object.values(this.searchForm.value).length == 2) {
+      var _Obj = {};
+      if (this.searchForm.get("searchField").value == "CreatedDate") {
+        let temp = this.searchForm.get("searchText").value;
+        temp = moment(temp).format("MM/DD/YYYY");
+        _Obj["searchText"] = temp;
+        _Obj["searchField"] = this.searchForm.get("searchField").value;
+      } else if (this.searchForm.get("searchField").value == "CreatedByAlias") {
+        let temp = this.searchForm.get("searchText").value;
+        _Obj["searchText"] = "v-" + temp;
+        _Obj["searchField"] = this.searchForm.get("searchField").value;
+      } else if (this.searchForm.get("searchField").value == "CreatedDate") {
+        let temp = this.searchForm.get("searchText").value;
+        _Obj["searchText"] = "m-" + temp;
+        _Obj["searchField"] = this.searchForm.get("searchField").value;
+      } else {
+        _Obj = this.searchForm.value;
       }
-      
-    };
-    this.gridApi.setDatasource(datasource);
+      this.searchObj = _Obj;     
+      var datasource: IDatasource = {
+        getRows: (params: IGetRowsParams) => {
+          this.getRowData1(params.startRow, params.endRow).subscribe(data =>
+            params.successCallback(data)
+          );
+        }
+      };
+      this.gridApi.setDatasource(datasource);
+    }
   }
   private getRowData1(startRow: number, endRow: number): Observable<any[]> {
     console.log(this.searchObj);
