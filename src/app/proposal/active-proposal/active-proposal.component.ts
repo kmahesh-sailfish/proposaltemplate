@@ -66,6 +66,7 @@ export class ActiveProposalComponent implements OnInit {
   }
   loadSearchForm() {
     this.searchForm = new FormGroup({
+      searchTextDate:new FormControl(null),
       searchField: new FormControl(null),
       searchText: new FormControl(null, [
         Validators.required,
@@ -73,16 +74,20 @@ export class ActiveProposalComponent implements OnInit {
       ])
     });
   }
-  onSubmit() {
+  onSubmit(dateType) {
+    var _Obj = {};
+    if(dateType){
+      if (this.searchForm.get('searchTextDate').value != "" && 
+    this.searchForm.get('searchTextDate').value != null) {
+      let temp = this.searchForm.get("searchTextDate").value;
+      temp = moment(temp).format("MM/DD/YYYY");
+      _Obj["searchText"] = temp;
+      _Obj["searchField"] = this.searchForm.get("searchField").value;
+    }
+  }else{
     if (this.searchForm.get('searchText').value != "" && 
     this.searchForm.get('searchText').value != null) {
-      var _Obj = {};
-      if (this.searchForm.get("searchField").value == "CreatedDate") {
-        let temp = this.searchForm.get("searchText").value;
-        temp = moment(temp).format("MM/DD/YYYY");
-        _Obj["searchText"] = temp;
-        _Obj["searchField"] = this.searchForm.get("searchField").value;
-      } else if (this.searchForm.get("searchField").value == "CreatedByAlias") {
+      if (this.searchForm.get("searchField").value == "CreatedByAlias") {
         let temp = this.searchForm.get("searchText").value;
         _Obj["searchText"] = "v-" + temp;
         _Obj["searchField"] = this.searchForm.get("searchField").value;
@@ -103,6 +108,8 @@ export class ActiveProposalComponent implements OnInit {
       };
       this.gridApi.setDatasource(datasource);
     }
+  }
+    
   }
   private getRowData1(startRow: number, endRow: number): Observable<any[]> {
     console.log(this.searchObj);
