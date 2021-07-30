@@ -39,6 +39,7 @@ export class PubliCtmComponent implements OnInit {
   frameworkComponents = {
     editAction: ""
   };
+ 
   columnDefs = [
     {
       headerName: "Categories",
