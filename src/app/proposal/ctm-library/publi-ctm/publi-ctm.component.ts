@@ -19,8 +19,15 @@ export class PubliCtmComponent implements OnInit {
   rowData: any = [];
   title = "agGridExamples";
   gridApi: GridApi;
-  constructor(private router: Router) {}
-  ngOnInit(): void {}
+  constructor(private router: Router,private proposalService:ProposalService) {}
+  ngOnInit(): void {
+    this.getLoadpublictm()
+  }
+  getLoadpublictm() {
+    this.proposalService.getpublicCtmList().subscribe(data => {
+      this.rowData = data;
+    })
+  }
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();

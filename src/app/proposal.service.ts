@@ -53,7 +53,6 @@ export class ProposalService {
       })
       .pipe(
         map((res: any) => {
-         
           return res["result"]["_sourceObject"];
         })
       );
@@ -63,7 +62,6 @@ export class ProposalService {
       .post(environment.API_URL + "Proposal/" + "UpdateProposal", obj)
       .pipe(
         map((res: any) => {
-          
           return res["result"]["_sourceObject"];
         })
       );
@@ -229,7 +227,7 @@ export class ProposalService {
   }
   isPricingCountry(lrdCountries, pricingCountry): any {
     if (lrdCountries.length > 0) {
-      var result = lrdCountries.filter((d)=> {
+      var result = lrdCountries.filter(d => {
         return d == pricingCountry;
       });
       return result && result.length > 0;
@@ -272,9 +270,8 @@ export class ProposalService {
       );
   }
   getcustomeSearch(obj) {
-    
-     return this.http
-      .get(environment.API_URL + "Proposal/SearchProposalsByPaging",{
+    return this.http
+      .get(environment.API_URL + "Proposal/SearchProposalsByPaging", {
         params: obj
       })
       .pipe(
@@ -307,9 +304,9 @@ export class ProposalService {
         })
       );
   }
-  generateDocFile(obj){
+  generateDocFile(obj) {
     return this.http
-      .get(environment.API_URL + "Amendment/DownloadDocumentById",{
+      .get(environment.API_URL + "Amendment/DownloadDocumentById", {
         params: obj
       })
       .pipe(
@@ -320,9 +317,29 @@ export class ProposalService {
   }
   isDiscountedAmendment(dicountAmendment, amendment) {
     if (dicountAmendment.length > 0) {
-        var result = dicountAmendment.filter(function (d) { return d.Code == amendment; });
-        return result;
+      var result = dicountAmendment.filter(function(d) {
+        return d.Code == amendment;
+      });
+      return result;
     }
     return false;
+  }
+  getpublicCtmList() {
+    return this.http
+      .get(environment.API_URL + "Ctm/getPublicCTMFiles")
+      .pipe(
+        map((res: any) => {
+          return res.result;
+        })
+      );
+  }
+  getprivateCtmList() {
+    return this.http
+      .get(environment.API_URL + "/Ctm/getPrivateCTMFiles")
+      .pipe(
+        map((res: any) => {
+          return res.result;
+        })
+      );
   }
 }

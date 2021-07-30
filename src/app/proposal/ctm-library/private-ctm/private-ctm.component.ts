@@ -18,12 +18,17 @@ export class PrivateCtmComponent implements OnInit {
   rowData: any = [];
   title = "agGridExamples";
   gridApi: GridApi;
-  constructor(private router: Router) {}
+  constructor(private router: Router,private proposalService:ProposalService) {}
   ngOnInit(): void {}
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
     // this.gridApi.setDatasource(this.datasource);
+  }
+  getLoadprivatectm() {
+    this.proposalService.getpublicCtmList().subscribe(data => {
+      this.rowData = data;
+    })
   }
   frameworkComponents = {
     editAction: ""
