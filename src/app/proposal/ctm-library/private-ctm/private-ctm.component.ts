@@ -18,7 +18,10 @@ export class PrivateCtmComponent implements OnInit {
   rowData: any = [];
   title = "agGridExamples";
   gridApi: GridApi;
-  constructor(private router: Router,private proposalService:ProposalService) {}
+  constructor(
+    private router: Router,
+    private proposalService: ProposalService
+  ) {}
   ngOnInit(): void {}
   onGridReady(params: any) {
     this.gridApi = params.api;
@@ -28,83 +31,53 @@ export class PrivateCtmComponent implements OnInit {
   getLoadprivatectm() {
     this.proposalService.getpublicCtmList().subscribe(data => {
       this.rowData = data;
-    })
+    });
   }
   frameworkComponents = {
     editAction: ""
   };
   columnDefs = [
     {
-      headerName: "Create",
-      field: "createdDate",
+      headerName: "Categories",
+      field: "categories",
       resizable: true,
       filter: true,
-      width: 100,
-      cellRenderer: data => {
-        return moment(data.createdDate).format("MM/DD/YYYY");
-      }
+      width: 100
     },
     {
-      headerName: "proposalId",
+      headerName: "Description",
       width: 100,
       filter: true,
-      field: "proposalId",
+      field: "description",
       resizable: true
     },
     {
-      headerName: "CreateBy",
+      headerName: "Language",
       width: 100,
       filter: true,
-      field: "createdByAlias",
+      field: "language",
       resizable: true
     },
     {
-      headerName: "ModifyBy",
+      headerName: "Update",
       width: 100,
       filter: true,
-      field: "lastModifiedBy",
+      field: "updatedDate",
       resizable: true
     },
     {
-      headerName: "Customer Name",
+      headerName: "Updateby",
       width: 100,
       filter: true,
-      field: "customerName",
+      field: "createdBy",
       resizable: true
     },
     {
-      headerName: "Deal NickName",
+      headerName: "Pricing CTM",
       width: 100,
       filter: true,
-      field: "dealNickname",
+      field: "isCTMPricing",
       resizable: true
-    },
-    {
-      headerName: "Status",
-      field: "status",
-      width: 100,
-      filter: true,
-      resizable: true,
-      cellRenderer: data => {
-        return data.status == 0 ? "false" : "true";
-      }
-    },
-    {
-      headerName: "Shared",
-      filter: true,
-      width: 100,
-      field: "isShared",
-      resizable: true
-    },
-    {
-      headerName: "Delegation",
-      field: "delegationStatus",
-      resizable: true,
-      filter: true,
-      width: 100,
-      cellRenderer: data => {
-        return data.delegationStatus == 0 ? "false" : "true";
-      }
     },
     {
       headerName: "Action",

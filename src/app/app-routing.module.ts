@@ -37,7 +37,8 @@ const routes: Routes = [
     component: CtmLibraryComponent,
     children: [
       { path: "public", component: PubliCtmComponent },
-      { path: "private", component: PrivateCtmComponent }
+      { path: "private", component: PrivateCtmComponent },
+      { path: "", redirectTo: "public", pathMatch: "full" }
     ]
   },
   { path: "", redirectTo: "dashboard", pathMatch: "full" },
