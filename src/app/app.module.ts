@@ -49,6 +49,8 @@ import { SpecialCharacterDirective } from "./GlobalDirectives/special-character.
 import { FilterCellComponent } from "./sharedAction/filter/filter-cell/filter-cell.component";
 import { CtmFooterComponent } from "./proposal/ctm-footer/ctm-footer.component";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
+import { PubliCtmComponent } from './proposal/ctm-library/publi-ctm/publi-ctm.component';
+import { PrivateCtmComponent } from './proposal/ctm-library/private-ctm/private-ctm.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +87,9 @@ import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
     ArchiveActionsComponent,
     CtmFooterComponent,
     SpecialCharacterDirective,
-    FilterCellComponent
+    FilterCellComponent,
+    PubliCtmComponent,
+    PrivateCtmComponent
 
     //EditHrdComponentRenderer
   ],

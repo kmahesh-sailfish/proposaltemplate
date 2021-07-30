@@ -13,9 +13,15 @@ import { CtmLibraryComponent } from "./proposal/ctm-library/ctm-library.componen
 import { ProposalOverviewComponent } from "./proposal/proposal-overview/proposal-overview.component";
 import { AdminPanelComponent } from "./admin/admin-panel/admin-panel.component";
 import { CtmFooterComponent } from "./proposal/ctm-footer/ctm-footer.component";
+import { PubliCtmComponent } from "./proposal/ctm-library/publi-ctm/publi-ctm.component";
+import { PrivateCtmComponent } from "./proposal/ctm-library/private-ctm/private-ctm.component";
 
 const routes: Routes = [
-  { path: "ctmfooter", component: CtmFooterComponent },
+  {
+    path: "ctmfooter",
+
+    component: CtmFooterComponent
+  },
   { path: "dashboard", component: DashboardComponent },
   { path: "activeproposal", component: ActiveProposalComponent },
   { path: "createproposal", component: CreateProposalComponent },
@@ -26,7 +32,14 @@ const routes: Routes = [
   { path: "delegation", component: DelegationComponent },
   { path: "multipledocs", component: MultipleDocsComponent },
   { path: "authorizedelegation", component: AuthorizeDelegationComponent },
-  { path: "ctmlibrary", component: CtmLibraryComponent },
+  {
+    path: "ctmlibrary",
+    component: CtmLibraryComponent,
+    children: [
+      { path: "public", component: PubliCtmComponent },
+      { path: "private", component: PrivateCtmComponent }
+    ]
+  },
   { path: "", redirectTo: "dashboard", pathMatch: "full" },
   { path: "admin", component: AdminPanelComponent }
 ];
