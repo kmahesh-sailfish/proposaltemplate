@@ -8,17 +8,21 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-9">
             <div>
                 <button type="button" routerLink="/ctmlibrary/public" class="btn btn-outline-primary m-r-2">Public CTM Library</button>
                 <button type="button" routerLink="/ctmlibrary/private" class="btn btn-outline-primary ">Private CTM Library</button>
             </div>
         </div>
+        <div class="col">
+            <div class="btn btn-primary btn-sm w-100">
+                <span class="">Add CTM File</span>
+                <input class="sample" style="width: 100%;position: absolute;margin-top: -18px;" type="file" (change)="addCTM()" name="file"
+                />
+            </div>
+        </div>
     </div>
-    <div class="col">
-    <div class="btn btn-primary btn-sm w-100">
-       <span class="">Add CTM File</span>
-        <input class="sample" type="file" (change)="addCTM()" name="file" /></div></div>
+
     <div class="row">
         <div class="col">&nbsp;
         </div>

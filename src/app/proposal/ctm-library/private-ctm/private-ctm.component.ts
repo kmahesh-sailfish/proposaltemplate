@@ -22,14 +22,16 @@ export class PrivateCtmComponent implements OnInit {
     private router: Router,
     private proposalService: ProposalService
   ) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getLoadprivatectm();
+  }
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
     // this.gridApi.setDatasource(this.datasource);
   }
   getLoadprivatectm() {
-    this.proposalService.getpublicCtmList().subscribe(data => {
+    this.proposalService.getprivateCtmList().subscribe(data => {
       this.rowData = data;
     });
   }
