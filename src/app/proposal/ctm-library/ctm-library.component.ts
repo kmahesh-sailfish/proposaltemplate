@@ -1,69 +1,117 @@
 import { Component, OnInit } from "@angular/core";
 import { ProposalService } from "src/app/proposal.service";
-
+import { Router } from "@angular/router";
+import * as moment from "moment";
+import {
+  GridApi,
+  ICellRendererParams,
+  IDatasource,
+  IGetRowsParams
+} from "ag-grid-community";
 @Component({
   selector: "app-ctm-library",
   templateUrl: "./ctm-library.component.html",
   styleUrls: ["./ctm-library.component.css"]
 })
 export class CtmLibraryComponent implements OnInit {
-  public footerCategory = [];
-  public SelectedCategoriesText: any = "Select Footer Category";
-  public SelectCategory: any;
-  public selectedCateg: any = [];
-  public SelectedCategories: any = [];
-  public Others: any;
-  public showRevenueImpact: any;
-  public OthersChecked: any;
-  public tempOthersCode: any;
-  public selectLanguage: any = null;
-  public getLanguages: any = [
-
-  ];
-  constructor(private proposalService: ProposalService) {}
-
-  ngOnInit(): void {
-    this.loadCTMFooterCode();
-    //this.selectLanguage="";
-    this.loadLanguages();
+  public gridOptions: any;
+  rowData: any = [];
+  title = "agGridExamples";
+  gridApi: GridApi;
+  constructor(private router: Router) {}
+  ngOnInit(): void {}
+  onGridReady(params: any) {
+    this.gridApi = params.api;
+    this.gridApi.sizeColumnsToFit();
+    // this.gridApi.setDatasource(this.datasource);
   }
-  loadLanguages() {
-    this.proposalService.getLanguage().subscribe((data: any) => {
-      this.getLanguages = data;
-    });
-  }
-  loadCTMFooterCode() {
-    this.proposalService.getCTMFootercode().subscribe((data: any) => {
-      this.footerCategory = data;
-    });
-  }
-  CheckBoxChecked(cat, isChecked) {
-    if (cat.NeedDescription && isChecked) {
-      this.OthersChecked = true;
-      this.tempOthersCode = cat;
-      $('input[type="checkbox"]').prop("disabled", true);
-      if (cat.HasRevenueImpact) {
-        this.showRevenueImpact = true;
+  frameworkComponents = {
+    editAction: ""
+  };
+  columnDefs = [
+    {
+      headerName: "Create",
+      field: "createdDate",
+      resizable: true,
+      filter: true,
+      width: 100,
+      cellRenderer: data => {
+        return moment(data.createdDate).format("MM/DD/YYYY");
       }
-    } else {
-      this.OthersChecked = this.showRevenueImpact = false;
-      $('input[type="checkbox"]').removeAttr("disabled");
+    },
+    {
+      headerName: "proposalId",
+      width: 100,
+      filter: true,
+      field: "proposalId",
+      resizable: true
+    },
+    {
+      headerName: "CreateBy",
+      width: 100,
+      filter: true,
+      field: "createdByAlias",
+      resizable: true
+    },
+    {
+      headerName: "ModifyBy",
+      width: 100,
+      filter: true,
+      field: "lastModifiedBy",
+      resizable: true
+    },
+    {
+      headerName: "Customer Name",
+      width: 100,
+      filter: true,
+      field: "customerName",
+      resizable: true
+    },
+    {
+      headerName: "Deal NickName",
+      width: 100,
+      filter: true,
+      field: "dealNickname",
+      resizable: true
+    },
+    {
+      headerName: "Status",
+      field: "status",
+      width: 100,
+      filter: true,
+      resizable: true,
+      cellRenderer: data => {
+        return data.status == 0 ? "false" : "true";
+      }
+    },
+    {
+      headerName: "Shared",
+      filter: true,
+      width: 100,
+      field: "isShared",
+      resizable: true
+    },
+    {
+      headerName: "Delegation",
+      field: "delegationStatus",
+      resizable: true,
+      filter: true,
+      width: 100,
+      cellRenderer: data => {
+        return data.delegationStatus == 0 ? "false" : "true";
+      }
+    },
+    {
+      headerName: "Action",
+      field: "id",
+      cellRenderer: "editAction",
+      resizable: true,
+      filter: true,
+      width: 150
     }
-    if (cat.parentId == null) {
-      var temp = [];
-      $("input[name=" + cat.id + "]:checked").prop("checked", false);
-      this.SelectedCategories.forEach(function(category, index) {
-        if (category.parentId != cat.id) {
-          temp.push(category);
-        }
-      });
-      this.SelectedCategories = temp;
-    }
-    if (isChecked) {
-      this.SelectedCategories.push(cat);
-    } else {
-      this.SelectedCategories.splice(this.SelectedCategories.indexOf(cat), 1);
-      this.Others.splice(this.Others.indexOf(cat), 1);
-    }
+  ];
+  onRowClicked(event) {
+    console.log(event["data"]);
+    this.router.navigate(["proposaloverview/", event["data"]["id"]]);
   }
 }

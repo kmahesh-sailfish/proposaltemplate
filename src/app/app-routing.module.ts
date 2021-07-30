@@ -11,9 +11,11 @@ import { MultipleDocsComponent } from "./proposal/multiple-docs/multiple-docs.co
 import { AuthorizeDelegationComponent } from "./proposal/authorize-delegation/authorize-delegation.component";
 import { CtmLibraryComponent } from "./proposal/ctm-library/ctm-library.component";
 import { ProposalOverviewComponent } from "./proposal/proposal-overview/proposal-overview.component";
-import {AdminPanelComponent} from "./admin/admin-panel/admin-panel.component";
+import { AdminPanelComponent } from "./admin/admin-panel/admin-panel.component";
+import { CtmFooterComponent } from "./proposal/ctm-footer/ctm-footer.component";
 
 const routes: Routes = [
+  { path: "ctmfooter", component: CtmFooterComponent },
   { path: "dashboard", component: DashboardComponent },
   { path: "activeproposal", component: ActiveProposalComponent },
   { path: "createproposal", component: CreateProposalComponent },
@@ -26,7 +28,7 @@ const routes: Routes = [
   { path: "authorizedelegation", component: AuthorizeDelegationComponent },
   { path: "ctmlibrary", component: CtmLibraryComponent },
   { path: "", redirectTo: "dashboard", pathMatch: "full" },
-  { path: "admin", component:AdminPanelComponent}
+  { path: "admin", component: AdminPanelComponent }
 ];
 
 @NgModule({
