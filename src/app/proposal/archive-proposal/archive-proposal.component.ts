@@ -12,24 +12,39 @@ import { Observable } from "rxjs/Observable";
 
 import * as moment from "moment";
 import { Router } from "@angular/router";
-
+import { SpecialCharacter } from "../../sharedservices/special-character";
 import "rxjs/add/observable/of";
 import { map } from "rxjs/operators";
 import { ArchiveActionsComponent } from "../../sharedAction/archive-actions/archive-actions.component";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 @Component({
   selector: "app-archive-proposal",
   templateUrl: "./archive-proposal.component.html",
   styleUrls: ["./archive-proposal.component.css"]
 })
 export class ArchiveProposalComponent implements OnInit {
+  public startRow: number;
+  public endRow: number;
+  public searchObj: any = {};
+  public searchForm: FormGroup;
   public ActiveProposal: any[] = [];
   public gridOptions: any;
+  public searchItem = [
+    { name: "Search by Proposal Id", id: "ProposalId" },
+    { name: "Search by Alias", id: "CreatedByAlias" },
+    { name: "Search by LastModifiedBy", id: "LastModifiedBy" },
+    { name: "Search by Customer Name", id: "CustomerName" },
+    { name: "Search by Deal Nick Name", id: "DealNickName" },
+
+    { name: "Search by Created Date", id: "CreatedDate" }
+  ];
   rowData: any = [];
   title = "agGridExamples";
   gridApi: GridApi;
   constructor(
     private proposalService: ProposalService,
-    private router: Router
+    private router: Router,
+    private customValidators: SpecialCharacter
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +57,7 @@ export class ArchiveProposalComponent implements OnInit {
   }
 
   private getRowData(startRow: number, endRow: number): Observable<any[]> {
-    return this.proposalService.getArchivePage(startRow, endRow);
+    return this.proposalService.getArchivePage(startRow, endRow, null);
   }
   datasource: IDatasource = {
     getRows: (params: IGetRowsParams) => {
@@ -56,6 +71,85 @@ export class ArchiveProposalComponent implements OnInit {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
     this.gridApi.setDatasource(this.datasource);
+  }
+  clearVAl() {
+    this.searchForm.reset();
+    this.gridApi.setDatasource(this.datasource);
+  }
+  reset() {
+    this.searchForm.reset();
+    this.gridApi.setDatasource(this.datasource);
+  }
+  loadSearchForm() {
+    this.searchForm = new FormGroup({
+      searchTextDate: new FormControl(null),
+      searchField: new FormControl(null),
+      searchText: new FormControl(null, [
+        Validators.required,
+        this.customValidators.nameValidator
+      ])
+    });
+  }
+  onSubmit(dateType) {
+    var _Obj = {};
+    if (dateType) {
+      if (
+        this.searchForm.get("searchTextDate").value != "" &&
+        this.searchForm.get("searchTextDate").value != null
+      ) {
+        let temp = this.searchForm.get("searchTextDate").value;
+        temp = moment(temp).format("MM/DD/YYYY");
+        _Obj["searchText"] = temp;
+        _Obj["searchField"] = this.searchForm.get("searchField").value;
+      }
+    } else {
+      if (
+        this.searchForm.get("searchText").value != "" &&
+        this.searchForm.get("searchText").value != null
+      ) {
+        if (this.searchForm.get("searchField").value == "CreatedByAlias") {
+          let temp = this.searchForm.get("searchText").value;
+          _Obj["searchText"] = "v-" + temp;
+          _Obj["searchField"] = this.searchForm.get("searchField").value;
+        } else if (this.searchForm.get("searchField").value == "CreatedDate") {
+          let temp = this.searchForm.get("searchText").value;
+          _Obj["searchText"] = "m-" + temp;
+          _Obj["searchField"] = this.searchForm.get("searchField").value;
+        } else {
+          _Obj = this.searchForm.value;
+        }
+        this.searchObj = _Obj;
+        var datasource: IDatasource = {
+          getRows: (params: IGetRowsParams) => {
+            this.getRowData1(params.startRow, params.endRow).subscribe(data =>
+              params.successCallback(data)
+            );
+          }
+        };
+        this.gridApi.setDatasource(datasource);
+      }
+    }
+  }
+  private getRowData1(startRow: number, endRow: number): Observable<any[]> {
+    console.log(this.searchObj);
+    this.startRow = startRow;
+    this.endRow = endRow;
+    let obj = {
+      ...this.searchObj,
+      PageSize: this.endRow,
+      PageNum: this.startRow
+    };
+    // var obj = {
+    //   PageNum: startRow,
+    //   PageSize: endRow,
+    //   searchField: "CustomerName",
+    //   searchText: "Te"
+    // };
+    return this.proposalService.getArchivePage(
+      startRow,
+      endRow,
+      this.searchObj
+    );
   }
   loadGrid() {
     this.gridOptions = {

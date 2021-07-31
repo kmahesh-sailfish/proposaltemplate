@@ -8,6 +8,41 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-12">
+            <form [formGroup]='searchForm' novalidate>
+                <div class="row">
+                    <div class="col-3">
+                        <ng-select class="ng-select" formControlName="searchField" placeholder="Select Search" name="searchField" [items]="searchItem"
+                            bindLabel="name" bindValue="id"  (clear)="clearVAl()">
+                        </ng-select>
+                    </div>
+                    <div class="col-3" *ngIf="searchForm.get('searchField').value=='CreatedDate'">
+
+                        <input autocomplete="off" placeholder="mm/dd/yyyy" type="text" formControlName="searchTextDate" class="form-control" #dp="bsDatepicker"
+                            name="searchTextDate" (ngModelChange)="onSubmit('Date')" bsDatepicker [bsConfig]="{containerClass:'theme-blue'}">
+                    </div>
+
+                    <div class="col-3" *ngIf="searchForm.get('searchField').value !='CreatedDate'">
+                        <input autocomplete="off" type="text" (blur)="onSubmit()" formControlName="searchText" class="form-control" placeholder="Search Item.."
+                            name="searchText" />
+                        <div *ngIf="(searchForm.get('searchText').hasError('invalidName'))">
+                            <div class="error_color">
+                                Special characters not allowed!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        
+                      
+                        <!-- <input type="button" name="reset"> <i class="fa fa-refresh"></i></input> -->
+                        
+                        <button (click)="reset()" type="button" class="btn btn-primary"><i class="fas fa-undo"></i> </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
         <div class="col">
            
             <ag-grid-angular  #agGrid style=" height:500px;" class="ag-theme-alpine"

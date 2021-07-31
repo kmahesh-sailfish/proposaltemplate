@@ -254,14 +254,14 @@ export class ProposalService {
     }
     return false;
   }
-  getArchivePage(startRow, endRow) {
+  getArchivePage(startRow, endRow,obj) {
     return this.http
       .get(
         environment.API_URL +
           "Proposal/GetProposalsByCount/true/" +
           startRow +
           "/" +
-          endRow
+          endRow+"/"+obj
       )
       .pipe(
         map((res: any) => {
