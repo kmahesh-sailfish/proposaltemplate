@@ -66,7 +66,7 @@ export class ActiveProposalComponent implements OnInit {
   }
   loadSearchForm() {
     this.searchForm = new FormGroup({
-      searchTextDate:new FormControl(null),
+      searchTextDate: new FormControl(null),
       searchField: new FormControl(null),
       searchText: new FormControl(null, [
         Validators.required,
@@ -76,40 +76,34 @@ export class ActiveProposalComponent implements OnInit {
   }
   onSubmit(dateType) {
     var _Obj = {};
-    if(dateType){
-      if (this.searchForm.get('searchTextDate').value != "" && 
-    this.searchForm.get('searchTextDate').value != null) {
+    if (this.searchForm.get("searchField").value == "CreatedByAlias") {
+      let temp = this.searchForm.get("searchText").value;
+      _Obj["searchText"] = "v-" + temp;
+      _Obj["searchField"] = this.searchForm.get("searchField").value;
+    } else if (this.searchForm.get("searchField").value == "LastModifiedBy") {
+      let temp = this.searchForm.get("searchText").value;
+      _Obj["searchText"] = "m-" + temp;
+      _Obj["searchField"] = this.searchForm.get("searchField").value;
+    } else if (
+      this.searchForm.get("searchTextDate").value != "" &&
+      this.searchForm.get("searchTextDate").value != null
+    ) {
       let temp = this.searchForm.get("searchTextDate").value;
       temp = moment(temp).format("MM/DD/YYYY");
       _Obj["searchText"] = temp;
       _Obj["searchField"] = this.searchForm.get("searchField").value;
+    } else {
+      _Obj = this.searchForm.value;
     }
-  }else{
-    if (this.searchForm.get('searchText').value != "" && 
-    this.searchForm.get('searchText').value != null) {
-      if (this.searchForm.get("searchField").value == "CreatedByAlias") {
-        let temp = this.searchForm.get("searchText").value;
-        _Obj["searchText"] = "v-" + temp;
-        _Obj["searchField"] = this.searchForm.get("searchField").value;
-      } else if (this.searchForm.get("searchField").value == "CreatedDate") {
-        let temp = this.searchForm.get("searchText").value;
-        _Obj["searchText"] = "m-" + temp;
-        _Obj["searchField"] = this.searchForm.get("searchField").value;
-      } else {
-        _Obj = this.searchForm.value;
+    this.searchObj = _Obj;
+    var datasource: IDatasource = {
+      getRows: (params: IGetRowsParams) => {
+        this.getRowData1(params.startRow, params.endRow).subscribe(data =>
+          params.successCallback(data)
+        );
       }
-      this.searchObj = _Obj;
-      var datasource: IDatasource = {
-        getRows: (params: IGetRowsParams) => {
-          this.getRowData1(params.startRow, params.endRow).subscribe(data =>
-            params.successCallback(data)
-          );
-        }
-      };
-      this.gridApi.setDatasource(datasource);
-    }
-  }
-    
+    };
+    this.gridApi.setDatasource(datasource);
   }
   private getRowData1(startRow: number, endRow: number): Observable<any[]> {
     console.log(this.searchObj);
