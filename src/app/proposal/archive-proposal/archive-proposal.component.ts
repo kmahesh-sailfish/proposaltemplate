@@ -12,15 +12,16 @@ import { Observable } from "rxjs/Observable";
 
 import * as moment from "moment";
 import { Router } from "@angular/router";
-import { SpecialCharacter } from "../../sharedservices/special-character";
 import "rxjs/add/observable/of";
 import { map } from "rxjs/operators";
 import { ArchiveActionsComponent } from "../../sharedAction/archive-actions/archive-actions.component";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { SpecialCharacter } from "../../sharedservices/special-character";
 @Component({
   selector: "app-archive-proposal",
   templateUrl: "./archive-proposal.component.html",
-  styleUrls: ["./archive-proposal.component.css"]
+  styleUrls: ["./archive-proposal.component.css"],
+  providers: [SpecialCharacter]
 })
 export class ArchiveProposalComponent implements OnInit {
   public startRow: number;
@@ -50,6 +51,7 @@ export class ArchiveProposalComponent implements OnInit {
   ngOnInit(): void {
     // this.loadActiveProposal();
     this.loadGrid();
+    this.loadSearchForm();
   }
 
   setHRDEditDiv(obj) {

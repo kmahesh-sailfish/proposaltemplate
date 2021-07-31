@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-3">
                         <ng-select class="ng-select" formControlName="searchField" placeholder="Select Search" name="searchField" [items]="searchItem"
-                            bindLabel="name" bindValue="id"  (clear)="clearVAl()">
+                            bindLabel="name" bindValue="id" (clear)="clearVAl()">
                         </ng-select>
                     </div>
                     <div class="col-3" *ngIf="searchForm.get('searchField').value=='CreatedDate'">
@@ -32,10 +32,10 @@
                         </div>
                     </div>
                     <div class="col-3">
-                        
-                      
+
+
                         <!-- <input type="button" name="reset"> <i class="fa fa-refresh"></i></input> -->
-                        
+
                         <button (click)="reset()" type="button" class="btn btn-primary"><i class="fas fa-undo"></i> </button>
                     </div>
                 </div>
@@ -43,14 +43,14 @@
         </div>
     </div>
     <div class="row">
+        <div class="col">&nbsp;
+        </div>
+    </div>
+    <div class="row">
         <div class="col">
-           
-            <ag-grid-angular  #agGrid style=" height:500px;" class="ag-theme-alpine"
-             [rowData]="rowData" [columnDefs]="columnDefs"
-            (rowClicked)='onRowClicked($event)'
-            [gridOptions]="gridOptions"
-            (gridReady)="onGridReady($event)"
-             [frameworkComponents]="frameworkComponents">
+
+            <ag-grid-angular #agGrid style=" height:500px;" class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs" (rowClicked)='onRowClicked($event)'
+                [gridOptions]="gridOptions" (gridReady)="onGridReady($event)" [frameworkComponents]="frameworkComponents">
             </ag-grid-angular>
 
         </div>
