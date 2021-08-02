@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ProposalService } from "src/app/proposal.service";
 import { Router } from "@angular/router";
 import * as moment from "moment";
+import { EditActionComponent } from '../edit-action/edit-action.component';
 import {
   GridApi,
   ICellRendererParams,
@@ -37,7 +38,7 @@ export class PubliCtmComponent implements OnInit {
     // this.gridApi.setDatasource(this.datasource);
   }
   frameworkComponents = {
-    editAction: ""
+    editAction: EditActionComponent
   };
  
   columnDefs = [
@@ -83,7 +84,7 @@ export class PubliCtmComponent implements OnInit {
       field: "isCTMPricing",
       resizable: true
     },
-    {
+   {
       headerName: "Action",
       field: "id",
       cellRenderer: "editAction",
