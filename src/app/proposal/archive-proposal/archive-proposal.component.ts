@@ -59,7 +59,7 @@ export class ArchiveProposalComponent implements OnInit {
   }
 
   private getRowData(startRow: number, endRow: number): Observable<any[]> {
-    return this.proposalService.getArchivePage(startRow, endRow, null);
+    return this.proposalService.getArchivePage(startRow, endRow);
   }
   datasource: IDatasource = {
     getRows: (params: IGetRowsParams) => {
@@ -130,7 +130,8 @@ export class ArchiveProposalComponent implements OnInit {
     let obj = {
       ...this.searchObj,
       PageSize: this.endRow,
-      PageNum: this.startRow
+      PageNum: this.startRow,
+      isArchive:true
     };
     // var obj = {
     //   PageNum: startRow,
@@ -138,11 +139,7 @@ export class ArchiveProposalComponent implements OnInit {
     //   searchField: "CustomerName",
     //   searchText: "Te"
     // };
-    return this.proposalService.getArchivePage(
-      startRow,
-      endRow,
-      this.searchObj
-    );
+    return this.proposalService.getcustomeSearch(obj);
   }
   loadGrid() {
     this.gridOptions = {
@@ -163,7 +160,7 @@ export class ArchiveProposalComponent implements OnInit {
       filter: true,
       width: 100,
       cellRenderer: data => {
-        return moment(data.createdDate).format("MM/DD/YYYY");
+        return moment(data.value).format("MM/DD/YYYY");
       }
     },
     {

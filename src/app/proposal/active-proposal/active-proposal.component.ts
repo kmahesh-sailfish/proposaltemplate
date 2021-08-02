@@ -112,7 +112,8 @@ export class ActiveProposalComponent implements OnInit {
     let obj = {
       ...this.searchObj,
       PageSize: this.endRow,
-      PageNum: this.startRow
+      PageNum: this.startRow,
+      isArchive:false
     };
     // var obj = {
     //   PageNum: startRow,
@@ -159,7 +160,7 @@ export class ActiveProposalComponent implements OnInit {
       filter: true,
       width: 100,
       cellRenderer: data => {
-        return moment(data.createdDate).format("MM/DD/YYYY");
+        return moment(data.value).format("MM/DD/YYYY");
       }
     },
     {
