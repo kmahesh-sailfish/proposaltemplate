@@ -11,18 +11,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-action.component.css']
 })
 export class EditActionComponent implements OnInit {
-
-  ngOnInit(): void {}
-  cellValue: any;
+ cellValue: any;
   params: any;
   // private objactiveComponent: ActiveProposalComponent;
+  ngOnInit(): void {
+    console.log(this.params.data, "edited");
+  }
+ 
   constructor(
     //  private objactiveComponents: ActiveProposalComponent,
     private modalService: NgbModal,
     private adminService: ProposalService,
     private toastr: ToastrService,
-    private router: Router,
-    private activeModal: NgbActiveModal
+    private router: Router
+    
   ) {
     // this.objactiveComponent = objactiveComponents;
   }
