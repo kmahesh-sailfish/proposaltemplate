@@ -84,6 +84,7 @@ export class EditActionComponent implements OnInit {
     event.stopPropagation();
     var rowData = this.params.data;
     rowData['labelMessage']="Stop Sharing CTM";
+    
     const modalRef = this.modalService.open(ConformationComponent, {
       size: "sm"
     });

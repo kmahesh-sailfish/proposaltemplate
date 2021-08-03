@@ -342,4 +342,31 @@ export class ProposalService {
         })
       );
   }
+  updateCTMShare(){
+    return this.http
+    .get(environment.API_URL + "/Ctm/UpdateCtmShare")
+    .pipe(
+      map((res: any) => {
+        return res.result;
+      })
+    );
+  }
+  deleteCTM(){   
+    return this.http
+    .get(environment.API_URL + "/Ctm/DeleteCTMLibraryFile")
+    .pipe(
+      map((res: any) => {
+        return res.result;
+      })
+    );
+  }
+  downLoadCTM(){ 
+          return this.http
+          .get(environment.API_URL + "/Ctm/DownloadCTMLibraryFile/fileid")
+          .pipe(
+            map((res: any) => {
+              return res.result;
+            })
+          );
+  }
 }

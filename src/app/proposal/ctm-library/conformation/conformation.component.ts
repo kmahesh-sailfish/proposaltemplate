@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProposalService } from 'src/app/proposal.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-conformation',
@@ -10,6 +12,8 @@ export class ConformationComponent implements OnInit {
   public rowObj:any;
   constructor(
     public activeModal: NgbActiveModal,
+    public proposalService:ProposalService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -22,6 +26,23 @@ export class ConformationComponent implements OnInit {
     }else{
       console.log(this.rowObj,'stopsahre');
     }
+    // this.proposalService
+    //   .actionProposal(obj, this.rowObj["labelMessage"])
+    //   .subscribe(res => {
+    //     //this.router.navigate(["/activeproposal"]);
+    //     const currentUrl = this.router.url;
+    //     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    //         this.router.navigate([currentUrl]);
+    //     });
+    //     this.activeModal.close();
+    //   });
+  }
+
+  deleteCTM(){
+
+  }
+  shareCTM(){
+
   }
   
 }
