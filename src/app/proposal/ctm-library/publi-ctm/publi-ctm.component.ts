@@ -93,8 +93,8 @@ export class PubliCtmComponent implements OnInit {
       width: 150
     }
   ];
-  onRowClicked(event) {
-    console.log(event["data"]);
-    this.router.navigate(["proposaloverview/", event["data"]["id"]]);
-  }
+  // onRowClicked(event) {
+  //   console.log(event["data"]);
+  //   this.router.navigate(["proposaloverview/", event["data"]["id"]]);
+  // }
 }

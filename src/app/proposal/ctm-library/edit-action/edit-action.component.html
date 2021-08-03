@@ -1,11 +1,9 @@
-<span>
-<!-- <span s class="outCircle"> <i class="fas fa-folder-open" style="width: 14px;"></i></span>&nbsp; -->
-<span class="outCircle" > <i class="fa fa-times" style="width: 14px;"></i></span>&nbsp;
-<span class="outCircle"> <i class="fa fa-share-alt" style="width: 14px;"></i></span>&nbsp;
-<span class="outCircle"><i class="fa fa-toggle-off"style="width: 14px;"></i></span>
+
+<!-- <span  class="outCircle"> <i class="fas fa-folder-open" style="width: 14px;"></i></span>&nbsp; -->
+
+<span class="outCircle" (click)="stopShareCTM($event)" [hidden]="obj.createdBy =='narels' && obj.isPublic "><i class="fa fa-toggle-off"style="width: 14px;"></i></span>&nbsp;
+<span class="outCircle" (click)="shareClicked($event)"  [hidden]="obj.createdBy =='narels' && !obj.isPublic "> <i class="fa fa-share-alt" style="width: 14px;"></i></span>&nbsp;
+<span class="outCircle" (click)="deleteClicked($event)" [hidden]="obj.createdBy =='narels'"> <i class="fa fa-times" style="width: 14px;"></i></span>&nbsp;
 <!-- <span class="outCircle"><i class="fas fa-floppy-o"style="width: 14px;"></i></span>
 <span class="outCircle"><i class="fa fa-ban"style="width: 14px;"></i></span>
 <span class="outCircle"><i class="fas fa-file-text-o"style="width: 14px;"></i></span> -->
-
-
-</span>

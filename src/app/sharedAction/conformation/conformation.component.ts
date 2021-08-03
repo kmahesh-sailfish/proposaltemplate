@@ -26,6 +26,8 @@ export class ConformationComponent implements OnInit {
       obj["Id"] = this.rowObj["id"];
       obj["alias"] = this.rowObj["createdByAlias"];
       obj["archive"] = "true";
+    }else if (this.rowObj["labelMessage"] == "Share"){
+      
     }
     this.proposalService
       .actionProposal(obj, this.rowObj["labelMessage"])
