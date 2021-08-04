@@ -45,7 +45,11 @@ export class ConformationComponent implements OnInit {
       alias: this.rowObj.createdBy
     };
     this.proposalService.deleteCTM(Obj).subscribe(data => {
-      console.log(data);
+      const currentUrl = this.router.url;
+      this.router.navigateByUrl("/", { skipLocationChange: true }).then(() => {
+        this.router.navigate([currentUrl]);
+      });
+      this.activeModal.close();
     });
   }
   shareCTM() {
@@ -54,7 +58,11 @@ export class ConformationComponent implements OnInit {
       isShare: true
     };
     this.proposalService.updateCTMShare(Obj).subscribe(data => {
-      console.log(data);
+      const currentUrl = this.router.url;
+      this.router.navigateByUrl("/", { skipLocationChange: true }).then(() => {
+        this.router.navigate([currentUrl]);
+      });
+      this.activeModal.close();
     });
   }
 }
