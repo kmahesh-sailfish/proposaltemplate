@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ConformationComponent } from '../conformation/conformation.component';
 
+
 @Component({
   selector: 'app-edit-action',
   templateUrl: './edit-action.component.html',
@@ -59,6 +60,13 @@ export class EditActionComponent implements OnInit {
   //   modalRef.componentInstance.rowObj = rowData;
     
   // }
+  downloadCTMFile(event) {
+    event.stopPropagation();
+    var rowData = this.params.data;
+    this.adminService.downLoadCTM(rowData['id']).subscribe(data => {
+      console.log(data);
+    })
+  }
   shareClicked(event) {
     event.stopPropagation();
     var rowData = this.params.data;

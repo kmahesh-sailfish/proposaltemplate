@@ -66,4 +66,7 @@ export class ConformationComponent implements OnInit {
       this.activeModal.close();
     });
   }
+  downloadCTMFile() {
+    
+  }
 }

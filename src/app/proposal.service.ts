@@ -360,11 +360,9 @@ export class ProposalService {
         })
       );
   }
-  downLoadCTM(obj) {
+  downLoadCTM(id) {
     return this.http
-      .get(environment.API_URL + "/Ctm/DownloadCTMLibraryFile/fileid", {
-        params: obj
-      })
+      .get(environment.API_URL + "/Ctm/DownloadCTMLibraryFile/", id)
       .pipe(
         map((res: any) => {
           return res.result;
