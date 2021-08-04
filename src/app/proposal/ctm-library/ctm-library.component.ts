@@ -8,15 +8,23 @@ import {
   IDatasource,
   IGetRowsParams
 } from "ag-grid-community";
+import { CtmwindowComponent } from "../ctm-library/ctmwindow/ctmwindow.component";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 @Component({
   selector: "app-ctm-library",
   templateUrl: "./ctm-library.component.html",
   styleUrls: ["./ctm-library.component.css"]
 })
 export class CtmLibraryComponent implements OnInit {
-  constructor(private router: Router) {}
-  ngOnInit() {}
+  constructor(private router: Router, private modalService: NgbModal) {}
+  ngOnInit() {
+    this.addCTM();
+  }
   addCTM() {
-    this.router.navigate(["/ctmlibrary"]);
+    const modalRef = this.modalService.open(CtmwindowComponent, {
+      size: "lg"
+    });
+    // modalRef.componentInstance.rowObj = rowData;
+    //   this.router.navigate(["/ctmlibrary"]);
   }
 }
