@@ -20,11 +20,12 @@ export class ConformationComponent implements OnInit {
   submitConfirm() {
     if (this.rowObj["labelMessage"] == "Share") {
       console.log(this.rowObj);
-      this.shareCTM();
+      this.shareCTM(true);
     } else if (this.rowObj["labelMessage"] == "Delete") {
       console.log(this.rowObj, "deleted");
       this.deleteCTM();
     } else {
+      this.shareCTM(false);
       console.log(this.rowObj, "stopsahre");
     }
     // this.proposalService
@@ -41,7 +42,7 @@ export class ConformationComponent implements OnInit {
 
   deleteCTM() {
     var Obj = {
-      fileId: this.rowObj.folderId,
+      fileId: this.rowObj.id,
       alias: this.rowObj.createdBy
     };
     this.proposalService.deleteCTM(Obj).subscribe(data => {
@@ -52,10 +53,10 @@ export class ConformationComponent implements OnInit {
       this.activeModal.close();
     });
   }
-  shareCTM() {
+  shareCTM(flag) {
     var Obj = {
       ctmId: this.rowObj.id,
-      isShare: true
+      isShare: flag
     };
     this.proposalService.updateCTMShare(Obj).subscribe(data => {
       const currentUrl = this.router.url;
