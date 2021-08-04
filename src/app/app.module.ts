@@ -51,6 +51,7 @@ import { CtmFooterComponent } from "./proposal/ctm-footer/ctm-footer.component";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 import { PubliCtmComponent } from './proposal/ctm-library/publi-ctm/publi-ctm.component';
 import { PrivateCtmComponent } from './proposal/ctm-library/private-ctm/private-ctm.component';
+import { CtmwindowComponent } from './proposal/ctm-library/ctmwindow/ctmwindow.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { PrivateCtmComponent } from './proposal/ctm-library/private-ctm/private-
     SpecialCharacterDirective,
     FilterCellComponent,
     PubliCtmComponent,
-    PrivateCtmComponent
+    PrivateCtmComponent,
+    CtmwindowComponent
 
     //EditHrdComponentRenderer
   ],
