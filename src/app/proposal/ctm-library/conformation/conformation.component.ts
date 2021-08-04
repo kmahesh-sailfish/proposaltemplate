@@ -1,30 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ProposalService } from 'src/app/proposal.service';
+import { Component, OnInit } from "@angular/core";
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { ProposalService } from "src/app/proposal.service";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-conformation',
-  templateUrl: './conformation.component.html',
-  styleUrls: ['./conformation.component.css']
+  selector: "app-conformation",
+  templateUrl: "./conformation.component.html",
+  styleUrls: ["./conformation.component.css"]
 })
 export class ConformationComponent implements OnInit {
-  public rowObj:any;
+  public rowObj: any;
   constructor(
     public activeModal: NgbActiveModal,
-    public proposalService:ProposalService,
+    public proposalService: ProposalService,
     private router: Router
-  ) { }
+  ) {}
 
-  ngOnInit(): void {
-  }
-  submitConfirm(){
-    if (this.rowObj["labelMessage"] == "Share"){
+  ngOnInit(): void {}
+  submitConfirm() {
+    if (this.rowObj["labelMessage"] == "Share") {
       console.log(this.rowObj);
-    }else if(this.rowObj["labelMessage"] == "Delete"){
-      console.log(this.rowObj,'deleted')
-    }else{
-      console.log(this.rowObj,'stopsahre');
+      this.shareCTM();
+    } else if (this.rowObj["labelMessage"] == "Delete") {
+      console.log(this.rowObj, "deleted");
+      this.deleteCTM();
+    } else {
+      console.log(this.rowObj, "stopsahre");
     }
     // this.proposalService
     //   .actionProposal(obj, this.rowObj["labelMessage"])
@@ -38,11 +39,22 @@ export class ConformationComponent implements OnInit {
     //   });
   }
 
-  deleteCTM(){
-
+  deleteCTM() {
+    var Obj = {
+      fileId: this.rowObj.folderId,
+      alias: this.rowObj.createdBy
+    };
+    this.proposalService.deleteCTM(Obj).subscribe(data => {
+      console.log(data);
+    });
   }
-  shareCTM(){
-
+  shareCTM() {
+    var Obj = {
+      ctmId: this.rowObj.id,
+      isShare: true
+    };
+    this.proposalService.updateCTMShare(Obj).subscribe(data => {
+      console.log(data);
+    });
   }
-  
 }

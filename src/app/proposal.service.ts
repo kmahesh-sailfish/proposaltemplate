@@ -325,48 +325,50 @@ export class ProposalService {
     return false;
   }
   getpublicCtmList() {
-    return this.http
-      .get(environment.API_URL + "Ctm/getPublicCTMFiles")
-      .pipe(
-        map((res: any) => {
-          return res.result;
-        })
-      );
+    return this.http.get(environment.API_URL + "Ctm/getPublicCTMFiles").pipe(
+      map((res: any) => {
+        return res.result;
+      })
+    );
   }
   getprivateCtmList() {
+    return this.http.get(environment.API_URL + "/Ctm/getPrivateCTMFiles").pipe(
+      map((res: any) => {
+        return res.result;
+      })
+    );
+  }
+  updateCTMShare(obj) {
     return this.http
-      .get(environment.API_URL + "/Ctm/getPrivateCTMFiles")
+      .get(environment.API_URL + "/Ctm/UpdateCtmShare", {
+        params: obj
+      })
       .pipe(
         map((res: any) => {
           return res.result;
         })
       );
   }
-  updateCTMShare(){
+  deleteCTM(obj) {
     return this.http
-    .get(environment.API_URL + "/Ctm/UpdateCtmShare")
-    .pipe(
-      map((res: any) => {
-        return res.result;
+      .get(environment.API_URL + "/Ctm/DeleteCTMLibraryFile", {
+        params: obj
       })
-    );
+      .pipe(
+        map((res: any) => {
+          return res.result;
+        })
+      );
   }
-  deleteCTM(){   
+  downLoadCTM(obj) {
     return this.http
-    .get(environment.API_URL + "/Ctm/DeleteCTMLibraryFile")
-    .pipe(
-      map((res: any) => {
-        return res.result;
+      .get(environment.API_URL + "/Ctm/DownloadCTMLibraryFile/fileid", {
+        params: obj
       })
-    );
-  }
-  downLoadCTM(){ 
-          return this.http
-          .get(environment.API_URL + "/Ctm/DownloadCTMLibraryFile/fileid")
-          .pipe(
-            map((res: any) => {
-              return res.result;
-            })
-          );
+      .pipe(
+        map((res: any) => {
+          return res.result;
+        })
+      );
   }
 }
