@@ -87,7 +87,7 @@ export class ProposalService {
   //-------------------- CTM FooterCode
   getCTMFootercode() {
     return this.http
-      .get(environment.API_URL + "Proposal/" + "GetCTMCategories")
+      .get(environment.API_URL + "Ctm/" + "GetCTMCategories")
       .pipe(
         map((res: any) => {
           return res;
@@ -96,7 +96,7 @@ export class ProposalService {
   }
   getLanguage() {
     return this.http
-      .get(environment.API_URL + "Proposal/" + "GetLanguages")
+      .get(environment.API_URL + "Ctm/" + "GetLanguages")
       .pipe(
         map((res: any) => {
           return res;
