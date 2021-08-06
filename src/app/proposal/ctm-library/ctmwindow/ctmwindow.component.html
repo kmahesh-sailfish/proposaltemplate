@@ -3,13 +3,13 @@
         <div class="container-fluid">
             <div class="row mb-3">
                 <label class="col-2 col-form-label"> File Name:</label>
-                <div class="col-10">
+                <div class="col-8">
                     <input type="text" class="form-control" placeholder="File name" aria-label="File Name">
                 </div>
             </div>
             <div class="row mb-3">
                 <label class="col-2 col-form-label">Category:</label>
-                <div class="col-10 select-category-container">
+                <div class="col-8 select-category-container">
                     <div class="form-group">
                         <button class="form-control text-left" (click)="SelectCategory=!SelectCategory" style="border-color:#000">
                             {{SelectedCategoriesText}}<i class="fa fa-sort-down pull-right"></i>
@@ -33,7 +33,7 @@
             </div>
             <div class="row mb-3">
                 <label class="col-2 col-form-label">Language:</label>
-                <div class="col-10">
+                <div class="col-8">
                     <select class="form-control" name="Language" placeholder="Select Language" [(ngModel)]="selectLanguage">
                         <option [value]="null">Select Language</option>
                         <option *ngFor="let obj of getLanguages" [value]="obj">{{obj}}</option>
@@ -42,7 +42,7 @@
             </div>
             <div class="row mb-3">
                 <label class="col-2 col-form-label">Description:</label>
-                <div class="col-10">
+                <div class="col-8">
                     <input type="textarea" class="form-control" [(ngModel)]="description" placeholder="Description" aria-label="First name">
                 </div>
             </div>
