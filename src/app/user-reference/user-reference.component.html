@@ -1,0 +1,44 @@
+<div class="container-fluid p-4 my-3 mt-5 border">
+
+    <div class="row align-items-start">
+        <div class="col-12 p-r-0">
+            <div class="form-group">
+                <div class="header-pic"><span class="proposal">User Preferences</span> </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-2 col-form-label"> Language:</label>
+        <div class="col-10">
+            <div class="form-group">
+                <select class="form-control" name="Language" [(ngModel)]="user.selectLanguage">
+                 <option [value]="null">Select</option>
+                <option *ngFor="let obj of getLanguages" [value]="obj">{{obj}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-2 col-form-label"> Op Center:</label>
+        <div class="col-10">
+            <input type="text" class="form-control" placeholder="File name" aria-label="File Name">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-2 col-form-label"> Program:</label>
+        <div class="col-10">
+            <input type="text" class="form-control" placeholder="File name" aria-label="File Name">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-2 col-form-label"> PricingCountry:</label>
+        <div class="col-10">
+            <div class="form-group">
+                <select class="form-control" name="pricingcountry" [(ngModel)]="user.pricingcountry">
+                 <option [value]="null">Select</option>
+                <option *ngFor="let obj of config" [value]="obj">{{obj}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
