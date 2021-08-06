@@ -7,38 +7,50 @@
             </div>
         </div>
     </div>
-    <div class="row mb-3">
-        <label class="col-2 col-form-label"> Language:</label>
-        <div class="col-10">
-            <div class="form-group">
-                <select class="form-control" name="Language" [(ngModel)]="user.selectLanguage">
+
+    <form name="form" (ngSubmit)="onSubmit()" #userForm="ngForm" novalidate>
+        <div class="row mb-3">
+            <label class="col-2 col-form-label"> Language:</label>
+            <div class="col-5">
+                <div class="form-group">
+                    <select class="form-control" name="selectLanguage" [(ngModel)]="user.selectLanguage" #selectLanguage="ngModel">
                  <option [value]="null">Select</option>
                 <option *ngFor="let obj of getLanguages" [value]="obj">{{obj}}</option>
                 </select>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row mb-3">
-        <label class="col-2 col-form-label"> Op Center:</label>
-        <div class="col-10">
-            <input type="text" class="form-control" placeholder="File name" aria-label="File Name">
+        <div class="row mb-3">
+            <label class="col-2 col-form-label"> Op Center:</label>
+            <div class="col-5">
+                <input type="text" class="form-control" placeholder="Op Center" name="opCenter" [(ngModel)]="user.opCenter" aria-label="Op Center"
+                    #opCenter="ngModel">
+            </div>
         </div>
-    </div>
-    <div class="row mb-3">
-        <label class="col-2 col-form-label"> Program:</label>
-        <div class="col-10">
-            <input type="text" class="form-control" placeholder="File name" aria-label="File Name">
+        <div class="row mb-3">
+            <label class="col-2 col-form-label"> Program:</label>
+            <div class="col-5">
+                <input type="text" class="form-control" name="program" [(ngModel)]="user.program" placeholder="Program" aria-label="Program"
+                    #program="ngModel">
+            </div>
         </div>
-    </div>
-    <div class="row mb-3">
-        <label class="col-2 col-form-label"> PricingCountry:</label>
-        <div class="col-10">
-            <div class="form-group">
-                <select class="form-control" name="pricingcountry" [(ngModel)]="user.pricingcountry">
+        <div class="row mb-3">
+            <label class="col-2 col-form-label"> PricingCountry:</label>
+            <div class="col-5">
+                <div class="form-group">
+                    <select class="form-control" name="pricingcountry" [(ngModel)]="user.pricingcountry" #pricingcountry="ngModel">
                  <option [value]="null">Select</option>
                 <option *ngFor="let obj of config" [value]="obj">{{obj}}</option>
                 </select>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="row mb-3">
+            <div class="col-5"></div>
+            <div class="col-7 p-0">
+                <button type="submit" class="btn btn-primary">Update</button> &nbsp;
+                <button type="submit" class="btn btn-secoundary">Cancel</button>
+            </div>
+        </div>
+    </form>
 </div>

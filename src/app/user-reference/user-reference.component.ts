@@ -13,6 +13,8 @@ export class UserReferenceComponent implements OnInit {
   constructor(private proposalService: ProposalService) {}
 
   ngOnInit(): void {
+    this.user.selectLanguage = null;
+    this.user.pricingcountry = null;
     this.loadLanguages();
     this.getPricingCountry();
   }
@@ -25,5 +27,8 @@ export class UserReferenceComponent implements OnInit {
     this.proposalService.getLanguage().subscribe((data: any) => {
       this.getLanguages = data;
     });
+  }
+  onSubmit() {
+    
   }
 }
