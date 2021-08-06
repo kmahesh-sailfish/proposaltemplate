@@ -34,8 +34,8 @@
             <div class="row mb-3">
                 <label class="col-2 col-form-label">Language:</label>
                 <div class="col-10">
-                    <select class="form-control" name="Language" [(ngModel)]="selectLanguage">
-                        <option [value]="null">Select</option>
+                    <select class="form-control" name="Language" placeholder="Select Language" [(ngModel)]="selectLanguage">
+                        <option [value]="null">Select Language</option>
                         <option *ngFor="let obj of getLanguages" [value]="obj">{{obj}}</option>
                     </select>
                 </div>
@@ -43,7 +43,7 @@
             <div class="row mb-3">
                 <label class="col-2 col-form-label">Description:</label>
                 <div class="col-10">
-                    <input type="textarea" class="form-control" placeholder="First name" aria-label="First name">
+                    <input type="textarea" class="form-control" [(ngModel)]="description" placeholder="Description" aria-label="First name">
                 </div>
             </div>
         </div>
