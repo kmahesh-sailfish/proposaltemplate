@@ -15,6 +15,7 @@ import { AdminPanelComponent } from "./admin/admin-panel/admin-panel.component";
 import { CtmFooterComponent } from "./proposal/ctm-footer/ctm-footer.component";
 import { PubliCtmComponent } from "./proposal/ctm-library/publi-ctm/publi-ctm.component";
 import { PrivateCtmComponent } from "./proposal/ctm-library/private-ctm/private-ctm.component";
+import { UserReferenceComponent } from './user-reference/user-reference.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     component: CtmFooterComponent
   },
   { path: "dashboard", component: DashboardComponent },
+  { path: "preferences", component: UserReferenceComponent },
   { path: "activeproposal", component: ActiveProposalComponent },
   { path: "createproposal", component: CreateProposalComponent },
   { path: "replicaporposal", component: ReplicateProposalComponent },
