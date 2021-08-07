@@ -14,7 +14,7 @@ export class ReplicateProposalComponent implements OnInit {
   public config: any[];
   public isExist: boolean = true;
   public isnewExist: boolean = false;
-  public checkExist:boolean=true;
+  public checkExist: boolean = true;
   constructor(
     private router: Router,
     private proposalService: ProposalService,
@@ -27,14 +27,21 @@ export class ReplicateProposalComponent implements OnInit {
   pageRedirect() {
     console.log(this.isExist, "exits");
     console.log(this.isnewExist, "isnewexit");
-    if(this.proposalForm.get("newproposalId").value !=""){
-      this.newisExistPropsalId('newproposalId');     
-     
-    }else{
-      alert('Please provided New proposal Id');
+    if (this.proposalForm.get("newproposalId").value != "") {
+      var obj = {
+        proposalId: this.proposalForm.get("oldproposalId").value,
+        newProposalId: this.proposalForm.get("newproposalId").value,
+        createdByAlias: "V2Alias"
+      };
+      this.proposalService.replicateProposal(obj).subscribe((data: any) => {
+        var sourceId = data["_sourceObject"].id;
+        console.log(sourceId, "sourceId");
+        this.router.navigate(["proposaloverview/", sourceId]);
+      });
+    } else {
+      alert("Please provided New proposal Id");
       return;
     }
-   
   }
   loadForm() {
     this.proposalForm = new FormGroup({
@@ -42,44 +49,31 @@ export class ReplicateProposalComponent implements OnInit {
       newproposalId: new FormControl("", [Validators.required])
     });
   }
+  newisExistPropsalId(formId) {
+    let Id = this.proposalForm.get(formId).value;
+    if (Id != null && Id != "") {
+      this.proposalService.proposalExist(Id).subscribe((data: any) => {
+        this.isnewExist = data;
+        if (this.isnewExist) {
+          this.checkExist = true;
+        } else {
+          this.checkExist = false;
+        }
+      });
+    }
+  }
   isExistPropsalId(formId) {
     let Id = this.proposalForm.get(formId).value;
     if (Id != null && Id != "") {
-      this.proposalService
-        .proposalExist(Id)
-        .subscribe((data: any) => {
-          this.isExist = data;
-          if(this.isExist){
-            this.checkExist =false;
-          }else{
-            this.checkExist =true;
-          }
-        });
+      this.proposalService.proposalExist(Id).subscribe((data: any) => {
+        this.isExist = data;
+        if (this.isExist) {
+          this.checkExist = false;
+        } else {
+          this.checkExist = true;
+        }
+      });
     }
   }
-  newisExistPropsalId(formId):any {
-    let Id = this.proposalForm.get(formId).value;
-    if (Id != null && Id != "") {
-      this.proposalService
-        .proposalExist(Id)
-        .subscribe((data: any) => {
-         
-          if(data){
-            alert('Proposal Id Already exist')
-            return;
-          }else{
-           var obj = {
-           proposalId: this.proposalForm.get("oldproposalId").value,
-           newProposalId: this.proposalForm.get("newproposalId").value,
-           createdByAlias: "V2Alias"
-           };
-       this.proposalService.replicateProposal(obj).subscribe((data: any) => {
-         var sourceId = data["_sourceObject"].id;
-     console.log(sourceId, "sourceId");
-        this.router.navigate(["proposaloverview/", sourceId]);
-       });
-          }
-        });
-    }
-  }
+  
 }
