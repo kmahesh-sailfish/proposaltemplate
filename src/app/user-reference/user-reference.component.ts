@@ -26,12 +26,15 @@ export class UserReferenceComponent implements OnInit {
         this.config = data.countries;
         this.userProgram = data['domainData'].programs;
         this.opCenterVales =data['domainData'].operationsCenters;
-
       }
     })
   }
   
-  onSubmit() {
+  onSubmit() {    
+    this.user['UserName'] = "v-sallampati";
+    this.proposalService.updatedomainConetent(this.user).subscribe(data => {
+      console.log(data);
+    })
     
   }
 }

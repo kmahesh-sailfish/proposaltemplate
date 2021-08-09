@@ -378,4 +378,13 @@ export class ProposalService {
         })
       );
   }
+    updatedomainConetent(obj){
+    return this.http
+      .post(environment.API_URL + "App/UpdateUserPreferance",obj)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
 }
