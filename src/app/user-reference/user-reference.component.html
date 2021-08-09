@@ -23,15 +23,27 @@
         <div class="row mb-3">
             <label class="col-2 col-form-label"> Op Center:</label>
             <div class="col-5">
-                <input type="text" class="form-control" placeholder="Op Center" name="opCenter" [(ngModel)]="user.opCenter" aria-label="Op Center"
-                    #opCenter="ngModel">
+                <!-- <input type="text" class="form-control" placeholder="Op Center" name="opCenter" [(ngModel)]="user.opCenter" aria-label="Op Center"
+                    #opCenter="ngModel"> -->
+                    <div class="form-group">
+                        <select class="form-control" name="opCenter" [(ngModel)]="user.opCenter" #opCenter="ngModel">
+                     <option [value]="null">Select</option>
+                    <option *ngFor="let obj of opCenterVales" [value]="obj">{{obj}}</option>
+                    </select>
+                    </div>
             </div>
         </div>
         <div class="row mb-3">
             <label class="col-2 col-form-label"> Program:</label>
             <div class="col-5">
-                <input type="text" class="form-control" name="program" [(ngModel)]="user.program" placeholder="Program" aria-label="Program"
-                    #program="ngModel">
+                <!-- <input type="text" class="form-control" name="program" [(ngModel)]="user.program" placeholder="Program" aria-label="Program"
+                    #program="ngModel"> -->
+                    <div class="form-group">
+                        <select class="form-control" name="program" [(ngModel)]="user.program" #program="ngModel">
+                     <option [value]="null">Select</option>
+                    <option *ngFor="let obj of userProgram" [value]="obj">{{obj}}</option>
+                    </select>
+                    </div>
             </div>
         </div>
         <div class="row mb-3">

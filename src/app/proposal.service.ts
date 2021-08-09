@@ -371,10 +371,10 @@ export class ProposalService {
   }
   domainConetent(){
     return this.http
-      .get(environment.API_URL + "/App/GetDomainData")
+      .get(environment.API_URL + "App/GetDomainData")
       .pipe(
         map((res: any) => {
-          return res.result;
+          return res;
         })
       );
   }

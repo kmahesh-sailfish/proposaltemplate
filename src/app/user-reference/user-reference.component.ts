@@ -7,6 +7,8 @@ import { ProposalService } from "../proposal.service";
   styleUrls: ["./user-reference.component.css"]
 })
 export class UserReferenceComponent implements OnInit {
+  public opCenterVales:any = [];
+  public userProgram:any =[];
   public getLanguages: any = [];
   public user: any = {};
   public config: any = [];
@@ -19,7 +21,13 @@ export class UserReferenceComponent implements OnInit {
   }
   domainLoad() {
     this.proposalService.domainConetent().subscribe(data=>{
-      console.log(data,'data')
+      if(Object.keys(data).length >0){
+        this.getLanguages = data.languages;
+        this.config = data.countries;
+        this.userProgram = data['domainData'].programs;
+        this.opCenterVales =data['domainData'].operationsCenters;
+
+      }
     })
   }
   
