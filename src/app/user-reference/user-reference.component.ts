@@ -15,19 +15,14 @@ export class UserReferenceComponent implements OnInit {
   ngOnInit(): void {
     this.user.selectLanguage = null;
     this.user.pricingcountry = null;
-    this.loadLanguages();
-    this.getPricingCountry();
+    this.domainLoad();
   }
-  getPricingCountry() {
-    this.proposalService
-      .getPricingCountry()
-      .subscribe((data: any) => (this.config = data));
+  domainLoad() {
+    this.proposalService.domainConetent().subscribe(data=>{
+      console.log(data,'data')
+    })
   }
-  loadLanguages() {
-    this.proposalService.getLanguage().subscribe((data: any) => {
-      this.getLanguages = data;
-    });
-  }
+  
   onSubmit() {
     
   }
