@@ -1,1 +1,44 @@
-<p>sirius-countries works!</p>
+<div class="container-fluid">
+  <label class="header">List of Sirius Countries</label>
+  <br>
+  <div class="mb-2">
+    <button type="button" class="btn btn-primary btn-sm color433163" (click)="addSiriusCountry()">Add Sirius
+      Country</button>
+  </div>
+  <div class="row">
+    <div class="col-5">
+      <ag-grid-angular #agGrid style="width: 100%; height: calc(60vh)"
+        class="ag-theme-alpine ag-center-cols-clipper ag-center-cols-container" [rowData]="siriusCountriesData"
+        [context]="context" [columnDefs]="columnDefs" [frameworkComponents]="frameworkComponents">
+      </ag-grid-angular>
+    </div>
+    <div class="col-5">
+      <div *ngIf="AddNewForm">
+        <div class="row my-2">
+          <div class="col-2"><span class="form-label"> Country: </span>
+          </div>
+          <div>
+            <ng-select placeholder="Select Country" id="formCountry" class="ng-select" [items]="nonSirius"
+              bindLabel="name" bindValue="id" [(ngModel)]="addSiriusSelectedCountry" (change)="countrySelected($event)">
+
+            </ng-select>
+            <small class="text-danger" *ngIf="errVal">Please select</small>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-2">
+          </div>
+          <div>
+            <button type="button" (click)="addNewSiriusCountry()" class="btn btn-primary my-2 mx-2 color433163">
+              Add
+            </button>
+            <button type="button" (click)="btnCancelClick()" class="btn btn-secondary">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

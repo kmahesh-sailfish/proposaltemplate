@@ -1,8 +1,102 @@
 <div class="container-fluid">
-  <p>amendmnetinfo works!</p>
-  <br/>
-  <button>Add Amendments </button>
-  <div>
-
+  <label class="header">List of Amendments</label>
+  <br>
+  <div class="mb-2">
+    <button type="button" class="btn btn-primary btn-sm color433163" (click)="addAmendments(content)">Add
+      Amendments</button>
   </div>
+  <div>
+    <ag-grid-angular #agGrid style="width: 100%; height: calc(60vh)" class="ag-theme-alpine ag-center-cols-clipper ag-center-cols-container" [rowData]="amendmentInfoData"
+      [context]="context" [columnDefs]="columnDefs" [frameworkComponents]="frameworkComponents">
+    </ag-grid-angular>
+  </div>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{popupMsg}}
+      </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+        <span aria-hidden="true">
+          ×
+        </span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="myForm" (ngSubmit)="saveNewAmendment()" novalidate>
+        <div style="width: 100%;">
+          <div class="row my-2">
+            <div class="col-6"><span class="form-label"> Amendment Code: </span>
+            </div>
+            <div class="col-6">
+              <span>
+                <input formControlName="formAmendmentCode" type="text" class="form-control" />
+              </span>
+              <small *ngIf="myForm.get('formAmendmentCode').invalid && myForm.get('formAmendmentCode').touched"
+                class="text-danger">This field is required</small>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row my-2">
+          <div class="col-6"><span class="form-label"> Amendment Bucket Type: </span></div>
+          <div class="col-6">
+            <ng-select placeholder="Select Bucket Type" formControlName="formAmendmentBucketType"
+              name="amendmentBucketType" class="ng-select" [items]="buckets" bindLabel="bucket" bindValue="id"
+              (change)="onBucketChange($event)">
+            </ng-select>
+            <small
+              *ngIf="myForm.get('formAmendmentBucketType').invalid && myForm.get('formAmendmentBucketType').touched"
+              class="text-danger">Please select bucket</small>
+
+          </div>
+
+        </div>
+        <div class="row my-2">
+          <div class="col-6"><span class="form-label"> Intro Singular: </span></div>
+          <div class="col-6"><span> <input name="introSingular" formControlName="formIntroSingular"
+                class="form-control"></span>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-6"><span class="form-label"> Exit Singular: </span></div>
+          <div class="col-6"><span> <input name="exitSingular" formControlName="formExitSingular"
+                class="form-control"></span>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-6"><span class="form-label"> Intro Plural: </span></div>
+          <div class="col-6"><span> <input name="introPlural" formControlName="formIntroPlural"
+                class="form-control"></span>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-6"><span class="form-label"> Exit Plural: </span></div>
+          <div class="col-6"><span> <input name="exitPlural" formControlName="formExitPlural"
+                class="form-control"></span>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-6"><span class="form-label"> Has Editable Tables: </span></div>
+          <div class="col-6">
+            <input type="checkbox" name="hasEditableTables" formControlName="formHasEditableTables"
+              (change)="onHasEditChange($event.target.checked)" style="width: 20px;height: 20px;" />
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button [disabled]="myForm.invalid" type="submit" class="btn btn-primary color433163">
+            Save
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">
+            Cancel
+          </button>
+
+        </div>
+      </form>
+    </div>
+
+  </ng-template>
 </div>
