@@ -36,33 +36,40 @@ export class EditActionComponent implements OnInit {
   deleteClicked(event) {
     event.stopPropagation();
     var rowData = this.params.data;
-    rowData['labelMessage'] = "Delete";
+    rowData["labelMessage"] = "Delete";
     console.log(this.params.data, "deleted");
     const modalRef = this.modalService.open(ConformationComponent, {
       size: "sm"
     });
     modalRef.componentInstance.labelMessage = "Delete";
-     modalRef.componentInstance.rowObj = rowData;
+    modalRef.componentInstance.rowObj = rowData;
   }
   archieveClicked(event) {
     event.stopPropagation();
     var rowData = this.params.data;
-    rowData['labelMessage'] = "Archive";
+    rowData["labelMessage"] = "Archive";
     console.log(this.params.data, "archive");
     const modalRef = this.modalService.open(ConformationComponent, {
       size: "sm"
     });
     modalRef.componentInstance.rowObj = rowData;
-    
   }
   shareClicked(event) {
     event.stopPropagation();
     console.log(this.params.data, "share");
+    let Obj = {
+      Id: this.params.data.proposalId,
+      alias: "V2Alias",
+      useraliases: ["v-sanjaysa@microsoft.com"]
+    };
+
+    this.adminService.saveShareProposal(Obj).subscribe(data => {
+      console.log("data", data);
+    });
   }
   agInit(params: ICellRendererParams): void {
     this.cellValue = params.value;
     this.params = params;
     //this.objactiveComponent.setHRDEditDiv(this.params.data);
   }
- 
 }
