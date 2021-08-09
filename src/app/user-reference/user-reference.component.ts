@@ -15,7 +15,7 @@ export class UserReferenceComponent implements OnInit {
   constructor(private proposalService: ProposalService) {}
 
   ngOnInit(): void {
-    this.user.selectLanguage = null;
+    this.user.Language = null;
     this.user.pricingcountry = null;
     this.domainLoad();
   }
