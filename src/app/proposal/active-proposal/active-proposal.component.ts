@@ -26,6 +26,7 @@ import { SpecialCharacter } from "../../sharedservices/special-character";
   providers: [SpecialCharacter]
 })
 export class ActiveProposalComponent implements OnInit {
+  // public components;
   public startRow: number;
   public endRow: number;
   public searchObj: any = {};
@@ -113,14 +114,9 @@ export class ActiveProposalComponent implements OnInit {
       ...this.searchObj,
       PageSize: this.endRow,
       PageNum: this.startRow,
-      isArchive:false
+      isArchive: false
     };
-    // var obj = {
-    //   PageNum: startRow,
-    //   PageSize: endRow,
-    //   searchField: "CustomerName",
-    //   searchText: "Te"
-    // };
+
     return this.proposalService.getcustomeSearch(obj);
   }
   private getRowData(startRow: number, endRow: number): Observable<any[]> {
@@ -141,6 +137,7 @@ export class ActiveProposalComponent implements OnInit {
     this.gridApi.sizeColumnsToFit();
     this.gridApi.setDatasource(this.datasource);
   }
+
   loadGrid() {
     this.gridOptions = {
       cacheBlockSize: 100,
@@ -153,6 +150,14 @@ export class ActiveProposalComponent implements OnInit {
     };
   }
   columnDefs = [
+    {
+      headerName: "ID",
+      field: "id",
+      resizable: true,
+      filter: true,
+      width: 100,
+      cellRenderer: "loadingRenderer"
+    },
     {
       headerName: "Create",
       field: "createdDate",
@@ -239,6 +244,15 @@ export class ActiveProposalComponent implements OnInit {
   frameworkComponents = {
     editAction: EditActionComponent,
     partialMatchFilter: FilterCellComponent
+  };
+  components = {
+    loadingRenderer: function(params) {
+      if (params.value !== undefined) {
+        return params.value;
+      } else {
+        return "<img src=\"https://www.ag-grid.com/example-assets/loading.gif\">";
+      }
+    }
   };
   onRowClicked(event) {
     console.log(event["data"]);

@@ -48,7 +48,7 @@
     <div class="row">
         <div class="col">
             <ag-grid-angular #agGrid style=" height:500px;" class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs" (rowClicked)='onRowClicked($event)'
-                [gridOptions]="gridOptions" (gridReady)="onGridReady($event)" [frameworkComponents]="frameworkComponents">
+              [components]="components"  [gridOptions]="gridOptions" (gridReady)="onGridReady($event)" [frameworkComponents]="frameworkComponents">
             </ag-grid-angular>
             <!--<table datatable class="row-border hover">
                 <thead class="table-header">
