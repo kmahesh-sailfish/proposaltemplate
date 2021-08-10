@@ -599,10 +599,10 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
                     this.showLinkedProposalsbutton = true;
                     this.doctype = 0;
                 } else {
-                  var obj={};
-            obj['pid']="257695";
+            var obj={};
+            obj['pid'] = this.editProposalObj["proposalEntity"].id;
             obj['type']="0";
-            obj["userAlias"]="v-skarukonda";
+            obj["userAlias"] = this.editProposalObj['proposalEntity'].createdByAlias;
             obj["isSuperUser"]=false;
             this.proposalService.generateDocFile(obj).subscribe(data => {
               this.saveData(data.content,data.fileName);
@@ -628,9 +628,9 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         } else {
             this.showbutton = false;
             var obj={};
-            obj['pid']="257695";
+            obj['pid'] = this.editProposalObj["proposalEntity"].id;
             obj['type']="1";
-            obj["userAlias"]="v-skarukonda";
+            obj["userAlias"] = this.editProposalObj['proposalEntity'].createdByAlias;
             obj["isSuperUser"]=false;
             this.proposalService.generateDocFile(obj).subscribe(data => {
               this.saveData(data.content,data.fileName);
@@ -650,9 +650,9 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
 
             this.showbutton = false;
             var obj={};
-            obj['pid']="257695";
+            obj['pid'] = this.editProposalObj["proposalEntity"].id;
             obj['type']="2";
-            obj["userAlias"]="v-skarukonda";
+            obj["userAlias"] = this.editProposalObj['proposalEntity'].createdByAlias;
             obj["isSuperUser"]=false;
             this.proposalService.generateDocFile(obj).subscribe(data => {
               this.saveData(data.content,data.fileName);
