@@ -33,7 +33,7 @@ export class UserReferenceComponent implements OnInit {
   }
 
   onSubmit() {
-    this.user["UserName"] = "v-sallampati";
+    this.user["UserName"] = "V2Alias";
     this.proposalService.updatedomainConetent(this.user).subscribe(data => {
       console.log(data);
     });
