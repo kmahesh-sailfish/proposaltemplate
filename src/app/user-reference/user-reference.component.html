@@ -25,12 +25,12 @@
             <div class="col-5">
                 <!-- <input type="text" class="form-control" placeholder="Op Center" name="OpCenter" [(ngModel)]="user.OpCenter" aria-label="Op Center"
                     #OpCenter="ngModel"> -->
-                    <div class="form-group">
-                        <select class="form-control" name="OpCenter" [(ngModel)]="user.OpCenter" #OpCenter="ngModel">
+                <div class="form-group">
+                    <select class="form-control" name="OpCenter" [(ngModel)]="user.OpCenter" #OpCenter="ngModel">
                      <option [value]="null">Select</option>
-                    <option *ngFor="let obj of opCenterVales" [value]="obj">{{obj}}</option>
+                    <option *ngFor="let obj of opCenterVales" [value]="obj.code">{{obj.name}}</option>
                     </select>
-                    </div>
+                </div>
             </div>
         </div>
         <div class="row mb-3">
@@ -38,12 +38,12 @@
             <div class="col-5">
                 <!-- <input type="text" class="form-control" name="Program" [(ngModel)]="user.Program" placeholder="Program" aria-label="Program"
                     #Program="ngModel"> -->
-                    <div class="form-group">
-                        <select class="form-control" name="Program" [(ngModel)]="user.Program" #Program="ngModel">
+                <div class="form-group">
+                    <select class="form-control" name="Program" [(ngModel)]="user.Program" #Program="ngModel">
                      <option [value]="null">Select</option>
-                    <option *ngFor="let obj of userProgram" [value]="obj">{{obj}}</option>
+                    <option *ngFor="let obj of userProgram" [value]="obj.code">{{obj.name}}</option>
                     </select>
-                    </div>
+                </div>
             </div>
         </div>
         <div class="row mb-3">
