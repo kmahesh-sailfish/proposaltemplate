@@ -11,6 +11,7 @@ import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { AdminService } from '../admin.service';
 import { Identifiers } from '@angular/compiler';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'editHrd-component',
@@ -22,8 +23,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditHrdComponentRenderer {
   private objHrdCountriesComponent: HrdCountriesComponent;
-  constructor(private objhrdCountriesComponent: HrdCountriesComponent,
-    private adminService: AdminService, private toastr: ToastrService) {
+  constructor(private objhrdCountriesComponent: HrdCountriesComponent, private adminService: AdminService,private toastr:ToastrService) {
     this.objHrdCountriesComponent = objhrdCountriesComponent;
   }
   @Output() rowToEdit = new EventEmitter();
@@ -60,7 +60,7 @@ export class EditHrdComponentRenderer {
     console.log(obj);
     this.adminService.saveHRDCountry(obj).subscribe(result => {
       console.log(result)
-      this.toastr.success("Country"+ this.rowDataSelected.name+ " deleted successfully!");
+      this.toastr.success("Country "+ this.rowDataSelected.name+ " deleted successfully!");
       this.objHrdCountriesComponent.loadGrid();
     });
   }
@@ -82,7 +82,7 @@ export class HrdCountriesComponent implements OnInit {
   suggestions$: Observable<string[]>;
   addHRDSuggestions$: Observable<string[]>;
   errorMessage: string;
-
+  showModalBox:boolean=false;
   constructor(private proposalService: ProposalService, private adminService: AdminService, private http: HttpClient, private toastr: ToastrService) { }
 
   rowData: CountryData[];
@@ -111,11 +111,9 @@ export class HrdCountriesComponent implements OnInit {
   addCtryValidation: boolean = false;
   addHRDTrigger: string;
 
-  apiUrl: string = "https://amendmentappdevapi.azurewebsites.net/api/Amendment/GetAmendments/"
   ngOnInit(): void {
     this.showdiv = false;
     this.showAddDiv = false;
-    //this.rowData2 = this.http.get<any[]>('https://www.ag-grid.com/example-assets/small-row-data.json');
     this.loadGrid();
 
     this.suggestions$ = new Observable((observer: Observer<string>) => {
@@ -124,9 +122,7 @@ export class HrdCountriesComponent implements OnInit {
       switchMap((query: string) => {
         if (query) {
           console.log(query);
-          // using github public api to get users by name
-          return this.http.get<any>(
-            'https://amendmentappdevapi.azurewebsites.net/api/Amendment/GetAmendments/' + query).pipe(
+              return this.adminService.getAmendmentByCode( query).pipe(
               map((data: any) => data.result),
               tap(() => noop, err => {
                 // in case of http error
@@ -134,7 +130,6 @@ export class HrdCountriesComponent implements OnInit {
               })
             );
         }
-
         return of([]);
       })
     );
@@ -144,10 +139,7 @@ export class HrdCountriesComponent implements OnInit {
     }).pipe(
       switchMap((query: string) => {
         if (query) {
-          console.log(query);
-          // using github public api to get users by name
-          return this.http.get<any>(
-            'https://amendmentappdevapi.azurewebsites.net/api/Amendment/GetAmendments/' + query).pipe(
+          return this.adminService.getAmendmentByCode( query).pipe(
               map((data: any) => data.result),
               tap(() => noop, err => {
                 // in case of http error
@@ -155,7 +147,6 @@ export class HrdCountriesComponent implements OnInit {
               })
             );
         }
-
         return of([]);
       })
     );
@@ -163,21 +154,7 @@ export class HrdCountriesComponent implements OnInit {
 
   }
 
-
   columnDefs = [
-    // { field: 'createdBy' },
-    // { field: 'dateCreated' },
-    // { field: 'dateModified' },
-    // { field: 'dealAmount' },
-    // { field: 'discount' },
-    // { field: 'hrddAmendments' },
-    // { field: 'hrddCondition' },
-    // { field: 'id' },
-    // { field: 'isActive' },
-    // { field: 'isHRD' },
-    // { field: 'isPricing' },
-    // { field: 'isSirius' },
-    // { field: 'modifiedBy' },
     { headerName: "Country Name", field: 'name', sortable: true, filter: true, resizable: true, width: 200 },
     { headerName: "Action", field: 'id', cellRenderer: 'editHrdCountry', resizable: true, width: 250 }
   ];
@@ -186,27 +163,19 @@ export class HrdCountriesComponent implements OnInit {
   };
 
   getAmendments(search) {
-
     return this.adminService.getAmendment(search).subscribe(data => console.log(data));
-
   }
   getCountries() {
-
     this.adminService.getCountries().subscribe((data: CountryData[]) => {
-      console.log("All countries", data);
       this.countries = data.filter(a => a.isHRD == false);
-      console.log(this.countries);
     });
   }
 
   onSelect(event: TypeaheadMatch): void {
-    console.log(event.item);
-    console.log(this.name)
     console.log(this.hrddAmendmentArray.push(event.item));
   }
 
   addHRDOnSelect(event: TypeaheadMatch): void {
-    console.log(event)
     console.log(this.addHRDAmendmentArray.push(event.item));
   }
 
@@ -220,18 +189,13 @@ export class HrdCountriesComponent implements OnInit {
     this.showdiv = true;
     this.showAddDiv = false;
     if (obj != null || obj != "undefined") {
-
-      console.log("object to edited", typeof obj);
       this.rowDataSelected = Object.assign(new CountryData(), obj);
-      console.log("SETHRD::", this.rowDataSelected);
       this.name = this.rowDataSelected.name;
       this.dealAmount = this.rowDataSelected.dealAmount;
       this.discount = this.rowDataSelected.discount;
-      //this.hrddAmendments=this.rowDataSelected.hrddAmendments;
       this.hrddAmendmentArray = this.rowDataSelected.hrddAmendments.split(",");
       this.trigger = this.rowDataSelected.hrddCondition;
     }
-
   }
   removeCountryAmendment(c, a) {
     this.hrddAmendmentArray = this.hrddAmendmentArray.filter(item => item !== a);
@@ -248,10 +212,10 @@ export class HrdCountriesComponent implements OnInit {
     //this.addCtryValidation: boolean = false;
     this.addHRDTrigger = "";
     this.addHRDsearch = "";
+
+   // this.showModalBox=true;
   }
   saveHRD() {
-    console.log("Saved");
-
     var obj = {
       "Id": this.rowDataSelected.id,
       "Name": this.rowDataSelected.name,
@@ -266,28 +230,16 @@ export class HrdCountriesComponent implements OnInit {
       "ModifiedBy": "v-nagarjunaa",
       "Action": "Update"
     }
-    console.log(obj);
     this.adminService.saveHRDCountry(obj).subscribe(result => {
-      console.log(result)
       this.loadGrid();
-      this.toastr.success("Edited country successfully!");
+      this.toastr.success("Edited HRD country "+this.rowDataSelected.name+" successfully!");
       this.showdiv = false;
-      (error) => this.toastr.error("Edited country failed!");
+      (error) => this.toastr.error("Edited HRD country "+this.rowDataSelected.name+" failed!");
     });
   }
 
-  // public countrySelected(value:any):void {
-  //   console.log(this.addHRDSelectedCountry);
-  //   console.log('Selected value is: ', value);
-  // }
   saveAddHRD() {
-    //console.log("Sel country",this.addHRDSelectedCountry.name);
-    //var objCtryName =this.addHRDSelectedCountry;
-    // let ob:ICountryData=JSON.parse(  ) ;
-    //let ob:CountryData=this.addHRDSelectedCountry[0] as CountryData;
-
     var selctdCtry = this.countries.filter(a => a.id == this.addHRDSelectedCountry)[0] as ICountryData;
-    console.log("cname", selctdCtry);
 
     if (this.addHRDSelectedCountry != null) {
       this.addCtryValidation = false;
@@ -305,11 +257,9 @@ export class HrdCountriesComponent implements OnInit {
         "ModifiedBy": "v-nagarjunaa",
         "Action": "Add"
       }
-      console.log(obj);
-      this.adminService.saveHRDCountry(obj).subscribe(result => {
-        console.log(result)
-        this.loadGrid();
 
+      this.adminService.saveHRDCountry(obj).subscribe(result => {
+        this.loadGrid();
         this.toastr.success("HRD country "+selctdCtry.name+" added successfully!");
         this.showAddDiv = false;
         (error) => {

@@ -1,3 +1,7 @@
+.header{
+  font-weight: bold; font-size: 22px;
+}
+
 .btn-outline-primary{
   color: lightYellow ;
   background-color: red;
