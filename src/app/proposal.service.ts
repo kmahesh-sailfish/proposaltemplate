@@ -398,5 +398,18 @@ export class ProposalService {
         return res.result;
       })
     );
-  }
+    }
+  //https://amendmentappdevapi.azurewebsites.net/api/Proposal/SearchRecentProposals/test?userAlias=v-skarukonda&isSuperUser=false &noOfRecords=20
+   dashboardSearch(searchObj,obj){
+    //URL: api/Proposal/GetRecentProposals?userAlias=v-skarukonda&isSuperUser=true &noOfRecords=20
+    return this.http
+    .get(environment.API_URL + "Proposal/SearchRecentProposals/"+searchObj, {
+      params: obj
+    })
+    .pipe(
+      map((res: any) => {
+        return res.result;
+      })
+    );
+    }
 }

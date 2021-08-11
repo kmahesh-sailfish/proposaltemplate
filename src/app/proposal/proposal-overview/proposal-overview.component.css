@@ -4,7 +4,6 @@
   line-height: 1.5;
 }
 .docment {
-  font-size: 18px;
   font-weight: 500;
   line-height: 1.5;
 }
@@ -13,16 +12,14 @@
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:visited {
-  background-color: #433163
- !important;
-  
+  background-color: #433163 !important;
+
   color: #ffffff !important;
-  border-color:#433163
- !important;
+  border-color: #433163 !important;
 }
-.header-pic{
+.header-pic {
   background-color: #e9ecef;
-  height: 35px
+  height: 35px;
 }
 .sample {
   position: absolute;
@@ -35,7 +32,7 @@
   width: 48%;
 }
 
-.table-header{
-background-color: #91C1E6;
-color:#ffffff
+.table-header {
+  background-color: #91c1e6;
+  color: #ffffff;
 }
