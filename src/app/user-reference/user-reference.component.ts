@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ProposalService } from "../proposal.service";
 
+import { ToastrService } from "ngx-toastr";
 @Component({
   selector: "app-user-reference",
   templateUrl: "./user-reference.component.html",
@@ -12,7 +13,10 @@ export class UserReferenceComponent implements OnInit {
   public getLanguages: any = [];
   public user: any = {};
   public config: any = [];
-  constructor(private proposalService: ProposalService) {}
+  constructor(
+    private proposalService: ProposalService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.user.Language = null;
@@ -43,6 +47,7 @@ export class UserReferenceComponent implements OnInit {
     this.user["UserName"] = "V2Alias";
     this.proposalService.updatedomainConetent(this.user).subscribe(data => {
       console.log(data);
+      this.toastr.success(data, "Success");
     });
   }
 }
