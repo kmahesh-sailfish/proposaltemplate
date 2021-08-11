@@ -22,6 +22,7 @@ export class CtmwindowComponent implements OnInit {
   constructor(public proposalService: ProposalService) {}
 
   ngOnInit(): void {
+    this.selectLanguage = null;
     this.loadLanguages();
     this.loadCTMFooterCode();
   }
