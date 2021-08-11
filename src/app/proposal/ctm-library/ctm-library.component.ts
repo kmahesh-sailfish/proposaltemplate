@@ -18,7 +18,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 export class CtmLibraryComponent implements OnInit {
   constructor(private router: Router, private modalService: NgbModal) {}
   ngOnInit() {
-    this.addCTM();
+    // this.addCTM();
   }
   addCTM() {
     const modalRef = this.modalService.open(CtmwindowComponent, {
