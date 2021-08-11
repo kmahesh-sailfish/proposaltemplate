@@ -340,9 +340,7 @@ export class ProposalService {
   }
   updateCTMShare(obj) {
     return this.http
-      .get(environment.API_URL + "/Ctm/UpdateCtmShare", {
-        params: obj
-      })
+      .post(environment.API_URL + "Ctm/UpdateCtmShare",obj)
       .pipe(
         map((res: any) => {
           return res.result;
