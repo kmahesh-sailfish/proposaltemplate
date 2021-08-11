@@ -95,13 +95,11 @@ export class ProposalService {
       );
   }
   getLanguage() {
-    return this.http
-      .get(environment.API_URL + "Ctm/" + "GetLanguages")
-      .pipe(
-        map((res: any) => {
-          return res;
-        })
-      );
+    return this.http.get(environment.API_URL + "Ctm/" + "GetLanguages").pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
   }
   getLrdCountries() {
     return this.http
@@ -339,17 +337,15 @@ export class ProposalService {
     );
   }
   updateCTMShare(obj) {
-    return this.http
-      .post(environment.API_URL + "Ctm/UpdateCtmShare",obj)
-      .pipe(
-        map((res: any) => {
-          return res.result;
-        })
-      );
+    return this.http.put(environment.API_URL + "Ctm/UpdateCtmShare", obj).pipe(
+      map((res: any) => {
+        return res.result;
+      })
+    );
   }
   deleteCTM(obj) {
     return this.http
-      .get(environment.API_URL + "/Ctm/DeleteCTMLibraryFile", {
+      .get(environment.API_URL + "Ctm/DeleteCTMLibraryFile", {
         params: obj
       })
       .pipe(
@@ -360,54 +356,55 @@ export class ProposalService {
   }
   downLoadCTM(id) {
     return this.http
-      .get(environment.API_URL + "/Ctm/DownloadCTMLibraryFile/", id)
+      .get(environment.API_URL + "Ctm/DownloadCTMLibraryFile/" + id)
       .pipe(
         map((res: any) => {
           return res.result;
         })
       );
   }
-  domainConetent(){
-    return this.http
-      .get(environment.API_URL + "App/GetDomainData")
-      .pipe(
-        map((res: any) => {
-          return res;
-        })
-      );
-  }
-    updatedomainConetent(obj){
-    return this.http
-      .post(environment.API_URL + "App/UpdateUserPreferance",obj)
-      .pipe(
-        map((res: any) => {
-          return res;
-        })
-      );
-  }
-  dashboardDetails(obj){
-    //URL: api/Proposal/GetRecentProposals?userAlias=v-skarukonda&isSuperUser=true &noOfRecords=20
-    return this.http
-    .get(environment.API_URL + "Proposal/GetRecentProposals", {
-      params: obj
-    })
-    .pipe(
+  domainConetent() {
+    return this.http.get(environment.API_URL + "App/GetDomainData").pipe(
       map((res: any) => {
-        return res.result;
+        return res;
       })
     );
-    }
+  }
+  updatedomainConetent(obj) {
+    return this.http
+      .post(environment.API_URL + "App/UpdateUserPreferance", obj)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+  dashboardDetails(obj) {
+    //URL: api/Proposal/GetRecentProposals?userAlias=v-skarukonda&isSuperUser=true &noOfRecords=20
+    return this.http
+      .get(environment.API_URL + "Proposal/GetRecentProposals", {
+        params: obj
+      })
+      .pipe(
+        map((res: any) => {
+          return res.result;
+        })
+      );
+  }
   //https://amendmentappdevapi.azurewebsites.net/api/Proposal/SearchRecentProposals/test?userAlias=v-skarukonda&isSuperUser=false &noOfRecords=20
-   dashboardSearch(searchObj,obj){
+  dashboardSearch(searchObj, obj) {
     //URL: api/Proposal/GetRecentProposals?userAlias=v-skarukonda&isSuperUser=true &noOfRecords=20
     return this.http
-    .get(environment.API_URL + "Proposal/SearchRecentProposals/"+searchObj, {
-      params: obj
-    })
-    .pipe(
-      map((res: any) => {
-        return res.result;
-      })
-    );
-    }
+      .get(
+        environment.API_URL + "Proposal/SearchRecentProposals/" + searchObj,
+        {
+          params: obj
+        }
+      )
+      .pipe(
+        map((res: any) => {
+          return res.result;
+        })
+      );
+  }
 }

@@ -39,10 +39,35 @@ export class EditActionComponent implements OnInit {
   downloadCTMFile(event) {
     event.stopPropagation();
     var rowData = this.params.data;
-    this.adminService.downLoadCTM(rowData["id"]).subscribe(data => {
-      console.log(data);
+    console.log(rowData, "data");
+    this.adminService.downLoadCTM(rowData.id).subscribe(data => {
+      this.saveData(data.content, data.fileName);
     });
   }
+  saveData = (function() {
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    // a.style = "display: none";
+    return function(data, fileName) {
+      console.log(data);
+      var json = atob(data),
+        blob = this.base64toBlob(json),
+        url = window.URL.createObjectURL(blob);
+      a.href = url;
+      a.download = fileName;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    };
+  })();
+
+  base64toBlob(byteString) {
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ia], { type: "octet/stream" });
+  }
+
   shareClicked(event) {
     event.stopPropagation();
     var rowData = this.params.data;

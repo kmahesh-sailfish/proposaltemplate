@@ -18,7 +18,7 @@
                                 <tbody>
                                     <tr *ngFor="let o of getList | slice:0:6;">
                                         <td>
-                                            <a href="#" routerLink="/proposaloverview/{{o.proposalId}}">Proposal ID {{o.proposalId}}</a>
+                                            <a href="#" routerLink="/proposaloverview/{{o.id}}">Proposal ID {{o.proposalId}}</a>
                                         </td>
                                         <td>
                                             <a href="#"><label>Last Modified: {{o.lastModified | date:'MMM d, y'}}</label></a>
