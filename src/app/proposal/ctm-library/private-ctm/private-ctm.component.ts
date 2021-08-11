@@ -31,8 +31,11 @@ export class PrivateCtmComponent implements OnInit {
     this.gridApi.sizeColumnsToFit();
     // this.gridApi.setDatasource(this.datasource);
   }
+  
   getLoadprivatectm() {
-    this.proposalService.getprivateCtmList().subscribe(data => {
+    var obj={};
+  obj['alias'] = "V2Alias";
+    this.proposalService.getprivateCtmList(obj).subscribe(data => {
       this.rowData = data;
     });
   }

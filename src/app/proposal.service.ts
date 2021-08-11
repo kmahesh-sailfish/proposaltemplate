@@ -207,7 +207,7 @@ export class ProposalService {
 
   replicateProposal(obj) {
     return this.http
-      .post(environment.API_URL + "App/" + "CloneProposal", obj)
+      .post(environment.API_URL + "Proposal/" + "CloneProposal", obj)
       .pipe(
         map((res: any) => {
           return res["result"];
@@ -323,14 +323,19 @@ export class ProposalService {
     return false;
   }
   getpublicCtmList() {
-    return this.http.get(environment.API_URL + "Ctm/getPublicCTMFiles").pipe(
+    return this.http.get(environment.API_URL + "Ctm/getPublicCTMFiles")
+    .pipe(
       map((res: any) => {
         return res.result;
       })
     );
   }
-  getprivateCtmList() {
-    return this.http.get(environment.API_URL + "/Ctm/getPrivateCTMFiles").pipe(
+ 
+  getprivateCtmList(obj) {
+    return this.http.get(environment.API_URL + "/Ctm/getPrivateCTMFiles", {
+      params: obj
+    })
+    .pipe(
       map((res: any) => {
         return res.result;
       })
