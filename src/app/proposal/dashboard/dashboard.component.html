@@ -15,15 +15,15 @@
                                 <thead>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let o of getList | slice:0:6;" >
                                         <td>
-                                            <a href="#">Proposal ID 20210429</a>
+                                            <a href="#" routerLink="/proposaloverview/{{o.proposalId}}">Proposal ID {{o.proposalId}}</a>
                                         </td>
                                         <td>
-                                            <a href="#"><label>Last Modified: April-15-2021</label></a>
+                                            <a href="#"><label>Last Modified: {{o.lastModified | date:'MMM d, y'}}</label></a>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>
                                             <a href="#">Proposal ID 20210400</a>
                                         </td>
@@ -38,7 +38,7 @@
                                         <td>
                                             <a href="#"><label>Last Modified: April-15-2021</label></a>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
@@ -50,11 +50,11 @@
         <!-- side cards  -->
         <div class="col-5">
             <div class="col mt-3">
-                <div class="card " routerLink="/createproposal" routerLinkActive="active">
+                <div  class="card "  style="cursor: pointer;" routerLink="/createproposal" routerLinkActive="active">
                     <div class="card-header">
-                        <span> <img 
+                        <span> <img title="Create"  
                   src="../../../assets/images/black-24dp create proposal/1x/outline_create_black_24dp.png" alt=""> 
-                  <b> Create
+                  <b style="cursor: pointer;"> Create
                   Proposal</b> </span>
                     </div>
                     <div class="card-body" style="background:#8661C5">
@@ -64,8 +64,8 @@
             </div>
 
             <div class="col mt-3">
-                <div class="card " routerLink="/replicaporposal" routerLinkActive="active">
-                    <div class="card-header"> <span> <img 
+                <div class="card " style="cursor: pointer;" routerLink="/replicaporposal" routerLinkActive="active">
+                    <div class="card-header"> <span> <img title="Replicate"
                   src="../../../assets/images/black-24dp replicate/1x/outline_content_copy_black_24dp.png" alt=""> <b> Replicate
                   Proposal</b> </span> </div>
                     <div class="card-body" style="background:#91C1E6">
@@ -75,8 +75,8 @@
             </div>
 
             <div class="col mt-3">
-                <div class="card  " routerLink="/activeproposal" routerLinkActive="active">
-                    <div class="card-header"> <span> <img 
+                <div class="card  " style="cursor: pointer;" routerLink="/activeproposal" routerLinkActive="active">
+                    <div class="card-header"> <span> <img title="Active"
                   src="../../../assets/images/black-24dp activeproposal/1x/outline_assignment_turned_in_black_24dp.png" alt=""> <b> Active
                   Proposal</b> </span> </div>
                     <div class="card-body" style="background:#6AAB6A">
@@ -86,9 +86,9 @@
             </div>
 
             <div class="col mt-3">
-                <div class="card ">
+                <div class="card " style="cursor: pointer;">
                     <a href="../../../assets/WordServiceSetupV2.msi">
-                        <div class="card-header"> <span> <img 
+                        <div class="card-header"> <span> <img  title="Download"
                             src="../../../assets/images/black-24dpdownlaod proposal/1x/outline_download_black_24dp.png" alt=""> <b> Download Amendment
                             Edit Service</b> </span> </div>
                               <div class="card-body" style="background:#FF9349">

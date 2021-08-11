@@ -387,4 +387,16 @@ export class ProposalService {
         })
       );
   }
+  dashboardDetails(obj){
+    //URL: api/Proposal/GetRecentProposals?userAlias=v-skarukonda&isSuperUser=true &noOfRecords=20
+    return this.http
+    .get(environment.API_URL + "Proposal/GetRecentProposals", {
+      params: obj
+    })
+    .pipe(
+      map((res: any) => {
+        return res.result;
+      })
+    );
+  }
 }
