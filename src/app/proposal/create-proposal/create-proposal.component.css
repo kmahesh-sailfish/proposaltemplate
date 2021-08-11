@@ -1,8 +1,7 @@
-.proposal{
+.proposal {
   font-size: 20px;
   font-weight: 500;
   line-height: 1.5;
-  
 }
 
 .border-1 {
@@ -25,7 +24,7 @@
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:visited {
-  background-color: #8661c5 !important;
+  background-color: #433163 !important;
   color: #ffffff !important;
-  border-color: #8661c5 !important;
+  border-color: #433163 !important;
 }

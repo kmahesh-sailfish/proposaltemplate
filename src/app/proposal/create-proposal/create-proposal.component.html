@@ -13,16 +13,18 @@
                             </div>
                         </div>
                         <div class="row" *ngIf="proposalForm.get('IsDraft').value==false">
-                            <div class="col-5 color8661C5">
+                            <div class="col-5 color8661C5" style=" border-top: 4px solid #6c757d;
+  border-left: 4px solid #6c757d;  
+  border-right: 4px solid #6c757d;">
                                 <span>Proposal Id</span>&nbsp;<span class="error_color">*</span>
                             </div>
                             <!-- <h3> {{isExist}}</h3> -->
                             <div class="col-7 p-1">
-                                <input (blur)="isExistPropsalId()"  formControlName='proposalId' name="proposalId" class="form-control" placeholder="Proposal Id">
+                                <input (blur)="isExistPropsalId()" formControlName='proposalId' name="proposalId" class="form-control" placeholder="Proposal Id">
                                 <div *ngIf="(proposalForm.get('proposalId').hasError('invalidName'))">
                                     <div class="error_color">
                                         Special characters not allowed!
-                                    </div> 
+                                    </div>
                                 </div>
                                 <div *ngIf="proposalForm.get('proposalId').hasError() && (proposalForm.get('proposalId').dirty || proposalForm.get('proposalId').touched)">
                                     <div class="error_color">
@@ -34,7 +36,9 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-5 color8661C5">
+                            <div class="col-5 color8661C5" style="border-left: 4px solid #6c757d;
+  border-bottom: 4px solid #6c757d;
+  border-right: 4px solid #6c757d;">
                                 <span>Pricing Country</span> &nbsp;<span class="error_color">*</span>
 
                             </div>
@@ -72,7 +76,7 @@
                             <div class="col">
                             </div>
                             <div class="col p-0">
-                                <button type="submit" [disabled]="proposalForm.invalid || isExist"  class="btn btn-outline-primary w-100">Next</button>
+                                <button type="submit" [disabled]="proposalForm.invalid || isExist" class="btn btn-outline-primary w-100">Next</button>
                             </div>
                         </div>
                     </div>
