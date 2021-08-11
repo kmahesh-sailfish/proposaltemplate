@@ -1,5 +1,4 @@
-
-<span  class="outCircle"> <i class="fas fa-file" style="width: 14px;"></i></span>&nbsp; 
+<span style="cursor: pointer;" (click)="downloadCTMFile()" class="outCircle"> <i class="fas fa-file" style="width: 14px;"></i></span>&nbsp;
 
 <span style="cursor: pointer;" class="outCircle" (click)="stopShareCTM($event)" [hidden]="!(obj.createdBy =='narels' && obj.isPublic) "><i class="fa fa-toggle-off"style="width: 14px;"></i></span>&nbsp;
 <!-- <span  style="cursor: pointer;"class="outCircle" (click)="shareClicked($event)"  [hidden]="obj.createdBy =='V2Alias' && !obj.isPublic "> <i class="fa fa-share-alt" style="width: 14px;"></i></span>&nbsp; -->
