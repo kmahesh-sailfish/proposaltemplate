@@ -14,7 +14,7 @@
             <div class="col-5 p-0">
                 <div class="form-group">
                     <select class="form-control" name="Language" [(ngModel)]="user.Language" required #Language="ngModel">
-                 <option [value]="null">Select</option>
+                 <option [value]="null">Select Language</option>
                 <option *ngFor="let obj of getLanguages" [value]="obj">{{obj}}</option>
                 </select>
                 </div>
@@ -27,7 +27,7 @@
                     #OpCenter="ngModel"> -->
                 <div class="form-group">
                     <select class="form-control" name="OpCenter" required [(ngModel)]="user.OpCenter" #OpCenter="ngModel">
-                     <option [value]="null">Select</option>
+                     <option [value]="null">Select Op-Center</option>
                     <option *ngFor="let obj of opCenterVales" [value]="obj.code">{{obj.name}}</option>
                     </select>
                 </div>
@@ -40,7 +40,7 @@
                     #Program="ngModel"> -->
                 <div class="form-group">
                     <select class="form-control" name="Program" required [(ngModel)]="user.Program" #Program="ngModel">
-                     <option [value]="null">Select</option>
+                     <option [value]="null">Select Program</option>
                     <option *ngFor="let obj of userProgram" [value]="obj.code">{{obj.name}}</option>
                     </select>
                 </div>
@@ -51,7 +51,7 @@
             <div class="col-5 p-0">
                 <div class="form-group">
                     <select class="form-control" required name="PricingCountry" [(ngModel)]="user.PricingCountry" #PricingCountry="ngModel">
-                 <option [value]="null">Select</option>
+                 <option [value]="null">Select Pricing Country</option>
                 <option *ngFor="let obj of config" [value]="obj">{{obj}}</option>
                 </select>
                 </div>
