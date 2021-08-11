@@ -21,6 +21,13 @@ export class UserReferenceComponent implements OnInit {
     this.user.Program = null;
     this.domainLoad();
   }
+  reSet() {
+    this.user.Language = null;
+    this.user.PricingCountry = null;
+    this.user.OpCenter = null;
+    this.user.Program = null;
+    //this.domainLoad();
+  }
   domainLoad() {
     this.proposalService.domainConetent().subscribe(data => {
       if (Object.keys(data).length > 0) {
