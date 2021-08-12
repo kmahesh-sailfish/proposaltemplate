@@ -533,8 +533,9 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
            
         })
     }
-    reloadTable() {
+    reloadTable() {        
         this.dtTrigger.next();
+         this.dtTrigger.unsubscribe();
     }
     getAmendements(data) {
         this.Amendments = data["amendments"] == null ? [] : data["amendments"];
