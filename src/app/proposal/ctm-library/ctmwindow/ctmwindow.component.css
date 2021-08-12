@@ -1,0 +1,9 @@
+
+body .ctm-library-container #UploadCTM .others {
+    border-top: 1px solid !important;
+    position: absolute;
+    background: #fff;
+    top: 9px;
+    z-index: 100;
+    right: -50px;
+}
