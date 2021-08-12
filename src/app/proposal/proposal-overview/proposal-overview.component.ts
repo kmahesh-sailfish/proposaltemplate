@@ -494,7 +494,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
                         "DocName": receivedEntry.docName,
                         "FileName": receivedEntry.fileName,
                         "Language": receivedEntry.language,
-                        "code": receivedEntry.code,
+                        "Code": receivedEntry.code,
                         "EmpowermentCode": receivedEntry.empowermentCode,
                         "ExpirationDate": receivedEntry.expirationDate,
                         "EmpowermentName": receivedEntry.empowermentName
@@ -512,6 +512,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
             "AmendmentDocs": amendments
         }
         this.proposalService.saveMetadata(obj).subscribe(data => {
+            debugger;
            // console.log('dataAmendata', data);
             //this.Amendments.push(data["amendments"]);
         if (data && data.length > 0) {
@@ -527,6 +528,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
            this.captureHRDDvalues();
            this.captureAmendmentAzureDiscounts();
             }
+            this.getProposalById();
         if (data.notes != "") {
                 // ngToast.create({ content: "Warning: The following amendments use custom introductory language outside the standard language approved by CELA.  Please resubmit amendment " + data.Notes + " and process through the tool as an individual document. ", timeout: 30000 });
             }
