@@ -4,8 +4,10 @@ BtnCellRenderer.prototype.init = function(params) {
   this.params = params;
 
   this.eGui = document.createElement("span");
+  this.eGui.title = "Add";
   this.eGui.className = "outCircle";
-  this.eGui.innerHTML = '<i class="fa fa-plus" style="width: 14px;"></i>';
+  this.eGui.innerHTML =
+    '<i class="fa fa-plus" style="width: 14px;cursor:pointer"></i>';
 
   this.btnClickedHandler = this.btnClickedHandler.bind(this);
   this.eGui.addEventListener("click", this.btnClickedHandler);
