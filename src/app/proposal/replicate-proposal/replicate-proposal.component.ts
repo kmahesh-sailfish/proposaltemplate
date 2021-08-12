@@ -34,7 +34,7 @@ export class ReplicateProposalComponent implements OnInit {
         createdByAlias: "V2Alias"
       };
       this.proposalService.replicateProposal(obj).subscribe((data: any) => {
-        var sourceId = data["_sourceObject"].id;
+        var sourceId = data.id;
         console.log(sourceId, "sourceId");
         this.router.navigate(["proposaloverview/", sourceId]);
       });

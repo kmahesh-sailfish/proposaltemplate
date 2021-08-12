@@ -210,7 +210,7 @@ export class ProposalService {
       .post(environment.API_URL + "Proposal/" + "CloneProposal", obj)
       .pipe(
         map((res: any) => {
-          return res["result"];
+          return res["_sourceObject"];
         })
       );
   }
