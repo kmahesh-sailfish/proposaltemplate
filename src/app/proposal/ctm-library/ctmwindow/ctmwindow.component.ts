@@ -9,7 +9,7 @@ import { ProposalService } from "../../../proposal.service";
 export class CtmwindowComponent implements OnInit {
   public description: any;
   public selectedCateg: any = [];
-  public Others: any;
+  public Others: any=[];
   public SelectedCategories: any = [];
   public showRevenueImpact: any;
   public tempOthersCode: any;
