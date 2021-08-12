@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ProposalService } from "src/app/proposal.service";
 import { Router } from "@angular/router";
 import * as moment from "moment";
-import { EditActionComponent } from '../edit-action/edit-action.component';
+import { PrivateEditActionComponent } from './private-edit-action/private-edit-action.component';
 import {
   GridApi,
   ICellRendererParams,
@@ -40,7 +40,7 @@ export class PrivateCtmComponent implements OnInit {
     });
   }
   frameworkComponents = {
-    editAction: EditActionComponent
+    editAction: PrivateEditActionComponent
   };
   columnDefs = [
     {

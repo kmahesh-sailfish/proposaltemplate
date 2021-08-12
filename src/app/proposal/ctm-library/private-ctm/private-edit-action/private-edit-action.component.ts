@@ -1,17 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { ICellRendererParams } from "ag-grid-community";
-import { NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { ProposalService } from "../../../proposal.service";
-import { ToastrService } from "ngx-toastr";
-import { Router } from "@angular/router";
-import { ConformationComponent } from "../conformation/conformation.component";
+import { Component, OnInit } from '@angular/core';
+import { ConformationComponent } from "../../conformation/conformation.component";
+import { ICellRendererParams } from 'ag-grid-community';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ProposalService } from '../../../../proposal.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: "app-edit-action",
-  templateUrl: "./edit-action.component.html",
-  styleUrls: ["./edit-action.component.css"]
+  selector: 'app-private-edit-action',
+  templateUrl: './private-edit-action.component.html',
+  styleUrls: ['./private-edit-action.component.css']
 })
-export class EditActionComponent implements OnInit {
+export class PrivateEditActionComponent implements OnInit {
   cellValue: any;
   params: any;
   obj: any = {};

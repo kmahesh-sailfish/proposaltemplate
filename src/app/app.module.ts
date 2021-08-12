@@ -53,6 +53,7 @@ import { PubliCtmComponent } from './proposal/ctm-library/publi-ctm/publi-ctm.co
 import { PrivateCtmComponent } from './proposal/ctm-library/private-ctm/private-ctm.component';
 import { CtmwindowComponent } from './proposal/ctm-library/ctmwindow/ctmwindow.component';
 import { UserReferenceComponent } from './user-reference/user-reference.component';
+import { PrivateEditActionComponent } from './proposal/ctm-library/private-ctm/private-edit-action/private-edit-action.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { UserReferenceComponent } from './user-reference/user-reference.componen
     PubliCtmComponent,
     PrivateCtmComponent,
     CtmwindowComponent,
-    UserReferenceComponent
+    UserReferenceComponent,
+    PrivateEditActionComponent
 
     //EditHrdComponentRenderer
   ],
