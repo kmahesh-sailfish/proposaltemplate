@@ -58,7 +58,7 @@ export class UserReferenceComponent implements OnInit {
     
     this.proposalService.getUserPreferences(this.userId).subscribe(data => {
       this.user= data['userPreference'];
-      this.userProgram.find(return (x=>this.user.program)
+      // this.userProgram.find(return (x=>this.user.program)
       //this.user.program ={code:"20",name:'ram'};
      //  this.user.program="20";
      // console.log(data['userPreference']);
