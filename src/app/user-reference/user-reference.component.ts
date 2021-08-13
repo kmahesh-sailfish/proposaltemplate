@@ -21,17 +21,19 @@ export class UserReferenceComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('userAlias');
-    this.user.Language = null;
-    this.user.PricingCountry = null;
-    this.user.OpCenter = null;
-    this.user.Program = null;
+    this.user.language = null;
+    this.user.pricingCountry = null;
+    this.user.opCenter = null;
+    this.user.program = null;
+    
     this.domainLoad();
+    this.getUserPreference();
   }
   reSet() {
-    this.user.Language = null;
-    this.user.PricingCountry = null;
-    this.user.OpCenter = null;
-    this.user.Program = null;
+    this.user.language = null;
+    this.user.pricingCountry = null;
+    this.user.opCenter = null;
+    this.user.program = null;
     //this.domainLoad();
   }
   domainLoad() {
@@ -51,5 +53,15 @@ export class UserReferenceComponent implements OnInit {
       console.log(data);
       this.toastr.success(data, "Success");
     });
+  }
+  getUserPreference(){
+    
+    this.proposalService.getUserPreferences(this.userId).subscribe(data => {
+      this.user= data['userPreference'];
+      this.userProgram.find(return (x=>this.user.program)
+      //this.user.program ={code:"20",name:'ram'};
+     //  this.user.program="20";
+     // console.log(data['userPreference']);
+    })
   }
 }
