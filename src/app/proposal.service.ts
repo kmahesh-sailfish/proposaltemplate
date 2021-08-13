@@ -412,4 +412,15 @@ export class ProposalService {
         })
       );
   }
+  getUserPreferences(userId){
+    //api/App/GetUserDetails/
+    return this.http
+      .get(
+        environment.API_URL + "App/GetUserDetails/" + userId)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
 }

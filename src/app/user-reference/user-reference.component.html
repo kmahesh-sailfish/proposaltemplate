@@ -13,7 +13,7 @@
             <label class="col-2 col-form-label"> Language:<span class="error_color">*</span></label>
             <div class="col-5 p-0">
                 <div class="form-group">
-                    <select class="form-control" name="Language" [(ngModel)]="user.Language" required #Language="ngModel">
+                    <select class="form-control" name="language" [(ngModel)]="user.language" required #language="ngModel">
                  <option [value]="null">Select Language</option>
                 <option *ngFor="let obj of getLanguages" [value]="obj">{{obj}}</option>
                 </select>
@@ -23,10 +23,10 @@
         <div class="row mb-1">
             <label class="col-2 col-form-label"> Op Center:<span class="error_color">*</span></label>
             <div class="col-5 p-0">
-                <!-- <input type="text" class="form-control" placeholder="Op Center" name="OpCenter" [(ngModel)]="user.OpCenter" aria-label="Op Center"
-                    #OpCenter="ngModel"> -->
+                <!-- <input type="text" class="form-control" placeholder="Op Center" name="opCenter" [(ngModel)]="user.opCenter" aria-label="Op Center"
+                    #opCenter="ngModel"> -->
                 <div class="form-group">
-                    <select class="form-control" name="OpCenter" required [(ngModel)]="user.OpCenter" #OpCenter="ngModel">
+                    <select class="form-control" name="opCenter" required [(ngModel)]="user.opCenter" #opCenter="ngModel">
                      <option [value]="null">Select Op-Center</option>
                     <option *ngFor="let obj of opCenterVales" [value]="obj.code">{{obj.name}}</option>
                     </select>
@@ -36,12 +36,13 @@
         <div class="row mb-1">
             <label class="col-2 col-form-label"> Program:<span class="error_color">*</span></label>
             <div class="col-5 p-0">
-                <!-- <input type="text" class="form-control" name="Program" [(ngModel)]="user.Program" placeholder="Program" aria-label="Program"
-                    #Program="ngModel"> -->
+                <!-- <input type="text" class="form-control" name="program" [(ngModel)]="user.program" placeholder="program" aria-label="program"
+                    #program="ngModel"> -->
+                    
                 <div class="form-group">
-                    <select class="form-control" name="Program" required [(ngModel)]="user.Program" #Program="ngModel">
+                    <select class="form-control" name="program" required [(ngModel)]="user.program" #program="ngModel">
                      <option [value]="null">Select Program</option>
-                    <option *ngFor="let obj of userProgram" [value]="obj.code">{{obj.name}}</option>
+                    <option *ngFor="let obj of userProgram" [value]="obj">{{obj.name}}</option>
                     </select>
                 </div>
             </div>
@@ -50,7 +51,7 @@
             <label class="col-2 col-form-label"> PricingCountry:<span class="error_color">*</span></label>
             <div class="col-5 p-0">
                 <div class="form-group">
-                    <select class="form-control" required name="PricingCountry" [(ngModel)]="user.PricingCountry" #PricingCountry="ngModel">
+                    <select class="form-control" required name="pricingCountry" [(ngModel)]="user.pricingCountry" #pricingCountry="ngModel">
                  <option [value]="null">Select Pricing Country</option>
                 <option *ngFor="let obj of config" [value]="obj">{{obj}}</option>
                 </select>
