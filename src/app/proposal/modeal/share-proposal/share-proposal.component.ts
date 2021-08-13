@@ -3,21 +3,27 @@ import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { Router } from "@angular/router";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { ProposalService } from '../../../proposal.service';
+import { ProposalService } from "../../../proposal.service";
 @Component({
   selector: "app-share-proposal",
   templateUrl: "./share-proposal.component.html",
   styleUrls: ["./share-proposal.component.css"]
 })
 export class ShareProposalComponent implements OnInit {
+  public userId: any;
   public shareProposalId: any;
   IsValidShareForm: boolean = false;
   myForm: FormGroup;
   shareProposalValidationMessage: any;
-  constructor(private router: Router, private activeModal: NgbActiveModal,private proposalService: ProposalService) {}
+  constructor(
+    private router: Router,
+    private activeModal: NgbActiveModal,
+    private proposalService: ProposalService
+  ) {}
 
   ngOnInit(): void {
     this.loadForm();
+    this.userId = localStorage.getItem("userAlias");
   }
   checkField() {
     var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
@@ -65,16 +71,14 @@ export class ShareProposalComponent implements OnInit {
   onSubmit() {
     let Obj = {
       Id: this.shareProposalId,
-      alias: "V2Alias",
+      alias: this.userId,
       useraliases: [this.myForm.get("userEmail").value]
     };
-   
-    this.proposalService.saveShareProposal(Obj).subscribe((data => {
-      console.log('data', data);
-       
-    }));
-    this.activeModal.close();
 
+    this.proposalService.saveShareProposal(Obj).subscribe(data => {
+      console.log("data", data);
+    });
+    this.activeModal.close();
   }
   closeCross() {
     this.activeModal.close();

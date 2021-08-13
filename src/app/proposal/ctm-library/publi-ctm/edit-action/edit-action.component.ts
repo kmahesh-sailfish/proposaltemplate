@@ -12,6 +12,7 @@ import { ConformationComponent } from "../../conformation/conformation.component
   styleUrls: ["./edit-action.component.css"]
 })
 export class EditActionComponent implements OnInit {
+  userId: any;
   cellValue: any;
   params: any;
   obj: any = {};
@@ -19,6 +20,7 @@ export class EditActionComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.obj, "edited");
     // this.obj = this.params.data;
+    this.userId = localStorage.getItem("userAlias");
   }
 
   constructor(
@@ -34,6 +36,7 @@ export class EditActionComponent implements OnInit {
   editClicked(event) {
     event.stopPropagation();
     console.log(this.params.data, "edited");
+
     // this.router.navigate(["proposaloverview/", this.params.data["id"]]);
   }
   downloadCTMFile(event) {

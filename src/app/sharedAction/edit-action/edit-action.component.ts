@@ -13,7 +13,10 @@ import { ConformationComponent } from "../conformation/conformation.component";
   providers: [NgbActiveModal]
 })
 export class EditActionComponent implements OnInit {
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userId = localStorage.getItem('userAlias');
+  }
+  userId: any;
   cellValue: any;
   params: any;
   // private objactiveComponent: ActiveProposalComponent;
@@ -59,7 +62,7 @@ export class EditActionComponent implements OnInit {
     console.log(this.params.data, "share");
     let Obj = {
       Id: this.params.data.proposalId,
-      alias: "V2Alias",
+      alias: this.userId,
       useraliases: ["v-sanjaysa@microsoft.com"]
     };
 

@@ -12,6 +12,7 @@ import { SpecialCharacter } from "src/app/sharedservices/special-character";
   providers:[SpecialCharacter]
 })
 export class CreateProposalComponent implements OnInit {
+  public userId: any;
   public proposalForm: FormGroup;
   public config: any[];
   public isExist: boolean = false;
@@ -25,6 +26,7 @@ export class CreateProposalComponent implements OnInit {
   ngOnInit(): void {
     this.getPricingCountry();
     this.loadForm();
+    this.userId= localStorage.getItem("userAlias");
   }
   isExistPropsalId() {
     let Id = this.proposalForm.get("proposalId").value;
@@ -54,13 +56,13 @@ export class CreateProposalComponent implements OnInit {
   pageRedirect() {
     console.log(this.proposalForm.value);
     var obj = this.proposalForm.value;
-    obj["createdByAlias"] = "V2Alias";
+    obj["createdByAlias"] = this.userId
     this.shareService.setproposalObs(obj);
     this.router.navigate(["proposaloverview/", ""]);
   }
 
   createProposal(obj) {
-    obj["createdByAlias"] = "V2Alias";
+    obj["createdByAlias"] = this.userId
     this.proposalService.createProposal(obj).subscribe((data: any) => {
       var sourceId = data["_sourceObject"].id;
       console.log(sourceId, "sourceId");

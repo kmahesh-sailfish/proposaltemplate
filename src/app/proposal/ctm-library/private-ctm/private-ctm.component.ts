@@ -15,6 +15,7 @@ import {
   styleUrls: ["./private-ctm.component.css"]
 })
 export class PrivateCtmComponent implements OnInit {
+  public userId: any;
   public gridOptions: any;
   rowData: any = [];
   title = "agGridExamples";
@@ -25,6 +26,7 @@ export class PrivateCtmComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getLoadprivatectm();
+    this.userId = localStorage.getItem('userAlias');
   }
   onGridReady(params: any) {
     this.gridApi = params.api;
@@ -34,7 +36,7 @@ export class PrivateCtmComponent implements OnInit {
   
   getLoadprivatectm() {
     var obj={};
-  obj['alias'] = "V2Alias";
+  obj['alias'] = this.userId
     this.proposalService.getprivateCtmList(obj).subscribe(data => {
       this.rowData = data;
     });

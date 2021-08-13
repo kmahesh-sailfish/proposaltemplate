@@ -10,6 +10,7 @@ import { FormGroup, Validators, FormControl } from "@angular/forms";
   styleUrls: ["./replicate-proposal.component.css"]
 })
 export class ReplicateProposalComponent implements OnInit {
+  public userId: any;
   public proposalForm: FormGroup;
   public config: any[];
   public isExist: boolean = true;
@@ -22,6 +23,7 @@ export class ReplicateProposalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('userAlias');
     this.loadForm();
   }
   pageRedirect() {
@@ -31,7 +33,7 @@ export class ReplicateProposalComponent implements OnInit {
       var obj = {
         proposalId: this.proposalForm.get("oldproposalId").value,
         newProposalId: this.proposalForm.get("newproposalId").value,
-        createdByAlias: "V2Alias"
+        createdByAlias: this.userId
       };
       this.proposalService.replicateProposal(obj).subscribe((data: any) => {
         var sourceId = data.id;

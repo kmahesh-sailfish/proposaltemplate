@@ -10,6 +10,8 @@ import { ProposalService } from "../../../proposal.service";
   styleUrls: ["./del-proposal.component.css"]
 })
 export class DelProposalComponent implements OnInit {
+  public userId: any;
+
   public delegationProposalId: any;
   IsValidShareForm: boolean = false;
   myForm: FormGroup;
@@ -21,6 +23,7 @@ export class DelProposalComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.loadForm();
+    this.userId = localStorage.getItem("userAlias");
   }
   checkField() {
     var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
@@ -70,7 +73,7 @@ export class DelProposalComponent implements OnInit {
       proposalId: this.delegationProposalId,
       IsLe: false,
       IsExternal: false,
-      userAlias: "V2Alias"
+      userAlias: this.userId
     };
     console.log(Obj, "onSubmit");
     this.proposalService.saveDelegationProposal(Obj).subscribe(data => {

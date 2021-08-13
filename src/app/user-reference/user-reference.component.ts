@@ -8,6 +8,7 @@ import { ToastrService } from "ngx-toastr";
   styleUrls: ["./user-reference.component.css"]
 })
 export class UserReferenceComponent implements OnInit {
+  public userId: any;
   public opCenterVales: any = [];
   public userProgram: any = [];
   public getLanguages: any = [];
@@ -19,6 +20,7 @@ export class UserReferenceComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('userAlias');
     this.user.Language = null;
     this.user.PricingCountry = null;
     this.user.OpCenter = null;
@@ -44,7 +46,7 @@ export class UserReferenceComponent implements OnInit {
   }
 
   onSubmit() {
-    this.user["UserName"] = "V2Alias";
+    this.user["UserName"] = this.userId
     this.proposalService.updatedomainConetent(this.user).subscribe(data => {
       console.log(data);
       this.toastr.success(data, "Success");

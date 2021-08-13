@@ -20,6 +20,7 @@ import { PriceProposalComponent } from '../modeal/price-proposal/price-proposal.
     providers: [NgbModalConfig, NgbModal]
 })
 export class ProposalOverviewComponent implements OnInit, OnDestroy {
+    public userId: any;
     // ----------------------------------
     public discountFeedback = '';
     public discountFeedbackContainer = '';
@@ -86,6 +87,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
+        this.userId = localStorage.getItem('userAlias');
        this.loadForm();
        this.getPricingCountry();
        // this.getLrdCountreis();
@@ -119,7 +121,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
             id: this.editProposalObj.id != null ?
             this.editProposalObj.id :
             this.ProposalId,
-            createdByAlias: "V2Alias",
+            createdByAlias: this.userId,
             isSuperUser: true
         };
       this.proposalService.getProposal(obj).subscribe((data: any) => {
@@ -413,7 +415,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
                 Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.dealNickname : "",
 
             notes: block == "notes" ? this.propOverView.get("notes").value : Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.notes : "",
-            LastModifiedBy: "V2Alias"
+            LastModifiedBy: this.userId
         };
 
         this.proposalService.updateProposal(obj).subscribe((data: any) => {
@@ -508,7 +510,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         var obj = {
             "ProposalID": this.ProposalId,
             "isSuperUser": false,
-            "userAlias": "V2Alias",
+            "userAlias": this.userId,
             "AmendmentDocs": amendments
         }
         this.proposalService.saveMetadata(obj).subscribe(data => {

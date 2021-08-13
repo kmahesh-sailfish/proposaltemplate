@@ -43,7 +43,7 @@ export class ProposalService {
     // params.set("createdByAlias", "V2Alias");
     // params.set("isSuperUser", "true");
     // params.set("id", Id);
-    obj["createdByAlias"] = "V2Alias";
+    obj["createdByAlias"] = localStorage.getItem("userAlias");
     obj["isSuperUser"] = "true";
     obj["id"] = Id;
 
@@ -323,23 +323,23 @@ export class ProposalService {
     return false;
   }
   getpublicCtmList() {
-    return this.http.get(environment.API_URL + "Ctm/getPublicCTMFiles")
-    .pipe(
+    return this.http.get(environment.API_URL + "Ctm/getPublicCTMFiles").pipe(
       map((res: any) => {
         return res.result;
       })
     );
   }
- 
+
   getprivateCtmList(obj) {
-    return this.http.get(environment.API_URL + "/Ctm/getPrivateCTMFiles", {
-      params: obj
-    })
-    .pipe(
-      map((res: any) => {
-        return res.result;
+    return this.http
+      .get(environment.API_URL + "/Ctm/getPrivateCTMFiles", {
+        params: obj
       })
-    );
+      .pipe(
+        map((res: any) => {
+          return res.result;
+        })
+      );
   }
   updateCTMShare(obj) {
     return this.http.put(environment.API_URL + "Ctm/UpdateCtmShare", obj).pipe(
