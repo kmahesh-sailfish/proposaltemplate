@@ -111,7 +111,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         this.proposalService.createProposal(obj).subscribe((data: any) => {
         this.editProposalObj = data;
         console.log(this.editProposalObj, "editProposalObj");
-        this.getProposalById();
+       // this.getProposalById();
         this.loadForm();
         this.router.navigate(["proposaloverview/", this.editProposalObj["id"]]);
         });
@@ -280,7 +280,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
      if (this.HRDDCountries.length == 0) {
        this.proposalService.getHrdCountries().subscribe((data: any) => {
        this.HRDDDetails = data;
-       this.HRDDCountries = data.map((country) =>{ return country.Name });
+       this.HRDDCountries = data.map((country) =>{ return country.name });
        if (this.model.PricingCountry != "") {
        data.forEach((country)=> {
          if (country.name == this.model.PricingCountry) {
@@ -291,6 +291,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
          }
          });
        }
+
        var isHrddCountry = this.proposalService.isHRDDCountry(this.HRDDCountries, this.model.PricingCountry);
        var hasHrddAmendments = this.proposalService.hasHRDDAmendments(this.HRDDAmendments, this.model.Amendments);
         if (isHrddCountry && hasHrddAmendments && this.model.HRDDTotalValue == null && this.model.HRDDMaxDiscount == null) {
@@ -517,21 +518,21 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
             debugger;
            // console.log('dataAmendata', data);
             //this.Amendments.push(data["amendments"]);
-        if (data && data.length > 0) {
-           for (var i = 0; i < data.length; i++) {
-               if (this.model.Amendments) {
-                   this.model.Amendments.push(new Amendment(data[i]));
-               }
-               else {
-                   this.model.Amendments = [];
-                   this.model.Amendments.push(new Amendment(data[i]));
-               }
+            for (var i = 0; i < data.amendments.length; i++) {
+                if (this.model.Amendments) {
+                    this.model.Amendments.push(new Amendment(data.amendments[i]));
+                }
+                else {
+                    this.model.Amendments = [];
+                    this.model.Amendments.push(new Amendment(data.amendments[i]));
+                }
+           
             }
-           this.captureHRDDvalues();
+            this.captureHRDDvalues();
            this.captureAmendmentAzureDiscounts();
-            }
-            this.getProposalById();
+           // this.getProposalById();
         if (data.notes != "") {
+           // alert('called');
                 // ngToast.create({ content: "Warning: The following amendments use custom introductory language outside the standard language approved by CELA.  Please resubmit amendment " + data.Notes + " and process through the tool as an individual document. ", timeout: 30000 });
             }
            
