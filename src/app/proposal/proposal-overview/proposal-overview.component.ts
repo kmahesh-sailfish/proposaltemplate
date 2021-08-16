@@ -52,7 +52,10 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   public model: any;
     ///--------------  
    public sampe: any = {};
-   dtOptions: DataTables.Settings = {};
+   dtOptions: DataTables.Settings = {
+    
+       
+   }
    public showbutton: boolean = false;
    public proposalIdentifierReq: any;
    
@@ -87,6 +90,14 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
+        this.dtOptions = {
+            columnDefs : [{
+            targets: [0, 1, 2, 3, 4, 5, 6, 7,8,9], // column or columns numbers
+            orderable: false,  // This was not working 
+            }
+                        
+        ]
+        }
         this.userId = localStorage.getItem('userAlias');
        this.loadForm();
        this.getPricingCountry();
@@ -111,7 +122,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         this.proposalService.createProposal(obj).subscribe((data: any) => {
         this.editProposalObj = data;
         console.log(this.editProposalObj, "editProposalObj");
-       // this.getProposalById();
+        this.getProposalById();
         this.loadForm();
         this.router.navigate(["proposaloverview/", this.editProposalObj["id"]]);
         });
@@ -125,6 +136,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
             isSuperUser: true
         };
       this.proposalService.getProposal(obj).subscribe((data: any) => {
+          
            this.editProposalObj = data;
             console.log(this.editProposalObj, "editProposalObj");
             this.getAmendements(this.editProposalObj);
@@ -515,7 +527,6 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
             "AmendmentDocs": amendments
         }
         this.proposalService.saveMetadata(obj).subscribe(data => {
-            debugger;
            // console.log('dataAmendata', data);
             //this.Amendments.push(data["amendments"]);
             for (var i = 0; i < data.amendments.length; i++) {

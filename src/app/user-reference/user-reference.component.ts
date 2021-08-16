@@ -27,7 +27,7 @@ export class UserReferenceComponent implements OnInit {
     this.user.program = null;
     
     this.domainLoad();
-    this.getUserPreference();
+   
   }
   reSet() {
     this.user.language = null;
@@ -43,6 +43,7 @@ export class UserReferenceComponent implements OnInit {
         this.config = data.countries;
         this.userProgram = data["domainData"].programs;
         this.opCenterVales = data["domainData"].operationsCenters;
+        this.getUserPreference();
       }
     });
   }
@@ -57,11 +58,8 @@ export class UserReferenceComponent implements OnInit {
   getUserPreference(){
     
     this.proposalService.getUserPreferences(this.userId).subscribe(data => {
-      this.user= data['userPreference'];
-      // this.userProgram.find(return (x=>this.user.program)
-      //this.user.program ={code:"20",name:'ram'};
-     //  this.user.program="20";
-     // console.log(data['userPreference']);
+      this.user= data;
+      
     })
   }
 }

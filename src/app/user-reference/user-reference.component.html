@@ -40,9 +40,10 @@
                     #program="ngModel"> -->
                     
                 <div class="form-group">
+                    
                     <select class="form-control" name="program" required [(ngModel)]="user.program" #program="ngModel">
                      <option [value]="null">Select Program</option>
-                    <option *ngFor="let obj of userProgram" [value]="obj">{{obj.name}}</option>
+                    <option *ngFor="let obj of userProgram"  [value]="obj.code">{{obj.name}}</option>
                     </select>
                 </div>
             </div>
@@ -50,7 +51,7 @@
         <div class="row mb-1">
             <label class="col-2 col-form-label"> PricingCountry:<span class="error_color">*</span></label>
             <div class="col-5 p-0">
-                <div class="form-group">
+                <div class="form-group">                    
                     <select class="form-control" required name="pricingCountry" [(ngModel)]="user.pricingCountry" #pricingCountry="ngModel">
                  <option [value]="null">Select Pricing Country</option>
                 <option *ngFor="let obj of config" [value]="obj">{{obj}}</option>

@@ -413,6 +413,17 @@ export class ProposalService {
       );
   }
   getUserPreferences(userId){
+    
+    return this.http
+    .get(
+      environment.API_URL + "App/GetUserPreference/" + userId)
+    .pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  getUserDetails(userId){
     //api/App/GetUserDetails/
     return this.http
       .get(
@@ -423,4 +434,5 @@ export class ProposalService {
         })
       );
   }
+  
 }

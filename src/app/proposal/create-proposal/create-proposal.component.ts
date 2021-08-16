@@ -14,6 +14,7 @@ import { SpecialCharacter } from "src/app/sharedservices/special-character";
 export class CreateProposalComponent implements OnInit {
   public userId: any;
   public proposalForm: FormGroup;
+  public userObj:any={};
   public config: any[];
   public isExist: boolean = false;
   constructor(
@@ -24,9 +25,16 @@ export class CreateProposalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getPricingCountry();
-    this.loadForm();
     this.userId= localStorage.getItem("userAlias");
+    this.getPricingCountry();
+    this.userDetails();
+    this.loadForm();  
+  }
+  userDetails(){ 
+    this.proposalService.getUserDetails(this.userId).subscribe(data=>{
+      this.userObj=data['userPreference'];
+      this.loadForm();     
+    })
   }
   isExistPropsalId() {
     let Id = this.proposalForm.get("proposalId").value;
@@ -48,7 +56,7 @@ export class CreateProposalComponent implements OnInit {
   loadForm() {
     this.proposalForm = new FormGroup({
       proposalId: new FormControl("", [Validators.required,this.customValidators.nameValidator]),
-      pricingCountry: new FormControl(null, [Validators.required]),
+      pricingCountry: new FormControl(this.userObj.pricingCountry, [Validators.required]),
       IsDraft: new FormControl(false, [])
     });
   }
