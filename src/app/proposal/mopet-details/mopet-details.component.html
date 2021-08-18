@@ -7,43 +7,58 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-4">
-            <span>Submit to MOPET</span> <input type="text" class="form-control" />
+    <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Submit to MOPET</label>
+        <div class="col-sm-4">
+          <input type="text"  class="form-control" disabled name="proposalId" [(ngModel)]="mopetDetails.proposalId">
         </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Pricing Country *</label>
+        <div class="col-sm-4">
+            <select class="form-control" name="pricingCountry" [(ngModel)]="mopetDetails.pricingCountry"
+             #pricingCountry="ngModel">
+
+                <option [value]="null">Select Pricing Country</option>
+               <option *ngFor="let obj of config" [value]="obj">{{obj}}</option>
+               </select>
         </div>
-        <div class="row">
-            <div class="col-4">
-                <span>Pricing Country *</span>
-                <input type="text" class="form-control" />
-            </div>
-            </div>
-            <div class="row">
-                <div class="col-4">
-                    <span>Licensing Contact Alias *</span>
-                    <input type="text" class="form-control" />
-                </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        <span>Customer Name *</span>
-                        <input type="text" class="form-control" />
-                    </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <span>Op Center *</span>
-                            <input type="text" class="form-control" />
-                        </div>
-                        </div>
-                          <div class="row">
-                            <div class="col-4">
-                                <span>Program *</span> <input type="text" class="form-control" />
-                            </div>
-                            </div>
-                <div class="row">
-                    <div class="col-4">
-                        <span>Comments</span> <input type="text" class="form-control" />
-                    </div>
-                    </div>
+      </div> 
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Licensing Contact Alias *</label>
+        <div class="col-sm-4">
+          <input type="text"  class="form-control" name="lastModifiedBy"  [(ngModel)]="mopetDetails.lastModifiedBy">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Customer Name *</label>
+        <div class="col-sm-4">
+          <input type="text"  class="form-control" name="customerName" [(ngModel)]="mopetDetails.customerName" >
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Op Center *</label>
+        <div class="col-sm-4">
+            <select class="form-control" name="opCenter" [(ngModel)]="mopetDetails.opCenter" #opCenter="ngModel">
+                <option [value]="null">Select Op-Center</option>
+               <option *ngFor="let obj of opCenterVales" [value]="obj.code">{{obj.name}}</option>
+               </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Program *</label>
+        <div class="col-sm-4">
+            <select class="form-control" name="program"  [(ngModel)]="mopetDetails.program" #program="ngModel">
+                <option [value]="null">Select Program</option>
+               <option *ngFor="let obj of userProgram"  [value]="obj.code">{{obj.name}}</option>
+            </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 col-form-label">Comments</label>
+        <div class="col-sm-4">
+          <input type="text"  class="form-control" name ="comments" [(ngModel)]="mopetDetails.comments">
+        </div>
+      </div>
+               
                 </div>

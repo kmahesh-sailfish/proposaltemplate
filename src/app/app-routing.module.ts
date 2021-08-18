@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: "delegation", component: DelegationComponent },
   { path: "multipledocs", component: MultipleDocsComponent },
   { path: "authorizedelegation", component: AuthorizeDelegationComponent },
-  {path :"mopetdetails",component :MopetDetailsComponent},
+  {path :"mopetdetails/:proposalId",component :MopetDetailsComponent},
   {
     path: "ctmlibrary",
     component: CtmLibraryComponent,
