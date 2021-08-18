@@ -112,13 +112,23 @@ export class ProposalService {
         })
       );
   }
-  searchAmendement(searchTerm) {
+  searchAmendement(searchTerm,obj?) {
+    let params;
+    if(obj){
+      params = new HttpParams().set('language', obj);  
+    }else{
+      params="";
+    }
+   
+    
     return this.http
       .get(
         environment.API_URL +
           "Amendment/" +
           "GetVlDocAmendmentData/" +
-          searchTerm
+          searchTerm, {
+            params: params
+          }
       )
       .pipe(
         map((res: any) => {
@@ -380,7 +390,7 @@ export class ProposalService {
       .post(environment.API_URL + "App/UpdateUserPreference", obj)
       .pipe(
         map((res: any) => {
-          return res;
+          return res['_sourceObject'];
         })
       );
   }

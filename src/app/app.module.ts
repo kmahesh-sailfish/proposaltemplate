@@ -54,6 +54,7 @@ import { PrivateCtmComponent } from './proposal/ctm-library/private-ctm/private-
 import { CtmwindowComponent } from './proposal/ctm-library/ctmwindow/ctmwindow.component';
 import { UserReferenceComponent } from './user-reference/user-reference.component';
 import { PrivateEditActionComponent } from './proposal/ctm-library/private-ctm/private-edit-action/private-edit-action.component';
+import { MopetDetailsComponent } from './proposal/mopet-details/mopet-details.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { PrivateEditActionComponent } from './proposal/ctm-library/private-ctm/p
     PrivateCtmComponent,
     CtmwindowComponent,
     UserReferenceComponent,
-    PrivateEditActionComponent
+    PrivateEditActionComponent,
+    MopetDetailsComponent
 
     //EditHrdComponentRenderer
   ],

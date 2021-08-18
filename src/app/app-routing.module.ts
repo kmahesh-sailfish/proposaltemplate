@@ -16,6 +16,7 @@ import { CtmFooterComponent } from "./proposal/ctm-footer/ctm-footer.component";
 import { PubliCtmComponent } from "./proposal/ctm-library/publi-ctm/publi-ctm.component";
 import { PrivateCtmComponent } from "./proposal/ctm-library/private-ctm/private-ctm.component";
 import { UserReferenceComponent } from './user-reference/user-reference.component';
+import { MopetDetailsComponent } from "./proposal/mopet-details/mopet-details.component";
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: "delegation", component: DelegationComponent },
   { path: "multipledocs", component: MultipleDocsComponent },
   { path: "authorizedelegation", component: AuthorizeDelegationComponent },
+  {path :"mopetdetails",component :MopetDetailsComponent},
   {
     path: "ctmlibrary",
     component: CtmLibraryComponent,

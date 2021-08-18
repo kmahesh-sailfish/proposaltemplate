@@ -52,11 +52,9 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   public model: any;
     ///--------------  
    public sampe: any = {};
-   dtOptions: DataTables.Settings = {
-    
-       
-   }
+   dtOptions: DataTables.Settings = { }
    public showbutton: boolean = false;
+   public userObj:any={};
    public proposalIdentifierReq: any;
    
    public doctype: any;
@@ -90,6 +88,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
+       
         this.dtOptions = {
             columnDefs : [{
             targets: [0, 1, 2, 3, 4, 5, 6, 7,8,9], // column or columns numbers
@@ -104,6 +103,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
        // this.getLrdCountreis();
        this.getById();
        this.getAmendmentsInfoStaticData();
+       this.userDetails();
        //  this.getmetaData(); // load the data table
        if (this.ProposalId != 0 && this.ProposalId != null) {
         this.getProposalById();
@@ -113,6 +113,12 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
          });
         }
     }
+    userDetails(){ 
+        this.proposalService.getUserDetails(this.userId).subscribe(data=>{
+          this.userObj=data['userPreference'];
+            
+        })
+      }
     getById() {
         this.route.paramMap.subscribe((params: ParamMap) => {
             this.ProposalId = +params.get("id");
@@ -492,9 +498,12 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
 
 
     }
+    deleteUserRefe(){
+        delete this.userObj.language;
+    }
     open() {
         this.proposalService
-            .searchAmendement(this.propOverView.get("searchAmendment").value)
+            .searchAmendement(this.propOverView.get("searchAmendment").value,this.userObj.language)
             .subscribe((data: any) => {
                 console.log(data);
                 const modelRef = this.modalService.open(SearchProposalComponent, {
@@ -541,7 +550,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
             }
             this.captureHRDDvalues();
            this.captureAmendmentAzureDiscounts();
-           // this.getProposalById();
+            this.getProposalById();
         if (data.notes != "") {
            // alert('called');
                 // ngToast.create({ content: "Warning: The following amendments use custom introductory language outside the standard language approved by CELA.  Please resubmit amendment " + data.Notes + " and process through the tool as an individual document. ", timeout: 30000 });

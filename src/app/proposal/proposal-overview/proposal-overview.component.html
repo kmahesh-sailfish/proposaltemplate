@@ -121,6 +121,15 @@
                         <div class="row">
                             <div class="col p-0">
                                 <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-2" >
+                                            <button *ngIf="userObj.language" (click)="deleteUserRefe()" type="button" class="close" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                              <span style="padding: 5px;">{{userObj.language}}</span> 
+                                        </div>
+                                        
+                                    </div>
                                     <div class="input-group mb-3">
                                         <input name="searchAmendment" formControlName="searchAmendment" placeholder="Search for Amendment's" class="form-control"
                                             type="text" />
@@ -137,7 +146,7 @@
                                 <!-- {{showbutton}} -->
                                 <div class="btn btn-primary btn-sm w-100">
                                     <span style="cursor: pointer" class="">Add CTM File</span>
-                                    <input style="cursor: pointer" class="sample" type="file" (change)="addCTM()" name="file" />
+                                    <input style="cursor: pointer;width: 100%;" class="sample" type="file" (change)="addCTM()" name="file" />
                                 </div>
                             </div>
                         </div>
@@ -213,13 +222,19 @@
                     <div class="row">
 
                         <div class="col">
-                            <button type="button" (click)="openActiveproposal()" class="btn btn-primary btn-sm w-100">Active Proposal</button>
+                            <button type="button" (click)="openActiveproposal()" class="btn btn-secondary btn-sm" style="width: 75%;    color: #fff;
+                            background-color: #6c757d;
+                            border-color: #6c757d;">Active Proposal</button>
                         </div>
                         <div class="col">
-                            <button type="button" (click)="openDelegationPoup()" class="btn btn-primary btn-sm w-100">Delegate Proposal</button>
+                            <button type="button" (click)="openDelegationPoup()" class="btn btn-secondary btn-sm " style="width: 75%;    color: #fff;
+                            background-color: #6c757d;
+                            border-color: #6c757d;">Delegate Proposal</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-primary btn-sm w-100" (click)="openPoup()"> Share Proposal</button>
+                            <button type="button" class="btn btn-secondary btn-sm " (click)="openPoup()" style="width: 75%;    color: #fff;
+                            background-color: #6c757d;
+                            border-color: #6c757d;"> Share Proposal</button>
                         </div>
                         <div class="col">
                             <button class="btn btn-primary btn-sm w-100" type="button" data-toggle="dropdown" (click)="generate()">
@@ -234,7 +249,7 @@
                             </ul>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-primary btn-sm w-100">
+                            <button type="button" routerLink="/mopetdetails" class="btn btn-primary btn-sm w-100">
                                 <span class="docment">MOPET Details</span> </button>
                         </div>
 
