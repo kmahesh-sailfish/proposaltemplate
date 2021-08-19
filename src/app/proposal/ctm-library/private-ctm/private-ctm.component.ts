@@ -25,8 +25,9 @@ export class PrivateCtmComponent implements OnInit {
     private proposalService: ProposalService
   ) {}
   ngOnInit(): void {
-    this.getLoadprivatectm();
     this.userId = localStorage.getItem('userAlias');
+    this.getLoadprivatectm();
+   
   }
   onGridReady(params: any) {
     this.gridApi = params.api;
