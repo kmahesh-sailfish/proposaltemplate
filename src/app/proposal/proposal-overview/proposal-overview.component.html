@@ -220,39 +220,27 @@
 
                 <div class="col">
                     <div class="row">
-
                         <div class="col">
-                            <button type="button" (click)="openActiveproposal()" class="btn btn-secondary btn-sm" style="width: 75%;    color: #fff;
-                            background-color: #6c757d;
-                            border-color: #6c757d;">Active Proposal</button>
+                            <div class="btn-group" style="width: 100%;" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-secondary btn-sm" (click)="openActiveproposal()">Active Proposal</button>&nbsp;
+                                <button type="button" class="btn btn-secondary btn-sm" (click)="openDelegationPoup()">Delegate Proposal</button>&nbsp;
+                                <button type="button" class="btn btn-secondary btn-sm" (click)="openPoup()">Share Proposal</button>&nbsp;
+                              </div> 
                         </div>
                         <div class="col">
-                            <button type="button" (click)="openDelegationPoup()" class="btn btn-secondary btn-sm " style="width: 75%;    color: #fff;
-                            background-color: #6c757d;
-                            border-color: #6c757d;">Delegate Proposal</button>
+                            <div class="btn-group" style="width: 100%;" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-primary btn-sm w-100" type="button" data-toggle="dropdown" (click)="generate()">Generate Offline Document</button>&nbsp;
+                                <ul [hidden]="!this.showbutton" class="dropdown-menu">
+                                    <li><button type="button" (click)="generatePricing()" class="btn btn-primary btn-sm w-100"> Generate Offline Pricing Document</button>
+                                    </li>
+                                    <div class="dropdown-divider"></div>
+                                    <li><button type="button" (click)="generateNonPricing()" class="btn btn-primary btn-sm w-100"> Generate Offline Non-Pricing Document</button>
+                                    </li>
+                                </ul>
+                                <button type="button" routerLink="/mopetdetails/{{ProposalId}}" class="btn btn-primary btn-sm w-100">&nbsp;
+                                    <span class="docment">MOPET Details</span> </button>
+                              </div> 
                         </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-secondary btn-sm " (click)="openPoup()" style="width: 75%;    color: #fff;
-                            background-color: #6c757d;
-                            border-color: #6c757d;"> Share Proposal</button>
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-primary btn-sm w-100" type="button" data-toggle="dropdown" (click)="generate()">
-                                    <span class="docment" > Generate Offline Document</span>
-                               </button>
-                            <ul [hidden]="!this.showbutton" class="dropdown-menu">
-                                <li><button type="button" (click)="generatePricing()" class="btn btn-primary btn-sm w-100"> Generate Offline Pricing Document</button>
-                                </li>
-                                <div class="dropdown-divider"></div>
-                                <li><button type="button" (click)="generateNonPricing()" class="btn btn-primary btn-sm w-100"> Generate Offline Non-Pricing Document</button>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col">
-                            <button type="button" routerLink="/mopetdetails/{{ProposalId}}" class="btn btn-primary btn-sm w-100">
-                                <span class="docment">MOPET Details</span> </button>
-                        </div>
-
                     </div>
                 </div>
             </div>
