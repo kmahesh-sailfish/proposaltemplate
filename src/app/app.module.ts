@@ -55,7 +55,7 @@ import { CtmwindowComponent } from './proposal/ctm-library/ctmwindow/ctmwindow.c
 import { UserReferenceComponent } from './user-reference/user-reference.component';
 import { PrivateEditActionComponent } from './proposal/ctm-library/private-ctm/private-edit-action/private-edit-action.component';
 import { MopetDetailsComponent } from './proposal/mopet-details/mopet-details.component';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,7 +115,8 @@ import { MopetDetailsComponent } from './proposal/mopet-details/mopet-details.co
     BrowserAnimationsModule,
     TypeaheadModule.forRoot(),
     ToastrModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [AdminService],
   bootstrap: [AppComponent]

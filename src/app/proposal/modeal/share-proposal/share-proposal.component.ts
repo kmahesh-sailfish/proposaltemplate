@@ -22,8 +22,9 @@ export class ShareProposalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadForm();
+    
     this.userId = localStorage.getItem("userAlias");
+    this.loadForm();
   }
   checkField() {
     var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;

@@ -11,29 +11,33 @@ import {
 import { Observable, throwError } from "rxjs";
 import { map } from "rxjs/operators";
 import { ParamMap } from "@angular/router";
-
+import { NgxSpinnerService } from "ngx-spinner";
 @Injectable({
   providedIn: "root"
 })
 export class ProposalService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private spiner:NgxSpinnerService) {}
   // proposal overview .................................
   createProposal(obj) {
+    this.spiner.show();
     return this.http
       .post(environment.API_URL + "Proposal/CreateProposal", obj)
       .pipe(
         map((res: any) => {
+          this.spiner.hide();
           return res["_sourceObject"];
         })
       );
   }
   getProposal(obj) {
+    this.spiner.show();
     return this.http
       .get(environment.API_URL + "Proposal/" + "GetProposalById", {
         params: obj
       })
       .pipe(
         map((res: any) => {
+          this.spiner.hide();
           return res["result"]["_sourceObject"];
         })
       );
@@ -46,13 +50,14 @@ export class ProposalService {
     obj["createdByAlias"] = localStorage.getItem("userAlias");
     obj["isSuperUser"] = "true";
     obj["id"] = Id;
-
+   // this.spiner.show();
     return this.http
       .get(environment.API_URL + "Proposal/" + "GetProposalById", {
         params: obj
       })
       .pipe(
         map((res: any) => {
+        //  this.spiner.hide();
           return res["result"]["_sourceObject"];
         })
       );
@@ -216,10 +221,12 @@ export class ProposalService {
   }
 
   replicateProposal(obj) {
+    this.spiner.show();
     return this.http
       .post(environment.API_URL + "Proposal/" + "CloneProposal", obj)
       .pipe(
         map((res: any) => {
+          this.spiner.hide();
           return res["_sourceObject"];
         })
       );
@@ -263,6 +270,7 @@ export class ProposalService {
     return false;
   }
   getArchivePage(startRow, endRow) {
+    this.spiner.show();
     return this.http
       .get(
         environment.API_URL +
@@ -273,22 +281,26 @@ export class ProposalService {
       )
       .pipe(
         map((res: any) => {
+          this.spiner.hide();
           return res.result;
         })
       );
   }
   getcustomeSearch(obj) {
+    this.spiner.show();
     return this.http
       .get(environment.API_URL + "Proposal/SearchProposalsByPaging", {
         params: obj
       })
       .pipe(
         map((res: any) => {
+         this.spiner.hide();
           return res.result;
         })
       );
   }
   getPagenation(startRow, endRow) {
+    this.spiner.show();
     return this.http
       .get(
         environment.API_URL +
@@ -299,6 +311,7 @@ export class ProposalService {
       )
       .pipe(
         map((res: any) => {
+          this.spiner.hide();
           return res.result;
         })
       );
@@ -333,20 +346,24 @@ export class ProposalService {
     return false;
   }
   getpublicCtmList() {
+    this.spiner.show();
     return this.http.get(environment.API_URL + "Ctm/getPublicCTMFiles").pipe(
       map((res: any) => {
+        this.spiner.hide();
         return res.result;
       })
     );
   }
 
   getprivateCtmList(obj) {
+    this.spiner.show();
     return this.http
       .get(environment.API_URL + "/Ctm/getPrivateCTMFiles", {
         params: obj
       })
       .pipe(
         map((res: any) => {
+          this.spiner.hide();
           return res.result;
         })
       );
