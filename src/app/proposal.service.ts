@@ -412,6 +412,7 @@ export class ProposalService {
       );
   }
   dashboardDetails(obj) {
+    this.spiner.show();
     //URL: api/Proposal/GetRecentProposals?userAlias=v-skarukonda&isSuperUser=true &noOfRecords=20
     return this.http
       .get(environment.API_URL + "Proposal/GetRecentProposals", {
@@ -419,12 +420,14 @@ export class ProposalService {
       })
       .pipe(
         map((res: any) => {
+          this.spiner.hide();
           return res.result;
         })
       );
   }
   //https://amendmentappdevapi.azurewebsites.net/api/Proposal/SearchRecentProposals/test?userAlias=v-skarukonda&isSuperUser=false &noOfRecords=20
   dashboardSearch(searchObj, obj) {
+    this.spiner.show();
     //URL: api/Proposal/GetRecentProposals?userAlias=v-skarukonda&isSuperUser=true &noOfRecords=20
     return this.http
       .get(
@@ -435,6 +438,7 @@ export class ProposalService {
       )
       .pipe(
         map((res: any) => {
+          this.spiner.hide();
           return res.result;
         })
       );

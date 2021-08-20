@@ -14,8 +14,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.setItem("userAlias", "V2Alias");
-    this.dashboardDetails();
     this.userId = localStorage.getItem('userAlias');
+    this.dashboardDetails();
+    
   }
   searchResult(event) {
     if (event.length > 0) {
