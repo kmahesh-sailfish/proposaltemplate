@@ -4,7 +4,6 @@ import { FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
 import { ProposalService } from "../../proposal.service";
 import { SharedService } from "../../sharedservices/shared.service";
 import { SpecialCharacter } from "src/app/sharedservices/special-character";
-import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-create-proposal",
@@ -23,7 +22,6 @@ export class CreateProposalComponent implements OnInit {
     private customValidators: SpecialCharacter,
     private proposalService: ProposalService,
     private shareService: SharedService,
-    private spinner:NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
