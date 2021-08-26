@@ -20,11 +20,13 @@ export class CtmLibraryComponent implements OnInit {
   ngOnInit() {
     // this.addCTM();
   }
-  addCTM() {
+  addCTM(event) {
+    var  file = event.target.files[0];
+    console.log(file);
     const modalRef = this.modalService.open(CtmwindowComponent, {
       size: "lg"
     });
-    // modalRef.componentInstance.rowObj = rowData;
+    modalRef.componentInstance.fileObj = file;
     //   this.router.navigate(["/ctmlibrary"]);
   }
 }

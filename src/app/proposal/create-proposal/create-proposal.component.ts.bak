@@ -4,7 +4,6 @@ import { FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
 import { ProposalService } from "../../proposal.service";
 import { SharedService } from "../../sharedservices/shared.service";
 import { SpecialCharacter } from "src/app/sharedservices/special-character";
-import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-create-proposal",
@@ -23,7 +22,6 @@ export class CreateProposalComponent implements OnInit {
     private customValidators: SpecialCharacter,
     private proposalService: ProposalService,
     private shareService: SharedService,
-    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -77,9 +75,7 @@ export class CreateProposalComponent implements OnInit {
     this.proposalService.createProposal(obj).subscribe((data: any) => {
       var sourceId = data["_sourceObject"].id;
       console.log(sourceId, "sourceId");
-      this.toastr.success(data, "Success");
       this.router.navigate(["proposaloverview/", sourceId]);
-      this.toastr.success(data, "Success");
     });
   }
 }

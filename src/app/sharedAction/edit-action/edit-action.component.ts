@@ -6,6 +6,7 @@ import { ICellRendererParams } from "ag-grid-community";
 import { Router } from "@angular/router";
 import { NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { ConformationComponent } from "../conformation/conformation.component";
+import { ShareProposalComponent } from "src/app/proposal/modeal/share-proposal/share-proposal.component";
 @Component({
   selector: "app-edit-action",
   templateUrl: "./edit-action.component.html",
@@ -42,7 +43,8 @@ export class EditActionComponent implements OnInit {
     rowData["labelMessage"] = "Delete";
     console.log(this.params.data, "deleted");
     const modalRef = this.modalService.open(ConformationComponent, {
-      size: "sm"
+      size: "sm",
+      centered: true,
     });
     modalRef.componentInstance.labelMessage = "Delete";
     modalRef.componentInstance.rowObj = rowData;
@@ -53,22 +55,29 @@ export class EditActionComponent implements OnInit {
     rowData["labelMessage"] = "Archive";
     console.log(this.params.data, "archive");
     const modalRef = this.modalService.open(ConformationComponent, {
-      size: "sm"
+      size: "sm",
+      centered: true,
     });
     modalRef.componentInstance.rowObj = rowData;
   }
   shareClicked(event) {
     event.stopPropagation();
     console.log(this.params.data, "share");
-    let Obj = {
-      Id: this.params.data.proposalId,
-      alias: this.userId,
-      useraliases: ["v-sanjaysa@microsoft.com"]
-    };
-
-    this.adminService.saveShareProposal(Obj).subscribe(data => {
-      console.log("data", data);
+    const modalRef = this.modalService.open(ShareProposalComponent, {
+      size: "sm",
+      centered: true,
     });
+    
+    modalRef.componentInstance.shareProposalId = this.params.data.id;
+    // let Obj = {
+    //   Id: this.params.data.proposalId,
+    //   alias: this.userId,
+    //   useraliases: ["v-sanjaysa@microsoft.com"]
+    // };
+
+    // this.adminService.saveShareProposal(Obj).subscribe(data => {
+    //   console.log("data", data);
+    // });
   }
   agInit(params: ICellRendererParams): void {
     this.cellValue = params.value;

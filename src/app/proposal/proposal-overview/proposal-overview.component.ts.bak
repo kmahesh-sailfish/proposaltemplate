@@ -12,7 +12,6 @@ import {NgForm} from '@angular/forms';
 import {ShareProposalComponent} from '../modeal/share-proposal/share-proposal.component';
 import {DelProposalComponent} from "../modeal/del-proposal/del-proposal.component";
 import { PriceProposalComponent } from '../modeal/price-proposal/price-proposal.component';
-import { ToastrService } from "ngx-toastr";
 
 @Component({
     selector: "app-proposal-overview",
@@ -36,7 +35,6 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     public ShowCommitToConsumeAmount = false;
     public DiscountTitle = "Monetary Commit";
     public SelectedDiscountedAmendment:any;
-    public getLanguages: any = [];
              
     //------------------------------
     // new work flow 
@@ -86,8 +84,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         private router: Router,
         private proposalService: ProposalService,
         private sharedSerivice: SharedService,
-        private modalService: NgbModal,
-        private toastr: ToastrService
+        private modalService: NgbModal
     ) {}
 
     ngOnInit(): void {
@@ -115,7 +112,6 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
            this.createProposal(data);
          });
         }
-        this.domainLoad();
     }
     userDetails(){ 
         this.proposalService.getUserDetails(this.userId).subscribe(data=>{
@@ -132,7 +128,6 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         this.proposalService.createProposal(obj).subscribe((data: any) => {
         this.editProposalObj = data;
         console.log(this.editProposalObj, "editProposalObj");
-        this.toastr.success(this.editProposalObj, "Success");
         this.getProposalById();
         this.loadForm();
         this.router.navigate(["proposaloverview/", this.editProposalObj["id"]]);
@@ -362,7 +357,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
             .subscribe((data: any) => (this.pricingCountries = data));
     }
     addCTM() {
-        this.router.navigate(["/ctmfooter"]);
+        this.router.navigate(["/ctmlibrary"]);
     }
     initDiscountAmendmentPopUp(){
        // debugger;
@@ -444,7 +439,6 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
 
         this.proposalService.updateProposal(obj).subscribe((data: any) => {
             this.model = new Proposal(data);
-            this.toastr.success("Proposal " + block + " Updated Successfully", "Success");
             // this.editProposalObj = data["result"]["_sourceObject"];
             // console.log(this.editProposalObj, "editProposalObj");
             // this.loadForm();
@@ -799,20 +793,6 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
       }
       return new Blob([ia], { type: "octet/stream" });
     }
-
-    domainLoad() {
-        this.proposalService.domainConetent().subscribe(data => {
-          if (Object.keys(data).length > 0) {
-            this.getLanguages = data.languages;
-            //this.config = data.countries;
-            // this.userProgram = data["domainData"].programs;
-            // this.opCenterVales = data["domainData"].operationsCenters;
-            // this.getUserPreference();
-          }
-        });
-        this.userDetails();
-
-      }
 }
 
 function Proposal(data) {

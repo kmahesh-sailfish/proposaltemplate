@@ -47,8 +47,8 @@ export class ArchiveActionsComponent implements OnInit {
   archieveClicked(event) {
     event.stopPropagation();
     var rowData = this.params.data;
-    rowData["labelMessage"] = "Archive";
-    console.log(this.params.data, "archive");
+    rowData["labelMessage"] = "Un-Archive";
+    console.log(this.params.data, "Un-archive");
     const modalRef = this.modalService.open(ConformationComponent, {
       size: "sm"
     });

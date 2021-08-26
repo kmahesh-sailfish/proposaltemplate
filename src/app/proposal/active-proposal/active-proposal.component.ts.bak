@@ -9,27 +9,35 @@ import {
   IGetRowsParams
 } from "ag-grid-community";
 import { Observable } from "rxjs/Observable";
-
+import { EditActionComponent } from "../../sharedAction/edit-action/edit-action.component";
 import * as moment from "moment";
 import { Router } from "@angular/router";
+
 import "rxjs/add/observable/of";
 import { map } from "rxjs/operators";
-import { ArchiveActionsComponent } from "../../sharedAction/archive-actions/archive-actions.component";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FilterCellComponent } from "../../sharedAction/filter/filter-cell/filter-cell.component";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { SpecialCharacter } from "../../sharedservices/special-character";
+
 @Component({
-  selector: "app-archive-proposal",
-  templateUrl: "./archive-proposal.component.html",
-  styleUrls: ["./archive-proposal.component.css"],
+  selector: "app-active-proposal",
+  templateUrl: "./active-proposal.component.html",
+  styleUrls: ["./active-proposal.component.css"],
   providers: [SpecialCharacter]
 })
-export class ArchiveProposalComponent implements OnInit {
+export class ActiveProposalComponent implements OnInit {
+  // public components;
   public startRow: number;
   public endRow: number;
   public searchObj: any = {};
   public searchForm: FormGroup;
+  public dtOptions: DataTables.Settings = {};
+  public dtTrigger: Subject<any> = new Subject<any>();
   public ActiveProposal: any[] = [];
   public gridOptions: any;
+  public rowData: any = [];
+  public title = "agGridExamples";
+  public gridApi: GridApi;
   public searchItem = [
     { name: "Search by Proposal Id", id: "ProposalId" },
     { name: "Search by Alias", id: "CreatedByAlias" },
@@ -39,9 +47,6 @@ export class ArchiveProposalComponent implements OnInit {
 
     { name: "Search by Created Date", id: "CreatedDate" }
   ];
-  rowData: any = [];
-  title = "agGridExamples";
-  gridApi: GridApi;
   constructor(
     private proposalService: ProposalService,
     private router: Router,
@@ -49,30 +54,8 @@ export class ArchiveProposalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.loadActiveProposal();
     this.loadGrid();
     this.loadSearchForm();
-  }
-
-  setHRDEditDiv(obj) {
-    console.log(obj, "obj");
-  }
-
-  private getRowData(startRow: number, endRow: number): Observable<any[]> {
-    return this.proposalService.getArchivePage(startRow, endRow);
-  }
-  datasource: IDatasource = {
-    getRows: (params: IGetRowsParams) => {
-      this.getRowData(params.startRow, params.endRow).subscribe(data =>
-        params.successCallback(data)
-      );
-    }
-  };
-
-  onGridReady(params: any) {
-    this.gridApi = params.api;
-    this.gridApi.sizeColumnsToFit();
-    this.gridApi.setDatasource(this.datasource);
   }
   clearVAl() {
     this.searchForm.reset();
@@ -107,8 +90,7 @@ export class ArchiveProposalComponent implements OnInit {
       this.searchForm.get("searchTextDate").value != null
     ) {
       let temp = this.searchForm.get("searchTextDate").value;
-      temp = moment(temp).format("YYYY-MM-DD");
-      // temp = moment(temp).format("MM/DD/YYYY");
+      temp = moment(temp).format("MM/DD/YYYY");
       _Obj["searchText"] = temp;
       _Obj["searchField"] = this.searchForm.get("searchField").value;
     } else {
@@ -132,16 +114,30 @@ export class ArchiveProposalComponent implements OnInit {
       ...this.searchObj,
       PageSize: this.endRow,
       PageNum: this.startRow,
-      isArchive:true
+      isArchive: false
     };
-    // var obj = {
-    //   PageNum: startRow,
-    //   PageSize: endRow,
-    //   searchField: "CustomerName",
-    //   searchText: "Te"
-    // };
+
     return this.proposalService.getcustomeSearch(obj);
   }
+  private getRowData(startRow: number, endRow: number): Observable<any[]> {
+    this.startRow = startRow;
+    this.endRow = endRow;
+    return this.proposalService.getPagenation(startRow, endRow);
+  }
+  datasource: IDatasource = {
+    getRows: (params: IGetRowsParams) => {
+      this.getRowData(params.startRow, params.endRow).subscribe(data =>
+        params.successCallback(data)
+      );
+    }
+  };
+
+  onGridReady(params: any) {
+    this.gridApi = params.api;
+    this.gridApi.sizeColumnsToFit();
+    this.gridApi.setDatasource(this.datasource);
+  }
+
   loadGrid() {
     this.gridOptions = {
       cacheBlockSize: 100,
@@ -155,116 +151,85 @@ export class ArchiveProposalComponent implements OnInit {
   }
   columnDefs = [
     {
-      headerName: "Select",
-      width: 150,
-      //field: "id",
+      headerName: "ID",
+      field: "id",
       resizable: true,
-      headerTooltip:"Select",
-      editable:true,
-      checkboxSelection: true,
-      tooltipField:"id"
-    },
-    {
-      headerName: "Proposal Id",
-      width: 300,
       filter: true,
-      field: "proposalId",
-      tooltipField:"proposalId",
-      headerTooltip:"Proposal Id",
-      resizable: true
+      width: 100,
+      cellRenderer: "loadingRenderer"
     },
     {
-      headerName: "Status",
-      field: "status",
-      //width: 100,
-      filter: true,
-      tooltipField:"status",
-      headerTooltip:"Status",
-      resizable: true
-      // cellRenderer: data => {
-      //   return data.status == 0 ? "false" : "true";
-      // }
-    },
-    
-    {
-      headerName: "Created By",
-      //width: 100,
-      filter: true,
-      field: "createdByAlias",
-      tooltipField:"createdByAlias",
-      headerTooltip:"Created By",
-      resizable: true
-    },
-    {
-      headerName: "Created Date",
+      headerName: "Create",
       field: "createdDate",
       resizable: true,
       filter: true,
-      //width: 100,
-      tooltipField:"createdDate",
-      headerTooltip:"Created Date",
+      width: 100,
       cellRenderer: data => {
         return moment(data.value).format("MM/DD/YYYY");
       }
     },
     {
-      headerName: "Modified By",
-      //width: 100,
+      headerName: "proposalId",
+      width: 100,
+
+      field: "proposalId",
+      resizable: true,
+      filter: "partialMatchFilter",
+      menuTabs: ["filterMenuTab"]
+    },
+    {
+      headerName: "CreateBy",
+      width: 100,
+      filter: true,
+      field: "createdByAlias",
+      resizable: true
+    },
+    {
+      headerName: "ModifyBy",
+      width: 100,
       filter: true,
       field: "lastModifiedBy",
-      tooltipField:"lastModifiedBy",
-      headerTooltip:"Modified By",
       resizable: true
     },
     {
       headerName: "Customer Name",
-      //width: 100,
+      width: 100,
       filter: true,
       field: "customerName",
-      tooltipField:"customerName",
-      headerTooltip:"Customer Name",
       resizable: true
     },
     {
       headerName: "Deal NickName",
-      //width: 100,
+      width: 100,
       filter: true,
       field: "dealNickname",
-      tooltipField:"dealNickname",
-      headerTooltip:"Deal NickName",
       resizable: true
     },
     {
-      headerName: "Mopet Submitted",
-      field: "mopetSubmittedDate",
-      resizable: true,
+      headerName: "Status",
+      field: "status",
+      width: 100,
       filter: true,
-      //width: 100,
-      headerTooltip:"Mopet Submitted",
-      tooltipField:"mopetSubmittedDate",
-      cellRenderer: (data: { value: moment.MomentInput; }) => {
-        return data.value != null ? moment(data.value).format("MM/DD/YYYY") : "";
+      resizable: true,
+      cellRenderer: data => {
+        return data.status == 0 ? "false" : "true";
       }
     },
     {
       headerName: "Shared",
       filter: true,
-      //width: 100,
+      width: 100,
       field: "isShared",
-      tooltipField:"isShared",
-      headerTooltip:"Shared",
       resizable: true
     },
     {
-      headerName: "Delegated",
+      headerName: "Delegation",
       field: "delegationStatus",
       resizable: true,
       filter: true,
-      tooltipField:"delegationStatus",
-      headerTooltip:"Delegated",
-      //width: 100,
-      cellRenderer: (data: { value: moment.MomentInput; }) =>{
-        return data.value == 0 ? "false" : "true";
+      width: 100,
+      cellRenderer: data => {
+        return data.delegationStatus == 0 ? "false" : "true";
       }
     },
     {
@@ -272,15 +237,22 @@ export class ArchiveProposalComponent implements OnInit {
       field: "id",
       cellRenderer: "editAction",
       resizable: true,
-      //filter: true,
-      // tooltipField:"id",
-      // headerTooltip:"Action",
-      width: 250
+      filter: true,
+      width: 150
     }
-    
   ];
   frameworkComponents = {
-    editAction: ArchiveActionsComponent
+    editAction: EditActionComponent,
+    partialMatchFilter: FilterCellComponent
+  };
+  components = {
+    loadingRenderer: function(params) {
+      if (params.value !== undefined) {
+        return params.value;
+      } else {
+        return "<img src=\"https://www.ag-grid.com/example-assets/loading.gif\">";
+      }
+    }
   };
   onRowClicked(event) {
     console.log(event["data"]);

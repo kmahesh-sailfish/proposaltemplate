@@ -53,7 +53,7 @@
         <!-- side cards  -->
         <div class="col-5">
             <div class="col mt-3">
-                <div class="card" title="Create Proposal" routerLink="/createproposal" routerLinkActive="active">
+                <div class="card " title="Create Proposal"style="cursor: pointer;" routerLink="/createproposal" routerLinkActive="active">
                     <div class="card-header">
                         <span> <img title="Create"  
                   src="../../../assets/images/black-24dp create proposal/1x/outline_create_black_24dp.png" alt=""> 
@@ -67,9 +67,9 @@
             </div>
 
             <div class="col mt-3">
-                <div class="card" title="Replicate Proposal" routerLink="/replicaporposal" routerLinkActive="active">
+                <div class="card " title="Replicate Proposal" style="cursor: pointer;" routerLink="/replicaporposal" routerLinkActive="active">
                     <div class="card-header"> <span> <img title="Replicate"
-                  src="../../../assets/images/black-24dp replicate/1x/outline_content_copy_black_24dp.png" alt=""> <b style="cursor: pointer;"> Replicate
+                  src="../../../assets/images/black-24dp replicate/1x/outline_content_copy_black_24dp.png" alt=""> <b> Replicate
                   Proposal</b> </span> </div>
                     <div class="card-body" style="background:#91C1E6">
                         <p class="card-text"> Get started by Replicating an existing proposal </p>
@@ -78,9 +78,9 @@
             </div>
 
             <div class="col mt-3">
-                <div class="card" title="Active Proposal" routerLink="/activeproposal" routerLinkActive="active">
+                <div class="card  " title="Active Proposal" style="cursor: pointer;" routerLink="/activeproposal" routerLinkActive="active">
                     <div class="card-header"> <span> <img title="Active"
-                  src="../../../assets/images/black-24dp activeproposal/1x/outline_assignment_turned_in_black_24dp.png" alt=""> <b style="cursor: pointer;"> Active
+                  src="../../../assets/images/black-24dp activeproposal/1x/outline_assignment_turned_in_black_24dp.png" alt=""> <b> Active
                   Proposal</b> </span> </div>
                     <div class="card-body" style="background:#6AAB6A">
                         <p class="card-text">Navigated to all Active Proposal's </p>
@@ -89,17 +89,16 @@
             </div>
 
             <div class="col mt-3">
-                <div class="card " title="Download Service">
-                    
-                        <div class="card-header"> 
-                            <span> 
-                                <a href="../../../assets/WordServiceSetupV2.msi">
-                            <img  title="Download"
+                <div class="card " title="Download Service" style="cursor: pointer;">
+                    <a href="../../../assets/WordServiceSetupV2.msi">
+                        <div class="card-header"> <span> <img  title="Download"
                             src="../../../assets/images/black-24dpdownlaod proposal/1x/outline_download_black_24dp.png" alt=""> <b> Download Amendment
-                            Edit Service</b> </a></span> </div>
+                            Edit Service</b> </span> </div>
                         <div class="card-body" style="background:#FF9349">
                             <p class="card-text">Download to edit the document offline </p>
                         </div>
+                    </a>
+
                 </div>
             </div>
         </div>

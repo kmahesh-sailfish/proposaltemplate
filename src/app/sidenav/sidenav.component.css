@@ -280,6 +280,20 @@ a.article:hover {
   display: flex;
   align-items: center;
 }
+.side-labels-delegaion {
+  position: absolute !important;
+  margin-left: 60% !important;
+  font-size: 18px;
+  font-weight: 500;
+}
+.btn-delegation-Hand {
+  background-color: #8661C5;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+}
 
 .btn-Tools {
   background-color: #ff9349;

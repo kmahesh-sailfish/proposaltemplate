@@ -107,8 +107,7 @@ export class ArchiveProposalComponent implements OnInit {
       this.searchForm.get("searchTextDate").value != null
     ) {
       let temp = this.searchForm.get("searchTextDate").value;
-      temp = moment(temp).format("YYYY-MM-DD");
-      // temp = moment(temp).format("MM/DD/YYYY");
+      temp = moment(temp).format("MM/DD/YYYY");
       _Obj["searchText"] = temp;
       _Obj["searchField"] = this.searchForm.get("searchField").value;
     } else {
@@ -155,116 +154,75 @@ export class ArchiveProposalComponent implements OnInit {
   }
   columnDefs = [
     {
-      headerName: "Select",
-      width: 150,
-      //field: "id",
-      resizable: true,
-      headerTooltip:"Select",
-      editable:true,
-      checkboxSelection: true,
-      tooltipField:"id"
-    },
-    {
-      headerName: "Proposal Id",
-      width: 300,
-      filter: true,
-      field: "proposalId",
-      tooltipField:"proposalId",
-      headerTooltip:"Proposal Id",
-      resizable: true
-    },
-    {
-      headerName: "Status",
-      field: "status",
-      //width: 100,
-      filter: true,
-      tooltipField:"status",
-      headerTooltip:"Status",
-      resizable: true
-      // cellRenderer: data => {
-      //   return data.status == 0 ? "false" : "true";
-      // }
-    },
-    
-    {
-      headerName: "Created By",
-      //width: 100,
-      filter: true,
-      field: "createdByAlias",
-      tooltipField:"createdByAlias",
-      headerTooltip:"Created By",
-      resizable: true
-    },
-    {
-      headerName: "Created Date",
+      headerName: "Create",
       field: "createdDate",
       resizable: true,
       filter: true,
-      //width: 100,
-      tooltipField:"createdDate",
-      headerTooltip:"Created Date",
+      width: 100,
       cellRenderer: data => {
         return moment(data.value).format("MM/DD/YYYY");
       }
     },
     {
-      headerName: "Modified By",
-      //width: 100,
+      headerName: "proposalId",
+      width: 100,
+      filter: true,
+      field: "proposalId",
+      resizable: true
+    },
+    {
+      headerName: "CreateBy",
+      width: 100,
+      filter: true,
+      field: "createdByAlias",
+      resizable: true
+    },
+    {
+      headerName: "ModifyBy",
+      width: 100,
       filter: true,
       field: "lastModifiedBy",
-      tooltipField:"lastModifiedBy",
-      headerTooltip:"Modified By",
       resizable: true
     },
     {
       headerName: "Customer Name",
-      //width: 100,
+      width: 100,
       filter: true,
       field: "customerName",
-      tooltipField:"customerName",
-      headerTooltip:"Customer Name",
       resizable: true
     },
     {
       headerName: "Deal NickName",
-      //width: 100,
+      width: 100,
       filter: true,
       field: "dealNickname",
-      tooltipField:"dealNickname",
-      headerTooltip:"Deal NickName",
       resizable: true
     },
     {
-      headerName: "Mopet Submitted",
-      field: "mopetSubmittedDate",
-      resizable: true,
+      headerName: "Status",
+      field: "status",
+      width: 100,
       filter: true,
-      //width: 100,
-      headerTooltip:"Mopet Submitted",
-      tooltipField:"mopetSubmittedDate",
-      cellRenderer: (data: { value: moment.MomentInput; }) => {
-        return data.value != null ? moment(data.value).format("MM/DD/YYYY") : "";
+      resizable: true,
+      cellRenderer: data => {
+        return data.status == 0 ? "false" : "true";
       }
     },
     {
       headerName: "Shared",
       filter: true,
-      //width: 100,
+      width: 100,
       field: "isShared",
-      tooltipField:"isShared",
-      headerTooltip:"Shared",
       resizable: true
     },
     {
-      headerName: "Delegated",
+      headerName: "Delegation",
       field: "delegationStatus",
       resizable: true,
       filter: true,
-      tooltipField:"delegationStatus",
-      headerTooltip:"Delegated",
-      //width: 100,
-      cellRenderer: (data: { value: moment.MomentInput; }) =>{
-        return data.value == 0 ? "false" : "true";
+      width: 100,
+      cellRenderer: data => {
+        return data.delegationStatus == 0 ? "false" : "true";
       }
     },
     {
@@ -272,12 +230,9 @@ export class ArchiveProposalComponent implements OnInit {
       field: "id",
       cellRenderer: "editAction",
       resizable: true,
-      //filter: true,
-      // tooltipField:"id",
-      // headerTooltip:"Action",
-      width: 250
+      filter: true,
+      width: 150
     }
-    
   ];
   frameworkComponents = {
     editAction: ArchiveActionsComponent

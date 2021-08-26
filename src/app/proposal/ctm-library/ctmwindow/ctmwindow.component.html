@@ -9,7 +9,7 @@
             <div class="row mb-3">
                 <label class="col-2 col-form-label"> File Name:</label>
                 <div class="col-8">
-                    <input type="text" class="form-control" placeholder="File name" aria-label="File Name">
+                    <input type="text" class="form-control" name="fileName" [(ngModel)]="fileName" placeholder="File name" aria-label="File Name">
                 </div>
             </div>
             <div class="row mb-3">
@@ -51,7 +51,38 @@
                     <input type="textarea" class="form-control" [(ngModel)]="description" placeholder="Description" aria-label="First name">
                 </div>
             </div>
+            <div class="row mb-3">
+                <div class="form-group">                    
+                    <input type="checkbox" [(ngModel)]="isPublic" name="isPublic" /> &nbsp;
+                    <span>Would you like to share this CTM in the Public CTM Library?</span>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>
-<div class="col-sm-6 category others"></div>
+
+<div class="col-sm-6 category others" *ngIf="OthersChecked">
+    <form name="others" (ngSubmit)="SaveOthers()">
+        <div class="row">
+            <textarea class="col-sm-12" rows="4" 
+            name="othersDescription"  [(ngModel)]="othersDescription" placeholder="Please provide a description as to why you selected this category"></textarea>
+        </div>
+        <!-- <div ng-messages="others.othersDescription.$error" class="error col-sm-11 " ng-show="submitClicked || others.othersDescription.$dirty">
+            <div ng-messages-include="error-messages" role="alert"></div>
+        </div> -->
+        <div class="row">
+            <p>Does this amendment have revenue impact?</p>
+            <div class="col-sm-12">
+                <input type="radio" name="revenueImpacts"  [(ngModel)]="revenueImpact" [value]="true" /> Yes
+            </div>
+            <div class="col-sm-12">
+                <input type="radio"  name="revenueImpacts" [(ngModel)]="revenueImpact" [value]="false"/> No
+            </div>
+        </div>
+        <div class="row text-center form-group">
+            <input type="submit" class="btn app-save-btn" value="Save" (click)="submitClicked=true" />
+            <input type="button" class="btn app-cancel-btn" value="Cancel" (click)="OthersChecked=false;Cancel()" />
+        </div>
+    </form>
+</div>

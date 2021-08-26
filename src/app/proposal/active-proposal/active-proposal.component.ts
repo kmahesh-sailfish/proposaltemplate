@@ -75,7 +75,7 @@ export class ActiveProposalComponent implements OnInit {
       ])
     });
   }
-  onSubmit(dateType) {
+  onSubmit(dateType: any) {
     var _Obj = {};
     if (this.searchForm.get("searchField").value == "CreatedByAlias") {
       let temp = this.searchForm.get("searchText").value;
@@ -90,7 +90,8 @@ export class ActiveProposalComponent implements OnInit {
       this.searchForm.get("searchTextDate").value != null
     ) {
       let temp = this.searchForm.get("searchTextDate").value;
-      temp = moment(temp).format("MM/DD/YYYY");
+      temp = moment(temp).format("YYYY-MM-DD");
+      // temp = moment(temp).format("MM/DD/YYYY");
       _Obj["searchText"] = temp;
       _Obj["searchField"] = this.searchForm.get("searchField").value;
     } else {
@@ -150,86 +151,120 @@ export class ActiveProposalComponent implements OnInit {
     };
   }
   columnDefs = [
+    // {
+    //   headerName: "ID",
+    //   field: "id",
+    //   resizable: true,
+    //   filter: true,
+    //   width: 100,
+    //   cellRenderer: "loadingRenderer"
+    // },
     {
-      headerName: "ID",
-      field: "id",
+      headerName: "Select",
+      width: 150,
+      //field: "id",
       resizable: true,
-      filter: true,
-      width: 100,
-      cellRenderer: "loadingRenderer"
+      headerTooltip:"Select",
+      editable:true,
+      checkboxSelection: true,
+      tooltipField:"id"
     },
     {
-      headerName: "Create",
-      field: "createdDate",
-      resizable: true,
-      filter: true,
-      width: 100,
-      cellRenderer: data => {
-        return moment(data.value).format("MM/DD/YYYY");
-      }
-    },
-    {
-      headerName: "proposalId",
-      width: 100,
-
+      headerName: "Proposal ID",
+      width: 300,
       field: "proposalId",
       resizable: true,
       filter: "partialMatchFilter",
-      menuTabs: ["filterMenuTab"]
-    },
-    {
-      headerName: "CreateBy",
-      width: 100,
-      filter: true,
-      field: "createdByAlias",
-      resizable: true
-    },
-    {
-      headerName: "ModifyBy",
-      width: 100,
-      filter: true,
-      field: "lastModifiedBy",
-      resizable: true
-    },
-    {
-      headerName: "Customer Name",
-      width: 100,
-      filter: true,
-      field: "customerName",
-      resizable: true
-    },
-    {
-      headerName: "Deal NickName",
-      width: 100,
-      filter: true,
-      field: "dealNickname",
-      resizable: true
+      menuTabs: ["filterMenuTab"],
+      headerTooltip:"Proposal Id",
+      tooltipField:"proposalId"
     },
     {
       headerName: "Status",
       field: "status",
-      width: 100,
+      //width: 120,
       filter: true,
       resizable: true,
-      cellRenderer: data => {
-        return data.status == 0 ? "false" : "true";
+      headerTooltip:"Status"
+    },
+    {
+      headerName: "Created By",
+      //width: 140,
+      filter: true,
+      field: "createdByAlias",
+      resizable: true,
+      headerTooltip:"Created By",
+      tooltipField:"createdByAlias"
+    },
+    {
+      headerName: "Created Date",
+      field: "createdDate",
+      resizable: true,
+      filter: true,
+      //width: 100,
+      headerTooltip:"Created Date",
+      tooltipField:"createdDate",
+      cellRenderer: (data: { value: moment.MomentInput; }) => {
+        return moment(data.value).format("MM/DD/YYYY");
+      }
+    },
+    {
+      headerName: "Modified By",
+      //width: 100,
+      filter: true,
+      field: "lastModifiedBy",
+      resizable: true,
+      headerTooltip:"Modified By",
+      tooltipField:"lastModifiedBy"
+    },
+    {
+      headerName: "Customer Name",
+      //width: 100,
+      filter: true,
+      field: "customerName",
+      resizable: true,
+      headerTooltip:"Customer Name",
+      tooltipField:"customerName"
+    },
+    {
+      headerName: "Deal NickName",
+      //width: 100,
+      filter: true,
+      field: "dealNickname",
+      resizable: true,
+      headerTooltip:"Deal NickName",
+      tooltipField:"dealNickname"
+    },
+    
+    {
+      headerName: "Mopet Submitted",
+      field: "mopetSubmittedDate",
+      resizable: true,
+      filter: true,
+      //width: 100,
+      headerTooltip:"Mopet Submitted",
+      tooltipField:"createdDate",
+      cellRenderer: (data: { value: moment.MomentInput; }) => {
+        return data.value != null ? moment(data.value).format("MM/DD/YYYY") : "";
       }
     },
     {
       headerName: "Shared",
       filter: true,
-      width: 100,
+      //width: 100,
       field: "isShared",
-      resizable: true
+      resizable: true,
+      headerTooltip:"Shared"
     },
     {
-      headerName: "Delegation",
+      headerName: "Delegated",
       field: "delegationStatus",
       resizable: true,
       filter: true,
-      width: 100,
-      cellRenderer: data => {
-        return data.delegationStatus == 0 ? "false" : "true";
+      // width: 100,
+      headerTooltip:"Delegated",
+      cellRenderer: (data: { value: moment.MomentInput; }) =>{
+        return data.value == 0 ? "false" : "true";
       }
     },
     {
@@ -237,16 +272,18 @@ export class ActiveProposalComponent implements OnInit {
       field: "id",
       cellRenderer: "editAction",
       resizable: true,
-      filter: true,
-      width: 150
-    }
+      //filter: true,
+      width: 300
+    },
   ];
+
   frameworkComponents = {
     editAction: EditActionComponent,
     partialMatchFilter: FilterCellComponent
   };
+
   components = {
-    loadingRenderer: function(params) {
+    loadingRenderer: function(params: { value: any; }) {
       if (params.value !== undefined) {
         return params.value;
       } else {
@@ -254,7 +291,8 @@ export class ActiveProposalComponent implements OnInit {
       }
     }
   };
-  onRowClicked(event) {
+
+  onRowClicked(event: { [x: string]: { [x: string]: any; }; }) {
     console.log(event["data"]);
     this.router.navigate(["proposaloverview/", event["data"]["id"]]);
   }

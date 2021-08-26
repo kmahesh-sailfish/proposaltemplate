@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="row" *ngIf="proposalForm.get('IsDraft').value==false">
-                            <div class="col-5 color8661C5 form-control m-b-5" style="margin-top: 4px;">
+                            <div class="col-5 color8661C5 form-control" style="margin-top: 4px;">
                                 <span>Proposal Id</span>&nbsp;<span class="error_color">*</span>
                             </div>
                             <!-- <h3> {{isExist}}</h3> -->
@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="row">
-                            <div class="col-5 color8661C5 form-control " style="margin-top: 4px;">
+                            <div class="col-5 color8661C5 form-control" style="margin-top: 4px;">
                                 <span>Pricing Country</span> &nbsp;<span class="error_color">*</span>
         
                             </div>
@@ -89,7 +89,7 @@
                             <div class="col">
                             </div>
                             <div class="col p-0">
-                                <button type="submit" [disabled]="proposalForm.invalid || isExist" class="btn btn-outline-primary w-100">Create</button>
+                                <button type="submit" [disabled]="proposalForm.invalid || isExist" class="btn btn-outline-primary w-100">Next</button>
                             </div>
                         </div>
                     </div>
