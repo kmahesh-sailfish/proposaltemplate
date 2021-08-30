@@ -485,4 +485,13 @@ export class ProposalService {
         })
       );
   }
+  addMopetDetails(obj) {
+    return this.http
+      .post(environment.API_URL + "Mopet/SubmitToMopet", obj)
+      .pipe(
+        map((res: any) => {
+          return res['_sourceObject'];
+        })
+      );
+  }
 }

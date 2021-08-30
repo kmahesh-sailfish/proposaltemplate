@@ -7,6 +7,7 @@ import { ProposalService } from "../../../proposal.service";
   styleUrls: ["./ctmwindow.component.css"]
 })
 export class CtmwindowComponent implements OnInit {
+  public CTMLibFile:any={};
   public fileName:any;
   public fileObj:any;
   public userId:any;
@@ -27,6 +28,7 @@ export class CtmwindowComponent implements OnInit {
   public getLanguages: any = [];
   public footerCategory: any = [];
   public submitClicked:boolean=true;
+  public SelectedCategorieIds:any=[];
   constructor(public proposalService: ProposalService) {}
 
   ngOnInit(): void {
@@ -57,14 +59,40 @@ export class CtmwindowComponent implements OnInit {
 
   }
   SelectCategoryVal(){
-
+    debugger;
+    this.GenerateCTMCodes();
   }
   clearData(){
     
   }
-  submitData(){
-    // add the ctm winddow 
-alert('call');
+  saveCTMLib(){
+    if(this.Others.length >0 ){
+      this.CTMLibFile.CategoryDescription = JSON.stringify(this.Others);
+    }else{
+      this.CTMLibFile.CategoryDescription=""
+    }
+ 
+  this.CTMLibFile.CategoryIds = this.SelectedCategorieIds;
+  this.CTMLibFile.Name = this.fileObj.name;
+  console.log(this.CTMLibFile);
+  }
+  GenerateCTMCodes(){
+    var text = "CTM";
+    var categoryText = null;
+    this.SelectedCategories.forEach((category, index) => {
+        if (categoryText) {
+            categoryText = categoryText + '-' + category.name;
+        }
+        else{
+          categoryText = category.name;
+        }
+        this.SelectedCategorieIds.push(category.id);
+    });
+    text = categoryText ? text + '-' + categoryText : text + '-';
+    // this.CTM.CTMCode = text;
+    // this.CTMLibFile.CTMCode = text;
+    this.SelectCategory = false;
+    this.SelectedCategoriesText = categoryText ? categoryText : "Select Footer Category";
   }
   SaveOthers(){
     alert('called');

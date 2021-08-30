@@ -58,5 +58,27 @@ export class MopetDetailsComponent implements OnInit {
       
     })
   }
+  submitMopet(){
+    var obj={
+        "Id": this.mopetDetails.id,
+        "CustomerName":  this.mopetDetails.customerName,
+        "PricingCountry": this.mopetDetails.pricingCountry,
+        "LCAlias": "v-skarukonda",
+        "OperationCenterId": this.mopetDetails.opCenter,
+        "ProgramId": this.mopetDetails.program,
+        "Notes": "Test Proposal \"Dont Process\"",
+        "ProposalId": this.mopetDetails.proposalId,
+        "NonPricingFileName": null,
+        "PricingFileName": null,
+        "CreatedBy": 'v-sambur',
+        "IsSuperAdmin": false
+      }
+      console.log(obj);
+      this.proposalService.addMopetDetails(obj).subscribe(data=>{
+console.log(data);
+      })
+      
+    
+  }
 
 }
