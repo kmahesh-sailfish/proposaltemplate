@@ -1,1 +1,91 @@
-<p>alerts works!</p>
+
+<div class="container-fluid">
+    <label class="header">List of Alerts</label>
+    <br>
+  <div class="mb-2">
+    <!-- <button type="button" class="btn btn-primary btn-sm color433163" (click)="addSiriusCountry()">Add Alert</button> -->
+    <button type="button" class="btn btn-primary btn-sm color433163" (click)="addAlert(content)">Add Alert</button>  
+</div>
+<div class="row">
+    <div class="col-11">
+        <ag-grid-angular #agGrid style="width: 100%; height: calc(60vh)" class="ag-theme-alpine ag-center-cols-clipper ag-center-cols-container" [rowData]="amendmentInfoData"
+        [context]="context" [columnDefs]="columnDefs" [frameworkComponents]="frameworkComponents">
+      </ag-grid-angular>
+    </div>  
+    </div>
+    <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">
+            {{popupMsg}}
+          </h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    
+            <span aria-hidden="true">
+              ×
+            </span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="myForm" (ngSubmit)="saveNewAmendment()" novalidate>
+            <div style="width: 100%;">
+              <div class="row my-2">
+                <div class="col-6"><span class="form-label">Name: </span>
+                </div>
+                <div class="col-6">
+                  <span>
+                    <input formControlName="name" type="text" class="form-control" />
+                  </span>
+                  <small *ngIf="myForm.get('name').invalid && myForm.get('name').touched"
+                    class="text-danger">This field is required</small>
+                </div>
+              </div>
+            </div>
+            <div style="width: 100%;">
+                <div class="row my-2">
+                  <div class="col-6"><span class="form-label">Message: </span>
+                  </div>
+                  <div class="col-6">                    
+                      <input formControlName="message" type="text" class="form-control" />                    
+                  </div>
+                </div>
+              </div>
+              
+    
+              <div class="row my-2">
+                <div class="col-6"><span class="form-label"> Level: </span></div>
+                <div class="col-6"><span> <input name="level" type="text" formControlName="level"
+                      class="form-control"></span>
+                </div>
+              </div>
+    
+            
+            <div class="row my-2">
+              <div class="col-6"><span class="form-label"> Start Date: </span></div>
+              
+              <div class="col-6"><span> <input type="date" name="startDate" formControlName="startDate"
+                    class="form-control"></span>
+              </div>
+            </div>
+           
+            <div class="row my-2">
+              <div class="col-6"><span class="form-label"> End Date: </span></div>
+              <div class="col-6"><span> <input type="date" name="endDate" formControlName="endDate"
+                    class="form-control"></span>
+              </div>
+            </div>
+          
+            <div class="modal-footer">
+    
+              <button [disabled]="myForm.invalid" type="submit" class="btn btn-primary color433163">
+                Save
+              </button>
+              <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">
+                Cancel
+              </button>
+    
+            </div>
+          </form>
+        </div>
+    
+      </ng-template>
+    </div>

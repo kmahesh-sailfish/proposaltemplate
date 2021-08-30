@@ -31,6 +31,9 @@
 }
 
 /*margin*/
+.m-l-30{
+  margin-left: 30px;
+}
 .m-l-10 {
   margin-left: 10px;
 }
@@ -49,4 +52,11 @@
 }
 .w-100 {
   width: 100%;
+}
+
+
+
+/* or write CSS selectors to make customisations beyond what the parameters support */
+.ag-theme-alpine .ag-header {
+  background-color: rgb(135, 197, 222);;
 }

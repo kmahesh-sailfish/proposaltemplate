@@ -53,6 +53,19 @@ export class CtmwindowComponent implements OnInit {
       this.footerCategory = data;
     });
   }
+  clearCategory(){
+
+  }
+  SelectCategoryVal(){
+
+  }
+  clearData(){
+    
+  }
+  submitData(){
+    // add the ctm winddow 
+alert('call');
+  }
   SaveOthers(){
     alert('called');
     // this.tempOthersCode.name, Description: this.description, HasRevenueImpact: this.hasRevenueImpact

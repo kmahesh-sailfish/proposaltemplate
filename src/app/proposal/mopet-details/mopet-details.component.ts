@@ -14,6 +14,7 @@ export class MopetDetailsComponent implements OnInit {
   public userId:any;
   public config: any = [];
   public mopetDetails:any={};
+
   public ProposalId:any;
   constructor(public proposalService:ProposalService,public route:ActivatedRoute) { }
 
@@ -36,6 +37,7 @@ export class MopetDetailsComponent implements OnInit {
     this.mopetDetails.proposalId = data['proposalEntity'].proposalId;
     this.mopetDetails.customerName = data['proposalEntity'].customerName;
     this.mopetDetails.lastModifiedBy = data['proposalEntity'].lastModifiedBy;
+    this.mopetDetails['proposalEntity'] = data['proposalEntity'];
     });
   }
   domainLoad() {

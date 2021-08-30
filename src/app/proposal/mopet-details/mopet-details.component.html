@@ -92,17 +92,20 @@
         &nbsp;
       </div>
     </div>
+    {{mopetDetails['proposalEntity'].status == 3}}
     <div class="row">
       <div class="col">
         <div class="btn-group" style="width: 100%;" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary btn-sm"><span>Upload Offline Non-Pricing Document to Proposal</span></button>&nbsp;
-            <button type="button" class="btn btn-primary btn-sm" ><span>Offline Pricing Document to Proposal</span> </button>&nbsp;
+            <button type="button" class="btn btn-primary btn-sm" [disabled]="mopetDetails['proposalEntity'].status == 3"><span>Upload Offline Non-Pricing Document to Proposal</span></button>&nbsp;
+            <button type="button" class="btn btn-primary btn-sm" [disabled]="mopetDetails['proposalEntity'].status == 3" ><span>Offline Pricing Document to Proposal</span> </button>&nbsp;
           </div> 
     </div>
     <div class="col" style="text-align: end;">
       <div class="btn-group" style="width: 50%;" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-primary btn-sm">Prev/Save Local Copy</button>&nbsp;
-          <button type="button" class="btn btn-primary btn-sm" >Submit to MOPET</button>&nbsp;
+          <!-- {{status}} -->
+          <!-- {{mopetDetails['proposalEntity'].status == 3 }} -->
+          <button type="button" class="btn btn-primary btn-sm" [disabled]="mopetDetails['proposalEntity'].status == 3" >Submit to MOPET</button>&nbsp;
         </div> 
   </div>
     </div>

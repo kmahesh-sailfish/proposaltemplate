@@ -466,4 +466,23 @@ export class ProposalService {
       );
   }
   
+  deleteMultipleProposals(obj) {
+    return this.http
+      .post(environment.API_URL + "Proposal/DeleteMultipleProposals", obj)
+      .pipe(
+        map((res: any) => {
+          return res['_sourceObject'];
+        })
+      );
+  }
+
+  archiveMultipleProposals(obj) {
+    return this.http
+      .post(environment.API_URL + "Proposal/ArchiveMultipleProposals", obj)
+      .pipe(
+        map((res: any) => {
+          return res['_sourceObject'];
+        })
+      );
+  }
 }

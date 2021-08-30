@@ -18,12 +18,14 @@ import { map } from "rxjs/operators";
 import { FilterCellComponent } from "../../sharedAction/filter/filter-cell/filter-cell.component";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { SpecialCharacter } from "../../sharedservices/special-character";
+import { ConformationComponent } from "../../../../src/app/sharedAction/conformation/conformation.component";
+import { NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "app-active-proposal",
   templateUrl: "./active-proposal.component.html",
   styleUrls: ["./active-proposal.component.css"],
-  providers: [SpecialCharacter]
+  providers: [SpecialCharacter, NgbActiveModal],
 })
 export class ActiveProposalComponent implements OnInit {
   // public components;
@@ -38,6 +40,8 @@ export class ActiveProposalComponent implements OnInit {
   public rowData: any = [];
   public title = "agGridExamples";
   public gridApi: GridApi;
+  public showbutton: boolean = false;
+  public userId: any;
   public searchItem = [
     { name: "Search by Proposal Id", id: "ProposalId" },
     { name: "Search by Alias", id: "CreatedByAlias" },
@@ -47,15 +51,22 @@ export class ActiveProposalComponent implements OnInit {
 
     { name: "Search by Created Date", id: "CreatedDate" }
   ];
+
+  params: any;
+
   constructor(
     private proposalService: ProposalService,
     private router: Router,
-    private customValidators: SpecialCharacter
-  ) {}
+    private customValidators: SpecialCharacter,
+    private modalService: NgbModal,
+    private activeModal: NgbActiveModal,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.loadGrid();
     this.loadSearchForm();
+    this.userId = localStorage.getItem("userAlias");
   }
   clearVAl() {
     this.searchForm.reset();
@@ -65,6 +76,68 @@ export class ActiveProposalComponent implements OnInit {
     this.searchForm.reset();
     this.gridApi.setDatasource(this.datasource);
   }
+
+  deleteProposal(obj) {
+    var deleObj = {};
+    deleObj['UserAlias'] = this.userId;
+    let selectedRows;
+    selectedRows = this.gridApi.getSelectedRows();
+
+    if (selectedRows.length > 0) {
+      let proposalIds = new Array();
+
+      selectedRows.map((row) => {
+        proposalIds.push(row["id"]);
+      });
+      deleObj["ProposalIds"] = proposalIds;
+
+      this.proposalService.deleteMultipleProposals(deleObj).subscribe((data: any) => {
+        this.toastr.success(data, "Proposals Deleted Successfully " + deleObj["ProposalIds"]);
+
+        this.gridApi.setDatasource(this.datasource);
+      });
+    }
+    else {
+      this.toastr.info("Please select Proposals to Delete");
+    }
+  }
+
+  archiveProposals(obj) {
+    var archiveObj = {};
+    archiveObj['UserAlias'] = this.userId;
+    archiveObj['Archive'] = true;
+    let selectedRows;
+    selectedRows = this.gridApi.getSelectedRows();
+
+    if (selectedRows.length > 0) {
+      let proposalIds = new Array();
+
+      selectedRows.map((row) => {
+        proposalIds.push(row["id"]);
+      });
+      archiveObj["ProposalIds"] = proposalIds;
+
+      this.proposalService.archiveMultipleProposals(archiveObj).subscribe((data: any) => {
+        this.toastr.success(data, "Proposals Archived Successfully " + archiveObj["ProposalIds"]);
+        this.gridApi.setDatasource(this.datasource);
+      });
+    }
+    else {
+      this.toastr.info("Please select Proposals to Archive");
+    }
+  }
+
+  public count = 0;
+  changed() {
+    let selectedRows;
+    selectedRows = this.gridApi.getSelectedRows();
+    let rowsCount = selectedRows.length;
+    console.log(rowsCount);
+    if (rowsCount > 1) {
+      this.showbutton = true;
+    }
+  }
+
   loadSearchForm() {
     this.searchForm = new FormGroup({
       searchTextDate: new FormControl(null),
@@ -147,27 +220,23 @@ export class ActiveProposalComponent implements OnInit {
 
       rowModelType: "infinite",
       pagination: true,
-      paginationAutoPageSize: true
+      paginationAutoPageSize: true,
+      suppressRowClickSelection: true,
+      rowSelection: 'multiple',
     };
   }
   columnDefs = [
-    // {
-    //   headerName: "ID",
-    //   field: "id",
-    //   resizable: true,
-    //   filter: true,
-    //   width: 100,
-    //   cellRenderer: "loadingRenderer"
-    // },
     {
       headerName: "Select",
       width: 150,
       //field: "id",
       resizable: true,
-      headerTooltip:"Select",
-      editable:true,
+      headerTooltip: "Select",
+      editable: true,
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
-      tooltipField:"id"
+      tooltipField: "id"
     },
     {
       headerName: "Proposal ID",
@@ -176,8 +245,8 @@ export class ActiveProposalComponent implements OnInit {
       resizable: true,
       filter: "partialMatchFilter",
       menuTabs: ["filterMenuTab"],
-      headerTooltip:"Proposal Id",
-      tooltipField:"proposalId"
+      headerTooltip: "Proposal Id",
+      tooltipField: "proposalId"
     },
     {
       headerName: "Status",
@@ -185,7 +254,7 @@ export class ActiveProposalComponent implements OnInit {
       //width: 120,
       filter: true,
       resizable: true,
-      headerTooltip:"Status"
+      headerTooltip: "Status"
     },
     {
       headerName: "Created By",
@@ -193,8 +262,8 @@ export class ActiveProposalComponent implements OnInit {
       filter: true,
       field: "createdByAlias",
       resizable: true,
-      headerTooltip:"Created By",
-      tooltipField:"createdByAlias"
+      headerTooltip: "Created By",
+      tooltipField: "createdByAlias"
     },
     {
       headerName: "Created Date",
@@ -202,8 +271,8 @@ export class ActiveProposalComponent implements OnInit {
       resizable: true,
       filter: true,
       //width: 100,
-      headerTooltip:"Created Date",
-      tooltipField:"createdDate",
+      headerTooltip: "Created Date",
+      tooltipField: "createdDate",
       cellRenderer: (data: { value: moment.MomentInput; }) => {
         return moment(data.value).format("MM/DD/YYYY");
       }
@@ -214,8 +283,8 @@ export class ActiveProposalComponent implements OnInit {
       filter: true,
       field: "lastModifiedBy",
       resizable: true,
-      headerTooltip:"Modified By",
-      tooltipField:"lastModifiedBy"
+      headerTooltip: "Modified By",
+      tooltipField: "lastModifiedBy"
     },
     {
       headerName: "Customer Name",
@@ -223,8 +292,8 @@ export class ActiveProposalComponent implements OnInit {
       filter: true,
       field: "customerName",
       resizable: true,
-      headerTooltip:"Customer Name",
-      tooltipField:"customerName"
+      headerTooltip: "Customer Name",
+      tooltipField: "customerName"
     },
     {
       headerName: "Deal NickName",
@@ -232,18 +301,18 @@ export class ActiveProposalComponent implements OnInit {
       filter: true,
       field: "dealNickname",
       resizable: true,
-      headerTooltip:"Deal NickName",
-      tooltipField:"dealNickname"
+      headerTooltip: "Deal NickName",
+      tooltipField: "dealNickname"
     },
-    
+
     {
       headerName: "Mopet Submitted",
       field: "mopetSubmittedDate",
       resizable: true,
       filter: true,
       //width: 100,
-      headerTooltip:"Mopet Submitted",
-      tooltipField:"createdDate",
+      headerTooltip: "Mopet Submitted",
+      tooltipField: "createdDate",
       cellRenderer: (data: { value: moment.MomentInput; }) => {
         return data.value != null ? moment(data.value).format("MM/DD/YYYY") : "";
       }
@@ -254,7 +323,7 @@ export class ActiveProposalComponent implements OnInit {
       //width: 100,
       field: "isShared",
       resizable: true,
-      headerTooltip:"Shared"
+      headerTooltip: "Shared"
     },
     {
       headerName: "Delegated",
@@ -262,8 +331,8 @@ export class ActiveProposalComponent implements OnInit {
       resizable: true,
       filter: true,
       // width: 100,
-      headerTooltip:"Delegated",
-      cellRenderer: (data: { value: moment.MomentInput; }) =>{
+      headerTooltip: "Delegated",
+      cellRenderer: (data: { value: moment.MomentInput; }) => {
         return data.value == 0 ? "false" : "true";
       }
     },
@@ -283,7 +352,7 @@ export class ActiveProposalComponent implements OnInit {
   };
 
   components = {
-    loadingRenderer: function(params: { value: any; }) {
+    loadingRenderer: function (params: { value: any; }) {
       if (params.value !== undefined) {
         return params.value;
       } else {
@@ -295,5 +364,10 @@ export class ActiveProposalComponent implements OnInit {
   onRowClicked(event: { [x: string]: { [x: string]: any; }; }) {
     console.log(event["data"]);
     this.router.navigate(["proposaloverview/", event["data"]["id"]]);
+  }
+  agInit(params: ICellRendererParams): void {
+    //this.cellValue = params.value;
+    this.params = params;
+    //this.objactiveComponent.setHRDEditDiv(this.params.data);
   }
 }

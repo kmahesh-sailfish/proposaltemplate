@@ -25,7 +25,7 @@ export class PubliCtmComponent implements OnInit {
     private proposalService: ProposalService
   ) {}
   ngOnInit(): void {
-    this.getLoadpublictm();
+   // this.getLoadpublictm();
   }
   getLoadpublictm() {
     this.proposalService.getpublicCtmList().subscribe(data => {

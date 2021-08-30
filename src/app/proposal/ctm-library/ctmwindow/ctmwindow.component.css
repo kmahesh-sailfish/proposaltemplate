@@ -7,3 +7,13 @@ body .ctm-library-container #UploadCTM .others {
     z-index: 100;
     right: -50px;
 }
+.btn,
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+  background-color: #433163 !important;
+
+  color: #ffffff !important;
+  border-color: #433163 !important;
+}

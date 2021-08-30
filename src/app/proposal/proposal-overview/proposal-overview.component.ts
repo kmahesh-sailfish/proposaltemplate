@@ -3,7 +3,7 @@ import {DataTableDirective} from "angular-datatables";
 import {Router,ActivatedRoute,ParamMap} from "@angular/router";
 import {Location} from "@angular/common";
 import {ProposalService} from "src/app/proposal.service";
-import {FormGroup,FormControl} from "@angular/forms";
+import {FormGroup,FormControl, Validators} from "@angular/forms";
 import {NgbModalConfig,NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {SearchProposalComponent} from "../modeal/search-proposal/search-proposal.component";
 import {SharedService} from "../../sharedservices/shared.service";
@@ -432,7 +432,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
 
             customerName: block == "customerName" ?
                 this.propOverView.get("customerName").value :
-                Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.customerName : "",
+                Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.customerName : null,
 
             dealNickname: block == "dealNickname" ?
                 this.propOverView.get("dealNickname").value :
@@ -464,9 +464,9 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
             pricingCountry: new FormControl(this.editProposalObj['proposalEntity']?.pricingCountry ? this.editProposalObj['proposalEntity']?.pricingCountry : null),
             enrollmentId: new FormControl(this.editProposalObj['proposalEntity']?.enrollmentId ? this.editProposalObj['proposalEntity']?.enrollmentId : null),
             agreementId: new FormControl(this.editProposalObj['proposalEntity']?.agreementId ? this.editProposalObj['proposalEntity']?.agreementId : null),
-            customerName: new FormControl(this.editProposalObj['proposalEntity']?.customerName ? this.editProposalObj['proposalEntity']?.customerName : null),
+            customerName: new FormControl(this.editProposalObj['proposalEntity']?.customerName ? this.editProposalObj['proposalEntity']?.customerName : null,[Validators.required]),
             dealNickname: new FormControl(this.editProposalObj['proposalEntity']?.dealNickname ? this.editProposalObj['proposalEntity']?.dealNickname : null),
-            identifier: new FormControl(this.editProposalObj['proposalEntity']?.identifier ? this.editProposalObj['proposalEntity']?.identifier : ""),
+            identifier: new FormControl(this.editProposalObj['proposalEntity']?.identifier ? this.editProposalObj['proposalEntity']?.identifier :"",[Validators.required]),
             notes: new FormControl(this.editProposalObj['proposalEntity']?.notes ? this.editProposalObj['proposalEntity']?.notes : null),
             searchAmendment: new FormControl()
         });
