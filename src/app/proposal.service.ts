@@ -16,7 +16,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   providedIn: "root"
 })
 export class ProposalService {
-  constructor(private http: HttpClient,private spiner:NgxSpinnerService) {}
+  constructor(private http: HttpClient, private spiner: NgxSpinnerService) {}
   // proposal overview .................................
   createProposal(obj) {
     this.spiner.show();
@@ -50,14 +50,14 @@ export class ProposalService {
     obj["createdByAlias"] = localStorage.getItem("userAlias");
     obj["isSuperUser"] = "true";
     obj["id"] = Id;
-   // this.spiner.show();
+    // this.spiner.show();
     return this.http
       .get(environment.API_URL + "Proposal/" + "GetProposalById", {
         params: obj
       })
       .pipe(
         map((res: any) => {
-        //  this.spiner.hide();
+          //  this.spiner.hide();
           return res["result"]["_sourceObject"];
         })
       );
@@ -117,23 +117,23 @@ export class ProposalService {
         })
       );
   }
-  searchAmendement(searchTerm,obj?) {
+  searchAmendement(searchTerm, obj?) {
     let params;
-    if(obj){
-      params = new HttpParams().set('language', obj);  
-    }else{
-      params="";
+    if (obj) {
+      params = new HttpParams().set("language", obj);
+    } else {
+      params = "";
     }
-   
-    
+
     return this.http
       .get(
         environment.API_URL +
           "Amendment/" +
           "GetVlDocAmendmentData/" +
-          searchTerm, {
-            params: params
-          }
+          searchTerm,
+        {
+          params: params
+        }
       )
       .pipe(
         map((res: any) => {
@@ -286,6 +286,7 @@ export class ProposalService {
         })
       );
   }
+
   getcustomeSearch(obj) {
     this.spiner.show();
     return this.http
@@ -294,7 +295,7 @@ export class ProposalService {
       })
       .pipe(
         map((res: any) => {
-         this.spiner.hide();
+          this.spiner.hide();
           return res.result;
         })
       );
@@ -345,22 +346,39 @@ export class ProposalService {
     }
     return false;
   }
-  getpublicCtmList() {
-    this.spiner.show();
-    return this.http.get(environment.API_URL + "Ctm/getPublicCTMFiles").pipe(
-      map((res: any) => {
-        this.spiner.hide();
-        return res.result;
-      })
-    );
-  }
+  // getpublicCtmList() {
+  //   this.spiner.show();
+  //   return this.http.get(environment.API_URL + "Ctm/getPublicCTMFiles").pipe(
+  //     map((res: any) => {
+  //       this.spiner.hide();
+  //       return res.result;
+  //     })
+  //   );
+  // }
 
-  getprivateCtmList(obj) {
+  // getprivateCtmList(obj) {
+  //   this.spiner.show();
+  //   return this.http
+  //     .get(environment.API_URL + "/Ctm/getPrivateCTMFiles", {
+  //       params: obj
+  //     })
+  //     .pipe(
+  //       map((res: any) => {
+  //         this.spiner.hide();
+  //         return res.result;
+  //       })
+  //     );
+  // }
+  getpublicCtmList(startRow, endRow) {
     this.spiner.show();
     return this.http
-      .get(environment.API_URL + "/Ctm/getPrivateCTMFiles", {
-        params: obj
-      })
+      .get(
+        environment.API_URL +
+          "Ctm/getPublicCTMFiles?pageSize=" +
+          endRow +
+          "&pageNum=" +
+          startRow
+      )
       .pipe(
         map((res: any) => {
           this.spiner.hide();
@@ -368,6 +386,27 @@ export class ProposalService {
         })
       );
   }
+
+  getprivateCtmList(startRow, endRow) {
+    this.spiner.show();
+    return this.http
+      .get(
+        environment.API_URL +
+          "Ctm/getPrivateCTMFiles?pageSize=" +
+          endRow +
+          "&pageNum=" +
+          startRow +
+          "&alias=" +
+          "V2Alias"
+      )
+      .pipe(
+        map((res: any) => {
+          this.spiner.hide();
+          return res.result;
+        })
+      );
+  }
+
   updateCTMShare(obj) {
     return this.http.put(environment.API_URL + "Ctm/UpdateCtmShare", obj).pipe(
       map((res: any) => {
@@ -407,7 +446,7 @@ export class ProposalService {
       .post(environment.API_URL + "App/UpdateUserPreference", obj)
       .pipe(
         map((res: any) => {
-          return res['_sourceObject'];
+          return res["_sourceObject"];
         })
       );
   }
@@ -443,35 +482,32 @@ export class ProposalService {
         })
       );
   }
-  getUserPreferences(userId){
-    
+  getUserPreferences(userId) {
     return this.http
-    .get(
-      environment.API_URL + "App/GetUserPreference/" + userId)
-    .pipe(
-      map((res: any) => {
-        return res;
-      })
-    );
-  }
-  getUserDetails(userId){
-    //api/App/GetUserDetails/
-    return this.http
-      .get(
-        environment.API_URL + "App/GetUserDetails/" + userId)
+      .get(environment.API_URL + "App/GetUserPreference/" + userId)
       .pipe(
         map((res: any) => {
           return res;
         })
       );
   }
-  
+  getUserDetails(userId) {
+    //api/App/GetUserDetails/
+    return this.http
+      .get(environment.API_URL + "App/GetUserDetails/" + userId)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
   deleteMultipleProposals(obj) {
     return this.http
       .post(environment.API_URL + "Proposal/DeleteMultipleProposals", obj)
       .pipe(
         map((res: any) => {
-          return res['_sourceObject'];
+          return res["_sourceObject"];
         })
       );
   }
@@ -481,7 +517,7 @@ export class ProposalService {
       .post(environment.API_URL + "Proposal/ArchiveMultipleProposals", obj)
       .pipe(
         map((res: any) => {
-          return res['_sourceObject'];
+          return res["_sourceObject"];
         })
       );
   }
@@ -490,7 +526,7 @@ export class ProposalService {
       .post(environment.API_URL + "Mopet/SubmitToMopet", obj)
       .pipe(
         map((res: any) => {
-          return res['_sourceObject'];
+          return res["_sourceObject"];
         })
       );
   }

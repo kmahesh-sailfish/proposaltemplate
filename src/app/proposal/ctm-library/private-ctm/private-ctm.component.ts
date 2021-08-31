@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ProposalService } from "src/app/proposal.service";
 import { Router } from "@angular/router";
 import * as moment from "moment";
-import { PrivateEditActionComponent } from './private-edit-action/private-edit-action.component';
+import { PrivateEditActionComponent } from "./private-edit-action/private-edit-action.component";
+import { Observable } from "rxjs";
 import {
   GridApi,
   ICellRendererParams,
@@ -16,6 +17,8 @@ import {
 })
 export class PrivateCtmComponent implements OnInit {
   public userId: any;
+  public startRow: any;
+  public endRow: any;
   public gridOptions: any;
   rowData: any = [];
   title = "agGridExamples";
@@ -25,22 +28,49 @@ export class PrivateCtmComponent implements OnInit {
     private proposalService: ProposalService
   ) {}
   ngOnInit(): void {
-    this.userId = localStorage.getItem('userAlias');
+    this.userId = localStorage.getItem("userAlias");
     this.getLoadprivatectm();
-   
   }
+  private getRowData(startRow: number, endRow: number): Observable<any[]> {
+    this.startRow = startRow;
+    this.endRow = endRow;
+    let obj = {
+      PageSize: this.endRow,
+      PageNum: this.startRow
+    };
+
+    return this.proposalService.getprivateCtmList(this.startRow, this.endRow);
+  }
+  datasource: IDatasource = {
+    getRows: (params: IGetRowsParams) => {
+      this.getRowData(params.startRow, params.endRow).subscribe(data =>
+        params.successCallback(data)
+      );
+    }
+  };
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
-    // this.gridApi.setDatasource(this.datasource);
+    this.gridApi.setDatasource(this.datasource);
   }
-  
+
   getLoadprivatectm() {
-    var obj={};
-  obj['alias'] = this.userId
-    this.proposalService.getprivateCtmList(obj).subscribe(data => {
-      this.rowData = data;
-    });
+    // var obj = {};
+    // obj["alias"] = this.userId;
+    // this.proposalService.getprivateCtmList(obj, obj).subscribe(data => {
+    //   this.rowData = data;
+    // });
+    this.gridOptions = {
+      cacheBlockSize: 100,
+      maxBlocksInCache: 2,
+      maxConcurrentDatasourceRequests: 1,
+
+      rowModelType: "infinite",
+      pagination: true,
+      paginationAutoPageSize: true,
+      suppressRowClickSelection: true,
+      rowSelection: "multiple"
+    };
   }
   frameworkComponents = {
     editAction: PrivateEditActionComponent

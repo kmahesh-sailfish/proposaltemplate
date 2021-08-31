@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ProposalService } from "src/app/proposal.service";
 import { Router } from "@angular/router";
 import * as moment from "moment";
-import { EditActionComponent } from './edit-action/edit-action.component';
+import { EditActionComponent } from "./edit-action/edit-action.component";
+import { Observable } from "rxjs";
 import {
   GridApi,
   ICellRendererParams,
@@ -18,6 +19,8 @@ import {
 export class PubliCtmComponent implements OnInit {
   public gridOptions: any;
   rowData: any = [];
+  startRow: any;
+  endRow: any;
   title = "agGridExamples";
   gridApi: GridApi;
   constructor(
@@ -25,22 +28,50 @@ export class PubliCtmComponent implements OnInit {
     private proposalService: ProposalService
   ) {}
   ngOnInit(): void {
-   // this.getLoadpublictm();
+    this.getLoadpublictm();
   }
   getLoadpublictm() {
-    this.proposalService.getpublicCtmList().subscribe(data => {
-      this.rowData = data;
-    });
+    this.gridOptions = {
+      cacheBlockSize: 100,
+      maxBlocksInCache: 2,
+      maxConcurrentDatasourceRequests: 1,
+
+      rowModelType: "infinite",
+      pagination: true,
+      paginationAutoPageSize: true,
+      suppressRowClickSelection: true,
+      rowSelection: "multiple"
+    };
+    // this.proposalService.getpublicCtmList().subscribe(data => {
+    //   this.rowData = data;
+    // });
   }
+  private getRowData(startRow: number, endRow: number): Observable<any[]> {
+    this.startRow = startRow;
+    this.endRow = endRow;
+    let obj = {
+      PageSize: this.endRow,
+      PageNum: this.startRow
+    };
+
+    return this.proposalService.getpublicCtmList(this.startRow, this.endRow);
+  }
+  datasource: IDatasource = {
+    getRows: (params: IGetRowsParams) => {
+      this.getRowData(params.startRow, params.endRow).subscribe(data =>
+        params.successCallback(data)
+      );
+    }
+  };
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
-    // this.gridApi.setDatasource(this.datasource);
+    this.gridApi.setDatasource(this.datasource);
   }
   frameworkComponents = {
     editAction: EditActionComponent
   };
- 
+
   columnDefs = [
     {
       headerName: "Categories",
@@ -84,7 +115,7 @@ export class PubliCtmComponent implements OnInit {
       field: "isCTMPricing",
       resizable: true
     },
-   {
+    {
       headerName: "Action",
       field: "id",
       cellRenderer: "editAction",
@@ -93,8 +124,4 @@ export class PubliCtmComponent implements OnInit {
       width: 150
     }
   ];
-  // onRowClicked(event) {
-  //   console.log(event["data"]);
-  //   this.router.navigate(["proposaloverview/", event["data"]["id"]]);
-  // }
 }
