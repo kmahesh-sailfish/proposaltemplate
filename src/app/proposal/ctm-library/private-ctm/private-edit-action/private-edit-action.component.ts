@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { ConformationComponent } from "../../conformation/conformation.component";
-import { ICellRendererParams } from 'ag-grid-community';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { ProposalService } from '../../../../proposal.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ICellRendererParams } from "ag-grid-community";
+import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
+import { ProposalService } from "../../../../proposal.service";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-  selector: 'app-private-edit-action',
-  templateUrl: './private-edit-action.component.html',
-  styleUrls: ['./private-edit-action.component.css']
+  selector: "app-private-edit-action",
+  templateUrl: "./private-edit-action.component.html",
+  styleUrls: ["./private-edit-action.component.css"]
 })
 export class PrivateEditActionComponent implements OnInit {
   cellValue: any;
@@ -103,7 +103,7 @@ export class PrivateEditActionComponent implements OnInit {
   agInit(params: ICellRendererParams): void {
     this.cellValue = params.value;
     this.params = params;
-    this.obj = params.data;
+    //  this.obj = params.data;
     //this.objactiveComponent.setHRDEditDiv(this.params.data);
   }
 }
