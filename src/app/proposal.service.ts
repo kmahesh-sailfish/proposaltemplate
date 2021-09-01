@@ -219,7 +219,31 @@ export class ProposalService {
         );
     }
   }
+  multipledocProposal(obj) {
+    this.spiner.show();
+    return this.http
+      .post(environment.API_URL + "Proposal/" + "LinkProposal", obj)
+      .pipe(
+        map((res: any) => {
+          this.spiner.hide();
+          return res["result"]["_sourceObject"];
+          
+        })
+      );
+  }
+  updatemopetDetails(obj){    
+    this.spiner.show();
+    return this.http
+      .post(environment.API_URL + "Proposal/" + "UpdateProposalSubmission", obj)
+      .pipe(
+        map((res: any) => {
+          this.spiner.hide();
+          return res["result"]["_sourceObject"];
+          
+        })
+      );
 
+  }
   replicateProposal(obj) {
     this.spiner.show();
     return this.http

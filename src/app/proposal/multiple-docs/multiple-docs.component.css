@@ -1,0 +1,31 @@
+.proposal{
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.5;
+    
+  }
+  
+  .border-1 {
+    border: 1px solid #dee2e6;
+  }
+  .colordee2e6 {
+    background: #dee2e6;
+    height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .color8661C5 {
+    background: #8661c5;
+    color: #ffffff;
+   
+  }
+  .btn,
+  .btn-primary,
+  .btn-primary:hover,
+  .btn-primary:active,
+  .btn-primary:visited {
+    background-color: #433163 !important;
+    color: #ffffff !important;
+    border-color: #433163 !important;
+  }
+  

@@ -7,13 +7,13 @@
             </div>
         </div>
     </div>
-    {{mopetDetails.proposalId}}
     <div class="row">
       <div class="col">
+        <!-- {{newProposal|json}} -->
         <div class="form-group row">
           <label for="staticEmail" class="col-sm-4 col-form-label">Proposal ID</label>
           <div class="col-sm-8">
-            <input type="text"  class="form-control" disabled name="proposalId" [(ngModel)]="mopetDetails.proposalId">
+            <input type="text"  class="form-control" disabled name="proposalId" [(ngModel)]="newProposal.proposalEntity.proposalId">
           </div>
         </div>
         <div class="form-group row">
@@ -27,16 +27,17 @@
                  </select>
           </div>
         </div> 
+        
         <div class="form-group row">
           <label for="staticEmail" class="col-sm-4 col-form-label">Licensing Contact Alias <span class="error_color">*</span></label>
           <div class="col-sm-8">
-            <input type="text"  class="form-control" name="lastModifiedBy"  [(ngModel)]="mopetDetails.lastModifiedBy">
+            <input type="text"  class="form-control" name="lastModifiedBy"  [(ngModel)]="newProposal.proposalEntity.lastModifiedBy">
           </div>
         </div>
         <div class="form-group row">
           <label for="staticEmail" class="col-sm-4 col-form-label">Customer Name <span class="error_color">*</span></label>
           <div class="col-sm-8">
-            <input type="text"  class="form-control" name="customerName" [(ngModel)]="mopetDetails.customerName" >
+            <input type="text"  class="form-control" name="customerName" [(ngModel)]="newProposal.proposalEntity.customerName" >
           </div>
         </div>
       </div>
@@ -62,7 +63,7 @@
         <div class="form-group row">
           <label for="staticEmail" class="col-sm-4 col-form-label">Comments</label>
           <div class="col-sm-8">
-            <input type="text"  class="form-control" name ="comments" [(ngModel)]="mopetDetails.comments">
+            <input type="text"  class="form-control" name ="comments" [(ngModel)]="newProposal.proposalEntity.comments">
           </div>
         </div>
       </div>
@@ -96,8 +97,8 @@
     <div class="row">
       <div class="col">
         <div class="btn-group" style="width: 100%;" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary btn-sm" [disabled]="mopetDetails['proposalEntity']?.status == 3"><span>Upload Offline Non-Pricing Document to Proposal</span></button>&nbsp;
-            <button type="button" class="btn btn-primary btn-sm" [disabled]="mopetDetails['proposalEntity']?.status == 3" ><span>Offline Pricing Document to Proposal</span> </button>&nbsp;
+            <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3"><span>Upload Offline Non-Pricing Document to Proposal</span></button>&nbsp;
+            <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3" ><span>Offline Pricing Document to Proposal</span> </button>&nbsp;
           </div> 
     </div>
     <div class="col" style="text-align: end;">
@@ -105,7 +106,7 @@
           <button type="button" class="btn btn-primary btn-sm">Prev/Save Local Copy</button>&nbsp;
           <!-- {{status}} -->
           <!-- {{mopetDetails['proposalEntity'].status == 3 }} -->
-          <button type="button" class="btn btn-primary btn-sm" [disabled]="mopetDetails['proposalEntity']?.status == 3" (click)="submitMopet()" >Submit to MOPET</button>&nbsp;
+          <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3" (click)="submitMopet()" >Submit to MOPET</button>&nbsp;
         </div> 
   </div>
     </div>

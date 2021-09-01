@@ -8,6 +8,7 @@ import { ProposalService } from "src/app/proposal.service";
   styleUrls: ["./mopet-details.component.css"]
 })
 export class MopetDetailsComponent implements OnInit {
+  public newProposal:any={};
   public opCenterVales: any = [];
   public getLanguages: any = [];
   public userProgram: any = [];
@@ -37,10 +38,11 @@ export class MopetDetailsComponent implements OnInit {
       isSuperUser: true
     };
     this.proposalService.getProposal(obj).subscribe((data: any) => {
-      this.mopetDetails.proposalId = data["proposalEntity"].proposalId;
-      this.mopetDetails.customerName = data["proposalEntity"].customerName;
-      this.mopetDetails.lastModifiedBy = data["proposalEntity"].lastModifiedBy;
-      this.mopetDetails["proposalEntity"] = data["proposalEntity"];
+      this.newProposal=data;
+      // this.mopetDetails.proposalId = data["proposalEntity"].proposalId;
+      // this.mopetDetails.customerName = data["proposalEntity"].customerName;
+      // this.mopetDetails.lastModifiedBy = data["proposalEntity"].lastModifiedBy;
+      // this.mopetDetails["proposalEntity"] = data["proposalEntity"];
     });
   }
   domainLoad() {
@@ -55,27 +57,45 @@ export class MopetDetailsComponent implements OnInit {
     });
   }
   getUserPreference() {
-    this.proposalService.getUserPreferences(this.userId).subscribe(data => {
+    this.proposalService.getUserPreferences(this.userId).subscribe(data => {     
       this.mopetDetails = data;
     });
   }
   submitMopet() {
     var obj = {
-      Id: this.mopetDetails.id,
-      CustomerName: this.mopetDetails.customerName,
+      Id: this.newProposal.metaData.id,
+      CustomerName: this.newProposal.proposalEntity.customerName,
       PricingCountry: this.mopetDetails.pricingCountry,
       LCAlias: "v-skarukonda",
       OperationCenterId: this.mopetDetails.opCenter,
       ProgramId: this.mopetDetails.program,
-      Notes: 'Test Proposal "Dont Process"',
-      ProposalId: this.mopetDetails.proposalId,
+      Notes: this.newProposal.proposalEntity.comments,
+      ProposalId:  this.ProposalId,
       NonPricingFileName: null,
       PricingFileName: null,
-      CreatedBy: "v-sambur",
+      CreatedBy:this.userId,
       IsSuperAdmin: false
     };
     console.log(obj);
     this.proposalService.addMopetDetails(obj).subscribe(data => {
+      console.log(data);
+    });
+  }
+  updatemopetDetails(){
+    var obj={
+      "Id": this.newProposal.metaData.id,
+      "CustomerName": this.newProposal.proposalEntity.customerName,
+      "PricingCountry": this.newProposal.pricingCountry,
+      "LCAlias": this.userId,
+      "OperationCenterId": this.mopetDetails.opCenter,
+      "ProgramId": this.mopetDetails.program,
+      "Notes": this.newProposal.proposalEntity.comments,
+      "ProposalId": this.ProposalId,
+      "NonPricingFileName": null,
+      "PricingFileName": null
+    }
+    
+    this.proposalService.updatemopetDetails(obj).subscribe(data => {
       console.log(data);
     });
   }
