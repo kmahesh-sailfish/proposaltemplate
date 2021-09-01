@@ -59,7 +59,6 @@ export class CtmwindowComponent implements OnInit {
 
   }
   SelectCategoryVal(){
-    debugger;
     this.GenerateCTMCodes();
   }
   clearData(){
