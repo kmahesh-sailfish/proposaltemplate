@@ -488,10 +488,10 @@ export class ProposalService {
         })
       );
   }
-  //https://amendmentappdevapi.azurewebsites.net/api/Proposal/SearchRecentProposals/test?userAlias=v-skarukonda&isSuperUser=false &noOfRecords=20
+  
   dashboardSearch(searchObj, obj) {
     this.spiner.show();
-    //URL: api/Proposal/GetRecentProposals?userAlias=v-skarukonda&isSuperUser=true &noOfRecords=20
+  
     return this.http
       .get(
         environment.API_URL + "Proposal/SearchRecentProposals/" + searchObj,
