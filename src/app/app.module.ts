@@ -56,6 +56,8 @@ import { UserReferenceComponent } from './user-reference/user-reference.componen
 import { PrivateEditActionComponent } from './proposal/ctm-library/private-ctm/private-edit-action/private-edit-action.component';
 import { MopetDetailsComponent } from './proposal/mopet-details/mopet-details.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { DelgateDateRangeComponent } from './proposal/delgate-date-range/delgate-date-range.component';
+import { DelgateProposalWorkflowComponent } from './proposal/delgate-proposal-workflow/delgate-proposal-workflow.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,7 +99,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
     CtmwindowComponent,
     UserReferenceComponent,
     PrivateEditActionComponent,
-    MopetDetailsComponent
+    MopetDetailsComponent,
+    DelgateDateRangeComponent,
+    DelgateProposalWorkflowComponent
 
     //EditHrdComponentRenderer
   ],

@@ -1,1 +1,77 @@
-<p>external-users works!</p>
+<div class="container-fluid">
+  <label class="header">List of External Users</label>
+  <br>
+  <div class="mb-2">
+      <button type="button" class="btn btn-primary btn-sm color433163" (click)="approveSelected(content)">Approve Selected</button>
+      <button type="button" class="btn btn-primary btn-sm color433163">Deny Selected</button>
+      <button type="button" class="btn btn-primary btn-sm color433163">Export To Excel</button>
+
+    <!-- <button type="button" class="btn btn-primary btn-sm color433163" (click)="addAmendments(content)">Add
+      Amendments</button> -->
+  </div>
+  <div>
+    <ag-grid-angular #agGrid style="width: 100%; height: calc(60vh)" class="ag-theme-alpine ag-center-cols-clipper ag-center-cols-container" [rowData]="ExtUsersData"
+      [context]="context" [columnDefs]="columnDefs" [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+  </div>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{popupMsg}}
+      </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+        <span aria-hidden="true">
+          ×
+        </span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="myForm" novalidate>  <!-- (ngSubmit)="saveNewAmendment()" -->
+        
+        <div style="width: 100%;">
+          <div class="row my-2">
+            <div class="col-6"><span class="form-label"> Name: </span></div>
+            <div class="col-6"><span><input name="name" formControlName="name" type="text" class="form-control" /></span>                
+            </div></div></div>
+  
+        <div class="row my-2">
+          <div class="col-6"><span class="form-label"> Email: </span></div>
+          <div class="col-6"><span> <input name="email" formControlName="email"
+                class="form-control"></span>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-6"><span class="form-label"> Business Justification: </span></div>
+          <div class="col-6"><span> <input name="businessJustification" formControlName="businessJustification"
+                class="form-control"></span>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-6"><span class="form-label"> Approval Status: </span></div>
+          <div class="col-6"><span> <input name="approvalStatus" formControlName="approvalStatus"
+                class="form-control"></span>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-6"><span class="form-label"> Comments: </span></div>
+          <div class="col-6"><span> <input name="comments" formControlName="comments"
+                class="form-control"></span>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+
+          <!-- <button [disabled]="myForm.invalid" type="submit" class="btn btn-primary color433163">
+            Save
+          </button> -->
+          <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">
+            Ok
+          </button>
+
+        </div>
+      </form>
+    </div>
+
+  </ng-template>
+</div>

@@ -1,0 +1,70 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#433163" fullScreen="true" type="ball-spin-clockwise">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+<div class="container-fluid p-3 my-3 mt-3 border">
+    <form name="form" (ngSubmit)="onSubmit(userForm.value)" #userForm="ngForm" novalidate>
+        <div class="row align-items-start">
+            <!-- main  -->
+            <div class="col-7">
+                <div class="row">
+                    <div class="col-5 color8661C5 form-control m-b-5" style="margin-top: 4px;">
+                        <span>User Type</span>&nbsp;<span class="error_color">*</span>
+                    </div>
+                    <div class="col-7 " style="margin-top: 10px;">
+                        <input type="radio" id="externalUser" value="externalUser" name="UserType" ngModel />
+                        &nbsp;<label for="externalUser">External User</label>&nbsp;&nbsp;
+                        <input type="radio" checked id="internalUser" value="internalUser" name="UserType" ngModel />
+                        &nbsp;<label for="internalUser">Microsoft User</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5 color8661C5 form-control m-b-5" style="margin-top: 4px;">
+                        <span>Delegated To</span>&nbsp;<span class="error_color">*</span>
+                    </div>
+                    <div class="col-7 m-b-5" style="margin-top: 4px;">
+                        <input type="text" name="DelegatedLS" class="form-control" placeholder="Delegated To" ngModel />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5 color8661C5 form-control m-b-5">
+                        <span>Effective Date</span>&nbsp;<span class="error_color">*</span>
+                    </div>
+                    <div class="col-7 m-b-5">
+                        <input type="date" name="StartDate" class="form-control" ngModel>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5 color8661C5 form-control m-b-5">
+                        <span>Range</span>&nbsp;<span class="error_color">*</span>
+                    </div>
+                    <div class="col-7 m-b-5">
+                        <input type="date" name="EndDate" class="form-control" ngModel>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5 color8661C5 form-control m-b-5" style="margin-top: 4px;">
+                        <span>Comments</span>&nbsp;
+                    </div>
+                    <div class="col-7 m-b-5" style="margin-top: 4px;">
+                        <input type="text" name="Comments" class="form-control" placeholder="Comments" ngModel />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-5 m-b-5" style="margin-top: 4px;">
+                        &nbsp;
+                    </div>
+                    <div class="col-7 p-0 m-b-5" style="margin-top: 20px;">
+                        &nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-outline-primary">Authorize New
+                            Delegation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
