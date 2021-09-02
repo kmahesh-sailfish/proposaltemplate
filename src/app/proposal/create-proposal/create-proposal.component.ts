@@ -57,6 +57,7 @@ export class CreateProposalComponent implements OnInit {
       .subscribe((data: any) => (this.config = data));
   }
   changeValue() {
+    
     console.log(this.proposalForm.get("IsDraft").value);
     if (this.proposalForm.get("IsDraft").value) {
       this.proposalForm.controls["proposalId"].clearValidators();
