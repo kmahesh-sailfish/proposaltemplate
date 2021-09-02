@@ -103,10 +103,18 @@ export class EditActionComponent implements OnInit {
     modalRef.componentInstance.labelMessage = "Stop Sharing CTM";
     modalRef.componentInstance.rowObj = rowData;
   }
-  agInit(params: ICellRendererParams): void {
-    this.cellValue = params.value;
+   agInit(params: any): void {
     this.params = params;
-    this.obj = params.data;
-    //this.objactiveComponent.setHRDEditDiv(this.params.data);
+    // if (this.params.value === 'Teamcity') {
+    //   this.icons = [faUsers, faCity];
+    // }
+
+    return this.params.value;
   }
+  // agInit(params: ICellRendererParams): void {
+  //   this.cellValue = params.value;
+  //   this.params = params;
+  //   this.obj = params.data;
+  //   //this.objactiveComponent.setHRDEditDiv(this.params.data);
+  // }
 }

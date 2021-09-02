@@ -10,12 +10,12 @@ import { ToastrService } from "ngx-toastr";
   selector: "app-create-proposal",
   templateUrl: "./create-proposal.component.html",
   styleUrls: ["./create-proposal.component.css"],
-  providers:[SpecialCharacter]
+  providers: [SpecialCharacter]
 })
 export class CreateProposalComponent implements OnInit {
   public userId: any;
   public proposalForm: FormGroup;
-  public userObj:any={};
+  public userObj: any = {};
   public config: any[];
   public isExist: boolean = false;
   constructor(
@@ -27,27 +27,28 @@ export class CreateProposalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userId= localStorage.getItem("userAlias");
+    this.userId = localStorage.getItem("userAlias");
     this.getPricingCountry();
     this.userDetails();
-    this.loadForm();  
-
+    this.loadForm();
   }
-  userDetails(){ 
-    this.proposalService.getUserDetails(this.userId).subscribe(data=>{
-      this.userObj=data['userPreference'];
-      this.loadForm();     
-    })
+  userDetails() {
+    this.proposalService.getUserDetails(this.userId).subscribe(data => {
+      this.userObj = data["userPreference"];
+      this.loadForm();
+    });
   }
   isExistPropsalId() {
     let Id = this.proposalForm.get("proposalId").value;
     if (Id != null && Id != "") {
-      this.proposalService
-        .proposalExist(Id)
-        .subscribe((data: any) => {
-          console.log(data,'getVal');
-          this.isExist = data
-        });
+      this.proposalService.proposalExist(Id).subscribe((data: any) => {
+        if (data) {
+          this.isExist = data;
+        } else {
+          this.isExist = data;
+        }
+        
+      });
     }
   }
   getPricingCountry() {
@@ -55,11 +56,29 @@ export class CreateProposalComponent implements OnInit {
       .getPricingCountry()
       .subscribe((data: any) => (this.config = data));
   }
+  changeValue() {
+    console.log(this.proposalForm.get("IsDraft").value);
+    if (this.proposalForm.get("IsDraft").value) {
+      this.proposalForm.controls["proposalId"].clearValidators();
+      this.proposalForm.controls["proposalId"].updateValueAndValidity();
+    } else {
+      this.proposalForm.controls["proposalId"].clearValidators();
+      this.proposalForm.controls["proposalId"].setValidators([
+        Validators.required
+      ]);
+      this.proposalForm.controls["proposalId"].updateValueAndValidity();
+    }
+  }
 
   loadForm() {
     this.proposalForm = new FormGroup({
-      proposalId: new FormControl("", [Validators.required,this.customValidators.nameValidator]),
-      pricingCountry: new FormControl(this.userObj.pricingCountry, [Validators.required]),
+      proposalId: new FormControl("", [
+        Validators.required,
+        this.customValidators.nameValidator
+      ]),
+      pricingCountry: new FormControl(this.userObj.pricingCountry, [
+        Validators.required
+      ]),
       IsDraft: new FormControl(false, [])
     });
   }
@@ -67,15 +86,16 @@ export class CreateProposalComponent implements OnInit {
   pageRedirect() {
     console.log(this.proposalForm.value);
     var obj = this.proposalForm.value;
-    obj["createdByAlias"] = this.userId
+    obj["createdByAlias"] = this.userId;
     this.shareService.setproposalObs(obj);
     this.router.navigate(["proposaloverview/", ""]);
   }
 
-  createProposal(obj) {
-    obj["createdByAlias"] = this.userId
+  createProposal() {
+    var obj = this.proposalForm.value;
+    obj["createdByAlias"] = this.userId;
     this.proposalService.createProposal(obj).subscribe((data: any) => {
-      var sourceId = data["_sourceObject"].id;
+      var sourceId = data.id;
       console.log(sourceId, "sourceId");
       this.toastr.success(data, "Success");
       this.router.navigate(["proposaloverview/", sourceId]);

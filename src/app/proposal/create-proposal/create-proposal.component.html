@@ -1,18 +1,12 @@
-<ngx-spinner
-  bdColor="rgba(51,51,51,0.8)"
-  size="large"
-  color="#433163"
-  fullScreen="true"
-  type="ball-spin-clockwise"
->
-  <p style="font-size: 20px; color: white">Loading...</p>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#433163" fullScreen="true" type="ball-spin-clockwise">
+    <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
 <div class="container-fluid p-4 my-3 mt-5 border">
     <div class="row align-items-start">
         <!-- main  -->
         <div class="col border-1">
 
-            <form [formGroup]='proposalForm' (ngSubmit)="pageRedirect()" novalidate>
+            <form [formGroup]='proposalForm' (ngSubmit)="createProposal()" novalidate>
                 <div class="row">
                     <div class="col-12">
                         <div class="row">
@@ -20,7 +14,7 @@
                                 <span class="proposal">Create a New Proposal</span>
 
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -42,20 +36,21 @@
                                         ProposalId requried
                                     </div>
                                 </div>
+
                                 <span *ngIf="isExist" style="color: red;">Proposal id already exists, try another</span>
                             </div>
                         </div>
                     </div>
                 </div>
-               
+
                 <div class="row">
                     <div class="col-6">
                         <div class="row">
                             <div class="col-5 color8661C5 form-control " style="margin-top: 4px;">
                                 <span>Pricing Country</span> &nbsp;<span class="error_color">*</span>
-        
+
                             </div>
-                            <div class="col-7 p-1">                                
+                            <div class="col-7 p-1">
                                 <ng-select placeholder="Pricing Country" formControlName="pricingCountry" name="pricingCountry" class="ng-select" [items]="config"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
@@ -74,13 +69,13 @@
                             <div class="col">
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input class="form-check-input" formControlName="IsDraft" type="checkbox" value="" id="IsDraft">
+                                        <input class="form-check-input" (change)="changeValue()" formControlName="IsDraft" type="checkbox" id="IsDraft">
                                         <span class="form-check-span" for="IsDraft">
                                         Create as Draft
                                     </span>
                                     </div>
                                 </div>
-        
+
                             </div>
                         </div>
                         <div class="row align-items-end">
@@ -94,7 +89,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </form>
         </div>
     </div>

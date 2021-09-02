@@ -1,280 +1,275 @@
-<ngx-spinner
-  bdColor="rgba(51,51,51,0.8)"
-  size="large"
-  color="#433163"
-  fullScreen="true"
-  type="ball-spin-clockwise"
->
-  <p style="font-size: 20px; color: white">Loading...</p>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#433163" fullScreen="true" type="ball-spin-clockwise">
+    <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
 <div class="container-fluid p-4 my-3 mt-5 border">
 
     <div class="row align-items-start">
         <div class="col-12">
-        <div class="row">
-            <div class="col-12 p-r-0">
-                <div class="form-group">
-                    <div class="header-pic"><span class="proposal">Proposal Overview</span> </div>
+            <div class="row">
+                <div class="col-12 p-r-0">
+                    <div class="form-group">
+                        <div class="header-pic"><span class="proposal">Proposal Overview</span> </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- main  -->
-        <div class="row">
-            <div class="col">
-                <form [formGroup]="propOverView" novalidate>
-                    
-                    <div class="row">
-                        <div class="col-7">
-                            <div class="row">
-                                <div class="col-5">
-                                    <span>Proposal Id</span>
-                                </div>
-                                <div class="col-5">
-                                    <div class="form-group">
-                                        <input formControlName='proposalId' name="proposalId" class="form-control form-control-sm" type="text" />
+            <!-- main  -->
+            <div class="row">
+                <div class="col">
+                    <form [formGroup]="propOverView" novalidate>
+
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>Proposal Id</span>
                                     </div>
-    
+                                    <div class="col-5">
+
+                                        <div class="form-group">
+                                            <input formControlName='proposalId' [readonly]="disableVal" (blur)="proposalUpdate($event,'ProposalId')" name="proposalId"
+                                                class="form-control form-control-sm" type="text" />
+                                        </div>
+
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5">
-                                    <span>Enrollment Id/Agreement Id <span class="error_color">*</span></span>
-                                </div>
-                                <div class="col-5">
-                                    <div class="form-group">
-                                        <select name="identifier" (blur)="proposalUpdate($event,'identifier')" formControlName="identifier" class="form-control">                                        
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>Enrollment Id/Agreement Id <span class="error_color">*</span></span>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group">
+                                            <select name="identifier" (blur)="proposalUpdate($event,'identifier')" formControlName="identifier" class="form-control">                                        
                                             <option value="">Please Select Id</option>
                                             <option *ngFor="let o of chooseList"  value="{{o.ids}}" >{{o.name}}</option>
                                         </select>
-                                        <div *ngIf="propOverView.get('identifier').invalid && (propOverView.get('identifier').dirty || propOverView.get('identifier').touched)">
-                                            <div class="error_color">
-                                               Enrollment Id/Agreement Id is required
+                                            <div *ngIf="propOverView.get('identifier').invalid && (propOverView.get('identifier').dirty || propOverView.get('identifier').touched)">
+                                                <div class="error_color">
+                                                    Enrollment Id/Agreement Id is required
+                                                </div>
                                             </div>
-                                        </div>
-                                        <span class="error_color" *ngIf="IdentifierValid">Please Select Id</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5">
-                                    <span>{{propOverView.get('identifier').value == 1 ? 'Agreement Id' : propOverView.get('identifier').value == 2 ? 'Enrollment Id':""}}</span>
-                                </div>
-                                <div class="col-5">
-                                    <div class="form-group" *ngIf="propOverView.get('identifier').value ==2">
-                                        <input name="enrollmentId" (blur)="proposalUpdate($event,'enrollmentId')" formControlName="enrollmentId" class="form-control form-control-sm"
-                                            type="text" />
-                                        <div *ngIf="propOverView.get('enrollmentId').invalid && (propOverView.get('enrollmentId').dirty || propOverView.get('enrollmentId').touched)">
-                                            <div class="error_color">
-                                                Enrollment Id is requried
-                                            </div>
+                                            <span class="error_color" *ngIf="IdentifierValid">Please Select Id</span>
                                         </div>
                                     </div>
-                                    <div class="form-group" *ngIf="propOverView.get('identifier').value ==1">
-                                        <input name="agreementId" (blur)="proposalUpdate($event,'agreementId')" formControlName="agreementId" class="form-control form-control-sm"
-                                            type="text" />
-                                        <!-- {{propOverView.get('agreementId').dirty || propOverView.get('agreementId').touched}} -->
-                                        <div *ngIf="propOverView.get('agreementId').invalid && (propOverView.get('agreementId').dirty || propOverView.get('agreementId').touched)">
-                                            <div class="error_color">
-                                                Agreement Id is requried
+                                </div>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>{{propOverView.get('identifier').value == 1 ? 'Agreement Id' : propOverView.get('identifier').value == 2 ? 'Enrollment Id':""}}</span>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group" *ngIf="propOverView.get('identifier').value ==2">
+                                            <input name="enrollmentId" (blur)="proposalUpdate($event,'enrollmentId')" formControlName="enrollmentId" class="form-control form-control-sm"
+                                                type="text" />
+                                            <div *ngIf="propOverView.get('enrollmentId').invalid && (propOverView.get('enrollmentId').dirty || propOverView.get('enrollmentId').touched)">
+                                                <div class="error_color">
+                                                    Enrollment Id is requried
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-    
-                                </div>
-                            </div>
-    
-                            <div class="row">
-                                <div class="col-5">
-                                    <span>Pricing Country</span>
-                                </div>
-                                <div class="col-5">
-                                    <div class="form-group">
-                                        <ng-select placeholder="Pricing Country" (blur)="proposalUpdate($event,'pricingCountry')" formControlName="pricingCountry"
-                                            name="pricingCountry" class="ng-select" [items]="pricingCountries" bindLabel="name" bindValue="id">
-                                        </ng-select>
+                                        <div class="form-group" *ngIf="propOverView.get('identifier').value ==1">
+                                            <input name="agreementId" (blur)="proposalUpdate($event,'agreementId')" formControlName="agreementId" class="form-control form-control-sm"
+                                                type="text" />
+                                            <!-- {{propOverView.get('agreementId').dirty || propOverView.get('agreementId').touched}} -->
+                                            <div *ngIf="propOverView.get('agreementId').invalid && (propOverView.get('agreementId').dirty || propOverView.get('agreementId').touched)">
+                                                <div class="error_color">
+                                                    Agreement Id is requried
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5">
-                                    <span>Customer Name<span class="error_color">*</span></span>
+
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>Pricing Country</span>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group">
+                                            <ng-select placeholder="Pricing Country" (blur)="proposalUpdate($event,'pricingCountry')" formControlName="pricingCountry"
+                                                name="pricingCountry" class="ng-select" [items]="pricingCountries" bindLabel="name"
+                                                bindValue="id">
+                                            </ng-select>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-5">
-                                    <div class="form-group">
-                                        <input name="customerName" 
-                                        (blur)="proposalUpdate($event,'customerName')" 
-                                        formControlName="customerName"
-                                         class="form-control form-control-sm"
-                                            type="text" />
-                                           
-                                        <div *ngIf="propOverView.get('customerName').invalid && 
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>Customer Name<span class="error_color">*</span></span>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group">
+                                            <input name="customerName" (blur)="proposalUpdate($event,'customerName')" formControlName="customerName" class="form-control form-control-sm"
+                                                type="text" />
+
+                                            <div *ngIf="propOverView.get('customerName').invalid && 
                                         (propOverView.get('customerName').dirty || propOverView.get('customerName').touched)">
-                                            <div class="error_color">
-                                                Customer Name is requried
+                                                <div class="error_color">
+                                                    Customer Name is requried
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5">
-                                    <span>Deal NickName</span>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>Deal NickName</span>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group">
+                                            <input name="dealNickname" (blur)="proposalUpdate($event,'dealNickname')" formControlName="dealNickname" class="form-control form-control-sm"
+                                                type="text" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-5">
-                                    <div class="form-group">
-                                        <input name="dealNickname" (blur)="proposalUpdate($event,'dealNickname')" formControlName="dealNickname" class="form-control form-control-sm"
-                                            type="text" />
+                                <div class="row">
+                                    <div class="col-5">
+                                        <span>Notes</span>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="form-group">
+                                            <input name="notes" (blur)="proposalUpdate($event,'notes')" formControlName="notes" class="form-control form-control-sm"
+                                                type="text" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-5">
-                                    <span>Notes</span>
-                                </div>
-                                <div class="col-5">
-                                    <div class="form-group">
-                                        <input name="notes" (blur)="proposalUpdate($event,'notes')" formControlName="notes" class="form-control form-control-sm"
-                                            type="text" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="row">
-                                <div class="col p-0">
-                                    <div class="form-group">
-                                        <div class="row mb-2" >
-                                            <div class="col-6">&nbsp;</div>
-                                            <div class="col-3 p-0">
-                                                <!-- <button *ngIf="userObj.language" (click)="deleteUserRefe()" type="button" class="close" aria-label="Close">
+                            <div class="col-5">
+                                <div class="row">
+                                    <div class="col p-0">
+                                        <div class="form-group">
+                                            <div class="row mb-2">
+                                                <div class="col-6">&nbsp;</div>
+                                                <div class="col-3 p-0">
+                                                    <!-- <button *ngIf="userObj.language" (click)="deleteUserRefe()" type="button" class="close" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                   </button>
                                                   <span>{{userObj.language}}</span>  -->
-                                                  <label class="col-form-label">Language Filter:<span class="error_color">*</span></label>
-                                                  </div>
-                                                  <div class="col-3">
-                                                        <select class="form-control" name="language" [(ngModel)]="userObj.language" [ngModelOptions]="{standalone: true}" required #language="ngModel">
+                                                    <label class="col-form-label">Language Filter:<span class="error_color">*</span></label>
+                                                </div>
+                                                <div class="col-3">
+                                                    <select class="form-control" name="language" [(ngModel)]="userObj.language" [ngModelOptions]="{standalone: true}" required
+                                                        #language="ngModel">
                                                      <option [value]="''">All</option>
                                                     <option *ngFor="let obj of getLanguages" [value]="obj">{{obj}}</option>
                                                     </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <input name="searchAmendment" formControlName="searchAmendment" placeholder="Search for Amendment's" class="form-control"
-                                                type="text" />
-                                            <!--<input type="text" class="form-control"
+                                            <div class="input-group mb-3">
+                                                <input name="searchAmendment" formControlName="searchAmendment" placeholder="Search for Amendment's" class="form-control"
+                                                    type="text" />
+                                                <!--<input type="text" class="form-control"
                                              placeholder="Search for Amendment's" 
                                                 [(ngModel)]="searchAmendment" name="searchAmendment" />-->
-                                            <span (click)="open()" style="cursor: pointer" title="Search" class="input-group-text" id="basic-addon2"> <i class="fas fa-search"></i></span>
+                                                <span (click)="open()" style="cursor: pointer" title="Search" class="input-group-text" id="basic-addon2"> <i class="fas fa-search"></i></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col p-0">
-                                    <!-- {{showbutton}} -->
-                                    <div class="btn btn-primary btn-sm w-100">
-                                        <span style="cursor: pointer" class="">Add CTM File</span>
-                                        <input style="cursor: pointer;width: 100%;" class="sample" type="file" (change)="addCTM()" name="file" />
+                                <div class="row">
+                                    <div class="col p-0">
+                                        <!-- {{showbutton}} -->
+                                        <div class="btn btn-primary btn-sm w-100">
+                                            <span style="cursor: pointer" class="">Add CTM File</span>
+                                            <input style="cursor: pointer;width: 100%;" class="sample" type="file" (change)="addCTM()" name="file" />
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
-    
                         </div>
-                    </div>
-                </form>
-                <div class="row">
-                    <div class="col-12 p-r-0">
-                        <div class="form-group">
-                            <div class="header-pic"><span class="proposal">Amendments</span> </div>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-    
-                            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-                                <thead class="table-header">
-                                    <tr>
-                                        <th>Code</th>
-                                        <th>Language</th>
-    
-                                        <th>Location</th>
-                                        <th>DI</th>
-                                        <th>Version</th>
-                                        <th>Title(If CTM)</th>
-                                        <th>Contents Edited</th>
-                                        <th>Filed Edited</th>
-    
-                                        <th>Remove</th>
-                                        <th>ArrangeOrder</th>
-                                        <th>Edit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let obj of Amendments; let ie = index">
-                                        <td>{{obj.code}}</td>
-                                        <td>{{obj.language}}</td>
-                                        <td>{{obj.location}}</td>
-                                        <td>&nbsp;</td>
-                                        <td>{{obj.version}}</td>
-                                        <td>&nbsp;</td>
-                                        <td>{{obj.isEdited}}</td>
-                                        <td>{{obj.isEditField}}</td>
-                                        <td style="text-align: center;">
-                                            <span style="cursor: pointer" title="Delete" (click)="removeItem(obj)"><i class="fas fa-times"></i></span></td>
-                                        <td style="text-align: center;">
-                                            <span style="cursor: pointer" (click)="upwordItem(obj,'up',ie)"> <i  class="fas fa-angle-up"></i></span>                                        &nbsp;
-                                            <span style="cursor: pointer" (click)="upwordItem(obj,'down',ie)"><i  class="fas fa-angle-down"></i></span>
-                                        </td>
-                                        <td>
-                                            <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
-                                                <button type="button" (click)="showEditAdditionalDocumentFields(obj,0)" class="btn btn-primary">Edit Field</button>&nbsp;
-                                                <button type="button" (click)="showEditDocumentPopup(obj,1)" class="btn btn-primary">Edit Content</button>&nbsp;
-                                                <button type="button" class="btn btn-primary">Edit Table</button>&nbsp;
-                                            </div>
-                                        </td>
-                                    </tr>
-    
-    
-    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="row align-items-end">
-    
-                    <div class="col">
-                        <div class="row">
-                            <div class="col">
-                                <div class="btn-group" style="width: 100%;" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-primary btn-sm" (click)="openActiveproposal()">Active Proposal</button>&nbsp;
-                                    <button type="button" class="btn btn-primary btn-sm" (click)="openDelegationPoup()">Delegate Proposal</button>&nbsp;
-                                    <button type="button" class="btn btn-primary btn-sm" (click)="openPoup()">Share Proposal</button>&nbsp;
-                                  </div> 
+                    </form>
+                    <div class="row">
+                        <div class="col-12 p-r-0">
+                            <div class="form-group">
+                                <div class="header-pic"><span class="proposal">Amendments</span> </div>
                             </div>
-                            <div class="col">
-                                <div class="btn-group" style="width: 100%;" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-primary btn-sm w-100" type="button" data-toggle="dropdown" (click)="generate()">Generate Offline Document</button>&nbsp;
-                                    <ul [hidden]="!this.showbutton" class="dropdown-menu">
-                                        <li><button type="button" (click)="generatePricing()" class="btn btn-primary btn-sm w-100"> Generate Offline Pricing Document</button>
-                                        </li>
-                                        <div class="dropdown-divider"></div>
-                                        <li><button type="button" (click)="generateNonPricing()" class="btn btn-primary btn-sm w-100"> Generate Offline Non-Pricing Document</button>
-                                        </li>
-                                    </ul>
-                                    <button type="button" routerLink="/mopetdetails/{{ProposalId}}" class="btn btn-primary btn-sm w-100">&nbsp;
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                                    <thead class="table-header">
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Language</th>
+
+                                            <th>Location</th>
+                                            <th>DI</th>
+                                            <th>Version</th>
+                                            <th>Title(If CTM)</th>
+                                            <th>Contents Edited</th>
+                                            <th>Filed Edited</th>
+
+                                            <th>Remove</th>
+                                            <th>ArrangeOrder</th>
+                                            <th>Edit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let obj of Amendments; let ie = index">
+                                            <td>{{obj.code}}</td>
+                                            <td>{{obj.language}}</td>
+                                            <td>{{obj.location}}</td>
+                                            <td>&nbsp;</td>
+                                            <td>{{obj.version}}</td>
+                                            <td>&nbsp;</td>
+                                            <td>{{obj.isEdited}}</td>
+                                            <td>{{obj.isEditField}}</td>
+                                            <td style="text-align: center;">
+                                                <span style="cursor: pointer" title="Delete" (click)="removeItem(obj)"><i class="fas fa-times"></i></span></td>
+                                            <td style="text-align: center;">
+                                                <span style="cursor: pointer" (click)="upwordItem(obj,'up',ie)"> <i  class="fas fa-angle-up"></i></span>                                                &nbsp;
+                                                <span style="cursor: pointer" (click)="upwordItem(obj,'down',ie)"><i  class="fas fa-angle-down"></i></span>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                                                    <button type="button" (click)="showEditAdditionalDocumentFields(obj,0)" class="btn btn-primary">Edit Field</button>&nbsp;
+                                                    <button type="button" (click)="showEditDocumentPopup(obj,1)" class="btn btn-primary">Edit Content</button>&nbsp;
+                                                    <button type="button" class="btn btn-primary">Edit Table</button>&nbsp;
+                                                </div>
+                                            </td>
+                                        </tr>
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-end">
+
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="btn-group" style="width: 100%;" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="openActiveproposal()">Active Proposal</button>&nbsp;
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="openDelegationPoup()">Delegate Proposal</button>&nbsp;
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="openPoup()">Share Proposal</button>&nbsp;
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="btn-group" style="width: 100%;" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-primary btn-sm w-100" type="button" data-toggle="dropdown" (click)="generate()">Generate Offline Document</button>&nbsp;
+                                        <ul [hidden]="!this.showbutton" class="dropdown-menu">
+                                            <li><button type="button" (click)="generatePricing()" class="btn btn-primary btn-sm w-100"> Generate Offline Pricing Document</button>
+                                            </li>
+                                            <div class="dropdown-divider"></div>
+                                            <li><button type="button" (click)="generateNonPricing()" class="btn btn-primary btn-sm w-100"> Generate Offline Non-Pricing Document</button>
+                                            </li>
+                                        </ul>
+                                        <button type="button" routerLink="/mopetdetails/{{ProposalId}}" class="btn btn-primary btn-sm w-100">&nbsp;
                                         <span class="docment">MOPET Details</span> </button>
-                                  </div> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </div>
