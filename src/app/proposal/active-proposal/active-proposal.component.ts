@@ -363,7 +363,7 @@ export class ActiveProposalComponent implements OnInit {
 
   onRowClicked(event: { [x: string]: { [x: string]: any; }; }) {
     console.log(event["data"]);
-    this.router.navigate(["proposaloverview/", event["data"]["id"]]);
+    this.router.navigate(["proposaloverview/", event["data"]["id"],false]);
   }
   agInit(params: ICellRendererParams): void {
     //this.cellValue = params.value;

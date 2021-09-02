@@ -129,6 +129,6 @@ export class PrivateCtmComponent implements OnInit {
   ];
   onRowClicked(event) {
     console.log(event["data"]);
-    this.router.navigate(["proposaloverview/", event["data"]["id"]]);
+    this.router.navigate(["proposaloverview/", event["data"]["id"],false]);
   }
 }

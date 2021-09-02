@@ -2,6 +2,10 @@
     <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
 <div class="container-fluid p-4 my-3 mt-5 border">
+    
+    <div  *ngIf="isDraftflag != 'false'" id="background">
+        <p id="bg-text">Draft</p>
+    </div>
 
     <div class="row align-items-start">
         <div class="col-12">

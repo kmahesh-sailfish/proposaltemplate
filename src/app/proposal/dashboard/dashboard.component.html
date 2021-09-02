@@ -35,7 +35,7 @@
                                     </tr>
                                     <tr *ngFor="let o of getList | slice:0:6;" >
                                         <td style="padding: 5pt;"> 
-                                            <a href="#" routerLink="/proposaloverview/{{o.id}}">{{o.proposalId}}</a>
+                                            <a href="#" routerLink="/proposaloverview/{{o.id}}/false">{{o.proposalId}}</a>
                                         </td>
                                         <td style="padding: 5pt;">
                                             <a href="#"><label>{{o.lastModified | date:'MMM d, y HH:mm:dd'}}</label></a>

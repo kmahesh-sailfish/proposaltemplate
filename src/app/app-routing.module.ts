@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: "createproposal", component: CreateProposalComponent },
   { path: "replicaporposal", component: ReplicateProposalComponent },
   { path: "downloadamendet", component: DownloadAmendentComponent },
-  { path: "proposaloverview/:id", component: ProposalOverviewComponent },
+  { path: "proposaloverview/:id/:isDraft", component: ProposalOverviewComponent },
   { path: "archiveproposal", component: ArchiveProposalComponent },
   { path: "delegation", component: DelegationComponent },
   { path: "multipledocs", component: MultipleDocsComponent },

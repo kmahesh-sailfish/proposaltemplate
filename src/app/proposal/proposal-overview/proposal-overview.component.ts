@@ -14,6 +14,7 @@ import {DelProposalComponent} from "../modeal/del-proposal/del-proposal.componen
 import { PriceProposalComponent } from '../modeal/price-proposal/price-proposal.component';
 import { ToastrService } from "ngx-toastr";
 
+
 @Component({
     selector: "app-proposal-overview",
     templateUrl: "./proposal-overview.component.html",
@@ -54,6 +55,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
   public currencies: any;
   public model: any;
     ///--------------  
+    public isDraftflag:any;
    public sampe: any = {};
    dtOptions: DataTables.Settings = { }
    public showbutton: boolean = false;
@@ -125,9 +127,12 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         })
       }
     getById() {
-        this.route.paramMap.subscribe((params: ParamMap) => {
-            this.ProposalId = +params.get("id");
-        });
+        this.ProposalId = this.route.snapshot.paramMap.get('id');
+        this.isDraftflag = this.route.snapshot.paramMap.get('isDraft');
+        // this.route.paramMap.subscribe((params: ParamMap) => {
+        //     this.ProposalId = +params.get("id");
+        //     this.isDraftflag = +params.get("isDraft");
+        // });
     }
     createProposal(obj) {
         this.proposalService.createProposal(obj).subscribe((data: any) => {
@@ -136,7 +141,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
         this.toastr.success(this.editProposalObj, "Success");
         this.getProposalById();
        // this.loadForm();
-        this.router.navigate(["proposaloverview/", this.editProposalObj["id"]]);
+        this.router.navigate(["proposaloverview/", this.editProposalObj["id"],false]);
         });
     }
     getProposalById() {
@@ -443,13 +448,18 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
                 Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity'] ?.notes : "",
             LastModifiedBy: this.userId
         };
+        if(block == 'ProposalId')
+        {
+            obj['isDraft']= true;
+        }else{
+            obj['isDraft']= false;
+        }
         this.blurUpdateForm(obj, block);
     }
     blurUpdateForm(obj, block) {
     
      this.proposalService.updateProposal(obj).subscribe((data: any) => {
             this.model = new Proposal(data);
-           
             if(data.proposalId !="" && data.proposalId !=null ){
                // this.propOverView('')
                  this.propOverView.get('proposalId').disable();

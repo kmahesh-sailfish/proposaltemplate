@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GridApi, ICellRendererParams, IDatasource, IGetRowsParams } from 'ag-grid-community';
 import { AgRendererComponent } from "ag-grid-angular";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable } from "rxjs/Observable";
 
 
 @Component({
@@ -52,12 +53,16 @@ export class ExternalUsersComponent implements OnInit {
   ExtUsersData: ExtUsersData[];
   selectedUserUniqueId: string;
   context: any;
-  public gridApi;
   isDisabled: boolean = true;
   popupMsg: string;
   public userId: any;
   myForm: FormGroup;
-
+  public gridOptions: any;
+  public showbutton: boolean = false;
+  public rowData: any = [];
+  public title = "agGridExamples";
+  public gridApi: GridApi;
+  params: any;
   columnDefs = [
     {
       headerName: "Select",
@@ -103,8 +108,18 @@ export class ExternalUsersComponent implements OnInit {
   onGridReady(params: any) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
-    //this.gridApi.setDatasource(this.datasource);
+    this.gridApi.setDatasource(this.datasource);
   }
+  // private getRowData(startRow: number, endRow: number): Observable<any[]> {
+  //   return this.adminService.getExternalUsers();
+  // }
+  datasource: IDatasource = {
+    getRows: (params: IGetRowsParams) => {
+      this.adminService.getExternalUsers().subscribe((data: any) => {
+        params.successCallback(data)
+      });
+    }
+  };
   loadGrid() {
     var data = this.adminService.getExternalUsers().subscribe((data: any) => {
       console.log(data);
@@ -130,25 +145,33 @@ export class ExternalUsersComponent implements OnInit {
     )
     this.popupMsg = "User Info";
   }
-  approveSelected(content) {
-
+  approveSelected(content, status) {
+console.log(status);
     var deleteObj = {};
     deleteObj['alias'] = this.userId;
     let selectedRows;
     selectedRows = this.gridApi.getSelectedRows();
-
+console.log(selectedRows);
     if (selectedRows.length > 0) {
       selectedRows.map((row) => {
         deleteObj['uniqueId'] = row["uniqueId"];
+        deleteObj['newStatus'] =  status;
         console.log(deleteObj)
+        
+        this.adminService.approveOrDenyUser(deleteObj).subscribe((data: any) => {
+          //this.modalService.dismissAll();
+          console.log("response: "+data)
+          this.toastr.success("Selected user status updated successfully!");
+          this.loadGrid();
+        });
       });      
     }
     else {
-      this.toastr.info("Please select Proposals to Delete");
+      this.toastr.info("Please select user to approve/deny");
     }
 
 
-this.toastr.show("Approve");
+//this.toastr.show("Approve");
 
 console.log("data:"+content.toString());
    

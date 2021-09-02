@@ -38,7 +38,7 @@ export class ReplicateProposalComponent implements OnInit {
       this.proposalService.replicateProposal(obj).subscribe((data: any) => {
         var sourceId = data.id;
         console.log(sourceId, "sourceId");
-        this.router.navigate(["proposaloverview/", sourceId]);
+        this.router.navigate(["proposaloverview/", sourceId,false]);
       });
     } else {
       alert("Please provided New proposal Id");

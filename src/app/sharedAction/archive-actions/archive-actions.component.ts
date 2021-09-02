@@ -31,7 +31,7 @@ export class ArchiveActionsComponent implements OnInit {
   editClicked(event) {
     event.stopPropagation();
     console.log(this.params.data, "edited");
-    this.router.navigate(["proposaloverview/", this.params.data["id"]]);
+    this.router.navigate(["proposaloverview/", this.params.data["id"],false]);
   }
   deleteClicked(event) {
     event.stopPropagation();

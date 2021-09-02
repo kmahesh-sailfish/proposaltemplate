@@ -99,7 +99,7 @@ export class CreateProposalComponent implements OnInit {
       var sourceId = data.id;
       console.log(sourceId, "sourceId");
       this.toastr.success(data, "Success");
-      this.router.navigate(["proposaloverview/", sourceId]);
+      this.router.navigate(["proposaloverview/", sourceId,this.proposalForm.get('IsDraft').value]);
       this.toastr.success(data, "Success");
     });
   }

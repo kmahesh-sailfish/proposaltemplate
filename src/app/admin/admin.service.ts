@@ -77,4 +77,7 @@ var obj={
     return this.http
     .get(environment.API_URL + "Admin/" + "GetUsers", opts)    
   }
+  approveOrDenyUser(obj) {
+    return this.http.post(environment.API_URL + "Admin/" + "ApproveORDenySelected", obj);
+  }
 }
