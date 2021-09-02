@@ -1,10 +1,23 @@
 
 
 
-<div class="container-fluid p-4 my-3 mt-5 border">
-    <div class="row align-items-star">
-        <div class="col">
-       <p>delegation works!</p>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#433163" fullScreen="true" type="ball-spin-clockwise">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="container-fluid p-3 my-3 mt-5 border">
+    <div class="row align-items-start">
+        <div class="col-12">
+            <div class="form-group">
+                <div class="header-pic"><span class="proposal">Advance Delegations</span> </div>
+            </div>
         </div>
     </div>
-</div>
+    <div class="row" style="height: 1pt;">
+    </div>
+    <div class="row">
+        <div class="col">
+    <ag-grid-angular #agGrid style="width: 100%; height: calc(75vh)" class="ag-theme-alpine ag-center-cols-clipper ag-center-cols-container" [rowData]="amendmentInfoData"
+        [context]="context" [columnDefs]="columnDefs" [frameworkComponents]="frameworkComponents">
+      </ag-grid-angular>
+        </div>
+    </div>

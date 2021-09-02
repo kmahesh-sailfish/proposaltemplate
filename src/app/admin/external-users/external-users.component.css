@@ -1,0 +1,11 @@
+.color433163 {
+    background: #433163;
+    color: #ffffff;
+  }
+  .header{
+    font-weight: bold; font-size: 22px;
+  }
+  .ag-center-cols-clipper,
+  .ag-center-cols-container {
+    min-height: 300px !important;
+  }

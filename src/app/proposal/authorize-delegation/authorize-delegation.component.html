@@ -1,9 +1,31 @@
-
-
-<div class="container-fluid p-4 my-3 mt-5 border">
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#433163" fullScreen="true" type="ball-spin-clockwise">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div class="container-fluid p-3 my-3 mt-5 border">
+    <div class="row align-items-start">
+        <div class="col-12">
+            <div class="form-group">
+                <div class="header-pic"><span class="proposal">Advance Delegation</span> </div>
+            </div>
+        </div>
+    </div>
     <div class="row align-items-star">
+
         <div class="col">
-         <p>authorize-delegation works!</p>
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a href="#delegateDateRange" class="nav-link active" data-toggle="tab">Delegate
+                        Workflow for a Date Range</a></li>
+                <li class="nav-item"><a href="#delegateproposal" class="nav-link" data-toggle="tab">Delegate Workflow
+                        for a Proposal</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="delegateDateRange">
+                    <app-delgate-date-range></app-delgate-date-range>
+                </div>
+                <div class="tab-pane" id="delegateproposal">
+                    <app-delgate-proposal-workflow></app-delgate-proposal-workflow>
+                </div>
+            </div>
         </div>
     </div>
 </div>
