@@ -369,7 +369,9 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     }
     addCTM(event) {
         var  file = event.target.files[0];
-        localStorage.setItem('fileObj',file );
+        // file =JSON.stringify(file) 
+        // localStorage.setItem('fileObj',file );
+        this.sharedSerivice.setproposalObs(file);
         this.router.navigate(["/ctmfooter", this.ProposalId]);
         
     }

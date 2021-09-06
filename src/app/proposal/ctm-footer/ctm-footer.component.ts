@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { SharedService } from "src/app/sharedservices/shared.service";
 import { ProposalService } from "../../proposal.service";
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-ctm-footer",
@@ -8,6 +9,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ["./ctm-footer.component.css"]
 })
 export class CtmFooterComponent implements OnInit {
+  public FileContent: any;
+  public fileObj: any = {};
   public SelectedCategorieIds: any = [];
   public fileName: any;
   public reasoning: any;
@@ -25,13 +28,40 @@ export class CtmFooterComponent implements OnInit {
   public selectLanguage: any = null;
   public getLanguages: any = [];
   public ProposalId: any;
-  constructor(private proposalService: ProposalService,private route:ActivatedRoute) {}
+  constructor(
+    private proposalService: ProposalService,
+    private sharedService: SharedService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.ProposalId = this.route.snapshot.paramMap.get('id');
+    this.ProposalId = this.route.snapshot.paramMap.get("id");
     this.loadCTMFooterCode();
     //this.selectLanguage="";
     this.loadLanguages();
+    // this.fileObj= localStorage.getItem("fileObj");
+    this.getFileObjs();
+  }
+  getFileObjs() {
+    this.sharedService.getproposalObs().subscribe(data => {
+      this.getbase64(data);
+    });
+  }
+  getbase64(fileObj) {
+    let file = fileObj;
+    this.fileName = file.name;
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event: Event) => {
+      //me.modelvalue = reader.result;
+      //let FileContent =reader.result;
+      this.FileContent = reader.result;
+      this.FileContent = btoa(this.FileContent);
+      console.log(reader.result, "base64444");
+    };
+    reader.onerror = function(error) {
+      console.log("Error: ", error);
+    };
   }
   loadLanguages() {
     this.proposalService.getLanguage().subscribe((data: any) => {
@@ -43,8 +73,8 @@ export class CtmFooterComponent implements OnInit {
       this.footerCategory = data;
     });
   }
-  clearData() { }
-  saveCTMLib(){}
+  clearData() {}
+  saveCTMLib() {}
   CheckBoxChecked(cat, isChecked) {
     if (cat.needDescription && isChecked) {
       this.OthersChecked = true;
