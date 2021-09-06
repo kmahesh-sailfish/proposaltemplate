@@ -2,8 +2,8 @@
     <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
 <div class="container-fluid p-4 my-3 mt-5 border">
-    
-    <div  *ngIf="isDraftflag != 'false'" id="background">
+
+    <div *ngIf="isDraftflag != 'false'" id="background">
         <p id="bg-text">Draft</p>
     </div>
 
@@ -47,6 +47,11 @@
                                             <option *ngFor="let o of chooseList"  value="{{o.ids}}" >{{o.name}}</option>
                                         </select>
                                             <div *ngIf="propOverView.get('identifier').invalid && (propOverView.get('identifier').dirty || propOverView.get('identifier').touched)">
+                                                <div class="error_color">
+                                                    Enrollment Id/Agreement Id is required
+                                                </div>
+                                            </div>
+                                            <div *ngIf="proposalIdentifierReq">
                                                 <div class="error_color">
                                                     Enrollment Id/Agreement Id is required
                                                 </div>
@@ -174,7 +179,7 @@
                                         <!-- {{showbutton}} -->
                                         <div class="btn btn-primary btn-sm w-100">
                                             <span style="cursor: pointer" class="">Add CTM File</span>
-                                            <input style="cursor: pointer;width: 100%;" class="sample" type="file" (change)="addCTM()" name="file" />
+                                            <input style="cursor: pointer;width: 100%;" class="sample" type="file" (change)="addCTM($event)" name="file" />
                                         </div>
                                     </div>
                                 </div>

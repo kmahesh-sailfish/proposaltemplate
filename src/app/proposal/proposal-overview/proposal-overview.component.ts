@@ -60,7 +60,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
    dtOptions: DataTables.Settings = { }
    public showbutton: boolean = false;
    public userObj:any={};
-   public proposalIdentifierReq: any;
+   public proposalIdentifierReq: boolean=false;
    
    public doctype: any;
    
@@ -367,8 +367,11 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
             .getPricingCountry()
             .subscribe((data: any) => (this.pricingCountries = data));
     }
-    addCTM() {
-        this.router.navigate(["/ctmfooter",this.ProposalId]);
+    addCTM(event) {
+        var  file = event.target.files[0];
+        localStorage.setItem('fileObj',file );
+        this.router.navigate(["/ctmfooter", this.ProposalId]);
+        
     }
     initDiscountAmendmentPopUp(){
        // debugger;
@@ -418,6 +421,11 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     }
 
     proposalUpdate(event, block) {
+        if (this.proposalIdentifierReq) {
+        this.proposalIdentifierReq = false;    
+        }
+        
+
         var obj = {
             id: this.editProposalObj['proposalEntity']?.id,
             proposalId:  this.propOverView.get("proposalId").value ? this.propOverView.get("proposalId").value:
