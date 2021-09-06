@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ProposalService } from "../../proposal.service";
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-ctm-footer",
@@ -23,9 +24,11 @@ export class CtmFooterComponent implements OnInit {
   public tempOthersCode: any;
   public selectLanguage: any = null;
   public getLanguages: any = [];
-  constructor(private proposalService: ProposalService) {}
+  public ProposalId: any;
+  constructor(private proposalService: ProposalService,private route:ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.ProposalId = this.route.snapshot.paramMap.get('id');
     this.loadCTMFooterCode();
     //this.selectLanguage="";
     this.loadLanguages();
