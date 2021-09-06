@@ -1,94 +1,124 @@
-<div class="container-fluid p-4 my-3 mt-5 border">
-    <div class="row align-items-star">
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <div class="header-pic"><span class="proposal">CTM Footer Code</span> </div>
-                    </div>                 
+<div class="card1 pt-4 mt-5 border">
+    <div class="card-body1">
+        <div class="container-fluid">
+            <div class="row mb-3">
+                <div class="col-12">
+                    <div class="header-pic"><span class="proposal">CTM Footer Code</span> </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-3">
-                    <div class="form-group">
-                        <span>CTM Codes:</span>
+                <div class="col-8">
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label">CTM Code:</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="ctmCode" placeholder="CTM-" aria-label="ctmCode">
+                        </div>
                     </div>
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <input type="text" class="form-control" />
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label"> File Name:</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" name="fileName" [(ngModel)]="fileName" placeholder="File name" aria-label="File Name">
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <div class="form-group">
-                        <span>Footer Category:</span>
-                    </div>
-                </div>
-                <div class="col-4 select-category-container">
-                    <div class="form-group">
-                        <button class="form-control text-left" (click)="SelectCategory=!SelectCategory" style="border-color:#000">
-                            {{SelectedCategoriesText}}<i class="fa fa-sort-down pull-right"></i>
-                        </button>
-                        <div class="select-category" ng-class="{'subCategoryChecked':true}">
-                            <!-- ng-show="SelectCategory" ng-init="skipValue=1" ng-click="CategoryDiv();" -->
-                            <div class="category" [hidden]="!SelectCategory">
-                                <div *ngFor="let category of footerCategory | parentPipesval">
-                                    <input type="checkbox" (change)="CheckBoxChecked(category,selectedCateg[category.id])" name="{{category.name}}" [(ngModel)]="selectedCateg[category.id]"
-                                        [value]="category.id"> {{category.name}}-{{category.description}}
-                                    <div style="padding-left:10px" [hidden]="!selectedCateg[category.id]" *ngFor="let subCategory of footerCategory | childPipesval : {parentId:category.id}">
-                                        <input type="checkbox" (change)="CheckBoxChecked(subCategory,selectedCateg[subCategory.id])" [(ngModel)]="selectedCateg[subCategory.id]"
-                                            name="{{subCategory.parentId}}" [value]="subCategory.id" />                                        {{subCategory.name}}-{{subCategory.description}}
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label">Category:</label>
+                        <div class="col-8 select-category-container">
+                            <div class="form-group">
+                                <button class="form-control text-left" (click)="SelectCategory=!SelectCategory" style="border-color:#000">
+                                    {{SelectedCategoriesText}}<i class="fa fa-sort-down pull-right"></i>
+                                </button>
+                                <div class="select-category" ng-class="{'subCategoryChecked':true}">
+                                    <!-- ng-show="SelectCategory" ng-init="skipValue=1" ng-click="CategoryDiv();" -->
+                                    <div class="category" [hidden]="!SelectCategory" style=" border: 1px solid;padding: 10px;">
+                                        <div *ngFor="let category of footerCategory | parentPipesval">
+                                            <input type="checkbox" (change)="CheckBoxChecked(category,selectedCateg[category.id])" name="{{category.name}}" [(ngModel)]="selectedCateg[category.id]"
+                                                [value]="category.id"> {{category.name}}-{{category.description}}
+                                            <div style="padding-left:10px" [hidden]="!selectedCateg[category.id]" *ngFor="let subCategory of footerCategory | childPipesval : {parentId:category.id}">
+                                                <input type="checkbox" (change)="CheckBoxChecked(subCategory,selectedCateg[subCategory.id])" [(ngModel)]="selectedCateg[subCategory.id]"
+                                                    name="{{subCategory.parentId}}" [value]="subCategory.id" />                                                {{subCategory.name}}-{{subCategory.description}}
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <button type="button" (click)="SelectCategoryVal()" class="btn btn-primary">Save </button>&nbsp;
+                                                <button type="button" (click)="clearCategory()" class="btn btn-primary">Cancel </button>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label">Language:</label>
+                        <div class="col-8">
+                            <select class="form-control" name="Language" placeholder="Select Language" [(ngModel)]="selectLanguage">
+                                <option [value]="null">Select Language</option>
+                                <option *ngFor="let obj of getLanguages" [value]="obj">{{obj}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label">Amendment Code:</label>
+                        <div class="col-8">
+                            <input type="textarea" class="form-control" [(ngModel)]="amtcode" placeholder="Amendent Code" aria-label="Amendent Code">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label">Customer Scenario/ Reasoning:</label>
+                        <div class="col-8">
+                            <input type="textarea" class="form-control" [(ngModel)]="reasoning" placeholder="reasoning" aria-label="Reasoning">
+                        </div>
+                    </div>
+                    <!--<div class="row mb-3">
+                        <div class="col-3">&nbsp;</div>
+                        <div class="col-8">
+                            <div class="form-group">
+                                <input type="checkbox" [(ngModel)]="isPublic" name="isPublic" /> &nbsp;
+                                <span>Would you like to share this CTM in the Public CTM Library?</span>
+                            </div>
+                        </div>
 
+                    </div>-->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <button type="button" (click)="saveCTMLib()" class="btn btn-primary">Save </button>&nbsp;
+                            <button type="button" (click)="clearData()" class="btn btn-primary">Cancel </button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <div class="form-group">
-                        <span>Amendment Code:</span>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <input type="text" class="form-control" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <span>Language:</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <select class="form-control" name="Language" [(ngModel)]="selectLanguage">
-                            <option [value]="null">Select</option>
-                            <option *ngFor="let obj of getLanguages" [value]="obj">{{obj}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <div class="form-group">
-                        <span>Customer Scenario/ Reasoning:</span>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <input type="textarea" class="form-control" />
+                <div class="col-3" *ngIf="OthersChecked" style="position: sticky;
+                border: 1px solid;
+                height: 55vh;
+                margin-left: -47px;">
+                    <div class="modal-body category others">
+                        <form name="others" (ngSubmit)="SaveOthers()">
+                            <div class="row">
+                                <textarea class="col-sm-12" rows="4" name="othersDescription" [(ngModel)]="othersDescription" placeholder="Please provide a description as to why you selected this category"></textarea>
+                            </div>
+                            <!-- <div ng-messages="others.othersDescription.$error" class="error col-sm-11 " ng-show="submitClicked || others.othersDescription.$dirty">
+                                <div ng-messages-include="error-messages" role="alert"></div>
+                            </div> -->
+                            <div class="row">
+                                <p>Does this amendment have revenue impact?</p>
+                                <div class="col-sm-12">
+                                    <input type="radio" name="revenueImpacts" [(ngModel)]="revenueImpact" [value]="true" />                                    Yes
+                                </div>
+                                <div class="col-sm-12">
+                                    <input type="radio" name="revenueImpacts" [(ngModel)]="revenueImpact" [value]="false" />                                    No
+                                </div>
+                            </div>
+                            <div class="row text-center form-group">
+                                <input type="submit" class="btn app-save-btn" value="Save" (click)="submitClicked=true" />&nbsp;
+                                <input type="button" class="btn app-cancel-btn" value="Cancel" (click)="OthersChecked=false;Cancel()" />
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
+<!-- <div class="modal-body"></div> -->
