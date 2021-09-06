@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { SharedService } from "src/app/sharedservices/shared.service";
 import { ProposalService } from "../../proposal.service";
 
 @Component({
@@ -7,6 +8,8 @@ import { ProposalService } from "../../proposal.service";
   styleUrls: ["./ctm-footer.component.css"]
 })
 export class CtmFooterComponent implements OnInit {
+   public FileContent:any;
+  public fileObj:any={};
   public SelectedCategorieIds: any = [];
   public fileName: any;
   public reasoning: any;
@@ -23,12 +26,39 @@ export class CtmFooterComponent implements OnInit {
   public tempOthersCode: any;
   public selectLanguage: any = null;
   public getLanguages: any = [];
-  constructor(private proposalService: ProposalService) {}
+  constructor(private proposalService: ProposalService,
+    private sharedService:SharedService) {}
 
   ngOnInit(): void {
     this.loadCTMFooterCode();
     //this.selectLanguage="";
     this.loadLanguages();
+   // this.fileObj= localStorage.getItem("fileObj");
+   this.getFileObjs();
+
+  }
+  getFileObjs(){
+    this.sharedService.getproposalObs().subscribe(data=>{
+      this.getbase64(data);
+    })
+  }
+  getbase64(fileObj){
+    
+    let file = fileObj;
+    this.fileName =file.name;
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event:Event) =>{
+      //me.modelvalue = reader.result;
+      //let FileContent =reader.result;
+      this.FileContent= reader.result;
+      this.FileContent = btoa(this.FileContent);
+      console.log(reader.result,'base64444');
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  
   }
   loadLanguages() {
     this.proposalService.getLanguage().subscribe((data: any) => {
