@@ -368,7 +368,7 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
             .subscribe((data: any) => (this.pricingCountries = data));
     }
     addCTM() {
-        this.router.navigate(["/ctmfooter"]);
+        this.router.navigate(["/ctmfooter",this.ProposalId]);
     }
     initDiscountAmendmentPopUp(){
        // debugger;

@@ -22,11 +22,11 @@ export class CtmLibraryComponent implements OnInit {
   }
   addCTM(event) {
     var  file = event.target.files[0];
-    console.log(file);
     const modalRef = this.modalService.open(CtmwindowComponent, {
       size: "xl"
     });
-    modalRef.componentInstance.fileObj = file;
+     modalRef.componentInstance.fileObj = file;
     //   this.router.navigate(["/ctmlibrary"]);
   }
+ 
 }

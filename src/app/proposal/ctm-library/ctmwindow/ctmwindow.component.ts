@@ -7,6 +7,7 @@ import { ProposalService } from "../../../proposal.service";
   styleUrls: ["./ctmwindow.component.css"]
 })
 export class CtmwindowComponent implements OnInit {
+  public IsCTMPricing:boolean=false;
   public CTMLibFile:any={};
   public fileName:any;
   public fileObj:any;
@@ -29,11 +30,13 @@ export class CtmwindowComponent implements OnInit {
   public footerCategory: any = [];
   public submitClicked:boolean=true;
   public SelectedCategorieIds:any=[];
+  public FileContent:any;
   constructor(public proposalService: ProposalService) {}
 
   ngOnInit(): void {
     this.userId= localStorage.getItem("userAlias");
     this.fileName =this.fileObj.name;
+    this.getbase64(this.fileObj);
     this.selectLanguage = null;
     this.loadLanguages();
     this.loadCTMFooterCode();
@@ -73,6 +76,13 @@ export class CtmwindowComponent implements OnInit {
  
   this.CTMLibFile.CategoryIds = this.SelectedCategorieIds;
   this.CTMLibFile.Name = this.fileObj.name;
+  this.CTMLibFile.FileExtension= "."+(this.fileObj.name).split('.').pop();
+  this.CTMLibFile.CreatedBy= this.userId;
+  this.CTMLibFile.Language = this.selectLanguage;
+  this.CTMLibFile.CTMCode = this.SelectedCategoriesText;
+  this.CTMLibFile.IsCTMPricing = this.IsCTMPricing;
+  this.CTMLibFile.FileContent=this.FileContent;
+  debugger;
   console.log(this.CTMLibFile);
   }
   GenerateCTMCodes(){
@@ -94,7 +104,6 @@ export class CtmwindowComponent implements OnInit {
     this.SelectedCategoriesText = categoryText ? categoryText : "Select Footer Category";
   }
   SaveOthers(){
-    alert('called');
     // this.tempOthersCode.name, Description: this.description, HasRevenueImpact: this.hasRevenueImpact
     var temp = { Code: this.tempOthersCode.name, Description: this.othersDescription, HasRevenueImpact: this.revenueImpact };
     if (this.Others.length > 0) {
@@ -150,5 +159,22 @@ export class CtmwindowComponent implements OnInit {
       this.SelectedCategories.splice(this.SelectedCategories.indexOf(cat), 1);
       this.Others.splice(this.Others.indexOf(cat), 1);
     }
+  }
+  getbase64(fileObj){
+    
+    let file = fileObj;
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event:Event) =>{
+      //me.modelvalue = reader.result;
+      //let FileContent =reader.result;
+      this.FileContent= reader.result;
+      this.FileContent = btoa(this.FileContent);
+      console.log(reader.result,'base64444');
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  
   }
 }

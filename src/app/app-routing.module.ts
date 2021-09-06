@@ -20,7 +20,7 @@ import { MopetDetailsComponent } from "./proposal/mopet-details/mopet-details.co
 
 const routes: Routes = [
   {
-    path: "ctmfooter",
+    path: "ctmfooter/:id",
 
     component: CtmFooterComponent
   },
