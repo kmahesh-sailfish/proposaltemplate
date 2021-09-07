@@ -21,3 +21,8 @@ body .ctm-library-container #UploadCTM .others {
   color: #ffffff !important;
   border-color: #433163 !important;
 }
+.Ctmstyle {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.5;
+}
