@@ -43,7 +43,7 @@
                                     <div class="col-5">
                                         <div class="form-group">
                                             <select name="identifier" (blur)="proposalUpdate($event,'identifier')" formControlName="identifier" class="form-control">                                        
-                                            <option value="">Please Select Id</option>
+                                            <option value="null">Please Select Id</option>
                                             <option *ngFor="let o of chooseList"  value="{{o.ids}}" >{{o.name}}</option>
                                         </select>
                                             <div *ngIf="propOverView.get('identifier').invalid && (propOverView.get('identifier').dirty || propOverView.get('identifier').touched)">
