@@ -596,6 +596,19 @@ export class ProposalService {
         })
       );
   }
+  saveCtmtoLib(obj) {
+    return this.http
+      .post(environment.API_URL + "Ctm/SaveCTMToLib", obj)
+      .pipe(
+        map((res: any) => {
+          return res['_sourceObject'];
+        })
+      );
+  }
 
 }
       
+//---------------------------------------------
+
+
+

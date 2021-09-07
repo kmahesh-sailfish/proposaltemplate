@@ -1,12 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { ProposalService } from "../../../proposal.service";
-
+import { Router } from "@angular/router";
 @Component({
   selector: "app-ctmwindow",
   templateUrl: "./ctmwindow.component.html",
   styleUrls: ["./ctmwindow.component.css"]
 })
 export class CtmwindowComponent implements OnInit {
+  
+
   public IsCTMPricing:boolean=false;
   public CTMLibFile:any={};
   public fileName:any;
@@ -31,7 +33,7 @@ export class CtmwindowComponent implements OnInit {
   public submitClicked:boolean=true;
   public SelectedCategorieIds:any=[];
   public FileContent:any;
-  constructor(public proposalService: ProposalService) {}
+  constructor(public proposalService: ProposalService,public router: Router) {}
 
   ngOnInit(): void {
     this.userId= localStorage.getItem("userAlias");
@@ -82,8 +84,9 @@ export class CtmwindowComponent implements OnInit {
   this.CTMLibFile.CTMCode = this.SelectedCategoriesText;
   this.CTMLibFile.IsCTMPricing = this.IsCTMPricing;
   this.CTMLibFile.FileContent=this.FileContent;
-  debugger;
-  console.log(this.CTMLibFile);
+  this.proposalService.saveCtmtoLib(this.CTMLibFile).subscribe(data=>{
+    this.router.navigate(["/public"]);
+  })
   }
   GenerateCTMCodes(){
     var text = "CTM";
