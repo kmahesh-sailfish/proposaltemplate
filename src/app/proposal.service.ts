@@ -421,7 +421,7 @@ export class ProposalService {
           "&pageNum=" +
           startRow +
           "&alias=" +
-          "V2Alias"
+          localStorage.getItem("userAlias")
       )
       .pipe(
         map((res: any) => {
