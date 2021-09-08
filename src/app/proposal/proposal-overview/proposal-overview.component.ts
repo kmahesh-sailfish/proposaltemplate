@@ -910,7 +910,7 @@ function Amendment(amendment) {
     // "ctmFooterId": null,
     // "ctmTitle": null,
     // "documentId": 40269,
-3    // "isCSDPricing": null,
+    // "isCSDPricing": null,
     // "isConsolidated": null,
     // "link": null,
     // "proposal": [],

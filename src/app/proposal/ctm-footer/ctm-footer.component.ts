@@ -28,6 +28,8 @@ export class CtmFooterComponent implements OnInit {
   public selectLanguage: any = null;
   public getLanguages: any = [];
   public ProposalId: any;
+  public userId;
+  public Amendments: any = [];
   constructor(
     private proposalService: ProposalService,
     private sharedService: SharedService,
@@ -35,13 +37,29 @@ export class CtmFooterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('userAlias');
     this.ProposalId = this.route.snapshot.paramMap.get("id");
     this.loadCTMFooterCode();
     //this.selectLanguage="";
     this.loadLanguages();
     // this.fileObj= localStorage.getItem("fileObj");
     this.getFileObjs();
+    this.getProposalbyId(this.ProposalId);
   }
+  getProposalbyId(ProposalId) {
+        var obj = {
+            id: this.ProposalId,
+            createdByAlias: this.userId,
+            isSuperUser: true
+        };
+      this.proposalService.getProposal(obj).subscribe((data: any) => {          
+        this.getAmendements(data);          
+        });
+  }
+  getAmendements(data) {
+        this.Amendments = data["amendments"] == null ? [] : data["amendments"];        
+    }
+  
   getFileObjs() {
     this.sharedService.getproposalObs().subscribe(data => {
       this.getbase64(data);
