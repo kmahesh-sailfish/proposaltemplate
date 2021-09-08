@@ -9,6 +9,8 @@ import { Router, ActivatedRoute } from "@angular/router";
   styleUrls: ["./ctm-footer.component.css"]
 })
 export class CtmFooterComponent implements OnInit {
+  public IsCTMPricing:boolean=false;
+  public CTMLibFile:any={};
   public FileContent: any;
   public fileObj: any = {};
   public SelectedCategorieIds: any = [];
@@ -92,7 +94,30 @@ export class CtmFooterComponent implements OnInit {
     });
   }
   clearData() {}
-  saveCTMLib() {}
+  saveCTMLib() {
+    if(this.Others.length >0 ){
+      this.CTMLibFile.CategoryDescription = JSON.stringify(this.Others);
+    }else{
+      this.CTMLibFile.CategoryDescription=""
+    }
+ this.CTMLibFile.CTMAmendmentCode= "121"
+ this.CTMLibFile.SelectedCategoryIds=""
+ this.CTMLibFile.OtherCategoryInfo=""
+ this.CTMLibFile.IsPublic= false,
+ this.CTMLibFile.Id = 0,
+ this.CTMLibFile.HasRevenueImpact= false,
+  this.CTMLibFile.FileId= 0,
+  this.CTMLibFile.CategoryIds = this.SelectedCategorieIds;
+  this.CTMLibFile.Name = this.fileObj.name;
+  this.CTMLibFile.FileExtension= "."+(this.fileObj.name).split('.').pop();
+  this.CTMLibFile.CreatedBy= this.userId;
+  this.CTMLibFile.ConsolidatedAmendments="";
+  this.CTMLibFile.CustomerReasoning="";
+  this.CTMLibFile.Language = this.selectLanguage;
+  this.CTMLibFile.CTMCode = this.SelectedCategoriesText;
+  this.CTMLibFile.IsCTMPricing = this.IsCTMPricing;
+  this.CTMLibFile.FileContent=this.FileContent;
+  }
   CheckBoxChecked(cat, isChecked) {
     if (cat.needDescription && isChecked) {
       this.OthersChecked = true;
