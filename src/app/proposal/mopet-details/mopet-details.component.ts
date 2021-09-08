@@ -75,7 +75,7 @@ export class MopetDetailsComponent implements OnInit {
       Id: this.newProposal.metaData.id,
       CustomerName: this.newProposal.proposalEntity.customerName,
       PricingCountry: this.mopetDetails.pricingCountry,
-      LCAlias: "v-skarukonda",
+      LCAlias: this.userId,
       OperationCenterId: this.mopetDetails.opCenter,
       ProgramId: this.mopetDetails.program,
       Notes: this.newProposal.proposalEntity.comments,

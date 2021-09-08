@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { SharedService } from "src/app/sharedservices/shared.service";
 import { ProposalService } from "../../proposal.service";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, RouterModule } from "@angular/router";
 
 @Component({
   selector: "app-ctm-footer",
@@ -9,8 +9,8 @@ import { Router, ActivatedRoute } from "@angular/router";
   styleUrls: ["./ctm-footer.component.css"]
 })
 export class CtmFooterComponent implements OnInit {
-  public IsCTMPricing:boolean=false;
-  public CTMLibFile:any={};
+  public IsCTMPricing: boolean = false;
+  public CTMLibFile: any = {};
   public FileContent: any;
   public fileObj: any = {};
   public SelectedCategorieIds: any = [];
@@ -35,11 +35,12 @@ export class CtmFooterComponent implements OnInit {
   constructor(
     private proposalService: ProposalService,
     private sharedService: SharedService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.userId = localStorage.getItem('userAlias');
+    this.userId = localStorage.getItem("userAlias");
     this.ProposalId = this.route.snapshot.paramMap.get("id");
     this.loadCTMFooterCode();
     //this.selectLanguage="";
@@ -49,19 +50,19 @@ export class CtmFooterComponent implements OnInit {
     this.getProposalbyId(this.ProposalId);
   }
   getProposalbyId(ProposalId) {
-        var obj = {
-            id: this.ProposalId,
-            createdByAlias: this.userId,
-            isSuperUser: true
-        };
-      this.proposalService.getProposal(obj).subscribe((data: any) => {          
-        this.getAmendements(data);          
-        });
+    var obj = {
+      id: this.ProposalId,
+      createdByAlias: this.userId,
+      isSuperUser: true
+    };
+    this.proposalService.getProposal(obj).subscribe((data: any) => {
+      this.getAmendements(data);
+    });
   }
   getAmendements(data) {
-        this.Amendments = data["amendments"] == null ? [] : data["amendments"];        
-    }
-  
+    this.Amendments = data["amendments"] == null ? [] : data["amendments"];
+  }
+
   getFileObjs() {
     this.sharedService.getproposalObs().subscribe(data => {
       this.getbase64(data);
@@ -95,28 +96,45 @@ export class CtmFooterComponent implements OnInit {
   }
   clearData() {}
   saveCTMLib() {
-    if(this.Others.length >0 ){
+    if (this.Others.length > 0) {
       this.CTMLibFile.CategoryDescription = JSON.stringify(this.Others);
-    }else{
-      this.CTMLibFile.CategoryDescription=""
+    } else {
+      this.CTMLibFile.CategoryDescription = "";
     }
- this.CTMLibFile.CTMAmendmentCode= "121"
- this.CTMLibFile.SelectedCategoryIds=""
- this.CTMLibFile.OtherCategoryInfo=""
- this.CTMLibFile.IsPublic= false,
- this.CTMLibFile.Id = 0,
- this.CTMLibFile.HasRevenueImpact= false,
-  this.CTMLibFile.FileId= 0,
-  this.CTMLibFile.CategoryIds = this.SelectedCategorieIds;
-  this.CTMLibFile.Name = this.fileObj.name;
-  this.CTMLibFile.FileExtension= "."+(this.fileObj.name).split('.').pop();
-  this.CTMLibFile.CreatedBy= this.userId;
-  this.CTMLibFile.ConsolidatedAmendments="";
-  this.CTMLibFile.CustomerReasoning="";
-  this.CTMLibFile.Language = this.selectLanguage;
-  this.CTMLibFile.CTMCode = this.SelectedCategoriesText;
-  this.CTMLibFile.IsCTMPricing = this.IsCTMPricing;
-  this.CTMLibFile.FileContent=this.FileContent;
+    this.CTMLibFile.CTMAmendmentCode = "121";
+    this.CTMLibFile.SelectedCategoryIds = "";
+    this.CTMLibFile.OtherCategoryInfo = "";
+    (this.CTMLibFile.IsPublic = false),
+      (this.CTMLibFile.Id = 0),
+      (this.CTMLibFile.HasRevenueImpact = false),
+      (this.CTMLibFile.FileId = 0),
+      (this.CTMLibFile.CategoryIds = this.SelectedCategorieIds);
+    this.CTMLibFile.Name = this.fileObj.name;
+    this.CTMLibFile.FileExtension = "." + this.fileObj.name.split(".").pop();
+    this.CTMLibFile.CreatedBy = this.userId;
+    this.CTMLibFile.ConsolidatedAmendments = "";
+    this.CTMLibFile.CustomerReasoning = "";
+    this.CTMLibFile.Language = this.selectLanguage;
+    this.CTMLibFile.CTMCode = this.SelectedCategoriesText;
+    this.CTMLibFile.IsCTMPricing = this.IsCTMPricing;
+    this.CTMLibFile.FileContent = this.FileContent;
+    var Amendment = {};
+    Amendment["Code"] = this.SelectedCategoriesText;
+    Amendment["Language"] = this.selectLanguage;
+    Amendment["PId"] = this.ProposalId;
+    Amendment["FileName"] = this.fileName;
+    Amendment["Stream"] = this.FileContent;
+    var obj = {
+      ...this.CTMLibFile,
+      ...Amendment
+    };
+    this.proposalService.saveAmendment(obj).subscribe(data => {
+      console.log(data);
+
+      this.router.navigate([
+        "/proposaloverview/" + this.ProposalId + "/" + false
+      ]);
+    });
   }
   CheckBoxChecked(cat, isChecked) {
     if (cat.needDescription && isChecked) {

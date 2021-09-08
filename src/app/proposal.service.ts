@@ -227,11 +227,10 @@ export class ProposalService {
         map((res: any) => {
           this.spiner.hide();
           return res["result"]["_sourceObject"];
-          
         })
       );
   }
-  updatemopetDetails(obj){    
+  updatemopetDetails(obj) {
     this.spiner.show();
     return this.http
       .post(environment.API_URL + "Proposal/" + "UpdateProposalSubmission", obj)
@@ -239,10 +238,8 @@ export class ProposalService {
         map((res: any) => {
           this.spiner.hide();
           return res["result"]["_sourceObject"];
-          
         })
       );
-
   }
   replicateProposal(obj) {
     this.spiner.show();
@@ -488,10 +485,10 @@ export class ProposalService {
         })
       );
   }
-  
+
   dashboardSearch(searchObj, obj) {
     this.spiner.show();
-  
+
     return this.http
       .get(
         environment.API_URL + "Proposal/SearchRecentProposals/" + searchObj,
@@ -550,7 +547,7 @@ export class ProposalService {
       .post(environment.API_URL + "Mopet/SubmitToMopet", obj)
       .pipe(
         map((res: any) => {
-          return res['_sourceObject'];
+          return res["_sourceObject"];
         })
       );
   }
@@ -558,7 +555,9 @@ export class ProposalService {
   getAllAdvanceDelegations(userId) {
     this.spiner.show();
     return this.http
-      .get(environment.API_URL + "Delegation/GetAllAdvanceDelegations/" + userId)
+      .get(
+        environment.API_URL + "Delegation/GetAllAdvanceDelegations/" + userId
+      )
       .pipe(
         map((res: any) => {
           this.spiner.hide();
@@ -569,7 +568,12 @@ export class ProposalService {
 
   deleteProposalDelegation(proposalId) {
     return this.http
-      .post(environment.API_URL + "Delegation/DeleteProposalDelegation/" + proposalId, proposalId)
+      .post(
+        environment.API_URL +
+          "Delegation/DeleteProposalDelegation/" +
+          proposalId,
+        proposalId
+      )
       .pipe(
         map((res: any) => {
           return res["result"];
@@ -579,7 +583,10 @@ export class ProposalService {
 
   deleteDateDelegation(delegationId) {
     return this.http
-      .delete(environment.API_URL + "Delegation/DeleteDateDelegation/" + delegationId, delegationId)
+      .delete(
+        environment.API_URL + "Delegation/DeleteDateDelegation/" + delegationId,
+        delegationId
+      )
       .pipe(
         map((res: any) => {
           return res["result"];
@@ -592,23 +599,26 @@ export class ProposalService {
       .post(environment.API_URL + "Delegation/AddDelegation", obj)
       .pipe(
         map((res: any) => {
-          return res['_sourceObject'];
+          return res["_sourceObject"];
         })
       );
   }
   saveCtmtoLib(obj) {
+    return this.http.post(environment.API_URL + "Ctm/SaveCTMToLib", obj).pipe(
+      map((res: any) => {
+        return res["_sourceObject"];
+      })
+    );
+  }
+  saveAmendment(obj) {
     return this.http
-      .post(environment.API_URL + "Ctm/SaveCTMToLib", obj)
+      .post(environment.API_URL + "Amendment/SaveAmendment", obj)
       .pipe(
         map((res: any) => {
-          return res['_sourceObject'];
+          return res["_sourceObject"];
         })
       );
   }
-
 }
-      
+
 //---------------------------------------------
-
-
-
