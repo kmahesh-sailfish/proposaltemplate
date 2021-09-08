@@ -191,7 +191,6 @@ function Proposal(data) {
         this.ProposalId = data.proposalEntity.proposalId;
         this.PricingCountry = data.proposalEntity.pricingCountry;
         // this.Empowerment = data.proposalEntity.Empowerment;
-        debugger;
         this.EnrollmentId = data.proposalEntity.enrollmentId;
         this.AgreementId = data.proposalEntity.agreementId;
         this.PageBreak = data.proposalEntity.pageBreak;
