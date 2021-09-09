@@ -231,12 +231,12 @@ export class ProposalService {
       );
   }
   updatemopetDetails(obj) {
-    this.spiner.show();
+   // this.spiner.show();
     return this.http
       .post(environment.API_URL + "Proposal/" + "UpdateProposalSubmission", obj)
       .pipe(
         map((res: any) => {
-          this.spiner.hide();
+        //  this.spiner.hide();
           return res["result"]["_sourceObject"];
         })
       );
@@ -619,6 +619,10 @@ export class ProposalService {
         })
       );
   }
+  
+deleteDocument(obj,flag?){
+return obj;
+}
 }
 
 //---------------------------------------------

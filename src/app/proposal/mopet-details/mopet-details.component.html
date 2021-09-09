@@ -102,16 +102,22 @@
   <div class="row">
     <div class="col">
       <div class="btn-group" style="width: 100%;" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3"><span>Upload Offline Non-Pricing Document to Proposal</span></button>&nbsp;
-        <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3"><span>Offline Pricing Document to Proposal</span> </button>&nbsp;
+        <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3"><span>{{SpanName}}</span></button>&nbsp;
+        <!-- <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3"><span>Offline Pricing Document to Proposal</span> </button>&nbsp;
+        <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3"><span>Upload Offline Pricing Document to Proposal</span> </button>&nbsp; -->
       </div>
     </div>
     <div class="col" style="text-align: end;">
       <div class="btn-group" style="width: 50%;" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-primary btn-sm">Prev/Save Local Copy</button>&nbsp;
+        
+        <button type="button" (click)="generate()" class="btn btn-primary btn-sm">Prev/Save Local Copy</button>&nbsp;
+        <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3" (click)="submitMopet()">Submit to MOPET</button>&nbsp;
+        
+        <button type="button" (click)="generatePricing()" *ngIf="showbutton" class="btn btn-primary btn-sm">Pricing Local Copy</button>&nbsp;
+        <button type="button" (click)="generateNonPricing()" *ngIf="showbutton" class="btn btn-primary btn-sm">Non-Pricing Local Copy</button>&nbsp;
         <!-- {{status}} -->
         <!-- {{mopetDetails['proposalEntity'].status == 3 }} -->
-        <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3" (click)="submitMopet()">Submit to MOPET</button>&nbsp;
+        
       </div>
     </div>
   </div>
