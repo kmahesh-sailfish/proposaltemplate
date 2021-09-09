@@ -23,7 +23,7 @@ export class CtmFooterComponent implements OnInit {
   public SelectCategory: any;
   public selectedCateg: any = [];
   public SelectedCategories: any = [];
-  public Others: any;
+   public Others: any=[];
   public showRevenueImpact: any;
   public OthersChecked: any;
   public tempOthersCode: any;
@@ -65,6 +65,7 @@ export class CtmFooterComponent implements OnInit {
 
   getFileObjs() {
     this.sharedService.getproposalObs().subscribe(data => {
+      this.fileObj = data;
       this.getbase64(data);
     });
   }
@@ -125,8 +126,8 @@ export class CtmFooterComponent implements OnInit {
     Amendment["FileName"] = this.fileName;
     Amendment["Stream"] = this.FileContent;
     var obj = {
-      ...this.CTMLibFile,
-      ...Amendment
+      CTMLibFile: this.CTMLibFile,
+      Amendment:Amendment   
     };
     this.proposalService.saveAmendment(obj).subscribe(data => {
       console.log(data);
