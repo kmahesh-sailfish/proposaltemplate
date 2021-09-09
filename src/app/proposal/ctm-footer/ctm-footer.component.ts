@@ -23,7 +23,7 @@ export class CtmFooterComponent implements OnInit {
   public SelectCategory: any;
   public selectedCateg: any = [];
   public SelectedCategories: any = [];
-   public Others: any=[];
+  public Others: any = [];
   public showRevenueImpact: any;
   public OthersChecked: any;
   public tempOthersCode: any;
@@ -127,7 +127,7 @@ export class CtmFooterComponent implements OnInit {
     Amendment["Stream"] = this.FileContent;
     var obj = {
       CTMLibFile: this.CTMLibFile,
-      Amendment:Amendment   
+      Amendment: Amendment
     };
     this.proposalService.saveAmendment(obj).subscribe(data => {
       console.log(data);
@@ -166,7 +166,21 @@ export class CtmFooterComponent implements OnInit {
       this.Others.splice(this.Others.indexOf(cat), 1);
     }
   }
-  clearCategory() {}
+  clearCategory() {
+    this.OthersChecked = false;
+    this.selectedCateg[this.tempOthersCode.Id] = false;
+    $('input[type="checkbox"]').removeAttr("disabled");
+    this.selectedCateg[this.tempOthersCode.Id] = false;
+    this.SelectedCategories.splice(
+      this.SelectedCategories.indexOf(this.tempOthersCode),
+      1
+    );
+    this.Others.splice(this.Others.indexOf(this.tempOthersCode), 1);
+    $("input[value=" + this.tempOthersCode.Id + "]:checked").prop(
+      "checked",
+      false
+    );
+  }
   SelectCategoryVal() {
     this.GenerateCTMCodes();
   }
