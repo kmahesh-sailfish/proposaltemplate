@@ -1,22 +1,46 @@
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  OnInit,
-  Output
-} from "@angular/core";
-import {
-  NgbModalConfig,
-  NgbModal,
-  NgbActiveModal
-} from "@ng-bootstrap/ng-bootstrap";
+import {  AfterViewInit,  Component,  EventEmitter,  OnInit,  Output, TemplateRef, ViewChild} from "@angular/core";
+import {  NgbModalConfig,  NgbModal,  NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import { PriceProposalComponent } from "../price-proposal/price-proposal.component";
 import { ProposalService } from "src/app/proposal.service";
 import { HttpClient } from "@angular/common/http";
 import BtnCellRenderer from "./btn-cell-renderer";
-//import 'ag-grid-enterprise';
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+
+import { AgRendererComponent } from "ag-grid-angular";
+import { ICellRendererParams } from "ag-grid-community";
+import { Router } from "@angular/router";
+
+
+@Component({
+  selector: 'addPreviewAmend-component',
+  template: `<span>
+                  <button type="button" class="btn btn-sm" (click)="previewAmendment()" style="border:2px;margin-right:10px;color:#433163"><i class="fa fa-eye"></i></button>
+                  <button type="button" class="btn btn-sm" (click)="addAmendment()" style="border:2px;margin-right:10px;color:#433163"><i class="fa fa-plus"></i></button>
+            </span>`
+})
+
+export class AddPreviewAmendmentRenderer implements AgRendererComponent {
+
+  public params: ICellRendererParams;
+  agInit(params: ICellRendererParams) {
+    this.params = params;
+  }
+  addAmendment(){
+    console.log("Add Amendment clicked");
+      this.params.context.componentParent.addAmendent(this.params.data);
+  }
+  previewAmendment(){
+    console.log("previewAmendment clicked");
+    this.params.context.componentParent.previewAmendment(this.params.data);
+
+  }
+  refresh(): boolean {
+    return false;
+  }
+}
+
+
 @Component({
   selector: "app-search-proposal",
   templateUrl: "./search-proposal.component.html",
@@ -25,6 +49,7 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 export class SearchProposalComponent implements OnInit {
   @Output() selectAmendement: EventEmitter<any> = new EventEmitter();
   public searchAmendList: any;
+  context: any;
   dtOptions: DataTables.Settings = {};
   public columnDefs: any;
   public rowData: any;
@@ -32,12 +57,17 @@ export class SearchProposalComponent implements OnInit {
   private gridColumnApi;
   public defaultColDef: any;
   public gridOptions: any;
+  private objTemp
   constructor(
     private modalService: NgbModal,
     private proposalService: ProposalService,
     private activeModal: NgbActiveModal,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
+
   ) {
+    this.context = { componentParent: this };
+
     this.columnDefs = [
       {
         headerName: "Code",
@@ -53,20 +83,10 @@ export class SearchProposalComponent implements OnInit {
         headerName: "Language",
         field: "language",
         filter: true
-        // cellRenderer: params => {
-        //   let eIconGui = document.createElement("span");
-        //   return (eIconGui.innerHTML =
-        //     '<i  class="fa fa-eye" style="width: 14px;"></i>' +
-        //     " " +
-        //     params.data.id);
-        // }
       },
       {
         headerName: "Action",
-        cellRenderer: "btnCellRenderer",
-        cellRendererParams: {
-          onClick: this.addAmendent.bind(this)
-        },
+        cellRenderer: "addPreviewAmendmentRenderer",
         minWidth: 150
       }
     ];
@@ -83,6 +103,7 @@ export class SearchProposalComponent implements OnInit {
       paging: false,
       searching: false
     };
+
     this.gridOptions = {
       // PROPERTIES
       // Objects like myRowData and myColDefs would be created in your application
@@ -91,9 +112,7 @@ export class SearchProposalComponent implements OnInit {
       defaultColDef: this.defaultColDef,
       pagination: true,
       rowSelection: "single",
-      components: {
-        btnCellRenderer: BtnCellRenderer
-      },
+
       // EVENTS
       // Add event handlers
       onRowClicked: event => console.log("A row was clicked"),
@@ -105,14 +124,22 @@ export class SearchProposalComponent implements OnInit {
     };
   }
 
-  viewAmendent(obj) {
-    alert("Hi");
+  frameworkComponents = {
+    addPreviewAmendmentRenderer: AddPreviewAmendmentRenderer
   }
+
   addAmendent(obj) {
+    console.log("In search",obj);
     this.selectAmendement.emit(obj);
     this.activeModal.close();
   }
-  ///searchAmendement
+  previewAmendment(obj){
+    console.log("Search page document id",obj.id);
+    const url = this.router.serializeUrl(
+      this.router.createUrlTree(['/amendmentpreview/'+obj.id])
+    );
+    window.open(url, '_blank');
+  }
 
   loadData() {
     this.modalService.open(PriceProposalComponent, {

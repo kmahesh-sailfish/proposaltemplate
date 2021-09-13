@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-5" *ngIf="searchForm.get('searchField').value !='CreatedDate'">
                         <input autocomplete="off" type="text" (blur)="onSubmit()" formControlName="searchText"
-                            class="form-control" placeholder="Search Item.." name="searchText" />
+                            class="form-control" placeholder="Search Item.." name="searchText" maxlength="100" />
                         <div *ngIf="(searchForm.get('searchText').hasError('invalidName'))">
                             <div class="error_color">
                                 Special characters not allowed!

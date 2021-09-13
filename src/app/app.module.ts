@@ -58,6 +58,7 @@ import { MopetDetailsComponent } from './proposal/mopet-details/mopet-details.co
 import { NgxSpinnerModule } from "ngx-spinner";
 import { DelgateDateRangeComponent } from './proposal/delgate-date-range/delgate-date-range.component';
 import { DelgateProposalWorkflowComponent } from './proposal/delgate-proposal-workflow/delgate-proposal-workflow.component';
+import { AmendmentPreviewComponent } from './proposal/amendment-preview/amendment-preview.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -101,7 +102,8 @@ import { DelgateProposalWorkflowComponent } from './proposal/delgate-proposal-wo
     PrivateEditActionComponent,
     MopetDetailsComponent,
     DelgateDateRangeComponent,
-    DelgateProposalWorkflowComponent
+    DelgateProposalWorkflowComponent,
+    AmendmentPreviewComponent
 
     //EditHrdComponentRenderer
   ],

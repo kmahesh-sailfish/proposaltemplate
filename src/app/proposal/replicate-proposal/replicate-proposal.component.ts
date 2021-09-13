@@ -3,11 +3,13 @@ import { Router } from "@angular/router";
 import { ProposalService } from "../../proposal.service";
 import { SharedService } from "../../sharedservices/shared.service";
 import { FormGroup, Validators, FormControl } from "@angular/forms";
+import { SpecialCharacter } from "src/app/sharedservices/special-character";
 
 @Component({
   selector: "app-replicate-proposal",
   templateUrl: "./replicate-proposal.component.html",
-  styleUrls: ["./replicate-proposal.component.css"]
+  styleUrls: ["./replicate-proposal.component.css"],
+  providers: [SpecialCharacter]
 })
 export class ReplicateProposalComponent implements OnInit {
   public userId: any;
@@ -19,7 +21,8 @@ export class ReplicateProposalComponent implements OnInit {
   constructor(
     private router: Router,
     private proposalService: ProposalService,
-    private shareService: SharedService
+    private shareService: SharedService,
+    private customValidators: SpecialCharacter
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +51,7 @@ export class ReplicateProposalComponent implements OnInit {
   loadForm() {
     this.proposalForm = new FormGroup({
       oldproposalId: new FormControl("", [Validators.required]),
-      newproposalId: new FormControl("", [Validators.required])
+      newproposalId: new FormControl("", [Validators.required, this.customValidators.nameValidator])
     });
   }
   newisExistPropsalId(formId) {

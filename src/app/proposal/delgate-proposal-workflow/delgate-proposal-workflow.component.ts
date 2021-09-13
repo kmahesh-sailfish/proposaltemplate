@@ -23,8 +23,8 @@ export class DelgateProposalWorkflowComponent implements OnInit {
     value["DelegationType"] = 0;
 
     this.proposalService.addDelegation(value).subscribe(data => {
-      console.log(data);
-      this.toastr.success(data, "Success");
+      //console.log(data);
+      this.toastr.success("Successfully Authorized New Delegation", "Success");
     });
   }
 }

@@ -7,6 +7,7 @@ import { BehaviorSubject } from "rxjs";
 })
 export class SharedService {
   private proposalObs$: BehaviorSubject<any> = new BehaviorSubject(null);
+  private lardCountries$:BehaviorSubject<any> = new BehaviorSubject(null);
   constructor() {}
 
   getproposalObs(): Observable<any> {
@@ -15,5 +16,11 @@ export class SharedService {
 
   setproposalObs(data: any) {
     this.proposalObs$.next(data);
+  }
+  setLardCountries(data:any){
+    this.lardCountries$.next(data);
+  }
+  getLardCountries():Observable<any>{
+    return this.lardCountries$.asObservable();
   }
 }

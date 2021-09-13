@@ -15,9 +15,9 @@
                 <div>
                     <div class="form-group">
                         <input type="text" class="form-control form-control-sm" id="proposalid" name="proposalid" [ngModel]="proposalid" (ngModelChange)="searchResult($event)"
-                            placeholder="Search Proposal...">
+                            placeholder="Search Proposal..." maxlength="100">
                     </div>
-                    <h2>Recent Proposals</h2>
+                    <h4>Recent Proposals</h4>
 
                     <div class="row">
                         <div class="col-sm-12">
@@ -53,8 +53,8 @@
         <!-- side cards  -->
         <div class="col-5">
             <div class="col mt-3">
-                <div class="card" title="Create Proposal" routerLink="/createproposal" routerLinkActive="active">
-                    <div class="card-header">
+                <div class="card" title="Create Proposal" >
+                    <div class="card-header" routerLink="/createproposal" routerLinkActive="active">
                         <span> <img title="Create"  
                   src="../../../assets/images/black-24dp create proposal/1x/outline_create_black_24dp.png" alt=""> 
                   <b style="cursor: pointer;"> Create
@@ -67,8 +67,8 @@
             </div>
 
             <div class="col mt-3">
-                <div class="card" title="Replicate Proposal" routerLink="/replicaporposal" routerLinkActive="active">
-                    <div class="card-header"> <span> <img title="Replicate"
+                <div class="card" title="Replicate Proposal" >
+                    <div class="card-header" routerLink="/replicaporposal" routerLinkActive="active"> <span> <img title="Replicate"
                   src="../../../assets/images/black-24dp replicate/1x/outline_content_copy_black_24dp.png" alt=""> <b style="cursor: pointer;"> Replicate
                   Proposal</b> </span> </div>
                     <div class="card-body" style="background:#91C1E6">
@@ -78,8 +78,8 @@
             </div>
 
             <div class="col mt-3">
-                <div class="card" title="Active Proposal" routerLink="/activeproposal" routerLinkActive="active">
-                    <div class="card-header"> <span> <img title="Active"
+                <div class="card" title="Active Proposal" >
+                    <div class="card-header" routerLink="/activeproposal" routerLinkActive="active"> <span> <img title="Active"
                   src="../../../assets/images/black-24dp activeproposal/1x/outline_assignment_turned_in_black_24dp.png" alt=""> <b style="cursor: pointer;"> Active
                   Proposal</b> </span> </div>
                     <div class="card-body" style="background:#6AAB6A">

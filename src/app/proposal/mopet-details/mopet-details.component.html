@@ -12,35 +12,40 @@
   </div>
   <div class="row">
     <div class="col">
-      <!-- {{newProposal|json}} -->
+
       <div class="form-group row">
         <label for="staticEmail" class="col-sm-4 col-form-label">Proposal ID</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" disabled name="proposalId" [(ngModel)]="newProposal.proposalEntity.proposalId">
+          <input type="text" class="form-control" disabled name="proposalId" [(ngModel)]="mopetDetails.proposalId">
         </div>
       </div>
       <div class="form-group row">
-        <label for="staticEmail" class="col-sm-4 col-form-label">Pricing Country <span class="error_color">*</span></label>
+        <label for="staticEmail" class="col-sm-4 col-form-label">Pricing Country <span
+            class="error_color">*</span></label>
         <div class="col-sm-8">
-          <select class="form-control" name="pricingCountry" (blur)="updatemopetDetails()" [(ngModel)]="mopetDetails.pricingCountry"
-            #pricingCountry="ngModel">
-  
-                  <option [value]="null">Select Pricing Country</option>
-                 <option *ngFor="let obj of config" [value]="obj">{{obj}}</option>
-                 </select>
+          <select class="form-control" name="pricingCountry" (change)="coutryChanged()"
+            [(ngModel)]="mopetDetails.pricingCountry" #pricingCountry="ngModel">
+
+            <option [value]="null">Select Pricing Country</option>
+            <option *ngFor="let obj of config" [value]="obj">{{obj}}</option>
+          </select>
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="staticEmail" class="col-sm-4 col-form-label">Licensing Contact Alias <span class="error_color">*</span></label>
+        <label for="staticEmail" class="col-sm-4 col-form-label">Licensing Contact Alias <span
+            class="error_color">*</span></label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" name="lastModifiedBy" (blur)="updatemopetDetails()" [(ngModel)]="newProposal.proposalEntity.lastModifiedBy">
+          <input type="text" class="form-control" name="lastModifiedBy" (blur)="updatemopetDetails()"
+            [(ngModel)]="mopetDetails.lastModifiedBy">
         </div>
       </div>
       <div class="form-group row">
-        <label for="staticEmail" class="col-sm-4 col-form-label">Customer Name <span class="error_color">*</span></label>
+        <label for="staticEmail" class="col-sm-4 col-form-label">Customer Name <span
+            class="error_color">*</span></label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" name="customerName" (blur)="updatemopetDetails()" [(ngModel)]="newProposal.proposalEntity.customerName">
+          <input type="text" class="form-control" name="customerName" (blur)="updatemopetDetails()"
+            [(ngModel)]="mopetDetails.customerName">
         </div>
       </div>
     </div>
@@ -48,25 +53,28 @@
       <div class="form-group row">
         <label for="staticEmail" class="col-sm-4 col-form-label">Op Center <span class="error_color">*</span></label>
         <div class="col-sm-8">
-          <select class="form-control" name="opCenter" (blur)="updatemopetDetails()" [(ngModel)]="mopetDetails.opCenter" #opCenter="ngModel">
-                  <option [value]="null">Select Op-Center</option>
-                 <option *ngFor="let obj of opCenterVales" [value]="obj.code">{{obj.name}}</option>
-                 </select>
+          <select class="form-control" name="opCenter" (blur)="updatemopetDetails()" [(ngModel)]="mopetDetails.opCenter"
+            #opCenter="ngModel">
+            <option [value]="null">Select Op-Center</option>
+            <option *ngFor="let obj of opCenterVales" [value]="obj.code">{{obj.name}}</option>
+          </select>
         </div>
       </div>
       <div class="form-group row">
         <label for="staticEmail" class="col-sm-4 col-form-label">Program <span class="error_color">*</span></label>
         <div class="col-sm-8">
-          <select class="form-control" name="program" (blur)="updatemopetDetails()" [(ngModel)]="mopetDetails.program" #program="ngModel">
-                  <option [value]="null">Select Program</option>
-                 <option *ngFor="let obj of userProgram"  [value]="obj.code">{{obj.name}}</option>
-              </select>
+          <select class="form-control" name="program" (blur)="updatemopetDetails()" [(ngModel)]="mopetDetails.program"
+            #program="ngModel">
+            <option [value]="null">Select Program</option>
+            <option *ngFor="let obj of userProgram" [value]="obj.code">{{obj.name}}</option>
+          </select>
         </div>
       </div>
       <div class="form-group row">
         <label for="staticEmail" class="col-sm-4 col-form-label">Comments</label>
         <div class="col-sm-8">
-          <input type="text" class="form-control" (blur)="updatemopetDetails()" name="comments" [(ngModel)]="newProposal.proposalEntity.comments">
+          <input type="text" class="form-control" (blur)="updatemopetDetails()" name="comments"
+            [(ngModel)]="mopetDetails.comments">
         </div>
       </div>
     </div>
@@ -84,8 +92,10 @@
   <div class="row">
     <div class="col-12">
       <h4>Upload Offline Proposal Document</h4>
-      <p>The “Update Document to Proposal” button below will replace the proposal document generated by the web service with
-        the uploaded file. Only leverage this feature if you have filled in form fields for the generated document outside
+      <p>The “Update Document to Proposal” button below will replace the proposal document generated by the web service
+        with
+        the uploaded file. Only leverage this feature if you have filled in form fields for the generated document
+        outside
         of the service and wish to replace the web generated document.</p>
     </div>
   </div>
@@ -101,24 +111,40 @@
   </div>
   <div class="row">
     <div class="col">
-      <div class="btn-group" style="width: 100%;" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3"><span>{{SpanName}}</span></button>&nbsp;
-        <!-- <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3"><span>Offline Pricing Document to Proposal</span> </button>&nbsp;
-        <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3"><span>Upload Offline Pricing Document to Proposal</span> </button>&nbsp; -->
-      </div>
-    </div>
-    <div class="col" style="text-align: end;">
       <div class="btn-group" style="width: 50%;" role="group" aria-label="Basic example">
-        
-        <button type="button" (click)="generate()" class="btn btn-primary btn-sm">Prev/Save Local Copy</button>&nbsp;
-        <button type="button" class="btn btn-primary btn-sm" [disabled]="newProposal.proposalEntity.status == 3" (click)="submitMopet()">Submit to MOPET</button>&nbsp;
-        
-        <button type="button" (click)="generatePricing()" *ngIf="showbutton" class="btn btn-primary btn-sm">Pricing Local Copy</button>&nbsp;
-        <button type="button" (click)="generateNonPricing()" *ngIf="showbutton" class="btn btn-primary btn-sm">Non-Pricing Local Copy</button>&nbsp;
-        <!-- {{status}} -->
-        <!-- {{mopetDetails['proposalEntity'].status == 3 }} -->
-        
+        <div class="btn btn-primary btn-sm ">
+          <span style="cursor: pointer" class=""> {{SpanName}}</span>
+          <input style="cursor: pointer;" class="sample" type="file" (change)="onFileChanged($event)" name="file" />
+
+        </div>&nbsp;
+        <div class="btn btn-primary btn-sm" *ngIf="isPricingContry">
+          <span style="cursor: pointer" class="">Upload Offline Pricing Document to Proposal</span>
+          <input style="cursor: pointer;" class="sample" type="file" (change)="onFileChanged($event)" name="file" />
+        </div>
+        <!-- <div class="row">
+          <div class="col p-0" style="margin-right: 5px;">
+           
+            
+          </div>
+          <div class="col p-0" >
+            
+          </div>
+        </div> -->
+      </div>
+      <div class="col" style="text-align: end;">
+        <div class="btn-group" style="width: 50%;" role="group" aria-label="Basic example">
+
+          <button type="button" (click)="generate()" class="btn btn-primary btn-sm">Prev/Save Local Copy</button>&nbsp;
+          <button type="button" class="btn btn-primary btn-sm" (click)="submitMopet()">Submit to MOPET</button>&nbsp;
+
+          <button type="button" (click)="generatePricing()" *ngIf="showbutton" class="btn btn-primary btn-sm">Pricing
+            Local Copy</button>&nbsp;
+          <button type="button" (click)="generateNonPricing()" *ngIf="showbutton"
+            class="btn btn-primary btn-sm">Non-Pricing Local Copy</button>&nbsp;
+          <!-- {{status}} -->
+          <!-- {{mopetDetails['proposalEntity'].status == 3 }} -->
+
+        </div>
       </div>
     </div>
   </div>
-</div>

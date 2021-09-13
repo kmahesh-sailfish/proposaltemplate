@@ -97,10 +97,10 @@ export class CreateProposalComponent implements OnInit {
     obj["createdByAlias"] = this.userId;
     this.proposalService.createProposal(obj).subscribe((data: any) => {
       var sourceId = data.id;
+      var msg = "Proposal Created Successfully. ProposalID: " + data.proposalId;
+      this.toastr.success(msg, "Success");
       console.log(sourceId, "sourceId");
-      this.toastr.success(data, "Success");
       this.router.navigate(["proposaloverview/", sourceId,this.proposalForm.get('IsDraft').value]);
-      this.toastr.success(data, "Success");
     });
   }
 }

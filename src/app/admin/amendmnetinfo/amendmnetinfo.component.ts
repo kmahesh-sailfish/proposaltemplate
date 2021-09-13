@@ -59,14 +59,14 @@ export class AmendmnetinfoComponent implements OnInit {
   myForm: FormGroup;
 
   columnDefs = [
-    { headerName: "Amendment", field: 'code', sortable: true, filter: true, resizable: true, width: 140 },
-    { headerName: "Bucket", field: 'bucket', sortable: true, filter: true, resizable: true, width: 150 },
-    { headerName: "Intro Singular", field: 'intro_Singular', sortable: true, filter: true, resizable: true, width: 140 },
-    { headerName: "Exit Singular", field: 'exit_Singular', sortable: true, filter: true, resizable: true, width: 140 },
-    { headerName: "Intro Plural", field: 'intro_Plural', sortable: true, filter: true, resizable: true, width: 140 },
-    { headerName: "Exit Plural", field: 'exit_Plural', sortable: true, filter: true, resizable: true, width: 140 },
-    { headerName: "Editable Tables", field: 'hasEditableTables', sortable: true, filter: true, resizable: true, width: 150 },
-    { headerName: "Action", field: 'id', width: 150, cellRenderer: 'addAmendmentInfoRenderer' },
+    { headerName: "Amendment", field: 'code', sortable: true, filter: true, resizable: true, width: 130 },
+    { headerName: "Bucket", field: 'bucket', sortable: true, filter: true, resizable: true, width: 155 },
+    { headerName: "Intro Singular", field: 'intro_Singular', sortable: true, filter: true, resizable: true, width: 145 },
+    { headerName: "Exit Singular", field: 'exit_Singular', sortable: true, filter: true, resizable: true, width: 130 },
+    { headerName: "Intro Plural", field: 'intro_Plural', sortable: true, filter: true, resizable: true, width: 130 },
+    { headerName: "Exit Plural", field: 'exit_Plural', sortable: true, filter: true, resizable: true, width: 130 },
+    { headerName: "Editable Tables", field: 'hasEditableTables', sortable: true, filter: true, resizable: true, width: 145 },
+    { headerName: "Action", field: 'id', width: 110, cellRenderer: 'addAmendmentInfoRenderer' },
   ];
 
   @ViewChild('content') templateRef: TemplateRef<any>;

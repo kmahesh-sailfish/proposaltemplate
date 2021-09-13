@@ -7,6 +7,9 @@
   font-weight: 500;
   line-height: 1.5;
 }
+.sorting, .sorting_asc, .sorting_desc {
+  background : none;
+}
 .btn-primary
  {
   background-color: #433163 !important;

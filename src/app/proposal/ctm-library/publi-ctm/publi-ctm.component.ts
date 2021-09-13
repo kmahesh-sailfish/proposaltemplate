@@ -28,6 +28,8 @@ export class PubliCtmComponent implements OnInit {
     private proposalService: ProposalService
   ) {}
   ngOnInit(): void {
+    localStorage.setItem("pageNum", "0");
+    localStorage.setItem("pageSize", "100");
     this.getLoadpublictm();
   }
   getLoadpublictm() {
@@ -54,7 +56,13 @@ export class PubliCtmComponent implements OnInit {
       PageNum: this.startRow
     };
 
-    return this.proposalService.getpublicCtmList(this.startRow, this.endRow);
+  
+    let pageSize = localStorage.getItem('pageSize');
+    let pageNum = localStorage.getItem('pageNum');
+    var pageNumUpdate = (JSON.parse(pageNum) + 1);
+    localStorage.setItem("pageNum", pageNumUpdate);
+
+    return this.proposalService.getpublicCtmList(pageNum, pageSize);
   }
   datasource: IDatasource = {
     getRows: (params: IGetRowsParams) => {

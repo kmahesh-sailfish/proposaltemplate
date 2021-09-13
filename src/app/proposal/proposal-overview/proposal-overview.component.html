@@ -31,7 +31,7 @@
 
                                         <div class="form-group">
                                             <input formControlName='proposalId' [readonly]="disableVal" (blur)="proposalUpdate($event,'ProposalId')" name="proposalId"
-                                                class="form-control form-control-sm" type="text" />
+                                                class="form-control form-control-sm" type="text" maxlength="50" />
                                         </div>
 
                                     </div>
@@ -42,9 +42,9 @@
                                     </div>
                                     <div class="col-5">
                                         <div class="form-group">
-                                            <select name="identifier" (blur)="proposalUpdate($event,'identifier')" formControlName="identifier" class="form-control">                                        
+                                            <select name="identifier" (change)="proposalUpdate($event,'identifier')" formControlName="identifier" class="form-control">                                        
                                             <option value="null">Please Select Id</option>
-                                            <option *ngFor="let o of chooseList"  value="{{o.ids}}" >{{o.name}}</option>
+                                            <option *ngFor="let o of chooseList"  value="{{o.ids}}">{{o.name}}</option>
                                         </select>
                                             <div *ngIf="propOverView.get('identifier').invalid && (propOverView.get('identifier').dirty || propOverView.get('identifier').touched)">
                                                 <div class="error_color">
@@ -62,10 +62,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-5">
-                                        <span>{{propOverView.get('identifier').value == 1 ? 'Agreement Id' : propOverView.get('identifier').value == 2 ? 'Enrollment Id':""}}</span>
+                                        <span>{{propOverView.get('identifier').value == "Agreement" ? 'Agreement Id' : propOverView.get('identifier').value == "Enrollment" ? 'Enrollment Id':propOverView.get('identifier').value == "CSP" ? 'CSP':""}}</span>
                                     </div>
                                     <div class="col-5">
-                                        <div class="form-group" *ngIf="propOverView.get('identifier').value ==2">
+                                        <div class="form-group" *ngIf="propOverView.get('identifier').value == 'Enrollment'">
                                             <input name="enrollmentId" (blur)="proposalUpdate($event,'enrollmentId')" formControlName="enrollmentId" class="form-control form-control-sm"
                                                 type="text" />
                                             <div *ngIf="propOverView.get('enrollmentId').invalid && (propOverView.get('enrollmentId').dirty || propOverView.get('enrollmentId').touched)">
@@ -74,7 +74,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group" *ngIf="propOverView.get('identifier').value ==1">
+                                        <div class="form-group" *ngIf="propOverView.get('identifier').value =='Agreement'">
                                             <input name="agreementId" (blur)="proposalUpdate($event,'agreementId')" formControlName="agreementId" class="form-control form-control-sm"
                                                 type="text" />
                                             <!-- {{propOverView.get('agreementId').dirty || propOverView.get('agreementId').touched}} -->
@@ -108,7 +108,7 @@
                                     <div class="col-5">
                                         <div class="form-group">
                                             <input name="customerName" (blur)="proposalUpdate($event,'customerName')" formControlName="customerName" class="form-control form-control-sm"
-                                                type="text" />
+                                                type="text" maxlength="100" />
 
                                             <div *ngIf="propOverView.get('customerName').invalid && 
                                         (propOverView.get('customerName').dirty || propOverView.get('customerName').touched)">
@@ -126,7 +126,7 @@
                                     <div class="col-5">
                                         <div class="form-group">
                                             <input name="dealNickname" (blur)="proposalUpdate($event,'dealNickname')" formControlName="dealNickname" class="form-control form-control-sm"
-                                                type="text" />
+                                                type="text" maxlength="100" />
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                                             </div>
                                             <div class="input-group mb-3">
                                                 <input name="searchAmendment" formControlName="searchAmendment" placeholder="Search for Amendment's" class="form-control"
-                                                    type="text" />
+                                                    type="text" maxlength="200" />
                                                 <!--<input type="text" class="form-control"
                                              placeholder="Search for Amendment's" 
                                                 [(ngModel)]="searchAmendment" name="searchAmendment" />-->
@@ -198,7 +198,6 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-
                                 <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
                                     <thead class="table-header">
                                         <tr>
@@ -210,10 +209,10 @@
                                             <th>Version</th>
                                             <th>Title(If CTM)</th>
                                             <th>Contents Edited</th>
-                                            <th>Filed Edited</th>
+                                            <th>Field Edited</th>
 
                                             <th>Remove</th>
-                                            <th>ArrangeOrder</th>
+                                            <th>Arrange Order</th>
                                             <th>Edit</th>
                                         </tr>
                                     </thead>
@@ -241,9 +240,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-
-
-
                                     </tbody>
                                 </table>
                             </div>
@@ -260,16 +256,20 @@
                                         <button type="button" class="btn btn-primary btn-sm" (click)="openPoup()">Share Proposal</button>&nbsp;
                                     </div>
                                 </div>
+                              
                                 <div class="col">
                                     <div class="btn-group" style="width: 100%;" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-primary btn-sm w-100" type="button" data-toggle="dropdown" (click)="generate()">Generate Offline Document</button>&nbsp;
-                                        <ul [hidden]="!this.showbutton" class="dropdown-menu">
-                                            <li><button type="button" (click)="generatePricing()" class="btn btn-primary btn-sm w-100"> Generate Offline Pricing Document</button>
-                                            </li>
+                                        
+                                        <button type="button" class="btn btn-primary btn-sm w-100" type="button"
+                                         data-toggle="dropdown" (click)="generate()">Generate Offline Document</button>&nbsp;
+                                        <div [hidden]="!this.showbutton" class="dropdown-menu">
+                                            
+                                            <div><button type="button" (click)="generatePricing()" class="btn btn-primary btn-sm w-100"> Generate Offline Pricing Document</button>
+                                            </div>
                                             <div class="dropdown-divider"></div>
-                                            <li><button type="button" (click)="generateNonPricing()" class="btn btn-primary btn-sm w-100"> Generate Offline Non-Pricing Document</button>
-                                            </li>
-                                        </ul>
+                                            <div><button type="button" (click)="generateNonPricing()" class="btn btn-primary btn-sm w-100"> Generate Offline Non-Pricing Document</button>
+                                            </div>
+                                        </div>
                                         <button type="button" routerLink="/mopetdetails/{{ProposalId}}" class="btn btn-primary btn-sm w-100">&nbsp;
                                         <span class="docment">MOPET Details</span> </button>
                                     </div>

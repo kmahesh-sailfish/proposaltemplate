@@ -83,7 +83,7 @@ export class ExternalUsersComponent implements OnInit {
     { headerName: "Business Justification", field: 'businessJustification', sortable: true, filter: true, resizable: true, width: 140 },
     { headerName: "Request Status", field: 'approvalStatus', sortable: true, filter: true, resizable: true, width: 140 },
     { headerName: "Modified Date", field: 'modifiedDate', sortable: true, filter: true, resizable: true, width: 140 },
-   { headerName: "Action", field: 'id', width: 150, cellRenderer: 'ExtUserInfoRenderer' },
+   { headerName: "Action", field: 'id', width: 120, cellRenderer: 'ExtUserInfoRenderer' },
   ];
 
   @ViewChild('content') templateRef: TemplateRef<any>;
@@ -125,6 +125,11 @@ export class ExternalUsersComponent implements OnInit {
       console.log(data);
       this.ExtUsersData = data.result._sourceObject as ExtUsersData[];
     });
+    this.gridOptions = {     
+      // maxConcurrentDatasourceRequests: 1,
+      // rowModelType: "infinite",     
+      rowSelection: 'multiple'
+    };
   }
   viewUserInfo(selectedRow) {
     this.modalService.open(this.templateRef, {
@@ -152,19 +157,20 @@ console.log(status);
     let selectedRows;
     selectedRows = this.gridApi.getSelectedRows();
 console.log(selectedRows);
+
     if (selectedRows.length > 0) {
+      let userIds = new Array();
       selectedRows.map((row) => {
-        deleteObj['uniqueId'] = row["uniqueId"];
+        userIds.push(row["uniqueId"]);        
+        deleteObj["uniqueIds"] = userIds;
         deleteObj['newStatus'] =  status;
-        console.log(deleteObj)
-        
         this.adminService.approveOrDenyUser(deleteObj).subscribe((data: any) => {
           //this.modalService.dismissAll();
           console.log("response: "+data)
-          this.toastr.success("Selected user status updated successfully!");
           this.loadGrid();
         });
-      });      
+      }); 
+      this.toastr.success("Selected users status updated successfully! "+ deleteObj["uniqueIds"]);
     }
     else {
       this.toastr.info("Please select user to approve/deny");

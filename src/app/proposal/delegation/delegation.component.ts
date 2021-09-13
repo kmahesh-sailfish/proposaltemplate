@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ICellRendererParams } from 'ag-grid-community';
 import { AgRendererComponent } from "ag-grid-angular";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 
 @Component({
   selector: 'addAlert-component',
@@ -34,8 +35,10 @@ export class AddAmendmentInfoRenderer implements AgRendererComponent {
       "Action": "Delete"
      }
      console.log(obj);
+     console.log(obj.delegationType);
+     var delType = obj.delegationType.toString();
 
-     if (obj.delegationType == 0)
+     if (delType == "Proposal")
      {
           this.proposalService.deleteProposalDelegation(obj.Id).subscribe(result => {
           console.log(result)
@@ -43,7 +46,7 @@ export class AddAmendmentInfoRenderer implements AgRendererComponent {
            this.loadGrid();
         });
      }
-     else if (obj.delegationType == 1)
+     else if (delType == "DateDelegation")
      {
           this.proposalService.deleteDateDelegation(obj.Id).subscribe(result => {
           console.log(result)
@@ -89,9 +92,9 @@ export class DelegationComponent implements OnInit {
 
   columnDefs = [
     { headerName: "Type", field: 'delegationType', sortable: true, filter: true, resizable: true, width: 100,
-    cellRenderer: (data: { value: moment.MomentInput; }) => {
-      return data.value == 0 ? "Proposal" : "Date";
-    }
+    // cellRenderer: (data: { value: moment.MomentInput; }) => {
+    //   return data.value == 0 ? "Proposal" : "Date";
+    // }
   },
     { headerName: "Authorized", field: 'status', sortable: true, filter: true, resizable: true, width: 100,
     cellRenderer: (data: { value: moment.MomentInput; }) => {

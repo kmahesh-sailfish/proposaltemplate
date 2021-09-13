@@ -11,7 +11,7 @@
   </div>
   <div>
     <ag-grid-angular #agGrid style="width: 100%; height: calc(60vh)" class="ag-theme-alpine ag-center-cols-clipper ag-center-cols-container" [rowData]="ExtUsersData"
-      [context]="context" [columnDefs]="columnDefs" [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)">
+      [context]="context" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [frameworkComponents]="frameworkComponents" (gridReady)="onGridReady($event)">
     </ag-grid-angular>
   </div>
   <ng-template #content let-modal>

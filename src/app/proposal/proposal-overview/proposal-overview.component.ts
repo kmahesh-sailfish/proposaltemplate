@@ -78,11 +78,15 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
     public editProposalObj: any = {};
     public pricingCountries: any[];
     public IdentifierValid: boolean = false;
-    public chooseList: any = [{ ids: 1,name: "Agreement Id"},{
-            ids: 2,
-            name: "Enrollment Id"
-        }
-    ];
+    public chooseList: any = [{ ids: "Agreement",name: "Agreement Id"},{
+        ids: "Enrollment",
+        name: "Enrollment Id"
+    },
+    {
+        ids: "CSP",
+        name: "CSP"
+    }
+];
 
     constructor(
         private route: ActivatedRoute,
@@ -199,6 +203,8 @@ export class ProposalOverviewComponent implements OnInit, OnDestroy {
          //  this.appendAmendments();
          this.proposalService.getLrdCountries().subscribe(data => {
              this.lrdCountries = data;
+             debugger;
+             this.sharedSerivice.setLardCountries(data);
              var isPricingCountry = this.proposalService.isPricingCountry(this.lrdCountries, this.model.PricingCountry);
              if (isPricingCountry) {
                  this.showPricingCountryAlignDescription = true;

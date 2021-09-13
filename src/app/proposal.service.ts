@@ -227,19 +227,23 @@ export class ProposalService {
         map((res: any) => {
           this.spiner.hide();
           return res["result"]["_sourceObject"];
+
         })
       );
   }
+
   updatemopetDetails(obj) {
    // this.spiner.show();
-    return this.http
+       return this.http
       .post(environment.API_URL + "Proposal/" + "UpdateProposalSubmission", obj)
       .pipe(
         map((res: any) => {
         //  this.spiner.hide();
           return res["result"]["_sourceObject"];
+
         })
       );
+
   }
   replicateProposal(obj) {
     this.spiner.show();
@@ -290,15 +294,16 @@ export class ProposalService {
     }
     return false;
   }
-  getArchivePage(startRow, endRow) {
+  getArchivePage(pageNum1, pageSize1) {
     this.spiner.show();
+    var userAlias = localStorage.getItem("userAlias");
     return this.http
       .get(
         environment.API_URL +
-          "Proposal/GetProposalsByCount/true/" +
-          startRow +
+          "Proposal/GetProposalsByCount/" + userAlias + "/0/archive/" +
+          pageSize1 +
           "/" +
-          endRow
+          pageNum1
       )
       .pipe(
         map((res: any) => {
@@ -321,15 +326,16 @@ export class ProposalService {
         })
       );
   }
-  getPagenation(startRow, endRow) {
+  getPagenation(pageNum1, pageSize1) {
+    var userAlias = localStorage.getItem("userAlias");
     this.spiner.show();
     return this.http
       .get(
         environment.API_URL +
-          "Proposal/GetProposalsByCount/false/" +
-          startRow +
+          "Proposal/GetProposalsByCount/" + userAlias + "/0/active/" +
+          pageSize1 +
           "/" +
-          endRow
+          pageNum1
       )
       .pipe(
         map((res: any) => {
@@ -547,7 +553,7 @@ export class ProposalService {
       .post(environment.API_URL + "Mopet/SubmitToMopet", obj)
       .pipe(
         map((res: any) => {
-          return res["_sourceObject"];
+          return res['_sourceObject'];
         })
       );
   }
@@ -555,9 +561,7 @@ export class ProposalService {
   getAllAdvanceDelegations(userId) {
     this.spiner.show();
     return this.http
-      .get(
-        environment.API_URL + "Delegation/GetAllAdvanceDelegations/" + userId
-      )
+      .get(environment.API_URL + "Delegation/GetAllAdvanceDelegations/" + userId)
       .pipe(
         map((res: any) => {
           this.spiner.hide();
@@ -568,12 +572,7 @@ export class ProposalService {
 
   deleteProposalDelegation(proposalId) {
     return this.http
-      .post(
-        environment.API_URL +
-          "Delegation/DeleteProposalDelegation/" +
-          proposalId,
-        proposalId
-      )
+      .post(environment.API_URL + "Delegation/DeleteProposalDelegation/" + proposalId, proposalId)
       .pipe(
         map((res: any) => {
           return res["result"];
@@ -583,10 +582,7 @@ export class ProposalService {
 
   deleteDateDelegation(delegationId) {
     return this.http
-      .delete(
-        environment.API_URL + "Delegation/DeleteDateDelegation/" + delegationId,
-        delegationId
-      )
+      .delete(environment.API_URL + "Delegation/DeleteDateDelegation/" + delegationId, delegationId)
       .pipe(
         map((res: any) => {
           return res["result"];
@@ -623,6 +619,16 @@ export class ProposalService {
 deleteDocument(obj,flag?){
 return obj;
 }
-}
 
-//---------------------------------------------
+  getAmendmentPreview(documentId) {
+    this.spiner.show();
+    return this.http
+      .get(environment.API_URL + "Amendment/GetAmendmentPreviewData/" + documentId)
+      .pipe(
+        map((res: any) => {
+          this.spiner.hide();
+          return res;
+        })
+      );
+  }
+}

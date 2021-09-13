@@ -48,7 +48,7 @@ export class SiriusCountriesComponent implements OnInit {
   errVal: boolean;
   columnDefs = [
     { headerName: "Country Name", field: 'name', sortable: true, filter: true, resizable: true, width: 200 },
-    { headerName: "Action", field: 'id', cellRenderer: 'editSiriusCountry', resizable: true, width: 250 }
+    { headerName: "Action", field: 'id', cellRenderer: 'editSiriusCountry', resizable: true, width: 220 }
   ];
   frameworkComponents = {
     editSiriusCountry: EditSiriusRenderer

@@ -1,0 +1,10 @@
+<div class="container-fluid p-4 my-3 mt-5 border">
+  <div class="row align-items-star">
+      <div class="col">
+
+       <h4> Document Preview: {{documentName}} </h4>
+      <div [innerHtml]="sanitizer.bypassSecurityTrustHtml(docHtml)"></div>
+      </div>
+  </div>
+</div>
+

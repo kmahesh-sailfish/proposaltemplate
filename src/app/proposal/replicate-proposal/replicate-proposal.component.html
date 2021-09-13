@@ -33,7 +33,7 @@
                             <!-- <h3> {{isExist}}</h3> -->
                             <div class="col-7 p-1">
                                 <input (blur)="isExistPropsalId('oldproposalId')" formControlName='oldproposalId' name="oldproposalId" class="form-control"
-                                    placeholder="Proposal Id">
+                                    placeholder="Proposal Id" maxlength="50">
                                 <div *ngIf="proposalForm.get('oldproposalId').invalid && (proposalForm.get('oldproposalId').dirty || proposalForm.get('oldproposalId').touched)">
                                     <div class="error_color">
                                         Old ProposalId requried
@@ -49,7 +49,12 @@
                             <!-- <h3> {{isExist}}</h3> -->
                             <div class="col-7 p-1">
                                 <input (blur)="newisExistPropsalId('newproposalId')" formControlName='newproposalId' name="newproposalId" class="form-control"
-                                    placeholder="Proposal Id">
+                                    placeholder="Proposal Id" maxlength="50">
+                                    <div *ngIf="(proposalForm.get('newproposalId').hasError('invalidName'))">
+                                        <div class="error_color">
+                                          Special characters not allowed!
+                                        </div>
+                                      </div>
                                 <div *ngIf="proposalForm.get('newproposalId').invalid && 
                                 (proposalForm.get('newproposalId').dirty || 
                                 proposalForm.get('newproposalId').touched)">
@@ -67,7 +72,7 @@
                             <div class="col">
                             </div>
                             <div class="col p-0">
-                                <button type="submit" [disabled]="checkExist" class="btn btn-outline-primary w-100">Next</button>
+                                <button type="submit" [disabled]="checkExist" class="btn btn-outline-primary w-100">Replicate</button>
                             </div>
                         </div>
                     </div>

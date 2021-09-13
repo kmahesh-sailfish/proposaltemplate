@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { ProposalService } from "../../../proposal.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-del-proposal",
@@ -19,7 +20,8 @@ export class DelProposalComponent implements OnInit {
   constructor(
     private router: Router,
     private activeModal: NgbActiveModal,
-    private proposalService: ProposalService
+    private proposalService: ProposalService,
+    private toastr: ToastrService
   ) {}
   ngOnInit(): void {
     this.loadForm();
@@ -78,6 +80,8 @@ export class DelProposalComponent implements OnInit {
     console.log(Obj, "onSubmit");
     this.proposalService.saveDelegationProposal(Obj).subscribe(data => {
       console.log("data", data);
+      var msg = "Succesfully delegated the proposal. ProposalID: " + data.id;
+      this.toastr.success(msg, "Success");
     });
     this.activeModal.close();
   }

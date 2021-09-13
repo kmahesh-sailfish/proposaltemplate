@@ -41,8 +41,8 @@ export class ApproversComponent implements OnInit {
   myForm: FormGroup;
   errVal: boolean;  
   columnDefs = [
-    { headerName: "Alias", field: 'alias', sortable: true, filter: true, resizable: true, width: 200 },
-    { headerName: "Action", field: 'id', cellRenderer: 'editApprover', resizable: true, width: 250 }
+    { headerName: "Alias", field: 'alias', sortable: true, filter: true, resizable: true, width: 220 },
+    { headerName: "Action", field: 'id', cellRenderer: 'editApprover', resizable: true, width: 200 }
   ];
   frameworkComponents = {
     editApprover: EditApprover

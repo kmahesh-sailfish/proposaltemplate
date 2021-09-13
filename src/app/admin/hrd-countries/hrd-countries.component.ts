@@ -156,7 +156,7 @@ export class HrdCountriesComponent implements OnInit {
 
   columnDefs = [
     { headerName: "Country Name", field: 'name', sortable: true, filter: true, resizable: true, width: 200 },
-    { headerName: "Action", field: 'id', cellRenderer: 'editHrdCountry', resizable: true, width: 250 }
+    { headerName: "Action", field: 'id', cellRenderer: 'editHrdCountry', resizable: true, width: 225 }
   ];
   frameworkComponents = {
     editHrdCountry: EditHrdComponentRenderer

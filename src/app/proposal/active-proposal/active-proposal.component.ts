@@ -48,11 +48,11 @@ export class ActiveProposalComponent implements OnInit {
     { name: "Search by LastModifiedBy", id: "LastModifiedBy" },
     { name: "Search by Customer Name", id: "CustomerName" },
     { name: "Search by Deal Nick Name", id: "DealNickName" },
-
     { name: "Search by Created Date", id: "CreatedDate" }
   ];
 
   params: any;
+  //paramsNew: any;
 
   constructor(
     private proposalService: ProposalService,
@@ -66,6 +66,8 @@ export class ActiveProposalComponent implements OnInit {
   ngOnInit(): void {
     this.loadGrid();
     this.loadSearchForm();
+    localStorage.setItem("pageNum", "0");
+    localStorage.setItem("pageSize", "100");
     this.userId = localStorage.getItem("userAlias");
   }
   clearVAl() {
@@ -76,6 +78,42 @@ export class ActiveProposalComponent implements OnInit {
     this.searchForm.reset();
     this.gridApi.setDatasource(this.datasource);
   }
+
+
+  //deleteProposal(event) {
+  //  event.stopPropagation();
+  //  // var rowData = this.paramsNew.data;
+  //  // //var rowData = "test";
+  //  // rowData["labelMessage"] = "DeleteMultiple";
+  //  // console.log(this.paramsNew.data, "DeleteMultiple");
+
+  //  var deleObj = {};
+  //  deleObj['UserAlias'] = this.userId;
+  //  let selectedRows;
+  //  selectedRows = this.gridApi.getSelectedRows();
+
+  //  if (selectedRows.length > 0) {
+  //    let proposalIds = new Array();
+
+  //    selectedRows.map((row) => {
+  //      proposalIds.push(row["id"]);
+  //    });
+  //    deleObj["ProposalIds"] = proposalIds;
+
+  //    const modalRef = this.modalService.open(ConformationComponent, {
+  //      size: "sm",
+  //      centered: true,
+  //    });
+  //    modalRef.componentInstance.labelMessage = "DeleteMultiple";
+  //    modalRef.componentInstance.rowObj = deleObj;
+  //  }
+
+  //  // var rowData = this.paramsNew.data;
+  //  // //var rowData = "test";
+  //  // rowData["labelMessage"] = "DeleteMultiple";
+  //  // console.log(this.paramsNew.data, "DeleteMultiple");
+    
+  //}
 
   deleteProposal(obj) {
     var deleObj = {};
@@ -196,7 +234,12 @@ export class ActiveProposalComponent implements OnInit {
   private getRowData(startRow: number, endRow: number): Observable<any[]> {
     this.startRow = startRow;
     this.endRow = endRow;
-    return this.proposalService.getPagenation(startRow, endRow);
+    let pageSize = localStorage.getItem('pageSize');
+    let pageNum = localStorage.getItem('pageNum');
+    var pageNumUpdate = (JSON.parse(pageNum) + 1);
+    localStorage.setItem("pageNum", pageNumUpdate);
+
+    return this.proposalService.getPagenation(pageNum, pageSize);
   }
   datasource: IDatasource = {
     getRows: (params: IGetRowsParams) => {

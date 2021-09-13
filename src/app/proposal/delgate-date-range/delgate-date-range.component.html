@@ -14,7 +14,7 @@
                     <div class="col-7 " style="margin-top: 10px;">
                         <input type="radio" id="externalUser" value="externalUser" name="UserType" ngModel />
                         &nbsp;<label for="externalUser">External User</label>&nbsp;&nbsp;
-                        <input type="radio" checked id="internalUser" value="internalUser" name="UserType" ngModel />
+                        <input type="radio" id="internalUser" value="internalUser" name="UserType" checked ngModel  />
                         &nbsp;<label for="internalUser">Microsoft User</label>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                         <span>Delegated To</span>&nbsp;<span class="error_color">*</span>
                     </div>
                     <div class="col-7 m-b-5" style="margin-top: 4px;">
-                        <input type="text" name="DelegatedLS" class="form-control" placeholder="Delegated To" ngModel />
+                        <input type="text" name="DelegatedLS" class="form-control" placeholder="Delegated To" ngModel maxlength="100" />
                     </div>
                 </div>
 

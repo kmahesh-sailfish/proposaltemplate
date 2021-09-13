@@ -66,6 +66,8 @@ export class ArchiveProposalComponent implements OnInit {
     // this.loadActiveProposal();
     this.loadGrid();
     this.loadSearchForm();
+    localStorage.setItem("pageNum", "0");
+    localStorage.setItem("pageSize", "100");
     this.userId = localStorage.getItem("userAlias");
   }
 
@@ -74,7 +76,12 @@ export class ArchiveProposalComponent implements OnInit {
   }
 
   private getRowData(startRow: number, endRow: number): Observable<any[]> {
-    return this.proposalService.getArchivePage(startRow, endRow);
+    let pageSize = localStorage.getItem('pageSize');
+    let pageNum = localStorage.getItem('pageNum');
+    var pageNumUpdate = (JSON.parse(pageNum) + 1);
+    localStorage.setItem("pageNum", pageNumUpdate);
+
+    return this.proposalService.getArchivePage(pageNum, pageSize);
   }
   datasource: IDatasource = {
     getRows: (params: IGetRowsParams) => {

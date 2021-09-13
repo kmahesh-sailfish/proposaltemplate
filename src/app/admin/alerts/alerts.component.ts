@@ -51,6 +51,7 @@ export class AlertsComponent implements OnInit {
   popupMsg: string;
 
   myForm: FormGroup;
+  levels= [{level: "Warning", id:0},{level:"Info", id:1 }];
 
   columnDefs = [
     { headerName: "Name", field: 'name', sortable: true, filter: true, resizable: true, width: 140, cellRenderer: function(params) {
@@ -63,7 +64,7 @@ export class AlertsComponent implements OnInit {
     { headerName: "Level", field: 'level', sortable: true, filter: true, resizable: true, width: 140 },
     { headerName: "Start Date", field: 'startDate', sortable: true, filter: true, resizable: true, width: 140 },
     { headerName: "End Date", field: 'endDate', sortable: true, filter: true, resizable: true, width: 140 },
-    { headerName: "Action", field: 'id', width: 150, cellRenderer: 'addAmendmentInfoRenderer' },
+    { headerName: "Action", field: 'id', width: 110, cellRenderer: 'addAmendmentInfoRenderer' },
 
   ];
 
@@ -160,6 +161,17 @@ export class AlertsComponent implements OnInit {
       });
     }
   }
+}
+export const QuillConfiguration = {
+  toolbar: [
+    ['bold', 'italic', 'underline', 'strike'],
+    // ['blockquote', 'code-block'],
+    // [{ list: 'ordered' }, { list: 'bullet' }],
+    // [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    // [{ color: [] }, { background: [] }],
+    // ['link'],
+    // ['clean'],
+  ],
 }
 
 export class AlertData {

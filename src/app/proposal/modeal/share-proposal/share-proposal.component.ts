@@ -4,6 +4,7 @@ import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { ProposalService } from "../../../proposal.service";
+import { ToastrService } from "ngx-toastr";
 @Component({
   selector: "app-share-proposal",
   templateUrl: "./share-proposal.component.html",
@@ -18,7 +19,8 @@ export class ShareProposalComponent implements OnInit {
   constructor(
     private router: Router,
     private activeModal: NgbActiveModal,
-    private proposalService: ProposalService
+    private proposalService: ProposalService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -78,9 +80,12 @@ export class ShareProposalComponent implements OnInit {
 
     this.proposalService.saveShareProposal(Obj).subscribe(data => {
       console.log("data", data);
+      var msg = data._sourceObject;
+      this.toastr.success(msg, "Success");
     });
     this.activeModal.close();
   }
+
   closeCross() {
     this.activeModal.close();
   }

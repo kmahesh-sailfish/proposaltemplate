@@ -17,6 +17,7 @@ import { PubliCtmComponent } from "./proposal/ctm-library/publi-ctm/publi-ctm.co
 import { PrivateCtmComponent } from "./proposal/ctm-library/private-ctm/private-ctm.component";
 import { UserReferenceComponent } from './user-reference/user-reference.component';
 import { MopetDetailsComponent } from "./proposal/mopet-details/mopet-details.component";
+import { AmendmentPreviewComponent } from "./proposal/amendment-preview/amendment-preview.component";
 
 const routes: Routes = [
   {
@@ -46,7 +47,8 @@ const routes: Routes = [
     ]
   },
   { path: "", redirectTo: "dashboard", pathMatch: "full" },
-  { path: "admin", component: AdminPanelComponent }
+  { path: "admin", component: AdminPanelComponent },
+  { path: "amendmentpreview/:documentId", component:AmendmentPreviewComponent}
 ];
 
 @NgModule({
