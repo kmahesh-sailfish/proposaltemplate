@@ -54,7 +54,8 @@ export class AlertsComponent implements OnInit {
   levels= [{level: "Warning", id:0},{level:"Info", id:1 }];
 
   columnDefs = [
-    { headerName: "Name", field: 'name', sortable: true, filter: true, resizable: true, width: 140, cellRenderer: function(params) {
+    { headerName: "Name", field: 'name', sortable: true, filter: true, resizable: true, width: 140, 
+    cellRenderer: function(params) {
       return params.value ? params.value : '';
   } },
 
@@ -62,8 +63,12 @@ export class AlertsComponent implements OnInit {
       return params.value ? params.value : '';
   } },
     { headerName: "Level", field: 'level', sortable: true, filter: true, resizable: true, width: 140 },
-    { headerName: "Start Date", field: 'startDate', sortable: true, filter: true, resizable: true, width: 140 },
-    { headerName: "End Date", field: 'endDate', sortable: true, filter: true, resizable: true, width: 140 },
+    { headerName: "Start Date", field: 'startDate', sortable: true, filter: true, resizable: true, width: 140, cellRenderer: (data: { value: moment.MomentInput; }) => {
+      return moment(data.value).format("MM-DD-YYYY");
+    } },
+    { headerName: "End Date", field: 'endDate', sortable: true, filter: true, resizable: true, width: 140,   cellRenderer: (data: { value: moment.MomentInput; }) => {
+      return moment(data.value).format("MM-DD-YYYY");
+    } },
     { headerName: "Action", field: 'id', width: 110, cellRenderer: 'addAmendmentInfoRenderer' },
 
   ];

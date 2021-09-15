@@ -2,8 +2,8 @@
   <label class="header">List of Sirius Countries</label>
   <br>
   <div class="mb-2">
-    <button type="button" class="btn btn-primary btn-sm color433163" (click)="addSiriusCountry()">Add Sirius
-      Country</button>
+      <button type="button" class="btn btn-primary btn-sm color433163" (click)="addSiriusCountry(content)">Add Sirius
+        Country</button>
   </div>
   <div class="row">
     <div class="col-6">
@@ -12,33 +12,45 @@
         [context]="context" [columnDefs]="columnDefs" [frameworkComponents]="frameworkComponents">
       </ag-grid-angular>
     </div>
-    <div class="col-5">
-      <div *ngIf="AddNewForm">
-        <div class="row my-2">
-          <div class="col-2"><span class="form-label"> Country: </span>
-          </div>
-          <div>
-            <ng-select placeholder="Select Country" id="formCountry" class="ng-select" [items]="nonSirius"
-              bindLabel="name" bindValue="id" [(ngModel)]="addSiriusSelectedCountry" (change)="countrySelected($event)">
-
-            </ng-select>
-            <small class="text-danger" *ngIf="errVal">Please select</small>
-          </div>
-        </div>
-        <div class="row my-2">
-          <div class="col-2">
-          </div>
-          <div>
-            <button type="button" (click)="addNewSiriusCountry()" class="btn btn-primary my-2 mx-2 color433163">
-              Add
-            </button>
-            <button type="button" (click)="btnCancelClick()" class="btn btn-secondary">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{popupMsg}}
+      </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+        <span aria-hidden="true">
+          ×
+        </span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="myForm" (ngSubmit)="addNewSiriusCountry()" novalidate>
+        <div style="width: 100%;">
+          <div class="row my-2">
+            <div class="col-4"><span class="form-label"> Country: </span>
+            </div>
+            <div class="col-8">
+              <ng-select placeholder="Select Country" formControlName="formCountry"
+              name="Country" class="ng-select" [items]="nonSirius" bindLabel="name" bindValue="id">
+            </ng-select>
+            <small
+              *ngIf="myForm.get('formCountry').invalid && myForm.get('formCountry').touched"
+              class="text-danger">Please select country</small>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button [disabled]="myForm.invalid" type="submit" class="btn btn-primary color433163">
+            Save
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
 </div>

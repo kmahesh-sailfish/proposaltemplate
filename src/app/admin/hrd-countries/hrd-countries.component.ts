@@ -1,5 +1,5 @@
 import { HttpClient, JsonpClientBackend } from '@angular/common/http';
-import { Component, ErrorHandler, Input, OnInit, Output } from '@angular/core';
+import { Component, ErrorHandler, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import { Observable, OperatorFunction } from 'rxjs';
 import { ProposalService } from 'src/app/proposal.service';
 //import { EditHrdComponentRenderer } from './editHrdCountry.component';
@@ -12,6 +12,10 @@ import { AdminService } from '../admin.service';
 import { Identifiers } from '@angular/compiler';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+
 
 @Component({
   selector: 'editHrd-component',
@@ -57,9 +61,7 @@ export class EditHrdComponentRenderer {
       "Action": "Delete"
 
     }
-    console.log(obj);
     this.adminService.saveHRDCountry(obj).subscribe(result => {
-      console.log(result)
       this.toastr.success("Country "+ this.rowDataSelected.name+ " deleted successfully!");
       this.objHrdCountriesComponent.loadGrid();
     });
@@ -83,7 +85,7 @@ export class HrdCountriesComponent implements OnInit {
   addHRDSuggestions$: Observable<string[]>;
   errorMessage: string;
   showModalBox:boolean=false;
-  constructor(private proposalService: ProposalService, private adminService: AdminService, private http: HttpClient, private toastr: ToastrService) { }
+  constructor(private proposalService: ProposalService, private adminService: AdminService, private http: HttpClient, private toastr: ToastrService, private modalService: NgbModal) { }
 
   rowData: CountryData[];
   rowDataSelected: CountryData;
@@ -110,12 +112,28 @@ export class HrdCountriesComponent implements OnInit {
   addHRDAmendmentArray: string[] = [];
   addCtryValidation: boolean = false;
   addHRDTrigger: string;
-
+  isDisabled: boolean = true;
+  popupMsg: string;
+  myForm: FormGroup;
+  myEditForm: FormGroup;
   ngOnInit(): void {
     this.showdiv = false;
     this.showAddDiv = false;
     this.loadGrid();
-
+    this.myForm = new FormGroup({
+      'formCountry': new FormControl(null, Validators.required),
+      'formDealAmount': new FormControl({ value: '', disabled: false }),
+      'formDiscount': new FormControl({ value: '', disabled: false }),
+      'formAmendments': new FormControl({ value: '', disabled: false }),
+      'formTrigger': new FormControl({ value: '', disabled: false })
+    });
+    this.myEditForm = new FormGroup({
+      'formEditCountry': new FormControl({ value: '', disabled: false }),
+      'formEditDealAmount': new FormControl({ value: '', disabled: false }),
+      'formEditDiscount': new FormControl({ value: '', disabled: false }),
+      'formEditAmendments': new FormControl({ value: '', disabled: false }),
+      'formEditTrigger': new FormControl({ value: '', disabled: false })
+    });
     this.suggestions$ = new Observable((observer: Observer<string>) => {
       observer.next(this.search);
     }).pipe(
@@ -162,6 +180,9 @@ export class HrdCountriesComponent implements OnInit {
     editHrdCountry: EditHrdComponentRenderer
   };
 
+  @ViewChild('content1') templateRef: TemplateRef<any>;
+  
+
   getAmendments(search) {
     return this.adminService.getAmendment(search).subscribe(data => console.log(data));
   }
@@ -185,37 +206,35 @@ export class HrdCountriesComponent implements OnInit {
     })
   }
 
-  setHRDEditDiv(obj) {
-    this.showdiv = true;
-    this.showAddDiv = false;
-    if (obj != null || obj != "undefined") {
-      this.rowDataSelected = Object.assign(new CountryData(), obj);
+  
+  setHRDEditDiv(selectedRow) {
+    this.modalService.open(this.templateRef, {
+      ariaLabelledBy: 'modal-edit-basic-title'
+    }).result.then((result) => {
+    });
+    this.myEditForm.reset();
+    this.isDisabled = true;
+    if (selectedRow != null || selectedRow != "undefined") {
+      this.rowDataSelected = Object.assign(new CountryData(), selectedRow);
       this.name = this.rowDataSelected.name;
       this.dealAmount = this.rowDataSelected.dealAmount;
       this.discount = this.rowDataSelected.discount;
+      this.search = "";
       this.hrddAmendmentArray = this.rowDataSelected.hrddAmendments.split(",");
       this.trigger = this.rowDataSelected.hrddCondition;
-    }
+      
+    } 
+    console.log(this.rowDataSelected.hrddCondition);
+    this.popupMsg = "Edit HRD Country Info";
+    console.log("discount:"+this.discount);
   }
+
   removeCountryAmendment(c, a) {
     this.hrddAmendmentArray = this.hrddAmendmentArray.filter(item => item !== a);
   }
-  addHRDCtry() {
-    console.log("Add HRD");
-    this.showdiv = false;
-    this.showAddDiv = true;
-
-    this.addHRDSelectedCountry = "";
-    this.addHRDDealAmount = 0;
-    this.addHRDDiscount = 0;
-    this.addHRDAmendmentArray = [];
-    //this.addCtryValidation: boolean = false;
-    this.addHRDTrigger = "";
-    this.addHRDsearch = "";
-
-   // this.showModalBox=true;
-  }
+ 
   saveHRD() {
+    console.log("edit save started")
     var obj = {
       "Id": this.rowDataSelected.id,
       "Name": this.rowDataSelected.name,
@@ -230,58 +249,67 @@ export class HrdCountriesComponent implements OnInit {
       "ModifiedBy": "v-nagarjunaa",
       "Action": "Update"
     }
+    console.log(obj);
     this.adminService.saveHRDCountry(obj).subscribe(result => {
       this.loadGrid();
       this.toastr.success("Edited HRD country "+this.rowDataSelected.name+" successfully!");
-      this.showdiv = false;
+      //this.showdiv = false;
+      this.modalService.dismissAll();
       (error) => this.toastr.error("Edited HRD country "+this.rowDataSelected.name+" failed!");
     });
   }
 
   saveAddHRD() {
-    var selctdCtry = this.countries.filter(a => a.id == this.addHRDSelectedCountry)[0] as ICountryData;
-
-    if (this.addHRDSelectedCountry != null) {
+    var countryId = this.myForm.get('formCountry').value;
+    var selctdCtry = this.countries.filter(a => a.id == countryId)[0] as ICountryData;
+      if (countryId != null) {
       this.addCtryValidation = false;
       var obj = {
-        "Id": this.addHRDSelectedCountry,
+        "Id": countryId,
         "Name": selctdCtry.name,
         "IsActive": true,
         "IsHRD": true,
         "IsSirius": selctdCtry.isSirius,
         "IsPricing": selctdCtry.isPricing,
-        "Discount": this.addHRDDiscount,
-        "DealAmount": this.addHRDDealAmount,
+        "Discount": this.myForm.get('formDiscount').value,
+        "DealAmount": this.myForm.get('formDealAmount').value,
         "HRDDAmendments": this.addHRDAmendmentArray.join(","),
-        "HRDDCondition": this.addHRDTrigger,
+        "HRDDCondition": this.myForm.get('formTrigger').value,
         "ModifiedBy": "v-nagarjunaa",
         "Action": "Add"
       }
-
       this.adminService.saveHRDCountry(obj).subscribe(result => {
         this.loadGrid();
         this.toastr.success("HRD country "+selctdCtry.name+" added successfully!");
-        this.showAddDiv = false;
+        this.modalService.dismissAll();
         (error) => {
           this.toastr.error("HRD country "+selctdCtry.name+" failed to add!");
-          this.showAddDiv = true;
+          this.modalService.dismissAll();
         }
       });
     }
     else {
       this.addCtryValidation = true;
     }
-    console.log(this.addHRDSelectedCountry);
   }
 
-  cancel() {
-    console.log("Cancel");
-    this.showdiv = false;
-  }
-
-  cancelAddHRD() {
-    this.showAddDiv = false;
-  }
+ 
+  addHRDCtry(content) {
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title'
+    }).result.then((result) => {
+      console.log("Closed");
+    })
+    this.isDisabled = false;
+    this.popupMsg = "Add New HRD Country";
+    this.myForm.reset();
+    this.addHRDDealAmount = 0;
+    this.addHRDDiscount = 0;
+    this.addHRDAmendmentArray = [];
+    //this.addCtryValidation: boolean = false;
+    this.addHRDTrigger = "";
+    this.addHRDsearch = "";
+  }  
 
 }
 
@@ -326,4 +354,3 @@ export interface ICountryData {
   modifiedBy: string;
   name: string;
 }
-

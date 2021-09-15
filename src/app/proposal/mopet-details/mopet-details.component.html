@@ -111,40 +111,56 @@
   </div>
   <div class="row">
     <div class="col">
-      <div class="btn-group" style="width: 50%;" role="group" aria-label="Basic example">
-        <div class="btn btn-primary btn-sm ">
-          <span style="cursor: pointer" class=""> {{SpanName}}</span>
-          <input style="cursor: pointer;" class="sample" type="file" (change)="onFileChanged($event)" name="file" />
+      <div class="row">
+        <div class="col">
+          <div class="btn-group m-b-5" style="width: 30%;" role="group" aria-label="Basic example">
+            <div class="btn btn-primary btn-sm ">
+              <span style="cursor: pointer" class=""> {{SpanName}}</span>
+              <input style="cursor: pointer;" class="sample" type="file" (change)="onFileChanged($event)" name="file" />
 
-        </div>&nbsp;
-        <div class="btn btn-primary btn-sm" *ngIf="isPricingContry">
-          <span style="cursor: pointer" class="">Upload Offline Pricing Document to Proposal</span>
-          <input style="cursor: pointer;" class="sample" type="file" (change)="onFileChanged($event)" name="file" />
-        </div>
-        <!-- <div class="row">
-          <div class="col p-0" style="margin-right: 5px;">
-           
-            
+            </div>
+
+
           </div>
-          <div class="col p-0" >
-            
-          </div>
-        </div> -->
-      </div>
-      <div class="col" style="text-align: end;">
-        <div class="btn-group" style="width: 50%;" role="group" aria-label="Basic example">
-
-          <button type="button" (click)="generate()" class="btn btn-primary btn-sm">Prev/Save Local Copy</button>&nbsp;
-          <button type="button" class="btn btn-primary btn-sm" (click)="submitMopet()">Submit to MOPET</button>&nbsp;
-
-          <button type="button" (click)="generatePricing()" *ngIf="showbutton" class="btn btn-primary btn-sm">Pricing
-            Local Copy</button>&nbsp;
-          <button type="button" (click)="generateNonPricing()" *ngIf="showbutton"
-            class="btn btn-primary btn-sm">Non-Pricing Local Copy</button>&nbsp;
-          <!-- {{status}} -->
-          <!-- {{mopetDetails['proposalEntity'].status == 3 }} -->
-
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <div class="btn-group" style="width: 30%;" role="group" aria-label="Basic example">
+            <div class="btn btn-primary btn-sm" *ngIf="isPricingContry">
+              <span style="cursor: pointer" class="">Upload Offline Pricing Document to Proposal</span>
+              <input style="cursor: pointer;" class="sample" type="file" (change)="onFileChanged($event)" name="file" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngFor="let selected of listOfFiles;let index = index">
+        <div class="col" style="display: flex;">
+          <h3>{{selected}}</h3>
+          <span style="margin-top: 8px;margin-left: 10px;" (click)="removeSelectedFile(index)"><i
+              class="fa fa-trash"></i></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6" style="padding: 0px;">
+          <div class="btn-group" style="width: 100%;" role="group" aria-label="Basic example">
+
+            <button type="button" (click)="generate()" class="btn btn-primary btn-sm">Prev/Save Local
+              Copy</button>&nbsp;
+            <button type="button" class="btn btn-primary btn-sm" (click)="submitMopet()">Submit to MOPET</button>&nbsp;
+
+            <button type="button" (click)="generatePricing()" *ngIf="showbutton" class="btn btn-primary btn-sm">Pricing
+              Local Copy</button>&nbsp;
+            <button type="button" (click)="generateNonPricing()" *ngIf="showbutton"
+              class="btn btn-primary btn-sm">Non-Pricing Local Copy</button>&nbsp;
+            <!-- {{status}} -->
+            <!-- {{mopetDetails['proposalEntity'].status == 3 }} -->
+
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </div>

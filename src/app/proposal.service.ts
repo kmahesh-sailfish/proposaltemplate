@@ -265,6 +265,15 @@ export class ProposalService {
         })
       );
   }
+  startEditDocument(pid?,aid?): any {
+    return this.http
+      .get(environment.API_URL + "proposal/" + "start/"+pid+"/"+aid)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
   isPricingCountry(lrdCountries, pricingCountry): any {
     if (lrdCountries.length > 0) {
       var result = lrdCountries.filter(d => {
@@ -615,11 +624,30 @@ export class ProposalService {
         })
       );
   }
-  
-deleteDocument(obj,flag?){
-return obj;
-}
 
+  deleteDocument(obj,flag?){
+    this.spiner.show(); 
+    return this.http
+    .post(environment.API_URL + "Mopet/DeleteDocument",obj)
+    .pipe(
+      map((res: any) => {
+        this.spiner.hide();
+        return res;
+      })
+    );
+  }
+  uploadDocument(obj,flag?){
+    this.spiner.show(); 
+   
+    return this.http
+    .post(environment.API_URL + "mopet/Upload",obj)
+    .pipe(
+      map((res: any) => {
+        this.spiner.hide();
+        return res;
+      })
+    );
+  }
   getAmendmentPreview(documentId) {
     this.spiner.show();
     return this.http

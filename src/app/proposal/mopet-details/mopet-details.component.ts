@@ -1,9 +1,9 @@
-import { Component, OnInit,Inject, ViewChild  } from "@angular/core";
-import { ActivatedRoute, ParamMap } from "@angular/router";
-import { ProposalService } from "src/app/proposal.service";
-import { ToastrService } from "ngx-toastr";
-import {FormGroup,FormControl, Validators} from "@angular/forms";
-import { SharedService } from "src/app/sharedservices/shared.service";
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ProposalService } from 'src/app/proposal.service';
+import { ToastrService } from 'ngx-toastr';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SharedService } from 'src/app/sharedservices/shared.service';
 
 @Component({
   selector: 'app-mopet-details',
@@ -11,9 +11,15 @@ import { SharedService } from "src/app/sharedservices/shared.service";
   styleUrls: ['./mopet-details.component.css'],
 })
 export class MopetDetailsComponent implements OnInit {
+  public FileNames: any;
+  public Content: any;
+  public pricingCountryFile = null;
+  public pricingCountryFileName = null;
+  public nonPricingCountryFileName: any;
+  public nonPricingCountryFile: any;
   public isSubmitted = true;
   public isPricingContry: boolean = false;
-  public SpanName:any = "Upload Offline Document to Proposal";
+  public SpanName: any = 'Upload Offline Document to Proposal';
   public lrdCountries: any;
   public Amendments: any[] = [];
   public showbutton: boolean = false;
@@ -40,14 +46,13 @@ export class MopetDetailsComponent implements OnInit {
   public showPricingCountryAlignDescription: any;
   public MopetOverView: FormGroup;
   fileList: File[] = [];
-listOfFiles: any[] = [];
-@ViewChild('attachments') attachment: any;
+  listOfFiles: any[] = [];
+  @ViewChild('attachments') attachment: any;
   constructor(
     public proposalService: ProposalService,
     public route: ActivatedRoute,
     private toastr: ToastrService,
     private sharedSerivice: SharedService
-    
   ) {}
 
   ngOnInit(): void {
@@ -57,52 +62,50 @@ listOfFiles: any[] = [];
       this.ProposalId = +params.get('proposalId');
     });
     this.domainLoad();
-   
-    this.loadLardCountries();
 
+    this.loadLardCountries();
   }
-  loadLardCountries(){
-    this.proposalService.getLrdCountries().subscribe(data => {
+  loadLardCountries() {
+    this.proposalService.getLrdCountries().subscribe((data) => {
       this.lrdCountries = data;
     });
   }
   coutryChanged() {
     var result = this.proposalService.isPricingCountry(
       this.lrdCountries,
-      this.mopetDetails
-      .pricingCountry
+      this.mopetDetails.pricingCountry
     );
     this.updatemopetDetails();
-  //   var obj = {
-  //     id: this.editProposalObj['proposalEntity']?.id,
-  //     proposalId:  this.MopetOverView.get("proposalId").value ? this.MopetOverView.get("proposalId").value:
-  //     Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.proposalId : "",    
+    //   var obj = {
+    //     id: this.editProposalObj['proposalEntity']?.id,
+    //     proposalId:  this.MopetOverView.get("proposalId").value ? this.MopetOverView.get("proposalId").value:
+    //     Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.proposalId : "",
 
-  //     pricingCountry:  this.MopetOverView.get("pricingCountry").value ? this.MopetOverView.get("pricingCountry").value:
-  //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.pricingCountry : "",
-  //     // : this.editProposalObj.pricingCountry,
+    //     pricingCountry:  this.MopetOverView.get("pricingCountry").value ? this.MopetOverView.get("pricingCountry").value:
+    //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.pricingCountry : "",
+    //     // : this.editProposalObj.pricingCountry,
 
-  //     enrollmentId: this.MopetOverView.get("enrollmentId").value ? this.MopetOverView.get("enrollmentId").value:
-  //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity'] ?.enrollmentId : "",
+    //     enrollmentId: this.MopetOverView.get("enrollmentId").value ? this.MopetOverView.get("enrollmentId").value:
+    //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity'] ?.enrollmentId : "",
 
-  //     agreementId: 
-  //         this.MopetOverView.get("agreementId").value ? this.MopetOverView.get("agreementId").value:
-  //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.agreementId : "",
-  //     identifier: this.MopetOverView.get("identifier").value ? this.MopetOverView.get("identifier").value:
-  //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.identifier : null,
+    //     agreementId:
+    //         this.MopetOverView.get("agreementId").value ? this.MopetOverView.get("agreementId").value:
+    //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.agreementId : "",
+    //     identifier: this.MopetOverView.get("identifier").value ? this.MopetOverView.get("identifier").value:
+    //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.identifier : null,
 
-  //     customerName: 
-  //         this.MopetOverView.get("customerName").value ? this.MopetOverView.get("customerName").value:
-  //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.customerName : null,
+    //     customerName:
+    //         this.MopetOverView.get("customerName").value ? this.MopetOverView.get("customerName").value:
+    //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.customerName : null,
 
-  //     dealNickname: 
-  //         this.MopetOverView.get("dealNickname").value ? this.MopetOverView.get("dealNickname").value:
-  //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.dealNickname : "",
+    //     dealNickname:
+    //         this.MopetOverView.get("dealNickname").value ? this.MopetOverView.get("dealNickname").value:
+    //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity']?.dealNickname : "",
 
-  //     notes: this.MopetOverView.get("notes").value ? this.MopetOverView.get("notes").value:
-  //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity'] ?.notes : "",
-  //     LastModifiedBy: this.userId
-  // };
+    //     notes: this.MopetOverView.get("notes").value ? this.MopetOverView.get("notes").value:
+    //         Object.keys(this.editProposalObj).length > 0 ? this.editProposalObj['proposalEntity'] ?.notes : "",
+    //     LastModifiedBy: this.userId
+    // };
     this.isPricingContry = result;
     if (result)
       this.SpanName = 'Upload Offline Non-Pricing Document to Proposal';
@@ -126,68 +129,93 @@ listOfFiles: any[] = [];
     this.proposalService.getProposal(obj).subscribe((data: any) => {
       this.newProposal = data;
       this.model = new Proposal(data);
-      this.mopetDetails.pricingCountry= data["proposalEntity"].pricingCountry;
-       this.mopetDetails.proposalId = data["proposalEntity"].proposalId;
-       this.mopetDetails.customerName = data["proposalEntity"].customerName;
-       this.mopetDetails.lastModifiedBy = data["proposalEntity"].lastModifiedBy;
-       this.mopetDetails["proposalEntity"] = data["proposalEntity"];
+      this.mopetDetails.pricingCountry = data['proposalEntity'].pricingCountry;
+      this.mopetDetails.proposalId = data['proposalEntity'].proposalId;
+      this.mopetDetails.customerName = data['proposalEntity'].customerName;
+      this.mopetDetails.lastModifiedBy = data['proposalEntity'].lastModifiedBy;
+      this.mopetDetails['proposalEntity'] = data['proposalEntity'];
     });
     this.proposalService.getHrdCountries().subscribe((data: any) => {
       this.HRDDDetails = data;
       this.HRDDCountries = data.map((country) => {
-          return country.name;
+        return country.name;
       });
-      if (this.model.PricingCountry != "") {
-          for (var i = 0; i < data.length; i++) {
-              if (data[i].name == this.model.PricingCountry) {
-                  this.HRDDAmendments = data[i].hrddAmendments;
-                  this.HRDDeal = data[i].dealAmount;
-                  this.HRDDiscount = data[i].discount;
-                  this.HRDDCondition = data[i].hrddCondition;
-              }
+      if (this.model.PricingCountry != '') {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].name == this.model.PricingCountry) {
+            this.HRDDAmendments = data[i].hrddAmendments;
+            this.HRDDeal = data[i].dealAmount;
+            this.HRDDiscount = data[i].discount;
+            this.HRDDCondition = data[i].hrddCondition;
           }
+        }
       }
-  });
-  //  this.tempModel = data;
-  //  this.supportMailSubject = "Amendment Service Crash-dump : Proposal Overview " + this.model.ProposalId;
-  //  this.CheckPagebreak();
-  //  this.appendAmendments();
-  this.proposalService.getLrdCountries().subscribe(data => {
+    });
+    //  this.tempModel = data;
+    //  this.supportMailSubject = "Amendment Service Crash-dump : Proposal Overview " + this.model.ProposalId;
+    //  this.CheckPagebreak();
+    //  this.appendAmendments();
+    this.proposalService.getLrdCountries().subscribe((data) => {
       this.lrdCountries = data;
-      debugger;
       this.sharedSerivice.setLardCountries(data);
-      var isPricingCountry = this.proposalService.isPricingCountry(this.lrdCountries, this.model.PricingCountry);
+      var isPricingCountry = this.proposalService.isPricingCountry(
+        this.lrdCountries,
+        this.model.PricingCountry
+      );
       if (isPricingCountry) {
-          this.showPricingCountryAlignDescription = true;
-          // $timeout(function () { this.showPricingCountryAlignDescription = false; }, 6000);
+        this.showPricingCountryAlignDescription = true;
+        // $timeout(function () { this.showPricingCountryAlignDescription = false; }, 6000);
       } else {
-          this.Amendments.forEach((a, c) => {
-           if (a.code.indexOf("P-") == 0) {
-           this.showPricingCountryAlignDescription = true;
-           // $timeout(function() {
-          //     this.showPricingCountryAlignDescription = false;
-               // }, 6000);
-              }
-          });
+        this.Amendments.forEach((a, c) => {
+          if (a.code.indexOf('P-') == 0) {
+            this.showPricingCountryAlignDescription = true;
+            // $timeout(function() {
+            //     this.showPricingCountryAlignDescription = false;
+            // }, 6000);
+          }
+        });
       }
       this.coutryChanged();
-  });
+    });
   }
   onFileChanged(event: any) {
     for (var i = 0; i <= event.target.files.length - 1; i++) {
       var selectedFile = event.target.files[i];
-      this.fileList.push(selectedFile);
-      this.listOfFiles.push(selectedFile.name)
-  }
+      this.getbase64(selectedFile);
+      this.listOfFiles.push(selectedFile.name);
+    }
 
-  this.attachment.nativeElement.value = '';
-}
+    //this.attachment.nativeElement.value = '';
+  }
+  getbase64(fileObj) {
+    let file = fileObj;
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event: Event) => {
+      this.Content = reader.result;
+      this.FileNames = file.name;
+      this.Content = btoa(this.Content);
+
+      console.log(reader.result, 'base64444');
+      var FileSpec={};
+      FileSpec['FileName']= this.FileNames;
+      FileSpec['Content']= this.Content;
+      var obj = {
+        FileSpec:FileSpec,       
+        pid: this.ProposalId,
+        isPricing: this.isPricingContry,
+      };
+      this.proposalService.uploadDocument(obj).subscribe(data=>{
+
+      })
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
   removeSelectedFile(index) {
-    // Delete the item from fileNames list
-    this.listOfFiles.splice(index, 1);
-    // delete file from FileList
-    this.fileList.splice(index, 1);
-   }
+    this.deleteNonPricing(index);
+  }
   domainLoad() {
     this.proposalService.domainConetent().subscribe((data) => {
       if (Object.keys(data).length > 0) {
@@ -221,7 +249,7 @@ listOfFiles: any[] = [];
       IsSuperAdmin: false,
     };
     console.log(obj);
-    this.proposalService.addMopetDetails(obj).subscribe(data => {
+    this.proposalService.addMopetDetails(obj).subscribe((data) => {
       console.log(data);
     });
   }
@@ -267,7 +295,7 @@ listOfFiles: any[] = [];
   // generatePricing() {
   //   if (!this.doesPricingDocumentsExists()) {
   //     // ngToast.create({ content: "No Pricing Amendments in proposal" });
-  //   } 
+  //   }
   //   else {
   //     this.showbutton = false;
   //     window.location.href = '/api/proposal/download/' + this.model.ID + '/1';
@@ -283,45 +311,41 @@ listOfFiles: any[] = [];
   // }
   generatePricing() {
     if (!this.doesPricingDocumentsExists()) {
-    alert({ content: "No Pricing Amendments in proposal" });
-        
+      alert({ content: 'No Pricing Amendments in proposal' });
     } else if (this.model.IsLinked) {
-        this.showLinkedProposalsbutton = true;
-        this.doctype = 1;
+      this.showLinkedProposalsbutton = true;
+      this.doctype = 1;
     } else {
-        this.showbutton = false;
-        var obj={};
-        obj['pid'] = this.mopetDetails["proposalEntity"].id;
-        obj['type']="1";
-        obj["userAlias"] = this.mopetDetails["proposalEntity"].createdByAlias;
-        obj["isSuperUser"]=false;
-        this.proposalService.generateDocFile(obj).subscribe(data => {
-          this.saveData(data.content,data.fileName);
-        });
-        
+      this.showbutton = false;
+      var obj = {};
+      obj['pid'] = this.mopetDetails['proposalEntity'].id;
+      obj['type'] = '1';
+      obj['userAlias'] = this.mopetDetails['proposalEntity'].createdByAlias;
+      obj['isSuperUser'] = false;
+      this.proposalService.generateDocFile(obj).subscribe((data) => {
+        this.saveData(data.content, data.fileName);
+      });
     }
-};
+  }
 
-generateNonPricing (){
-
+  generateNonPricing() {
     if (!this.doesNonPricingDocumentsExists()) {
-        // ngToast.create({ content: "No Non-Pricing Amendments in proposal" });
+      // ngToast.create({ content: "No Non-Pricing Amendments in proposal" });
     } else if (this.model.IsLinked) {
-        this.showLinkedProposalsbutton = true;
-        this.doctype = 2;
+      this.showLinkedProposalsbutton = true;
+      this.doctype = 2;
     } else {
-
-        this.showbutton = false;
-        var obj={};
-        obj['pid'] = this.mopetDetails["proposalEntity"].id;
-        obj['type']="2";
-        obj["userAlias"] = this.mopetDetails["proposalEntity"].createdByAlias;
-        obj["isSuperUser"]=false;
-        this.proposalService.generateDocFile(obj).subscribe(data => {
-          this.saveData(data.content,data.fileName);
-        });
+      this.showbutton = false;
+      var obj = {};
+      obj['pid'] = this.mopetDetails['proposalEntity'].id;
+      obj['type'] = '2';
+      obj['userAlias'] = this.mopetDetails['proposalEntity'].createdByAlias;
+      obj['isSuperUser'] = false;
+      this.proposalService.generateDocFile(obj).subscribe((data) => {
+        this.saveData(data.content, data.fileName);
+      });
     }
-};
+  }
   // generate() {
   //   if (this.model.Amendments.length > 0) {
   //     if (this.isPricingCountry()) {
@@ -333,51 +357,53 @@ generateNonPricing (){
   //   }
   // }
   generate() {
-    if (this.model.Identifier != undefined && this.model.Identifier != null && this.model.Identifier != 0) {
-        this.proposalIdentifierReq = false;
-        if (this.model.Amendments.length > 0) {
-            // console.log("IsPricingAmendmentExists " +IsPricingAmendmentExists())
-            if (this.isPricingCountry() || this.IsPricingAmendmentExists()) {
-                this.showbutton = true;
-            } else if (this.model.IsLinked) {
-                this.showLinkedProposalsbutton = true;
-                this.doctype = 0;
-            } else {
-        var obj={};
-        obj['pid'] = this.mopetDetails["proposalEntity"].id;
-        obj['type']="0";
-        obj["userAlias"] = this.mopetDetails["proposalEntity"].createdByAlias;
-        obj["isSuperUser"]=false;
-        this.proposalService.generateDocFile(obj).subscribe(data => {
-          this.saveData(data.content,data.fileName);
-        });
-             // window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId, + "/0";
-            }
-
+    if (
+      this.model.Identifier != undefined &&
+      this.model.Identifier != null &&
+      this.model.Identifier != 0
+    ) {
+      this.proposalIdentifierReq = false;
+      if (this.model.Amendments.length > 0) {
+        // console.log("IsPricingAmendmentExists " +IsPricingAmendmentExists())
+        if (this.isPricingCountry() || this.IsPricingAmendmentExists()) {
+          this.showbutton = true;
+        } else if (this.model.IsLinked) {
+          this.showLinkedProposalsbutton = true;
+          this.doctype = 0;
         } else {
-            alert('No Amendments in proposal')
-            // ngToast.create({ content: "No Amendments in proposal" });
+          var obj = {};
+          obj['pid'] = this.mopetDetails['proposalEntity'].id;
+          obj['type'] = '0';
+          obj['userAlias'] = this.mopetDetails['proposalEntity'].createdByAlias;
+          obj['isSuperUser'] = false;
+          this.proposalService.generateDocFile(obj).subscribe((data) => {
+            this.saveData(data.content, data.fileName);
+          });
+          // window.location.href = "/api/proposal/download/" + this.editProposalObj['proposalEntity']?.proposalId, + "/0";
         }
+      } else {
+        alert('No Amendments in proposal');
+        // ngToast.create({ content: "No Amendments in proposal" });
+      }
     } else {
-        this.proposalIdentifierReq = true;
+      this.proposalIdentifierReq = true;
     }
-}
-  deleteNonPricing() {
-    this.proposalService
-      .deleteDocument(this.model.ID, false)
-      .then(function (data) {
-        this.nonPricingCountryFile = null;
-        this.nonPricingCountryFileName = null;
-      });
+  }
+  deleteNonPricing(index) {
+    var obj = { proposalId: this.ProposalId, isPricing: false };
+    this.proposalService.deleteDocument(obj).subscribe((data) => {
+      this.nonPricingCountryFile = null;
+      this.nonPricingCountryFileName = null;
+      this.listOfFiles.splice(index, 1);
+    });
   }
   deletePricing() {
+    var obj = { proposalId: this.ProposalId, isPricing: true };
     if (!this.isSubmitted) {
-      this.proposalService
-        .deleteDocument(this.model.ID, true)
-        .then(function (data) {
-          this.pricingCountryFile = null;
-          this.pricingCountryFileName = null;
-        });
+      this.proposalService.deleteDocument(obj).subscribe((data) => {
+        this.pricingCountryFile = null;
+        this.pricingCountryFileName = null;
+      });
     }
   }
   downloadNonPricing() {
@@ -454,7 +480,7 @@ function Proposal(data) {
     this.HRDDMaxDiscount = data.proposalEntity.hrddMaxDiscount;
     this.IsLinked = data.proposalEntity.isLinked;
     this.IsDraft = data.proposalEntity.isDraft;
-    this.MetaData = data.metaData
+    this.MetaData = data.metaData;
     // this.vm.isLe ||
     this.IsEditDocumentViewable =
       data.proposalEntity.delegationStatus == 2 ||
