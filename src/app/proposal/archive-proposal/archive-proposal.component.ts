@@ -86,7 +86,7 @@ export class ArchiveProposalComponent implements OnInit {
   datasource: IDatasource = {
     getRows: (params: IGetRowsParams) => {
       this.getRowData(params.startRow, params.endRow).subscribe(data =>
-        params.successCallback(data)
+        params.successCallback(data,data.length)
       );
     }
   };
@@ -140,7 +140,7 @@ export class ArchiveProposalComponent implements OnInit {
     var datasource: IDatasource = {
       getRows: (params: IGetRowsParams) => {
         this.getRowData1(params.startRow, params.endRow).subscribe(data =>
-          params.successCallback(data)
+          params.successCallback(data,data.length)
         );
       }
     };
@@ -148,6 +148,7 @@ export class ArchiveProposalComponent implements OnInit {
   }
 
   deleteProposal(obj) {
+  
     var deleObj = {};
     deleObj['UserAlias'] = this.userId;
     let selectedRows;

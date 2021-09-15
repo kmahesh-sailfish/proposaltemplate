@@ -27,7 +27,7 @@
                             (clear)="clearVAl()">
                         </ng-select>
                     </div>
-                    <div class="col-1" *ngIf="searchForm.get('searchField').value=='CreatedDate'">
+                    <div class="col-5" *ngIf="searchForm.get('searchField').value=='CreatedDate'">
 
                         <input autocomplete="off" placeholder="mm/dd/yyyy" type="text" formControlName="searchTextDate"
                             class="form-control" #dp="bsDatepicker" name="searchTextDate"

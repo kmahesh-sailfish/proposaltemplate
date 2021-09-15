@@ -59,6 +59,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { DelgateDateRangeComponent } from './proposal/delgate-date-range/delgate-date-range.component';
 import { DelgateProposalWorkflowComponent } from './proposal/delgate-proposal-workflow/delgate-proposal-workflow.component';
 import { AmendmentPreviewComponent } from './proposal/amendment-preview/amendment-preview.component';
+import { ActiveConformationComponent } from './proposal/active-proposal/active-conformation/active-conformation.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -103,7 +104,8 @@ import { AmendmentPreviewComponent } from './proposal/amendment-preview/amendmen
     MopetDetailsComponent,
     DelgateDateRangeComponent,
     DelgateProposalWorkflowComponent,
-    AmendmentPreviewComponent
+    AmendmentPreviewComponent,
+    ActiveConformationComponent
 
     //EditHrdComponentRenderer
   ],
