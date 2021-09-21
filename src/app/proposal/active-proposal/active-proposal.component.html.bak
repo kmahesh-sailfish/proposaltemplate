@@ -59,7 +59,7 @@
         <div class="col">
             <ag-grid-angular #agGrid style=" height:500px; width: 100%;" class="ag-theme-alpine" [rowData]="rowData"
                 [columnDefs]="columnDefs" (rowClicked)='onRowClicked($event)' [components]="components"
-                [gridOptions]="gridOptions" (gridReady)="onGridReady($event)" (rowSelected)="onRowSelected($event)"
+                [gridOptions]="gridOptions" (gridReady)="onGridReady($event)"
                 [frameworkComponents]="frameworkComponents">
             </ag-grid-angular>
         </div>

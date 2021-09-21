@@ -43,6 +43,7 @@ export class ActiveProposalComponent implements OnInit {
   public gridApi: GridApi;
   public showbutton: boolean = false;
   public userId: any;
+  public isMultipleSelected: boolean = true;
   public searchItem = [
     { name: 'Search by Proposal Id', id: 'ProposalId' },
     { name: 'Search by Alias', id: 'CreatedByAlias' },
